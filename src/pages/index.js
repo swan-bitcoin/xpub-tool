@@ -205,36 +205,6 @@ class XPubInput extends React.Component {
             </Col>
           </Form.Group>
         </Form>
-        {/* xPub:
-            <input
-              type="text"
-              name="xpub"
-              value={this.state.xpub}
-              onChange={this.handleXpubChange}
-            />
-          </label>
-          <label>
-            Account Number:
-            <input
-              type="text"
-              name="accountNumber"
-              value={this.state.accountNumber}
-              onChange={this.handleAccountNumberChange}
-            />
-          </label>
-          <label>
-            Addresses to derive:
-            <input
-              type="text"
-              name="addressCount"
-              value={this.state.addressCount}
-              onChange={this.handleAddressCountChange}
-            />
-          </label>
-          <p>
-            <code>{this.displayBip32Path()}</code>
-          </p>
-        </Form> */}
 
         <DerivedAddressesTable
           xpub={this.state.xpub}
