@@ -1,0 +1,51 @@
+{
+  "name": "gatsby-starter-react-bootstrap",
+  "private": true,
+  "description": "A starter that includes and configures react-bootstrap and react-icons, along with SASS handling. ",
+  "version": "0.1.0",
+  "author": "Billy Jacoby <billyjacoby@gmail.com>",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "gatsby": "^2.3.34",
+    "gatsby-image": "^2.0.41",
+    "gatsby-plugin-manifest": "^2.0.29",
+    "gatsby-plugin-offline": "^2.0.25",
+    "gatsby-plugin-react-helmet": "^3.0.12",
+    "gatsby-plugin-sass": "^2.0.11",
+    "gatsby-plugin-sharp": "^2.0.35",
+    "gatsby-source-filesystem": "^2.0.33",
+    "gatsby-transformer-sharp": "^2.1.18",
+    "node-sass": "^4.12.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.8",
+    "react-dom": "^16.8.6",
+    "react-helmet": "^5.2.0",
+    "react-icons": "^3.6.1"
+  },
+  "devDependencies": {
+    "gh-pages": "^2.0.1",
+    "prettier": "^1.17.0"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop -H 0.0.0.0 -p 8000",
+    "format": "prettier --write src/**/*.{js,jsx}",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+  },
+  "bugs": {
+    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  },
+  "homepage": "https://billyjacoby.github.io/gatsby-react-bootstrap-starter/"
+}
