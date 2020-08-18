@@ -193,7 +193,7 @@ class XPubInput extends React.Component {
               </Form.Control>
             </Col>
             <Form.Label column sm="2">
-              Addresses
+              Stacking Time
             </Form.Label>
             <Col sm="10">
               <Form.Control
