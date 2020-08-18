@@ -23,31 +23,17 @@ const IndexPage = () => (
           <ListGroup>
             <ListGroup.Item
               action
-              href="https://getbootstrap.com"
+              href="https://github.com/unchained-capital/unchained-bitcoin/"
               target="_blank"
             >
-              Bootstrap
+              unchained-bitcoin
             </ListGroup.Item>
             <ListGroup.Item
               action
-              href="https://react-bootstrap.github.io/"
+              href="https://github.com/bitcoinjs/bitcoinjs-lib"
               target="_blank"
             >
-              react-bootstrap
-            </ListGroup.Item>
-            <ListGroup.Item
-              action
-              href="https://react-icons.netlify.com"
-              target="_blank"
-            >
-              react-icons
-            </ListGroup.Item>
-            <ListGroup.Item
-              action
-              href="https://www.gatsbyjs.org/packages/gatsby-plugin-sass/"
-              target="_blank"
-            >
-              gatsby-plugin-sass
+              bitcoinjs-lib
             </ListGroup.Item>
           </ListGroup>
         </Col>

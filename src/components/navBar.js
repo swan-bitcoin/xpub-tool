@@ -10,28 +10,12 @@ const CustomNavbar = ({ pageInfo }) => {
       <Navbar variant="dark" expand="lg" id="site-navbar">
         {/* <Container> */}
         <Link to="/" className="link-no-style">
-          <Navbar.Brand as="span">Gatsby React Bootstrap</Navbar.Brand>
+          <Navbar.Brand as="span">Swan's xPub Tool</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto" activeKey={pageInfo && pageInfo.pageName}>
-            <Link to="/page-2" className="link-no-style">
-              <Nav.Link as="span" eventKey="page-2">
-                Page 2
-              </Nav.Link>
-            </Link>
-          </Nav>
           <Nav className="ml-auto">
-            <Form inline onSubmit={e => e.preventDefault()}>
-              <Form.Group>
-                <FormControl
-                  type="text"
-                  placeholder="Fake Search"
-                  className="mr-2"
-                />
-              </Form.Group>
-              <Button>Fake Button</Button>
-            </Form>
+            <Button href="https://swanbitcoin.com">Start Stacking</Button>
           </Nav>
         </Navbar.Collapse>
         {/* </Container> */}

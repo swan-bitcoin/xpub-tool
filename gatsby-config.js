@@ -1,9 +1,9 @@
 module.exports = {
   pathPrefix: "/gatsby-react-bootstrap-starter",
   siteMetadata: {
-    title: `Gatsby React Bootstrap Starter`,
-    description: `A starter that includes react-bootstrap and react-icons, along with SASS compilation.`,
-    author: `Billy Jacoby`,
+    title: `Swan's xPub Address Derivation Tool`,
+    description: `A small tool that derives bitcoin addresses from existing xPubs, using unchained-bitcoin and bitcoinjs-lib.`,
+    author: `Gigi`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
