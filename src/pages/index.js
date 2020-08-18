@@ -130,7 +130,6 @@ class XPubInput extends React.Component {
     this.handleXpubChange = this.handleXpubChange.bind(this)
     this.handleAccountNumberChange = this.handleAccountNumberChange.bind(this)
     this.handleAddressCountChange = this.handleAddressCountChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleXpubChange(event) {
@@ -148,17 +147,6 @@ class XPubInput extends React.Component {
       addressCount: event.target.value,
     })
   }
-  handleSubmit(event) {
-    alert(
-      "State updated: " +
-        this.state.xpub +
-        " / Account Nr. " +
-        this.state.accountNumber +
-        " / Addresses: " +
-        this.state.addressCount
-    )
-    event.preventDefault()
-  }
   displayBip32Path() {
     return "m / 44 / " + this.state.accountNumber + " / i"
   }
@@ -166,9 +154,42 @@ class XPubInput extends React.Component {
   render() {
     return (
       <div>
-        <form>
-          <label>
-            xPub:
+        <Form>
+          <Form.Group>
+            <Form.Control
+              size="lg"
+              type="text"
+              placeholder="xpub..."
+              value={this.state.xpub}
+              onChange={this.handleXpubChange}
+            />
+          </Form.Group>
+          <Form.Group>
+            <Form.Control
+              as="select"
+              size="sm"
+              value={this.state.accountNumber}
+              onChange={this.handleAccountNumberChange}
+            >
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+            </Form.Control>
+          </Form.Group>
+        </Form>
+        {/* xPub:
             <input
               type="text"
               name="xpub"
@@ -197,8 +218,7 @@ class XPubInput extends React.Component {
           <p>
             <code>{this.displayBip32Path()}</code>
           </p>
-          <input type="submit" value="Submit" />
-        </form>
+        </Form> */}
 
         <DerivedAddressesTable
           xpub={this.state.xpub}
