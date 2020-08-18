@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Billy Jacoby <billyjacoby@gmail.com>",
   "dependencies": {
+    "bitcoinjs-lib": "^5.1.10",
     "bootstrap": "^4.3.1",
     "gatsby": "^2.3.34",
     "gatsby-image": "^2.0.41",
@@ -21,7 +22,8 @@
     "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
-    "react-icons": "^3.6.1"
+    "react-icons": "^3.6.1",
+    "unchained-bitcoin": "0.0.15"
   },
   "devDependencies": {
     "gh-pages": "^2.0.1",
