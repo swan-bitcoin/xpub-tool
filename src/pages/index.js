@@ -18,6 +18,12 @@ const IndexPage = () => (
           <XPubInput />
         </Col>
       </Row>
+      <hr />
+      <Row>
+        <Col>
+          <p>Heavy lifting done by the following libraries:</p>
+        </Col>
+      </Row>
       <Row className="justify-content-center my-3">
         <Col md="6">
           <ListGroup>
@@ -96,7 +102,7 @@ class DerivedAddressesTable extends React.Component {
     }
 
     return (
-      <Table bordered>
+      <Table bordered variant="dark">
         <tr>
           <th>Path</th>
           <th>Address</th>
@@ -125,7 +131,7 @@ class XPubInput extends React.Component {
       xpub:
         "xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab",
       accountNumber: 0,
-      addressCount: 10,
+      addressCount: 5,
     }
     this.handleXpubChange = this.handleXpubChange.bind(this)
     this.handleAccountNumberChange = this.handleAccountNumberChange.bind(this)
@@ -175,6 +181,7 @@ class XPubInput extends React.Component {
                 value={this.state.accountNumber}
                 onChange={this.handleAccountNumberChange}
               >
+                <option>0</option>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -198,8 +205,10 @@ class XPubInput extends React.Component {
             <Col sm="10">
               <Form.Control
                 type="range"
-                name="addresCount"
-                value={this.state.address}
+                name="addressCount"
+                min="1"
+                max="99"
+                value={this.state.addressCount}
                 onChange={this.handleAddressCountChange}
               />
             </Col>
