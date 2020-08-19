@@ -1,5 +1,13 @@
 import React from "react"
-import { Row, Col, Container, ListGroup, Table, Form } from "react-bootstrap"
+import {
+  Alert,
+  Row,
+  Col,
+  Container,
+  ListGroup,
+  Table,
+  Form,
+} from "react-bootstrap"
 import {
   MAINNET,
   // TESTNET,
@@ -239,7 +247,7 @@ class XPubInput extends React.Component {
             accountNumber={this.state.accountNumber}
           />
         ) : (
-          <p>Invalid xpub</p>
+          <Alert variant="warning">Invalid xPub</Alert>
         )}
       </div>
     )
