@@ -1,9 +1,4 @@
-import {
-  deriveChildPublicKey,
-  networkData,
-  TESTNET,
-  MAINNET,
-} from "unchained-bitcoin"
+import { deriveChildPublicKey, networkData, MAINNET } from "unchained-bitcoin"
 import * as bitcoin from "bitcoinjs-lib"
 
 const AddressType = {
