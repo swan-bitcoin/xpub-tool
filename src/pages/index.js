@@ -87,10 +87,10 @@ class XPubExamples extends React.Component {
 
 class DerivedAddressesTable extends React.Component {
   render() {
-    let addressDerivation = new Address(this.props.network)
+    let derivedAddress = new Address(this.props.network)
     var addressList = []
     for (var i = 0; i < this.props.addressCount; i++) {
-      let { path, address, fullPath } = addressDerivation.fromXpub(
+      let { path, address, fullPath } = derivedAddress.fromXpub(
         this.props.xpub,
         this.props.accountNumber,
         i,
