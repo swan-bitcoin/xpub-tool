@@ -141,6 +141,16 @@ class XPubInput extends React.Component {
     this.handleAddressCountChange = this.handleAddressCountChange.bind(this)
   }
 
+  isValidXpub(xpub) {
+    try {
+      new Address(this.props.network).fromXpub(xpub, 0, 0)
+    } catch (err) {
+      return false
+    }
+
+    return true
+  }
+
   handleXpubChange(event) {
     this.setState({
       xpub: event.target.value,
@@ -217,13 +227,16 @@ class XPubInput extends React.Component {
             </Col>
           </Form.Group>
         </Form>
-
-        <DerivedAddressesTable
-          network={this.props.network}
-          xpub={this.state.xpub}
-          addressCount={this.state.addressCount}
-          accountNumber={this.state.accountNumber}
-        />
+        {this.isValidXpub(this.state.xpub) ? (
+          <DerivedAddressesTable
+            network={this.props.network}
+            xpub={this.state.xpub}
+            addressCount={this.state.addressCount}
+            accountNumber={this.state.accountNumber}
+          />
+        ) : (
+          <p>Invalid xpub</p>
+        )}
       </div>
     )
   }
