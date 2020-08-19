@@ -7,7 +7,7 @@ const AddressType = {
   P2WPKH: "bc1",
 }
 
-class Address {
+class DerivedAddress {
   constructor(network = MAINNET) {
     this.network = network
   }
@@ -79,4 +79,4 @@ function hardened(string) {
   return string + "'"
 }
 
-export { Address, AddressType }
+export { DerivedAddress as Address, AddressType }
