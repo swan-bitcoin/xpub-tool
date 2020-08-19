@@ -2,7 +2,7 @@ import React from "react"
 import { Row, Col, Container, ListGroup, Table, Form } from "react-bootstrap"
 
 import Layout from "../components/layout"
-import Address from "../lib/xpub.js"
+import { Address, AddressType } from "../lib/xpub.js"
 
 const IndexPage = () => (
   <Layout pageInfo={{ pageName: "index" }}>

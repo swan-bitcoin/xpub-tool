@@ -1,12 +1,19 @@
 import { deriveChildPublicKey, networkData } from "unchained-bitcoin"
 import * as bitcoin from "bitcoinjs-lib"
+import { validateExtendedPublicKeyForNetwork } from "unchained-bitcoin/lib/keys"
+
+const AddressType = {
+  P2PKH: 1,
+  P2SH: 3,
+  P2WPKH: "bc1",
+}
 
 class Address {
   constructor(network) {
     this.network = network
   }
 
-  fromXpub(xpub, accountNumber, keyIndex) {
+  fromXpub(xpub, accountNumber, keyIndex, type = AddressType.P2SH) {
     const childPubKey = deriveChildPublicKey(
       xpub,
       bip32Path(accountNumber, keyIndex),
@@ -15,16 +22,39 @@ class Address {
     const keyPair = bitcoin.ECPair.fromPublicKey(
       Buffer.from(childPubKey, "hex")
     )
-    const { address } = bitcoin.payments.p2sh({
-      redeem: bitcoin.payments.p2wpkh({
-        pubkey: keyPair.publicKey,
-        network: networkData(this.network),
-      }),
-    })
     return {
       path: bip32Path(accountNumber, keyIndex),
-      address: address,
+      address: this.deriveAddress(type, keyPair.publicKey),
       fullPath: bip32PathFull(this.network, accountNumber, keyIndex),
+    }
+  }
+
+  deriveAddress(type, pubkey) {
+    let net = networkData(this.network)
+    switch (type) {
+      case AddressType.P2PKH: {
+        const { address: oneAddress } = bitcoin.payments.p2pkh({
+          pubkey: pubkey,
+          network: net,
+        })
+        return oneAddress
+      }
+      case AddressType.P2SH: {
+        const { address: threeAddress } = bitcoin.payments.p2sh({
+          redeem: bitcoin.payments.p2wpkh({
+            pubkey: pubkey,
+            network: net,
+          }),
+        })
+        return threeAddress
+      }
+      case AddressType.P2WPKH: {
+        const { address: bc1Address } = bitcoin.payments.p2wpkh({
+          pubkey: pubkey,
+          network: net,
+        })
+        return bc1Address
+      }
     }
   }
 }
@@ -49,4 +79,4 @@ function hardened(string) {
   return string + "'"
 }
 
-export default Address
+export { Address, AddressType }
