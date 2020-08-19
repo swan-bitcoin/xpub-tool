@@ -1,6 +1,10 @@
 import React from "react"
 import { Row, Col, Container, ListGroup, Table, Form } from "react-bootstrap"
-import { MAINNET, TESTNET, networkLabel } from "unchained-bitcoin"
+import {
+  MAINNET,
+  // TESTNET,
+  networkLabel,
+} from "unchained-bitcoin"
 
 import Layout from "../components/layout"
 import { Address, AddressType } from "../lib/xpub.js"
