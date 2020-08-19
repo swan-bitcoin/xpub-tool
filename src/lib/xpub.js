@@ -1,7 +1,7 @@
 import { deriveChildPublicKey, networkData } from "unchained-bitcoin"
 import * as bitcoin from "bitcoinjs-lib"
 
-class AddressDerivation {
+class ThreeAddress {
   constructor(network) {
     this.network = network
   }
@@ -49,4 +49,4 @@ function hardened(string) {
   return string + "'"
 }
 
-export default AddressDerivation
+export default ThreeAddress

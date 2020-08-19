@@ -2,7 +2,7 @@ import React from "react"
 import { Row, Col, Container, ListGroup, Table, Form } from "react-bootstrap"
 
 import Layout from "../components/layout"
-import AddressDerivation from "../lib/xpub.js"
+import ThreeAddress from "../lib/xpub.js"
 
 const IndexPage = () => (
   <Layout pageInfo={{ pageName: "index" }}>
@@ -77,7 +77,7 @@ class XPubExamples extends React.Component {
 
 class DerivedAddressesTable extends React.Component {
   render() {
-    let addressDerivation = new AddressDerivation("mainnet")
+    let addressDerivation = new ThreeAddress("mainnet")
     var addressList = []
     for (var i = 0; i < this.props.addressCount; i++) {
       let { path, address, fullPath } = addressDerivation.fromXpub(
