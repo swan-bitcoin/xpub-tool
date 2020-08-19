@@ -1,6 +1,10 @@
-import { deriveChildPublicKey, networkData } from "unchained-bitcoin"
+import {
+  deriveChildPublicKey,
+  networkData,
+  TESTNET,
+  MAINNET,
+} from "unchained-bitcoin"
 import * as bitcoin from "bitcoinjs-lib"
-import { validateExtendedPublicKeyForNetwork } from "unchained-bitcoin/lib/keys"
 
 const AddressType = {
   P2PKH: 1,
@@ -9,7 +13,7 @@ const AddressType = {
 }
 
 class Address {
-  constructor(network) {
+  constructor(network = MAINNET) {
     this.network = network
   }
 
@@ -63,7 +67,7 @@ function bip32Path(accountNumber, keyIndex) {
   return accountNumber + "/" + keyIndex
 }
 function bip32PathFull(network, accountNumber, keyIndex) {
-  const net = network === "mainnet" ? 0 : 1
+  const net = network === MAINNET ? 0 : 1
   const change = 0
   return [
     "m",
