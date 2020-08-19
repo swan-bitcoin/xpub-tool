@@ -1,6 +1,9 @@
 import React from "react"
 import { Row, Col, Container, ListGroup, Table, Form } from "react-bootstrap"
-import { TESTNET, MAINNET } from "unchained-bitcoin"
+import {
+  MAINNET,
+  // TESTNET
+} from "unchained-bitcoin"
 
 import Layout from "../components/layout"
 import { Address, AddressType } from "../lib/xpub.js"
@@ -78,13 +81,14 @@ class XPubExamples extends React.Component {
 
 class DerivedAddressesTable extends React.Component {
   render() {
-    let addressDerivation = new Address()
+    let addressDerivation = new Address(MAINNET)
     var addressList = []
     for (var i = 0; i < this.props.addressCount; i++) {
       let { path, address, fullPath } = addressDerivation.fromXpub(
         this.props.xpub,
         this.props.accountNumber,
-        i
+        i,
+        AddressType.P2SH // P2SH = 3address = default
       )
       addressList.push(
         <PathAddressRow path={path} address={address} fullPath={fullPath} />
