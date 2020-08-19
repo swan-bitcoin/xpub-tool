@@ -1,24 +1,34 @@
 import React from "react"
 import { Row, Col, Container, ListGroup, Table, Form } from "react-bootstrap"
-import {
-  MAINNET,
-  // TESTNET
-} from "unchained-bitcoin"
+import { MAINNET, TESTNET, networkLabel } from "unchained-bitcoin"
 
 import Layout from "../components/layout"
 import { Address, AddressType } from "../lib/xpub.js"
+
+const network = MAINNET // or TESTNET
+
+// Mainnet: xpub...
+// Testnet: tpub...
+const EXAMPLE_XPUBS = [
+  "xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab",
+  "xpub6D7NqpxWckGwCHhpXoL4pH38m5xVty62KY2wUh6JoyDCofwHciDRoQ3xm7WAg2ffpHaC6X4bEociYq81niyNUGhCxEs6fDFAd1LPbEmzcAm",
+  "xpub6BfKpqjTwvH21wJGWEfxLppb8sU7C6FJge2kWb9315oP4ZVqCXG29cdUtkyu7YQhHyfA5nt63nzcNZHYmqXYHDxYo8mm1Xq1dAC7YtodwUR",
+]
+const EXAMPLE_TPUBS = [
+  "tpubDCZv1xNTnmwmXe3BBMyXekiVreY853jFeC8k9AaEAqCDYi1ZTSTLH3uQonwCTRk9jL1SFu1cLNbDY76YtcDR8n2inSMwBEAdZs37EpYS9px",
+]
 
 const IndexPage = () => (
   <Layout pageInfo={{ pageName: "index" }}>
     <Container className="text-center">
       <Row>
         <Col>
-          <XPubExamples />
+          <XPubExamples network={network} />
         </Col>
       </Row>
       <Row>
         <Col>
-          <XPubInput />
+          <XPubInput network={network} />
         </Col>
       </Row>
       <hr />
@@ -55,22 +65,18 @@ export default IndexPage
 
 class XPubExamples extends React.Component {
   render() {
-    const xpubs = [
-      "xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab",
-      "xpub6D7NqpxWckGwCHhpXoL4pH38m5xVty62KY2wUh6JoyDCofwHciDRoQ3xm7WAg2ffpHaC6X4bEociYq81niyNUGhCxEs6fDFAd1LPbEmzcAm",
-      "xpub6BfKpqjTwvH21wJGWEfxLppb8sU7C6FJge2kWb9315oP4ZVqCXG29cdUtkyu7YQhHyfA5nt63nzcNZHYmqXYHDxYo8mm1Xq1dAC7YtodwUR",
-    ]
+    var pubs = this.props.network === MAINNET ? EXAMPLE_XPUBS : EXAMPLE_TPUBS
 
     return (
       <div>
         <p>
-          The following are some random example xpubs for easy testing (BTC
-          mainnet):
+          The following are some random example xpubs for easy testing (
+          {networkLabel(this.props.network)}):
         </p>
         <ul>
-          {xpubs.map((xpub, i) => (
+          {pubs.map((pub, i) => (
             <li>
-              <code>{xpub}</code>
+              <code>{pub}</code>
             </li>
           ))}
         </ul>
@@ -81,7 +87,7 @@ class XPubExamples extends React.Component {
 
 class DerivedAddressesTable extends React.Component {
   render() {
-    let addressDerivation = new Address(MAINNET)
+    let addressDerivation = new Address(this.props.network)
     var addressList = []
     for (var i = 0; i < this.props.addressCount; i++) {
       let { path, address, fullPath } = addressDerivation.fromXpub(
@@ -123,9 +129,10 @@ class PathAddressRow extends React.Component {
 class XPubInput extends React.Component {
   constructor(props) {
     super(props)
+    let pub =
+      this.props.network === MAINNET ? EXAMPLE_XPUBS[0] : EXAMPLE_TPUBS[0]
     this.state = {
-      xpub:
-        "xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab",
+      xpub: pub,
       accountNumber: 0,
       addressCount: 5,
     }
@@ -212,6 +219,7 @@ class XPubInput extends React.Component {
         </Form>
 
         <DerivedAddressesTable
+          network={this.props.network}
           xpub={this.state.xpub}
           addressCount={this.state.addressCount}
           accountNumber={this.state.accountNumber}
