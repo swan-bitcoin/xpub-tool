@@ -17,6 +17,7 @@ class Address {
     this.network = network
   }
 
+  // AddressType defaults to P2SH `3addresses` until we support P2WPKH
   fromXpub(xpub, accountNumber, keyIndex, type = AddressType.P2SH) {
     const childPubKey = deriveChildPublicKey(
       xpub,
