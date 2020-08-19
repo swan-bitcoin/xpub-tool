@@ -79,4 +79,4 @@ function hardened(string) {
   return string + "'"
 }
 
-export { DerivedAddress as Address, AddressType }
+export { DerivedAddress, AddressType }

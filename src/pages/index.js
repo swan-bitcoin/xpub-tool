@@ -7,7 +7,7 @@ import {
 } from "unchained-bitcoin"
 
 import Layout from "../components/layout"
-import { Address, AddressType } from "../lib/xpub.js"
+import { DerivedAddress, AddressType } from "../lib/xpub.js"
 
 const network = MAINNET // or TESTNET
 
@@ -91,7 +91,7 @@ class XPubExamples extends React.Component {
 
 class DerivedAddressesTable extends React.Component {
   render() {
-    let derivedAddress = new Address(this.props.network)
+    let derivedAddress = new DerivedAddress(this.props.network)
     var addressList = []
     for (var i = 0; i < this.props.addressCount; i++) {
       let { path, address, fullPath } = derivedAddress.fromXpub(
@@ -147,7 +147,7 @@ class XPubInput extends React.Component {
 
   isValidXpub(xpub) {
     try {
-      new Address(this.props.network).fromXpub(xpub, 0, 0)
+      new DerivedAddress(this.props.network).fromXpub(xpub, 0, 0)
     } catch (err) {
       return false
     }
