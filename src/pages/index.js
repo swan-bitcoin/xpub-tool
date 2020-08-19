@@ -1,9 +1,8 @@
 import React from "react"
 import { Row, Col, Container, ListGroup, Table, Form } from "react-bootstrap"
-import { deriveChildPublicKey, networkData } from "unchained-bitcoin"
-import * as bitcoin from "bitcoinjs-lib"
 
 import Layout from "../components/layout"
+import AddressDerivation from "../lib/xpub.js"
 
 const IndexPage = () => (
   <Layout pageInfo={{ pageName: "index" }}>
@@ -78,27 +77,15 @@ class XPubExamples extends React.Component {
 
 class DerivedAddressesTable extends React.Component {
   render() {
+    let addressDerivation = new AddressDerivation("mainnet")
     var addressList = []
     for (var i = 0; i < this.props.addressCount; i++) {
-      var bip32Path = "m/" + this.props.accountNumber + "/" + i
-      const childPubKey = deriveChildPublicKey(
+      let { path, address } = addressDerivation.fromXpub(
         this.props.xpub,
-        bip32Path,
-        "mainnet"
+        this.props.accountNumber,
+        i
       )
-      const MAINNET = networkData("mainnet")
-      const keyPair = bitcoin.ECPair.fromPublicKey(
-        Buffer.from(childPubKey, "hex")
-      )
-      const { address: threeAddress } = bitcoin.payments.p2sh({
-        redeem: bitcoin.payments.p2wpkh({
-          pubkey: keyPair.publicKey,
-          network: MAINNET,
-        }),
-      })
-      addressList.push(
-        <PathAddressRow path={bip32Path} address={threeAddress} />
-      )
+      addressList.push(<PathAddressRow path={path} address={address} />)
     }
 
     return (
