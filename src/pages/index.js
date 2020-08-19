@@ -18,6 +18,7 @@ import Layout from "../components/layout"
 import { DerivedAddress, AddressType } from "../lib/xpub.js"
 
 const network = MAINNET // or TESTNET
+const MAX_ACCOUNTS = 25
 
 // Mainnet: xpub...
 // Testnet: tpub...
@@ -183,6 +184,11 @@ class XPubInput extends React.Component {
   }
 
   render() {
+    var accountList = []
+    for (var i = 0; i < MAX_ACCOUNTS; i++) {
+      accountList.push(<option>{i}</option>)
+    }
+
     return (
       <div>
         <Form>
@@ -206,22 +212,7 @@ class XPubInput extends React.Component {
                 value={this.state.accountNumber}
                 onChange={this.handleAccountNumberChange}
               >
-                <option>0</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-                <option>11</option>
-                <option>12</option>
-                <option>13</option>
-                <option>14</option>
-                <option>15</option>
+                {accountList}
               </Form.Control>
             </Col>
             <Form.Label column sm="2">
