@@ -80,12 +80,14 @@ class DerivedAddressesTable extends React.Component {
     let addressDerivation = new AddressDerivation("mainnet")
     var addressList = []
     for (var i = 0; i < this.props.addressCount; i++) {
-      let { path, address } = addressDerivation.fromXpub(
+      let { path, address, fullPath } = addressDerivation.fromXpub(
         this.props.xpub,
         this.props.accountNumber,
         i
       )
-      addressList.push(<PathAddressRow path={path} address={address} />)
+      addressList.push(
+        <PathAddressRow path={path} address={address} fullPath={fullPath} />
+      )
     }
 
     return (
@@ -104,7 +106,9 @@ class PathAddressRow extends React.Component {
   render() {
     return (
       <tr>
-        <td>{this.props.path}</td>
+        <td>
+          <a title={this.props.fullPath}>{this.props.path}</a>
+        </td>
         <td>{this.props.address}</td>
       </tr>
     )

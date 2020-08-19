@@ -7,8 +7,11 @@ class AddressDerivation {
   }
 
   fromXpub(xpub, accountNumber, keyIndex) {
-    var bip32Path = "m/" + accountNumber + "/" + keyIndex
-    const childPubKey = deriveChildPublicKey(xpub, bip32Path, this.network)
+    const childPubKey = deriveChildPublicKey(
+      xpub,
+      bip32Path(accountNumber, keyIndex),
+      this.network
+    )
     const keyPair = bitcoin.ECPair.fromPublicKey(
       Buffer.from(childPubKey, "hex")
     )
@@ -18,8 +21,32 @@ class AddressDerivation {
         network: networkData(this.network),
       }),
     })
-    return { path: bip32Path, address: threeAddress }
+    return {
+      path: bip32Path(accountNumber, keyIndex),
+      address: threeAddress,
+      fullPath: bip32PathFull(this.network, accountNumber, keyIndex),
+    }
   }
+}
+
+function bip32Path(accountNumber, keyIndex) {
+  return accountNumber + "/" + keyIndex
+}
+function bip32PathFull(network, accountNumber, keyIndex) {
+  const net = network === "mainnet" ? 0 : 1
+  const change = 0
+  return [
+    "m",
+    hardened("44"),
+    hardened(net),
+    hardened(accountNumber),
+    change,
+    keyIndex,
+  ].join("/")
+}
+
+function hardened(string) {
+  return string + "'"
 }
 
 export default AddressDerivation
