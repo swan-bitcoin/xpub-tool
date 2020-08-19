@@ -1,7 +1,7 @@
 import { deriveChildPublicKey, networkData } from "unchained-bitcoin"
 import * as bitcoin from "bitcoinjs-lib"
 
-class ThreeAddress {
+class Address {
   constructor(network) {
     this.network = network
   }
@@ -15,7 +15,7 @@ class ThreeAddress {
     const keyPair = bitcoin.ECPair.fromPublicKey(
       Buffer.from(childPubKey, "hex")
     )
-    const { address: threeAddress } = bitcoin.payments.p2sh({
+    const { address } = bitcoin.payments.p2sh({
       redeem: bitcoin.payments.p2wpkh({
         pubkey: keyPair.publicKey,
         network: networkData(this.network),
@@ -23,7 +23,7 @@ class ThreeAddress {
     })
     return {
       path: bip32Path(accountNumber, keyIndex),
-      address: threeAddress,
+      address: address,
       fullPath: bip32PathFull(this.network, accountNumber, keyIndex),
     }
   }
@@ -49,4 +49,4 @@ function hardened(string) {
   return string + "'"
 }
 
-export default ThreeAddress
+export default Address
