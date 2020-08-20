@@ -77,7 +77,7 @@ const IndexPage = () => (
 
 export default IndexPage
 
-const XPubExamples = (props) => {
+const XPubExamples = props => {
   const pubs = props.network === MAINNET ? EXAMPLE_XPUBS : EXAMPLE_TPUBS
 
   return (
@@ -97,12 +97,12 @@ const XPubExamples = (props) => {
   )
 }
 
-const DerivedAddressesTable = (props) => {
+const DerivedAddressesTable = props => {
   const derivedAddress = new DerivedAddress(props.network)
-  // generate the addresses and cache them inside the memo. 
+  // generate the addresses and cache them inside the memo.
   const addressList = useMemo(() => {
     let addresses = []
-    
+
     for (let i = 0; i < props.addressCount; i++) {
       const address = derivedAddress.fromXpub(
         props.xpub,
@@ -126,15 +126,20 @@ const DerivedAddressesTable = (props) => {
         </tr>
       </thead>
       <tbody>
-      {addressList.map(({ address, path, fullPath }) => (
-        <PathAddressRow key={address} path={path} address={address} fullPath={fullPath} />
-      ))}
+        {addressList.map(({ address, path, fullPath }) => (
+          <PathAddressRow
+            key={address}
+            path={path}
+            address={address}
+            fullPath={fullPath}
+          />
+        ))}
       </tbody>
     </Table>
   )
 }
 
-const PathAddressRow = (props) => (
+const PathAddressRow = props => (
   <tr>
     <td>
       <span title={props.fullPath}>{props.path}</span>
@@ -143,7 +148,7 @@ const PathAddressRow = (props) => (
   </tr>
 )
 
-const XPubTool = (props) => {
+const XPubTool = props => {
   const pub = props.network === MAINNET ? EXAMPLE_XPUBS[0] : EXAMPLE_TPUBS[0]
 
   const [xpub, setXpub] = useState(pub)
@@ -151,12 +156,15 @@ const XPubTool = (props) => {
   const [addressCount, setAddressCount] = useState(5)
 
   // derived state. gets cached and recomputed by `useMemo` whenever `xpub` or `props.network` change
-  const isValidXpub = useMemo(() => validateExtendedPublicKey(xpub, props.network) === "", [xpub, props.network])
+  const isValidXpub = useMemo(
+    () => validateExtendedPublicKey(xpub, props.network) === "",
+    [xpub, props.network]
+  )
 
-  const handleXpubChange = (event) => setXpub(event.target.value)
-  const handleAccountNumberChange = (event) => setAccountNumber(event.target.value)
-  const handleAddressCountChange = (event) => setAddressCount(event.target.value)
-
+  const handleXpubChange = event => setXpub(event.target.value)
+  const handleAccountNumberChange = event =>
+    setAccountNumber(event.target.value)
+  const handleAddressCountChange = event => setAddressCount(event.target.value)
 
   let accountList = []
   for (var i = 0; i < MAX_ACCOUNTS; i++) {
