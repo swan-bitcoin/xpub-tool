@@ -39,6 +39,7 @@ class DerivedAddress {
         })
         return oneAddress
       }
+      default:
       case AddressType.P2SH: {
         const { address: threeAddress } = bitcoin.payments.p2sh({
           redeem: bitcoin.payments.p2wpkh({
