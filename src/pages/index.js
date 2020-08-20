@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useMemo } from "react"
 import {
   Alert,
   Row,
@@ -77,165 +77,145 @@ const IndexPage = () => (
 
 export default IndexPage
 
-class XPubExamples extends React.Component {
-  render() {
-    var pubs = this.props.network === MAINNET ? EXAMPLE_XPUBS : EXAMPLE_TPUBS
+const XPubExamples = (props) => {
+  const pubs = props.network === MAINNET ? EXAMPLE_XPUBS : EXAMPLE_TPUBS
 
-    return (
-      <div>
-        <p>
-          The following are some random example xpubs for easy testing (
-          {networkLabel(this.props.network)}):
-        </p>
-        <ul>
-          {pubs.map((pub, i) => (
-            <li>
-              <code>{pub}</code>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <p>
+        The following are some random example xpubs for easy testing (
+        {networkLabel(props.network)}):
+      </p>
+      <ul>
+        {pubs.map((pub, i) => (
+          <li key={i}>
+            <code>{pub}</code>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
 }
 
-class DerivedAddressesTable extends React.Component {
-  render() {
-    let derivedAddress = new DerivedAddress(this.props.network)
-    var addressList = []
-    for (var i = 0; i < this.props.addressCount; i++) {
-      let { path, address, fullPath } = derivedAddress.fromXpub(
-        this.props.xpub,
-        this.props.accountNumber,
+const DerivedAddressesTable = (props) => {
+  const derivedAddress = new DerivedAddress(props.network)
+  // generate the addresses and cache them inside the memo. 
+  const addressList = useMemo(() => {
+    let addresses = []
+    
+    for (let i = 0; i < props.addressCount; i++) {
+      const address = derivedAddress.fromXpub(
+        props.xpub,
+        props.accountNumber,
         i,
         AddressType.P2SH // P2SH = 3address = default
       )
-      addressList.push(
-        <PathAddressRow path={path} address={address} fullPath={fullPath} />
-      )
+
+      addresses.push(address)
     }
 
-    return (
-      <Table bordered variant="dark">
+    return addresses
+  }, [derivedAddress, props.addressCount, props.xpub, props.accountNumber])
+
+  return (
+    <Table bordered variant="dark">
+      <thead>
         <tr>
           <th>Path</th>
           <th>Address</th>
         </tr>
-        {addressList}
-      </Table>
-    )
-  }
+      </thead>
+      <tbody>
+      {addressList.map(({ address, path, fullPath }) => (
+        <PathAddressRow key={address} path={path} address={address} fullPath={fullPath} />
+      ))}
+      </tbody>
+    </Table>
+  )
 }
 
-class PathAddressRow extends React.Component {
-  render() {
-    return (
-      <tr>
-        <td>
-          <span title={this.props.fullPath}>{this.props.path}</span>
-        </td>
-        <td>{this.props.address}</td>
-      </tr>
-    )
-  }
-}
+const PathAddressRow = (props) => (
+  <tr>
+    <td>
+      <span title={props.fullPath}>{props.path}</span>
+    </td>
+    <td>{props.address}</td>
+  </tr>
+)
 
-class XPubTool extends React.Component {
-  constructor(props) {
-    super(props)
-    let pub =
-      this.props.network === MAINNET ? EXAMPLE_XPUBS[0] : EXAMPLE_TPUBS[0]
-    this.state = {
-      xpub: pub,
-      accountNumber: 0,
-      addressCount: 5,
-    }
-    this.handleXpubChange = this.handleXpubChange.bind(this)
-    this.handleAccountNumberChange = this.handleAccountNumberChange.bind(this)
-    this.handleAddressCountChange = this.handleAddressCountChange.bind(this)
-  }
+const XPubTool = (props) => {
+  const pub = props.network === MAINNET ? EXAMPLE_XPUBS[0] : EXAMPLE_TPUBS[0]
 
-  isValidXpub(xpub) {
-    return validateExtendedPublicKey(xpub, this.props.network) === ""
-  }
+  const [xpub, setXpub] = useState(pub)
+  const [accountNumber, setAccountNumber] = useState(0)
+  const [addressCount, setAddressCount] = useState(5)
 
-  handleXpubChange(event) {
-    this.setState({
-      xpub: event.target.value,
-    })
-  }
-  handleAccountNumberChange(event) {
-    this.setState({
-      accountNumber: event.target.value,
-    })
-  }
-  handleAddressCountChange(event) {
-    this.setState({
-      addressCount: event.target.value,
-    })
-  }
-  displayBip32Path() {
-    return "m / 44 / " + this.state.accountNumber + " / i"
+  // derived state. gets cached and recomputed by `useMemo` whenever `xpub` or `props.network` change
+  const isValidXpub = useMemo(() => validateExtendedPublicKey(xpub, props.network) === "", [xpub, props.network])
+
+  const handleXpubChange = (event) => setXpub(event.target.value)
+  const handleAccountNumberChange = (event) => setAccountNumber(event.target.value)
+  const handleAddressCountChange = (event) => setAddressCount(event.target.value)
+
+  // seems unused
+  const displayBip32Path = `m / 44 / ${accountNumber} / i`
+
+  let accountList = []
+  for (var i = 0; i < MAX_ACCOUNTS; i++) {
+    accountList.push(<option key={i}>{i}</option>)
   }
 
-  render() {
-    var accountList = []
-    for (var i = 0; i < MAX_ACCOUNTS; i++) {
-      accountList.push(<option>{i}</option>)
-    }
-
-    return (
-      <div>
-        <Form>
-          <Form.Group>
-            <Form.Control
-              size="lg"
-              type="text"
-              placeholder="xpub..."
-              value={this.state.xpub}
-              onChange={this.handleXpubChange}
-            />
-          </Form.Group>
-          <Form.Group as={Row}>
-            <Form.Label column sm="2">
-              Account Nr.
-            </Form.Label>
-            <Col sm="10">
-              <Form.Control
-                as="select"
-                size="sm"
-                value={this.state.accountNumber}
-                onChange={this.handleAccountNumberChange}
-              >
-                {accountList}
-              </Form.Control>
-            </Col>
-            <Form.Label column sm="2">
-              Stacking Time
-            </Form.Label>
-            <Col sm="10">
-              <Form.Control
-                type="range"
-                name="addressCount"
-                min="1"
-                max="99"
-                value={this.state.addressCount}
-                onChange={this.handleAddressCountChange}
-              />
-            </Col>
-          </Form.Group>
-        </Form>
-        {this.isValidXpub(this.state.xpub) ? (
-          <DerivedAddressesTable
-            network={this.props.network}
-            xpub={this.state.xpub}
-            addressCount={this.state.addressCount}
-            accountNumber={this.state.accountNumber}
+  return (
+    <div>
+      <Form>
+        <Form.Group>
+          <Form.Control
+            size="lg"
+            type="text"
+            placeholder="xpub..."
+            value={xpub}
+            onChange={handleXpubChange}
           />
-        ) : (
-          <Alert variant="warning">Invalid xPub</Alert>
-        )}
-      </div>
-    )
-  }
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Form.Label column sm="2">
+            Account Nr.
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control
+              as="select"
+              size="sm"
+              value={accountNumber}
+              onChange={handleAccountNumberChange}
+            >
+              {accountList}
+            </Form.Control>
+          </Col>
+          <Form.Label column sm="2">
+            Stacking Time
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control
+              type="range"
+              name="addressCount"
+              min="1"
+              max="99"
+              value={addressCount}
+              onChange={handleAddressCountChange}
+            />
+          </Col>
+        </Form.Group>
+      </Form>
+      {isValidXpub ? (
+        <DerivedAddressesTable
+          network={props.network}
+          xpub={xpub}
+          addressCount={addressCount}
+          accountNumber={accountNumber}
+        />
+      ) : (
+        <Alert variant="warning">Invalid xPub</Alert>
+      )}
+    </div>
+  )
 }
