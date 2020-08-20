@@ -39,7 +39,7 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
   // on the fly as needed, with appropriate arguments.
   interaction() {
     const { keystore, network, bip32Path } = this.props
-    return ExportExtendedPublicKey({ keystore, network, bip32Path })
+    return ExportExtendedPublicKey({ keystore, network, bip32Path }, true)
   }
 
   constructor(props) {
