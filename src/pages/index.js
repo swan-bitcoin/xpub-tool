@@ -12,6 +12,7 @@ import {
   MAINNET,
   // TESTNET,
   networkLabel,
+  validateExtendedPublicKey,
 } from "unchained-bitcoin"
 
 import Layout from "../components/layout"
@@ -155,13 +156,7 @@ class XPubTool extends React.Component {
   }
 
   isValidXpub(xpub) {
-    try {
-      new DerivedAddress(this.props.network).fromXpub(xpub, 0, 0)
-    } catch (err) {
-      return false
-    }
-
-    return true
+    return validateExtendedPublicKey(xpub, this.props.network) === ""
   }
 
   handleXpubChange(event) {
