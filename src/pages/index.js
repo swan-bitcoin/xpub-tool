@@ -18,7 +18,7 @@ import { LEDGER } from "unchained-wallets"
 
 import Layout from "../components/layout"
 import { DerivedAddress, AddressType } from "../lib/xpub.js"
-import HardwareWalletPublicKeyImporter from "../components/hwPubKeyImporter.js"
+import HardwareWalletExtendedPublicKeyImporter from "../components/hwXPubImporter.js"
 
 const network = MAINNET // or TESTNET
 const MAX_ACCOUNTS = 25
