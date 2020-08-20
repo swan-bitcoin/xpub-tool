@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-react-bootstrap",
+  "name": "swan-bitcoin-xpub-tool",
   "private": true,
-  "description": "A starter that includes and configures react-bootstrap and react-icons, along with SASS handling. ",
-  "version": "0.1.0",
-  "author": "Billy Jacoby <billyjacoby@gmail.com>",
+  "description": "A small JavaScript tool that derives bitcoin addresses from existing xPubs built upon unchained-bitcoin and bitcoinjs-lib.",
+  "version": "0.0.1",
+  "author": "Gigi <gigi@swanbitcoin.com>",
   "dependencies": {
     "bitcoinjs-lib": "^5.1.10",
     "bootstrap": "^4.3.1",
