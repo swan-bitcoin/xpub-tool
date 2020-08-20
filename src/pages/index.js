@@ -157,8 +157,6 @@ const XPubTool = (props) => {
   const handleAccountNumberChange = (event) => setAccountNumber(event.target.value)
   const handleAddressCountChange = (event) => setAddressCount(event.target.value)
 
-  // seems unused
-  const displayBip32Path = `m / 44 / ${accountNumber} / i`
 
   let accountList = []
   for (var i = 0; i < MAX_ACCOUNTS; i++) {
