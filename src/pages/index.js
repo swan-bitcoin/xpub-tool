@@ -14,6 +14,7 @@ import {
   networkLabel,
   validateExtendedPublicKey,
 } from "unchained-bitcoin"
+import { LEDGER } from "unchained-wallets"
 
 import Layout from "../components/layout"
 import { DerivedAddress, AddressType } from "../lib/xpub.js"
@@ -36,6 +37,15 @@ const EXAMPLE_TPUBS = [
 const IndexPage = () => (
   <Layout pageInfo={{ pageName: "index" }}>
     <Container className="text-center">
+      <Row>
+        <Col>
+          <HardwareWalletPublicKeyImporter
+            network={network}
+            bip32Path="44/0/0/0"
+            keystore={LEDGER}
+          />
+        </Col>
+      </Row>
       <Row>
         <Col>
           <XPubExamples network={network} />
