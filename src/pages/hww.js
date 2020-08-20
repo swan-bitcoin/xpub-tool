@@ -12,7 +12,7 @@ import HardwareWalletExtendedPublicKeyImporter from "../components/hwXPubImporte
 const network = MAINNET // or TESTNET
 
 function bip32Permutations(
-  depth,
+  depth = 3,
   bipPrefixes = [44, 49, 84],
   isHardened = true
 ) {
@@ -36,16 +36,14 @@ const HWW = () => (
     <Container className="text-center">
       <Row>
         <Col>
-          <code>{bip32Permutations(2)}</code>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <HardwareWalletExtendedPublicKeyImporter
-            network={network}
-            bip32Path="44'/0'"
-            keystore={LEDGER}
-          />
+          {bip32Permutations(4, [44]).map(path => (
+            <HardwareWalletExtendedPublicKeyImporter
+              key={path}
+              network={network}
+              bip32Path={path}
+              keystore={LEDGER}
+            />
+          ))}
         </Col>
       </Row>
     </Container>
