@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap"
+import { Navbar, Nav, Button } from "react-bootstrap"
 
 const CustomNavbar = ({ pageInfo }) => {
   console.log(pageInfo)
