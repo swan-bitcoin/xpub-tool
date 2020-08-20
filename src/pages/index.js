@@ -17,7 +17,6 @@ import {
 
 import Layout from "../components/layout"
 import { DerivedAddress, AddressType } from "../lib/xpub.js"
-import HardwareWalletExtendedPublicKeyImporter from "../components/hwXPubImporter.js"
 
 const network = MAINNET // or TESTNET
 const MAX_ACCOUNTS = 25

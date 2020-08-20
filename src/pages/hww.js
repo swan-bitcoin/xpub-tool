@@ -1,18 +1,7 @@
-import React, { useState, useMemo } from "react"
-import {
-  Alert,
-  Row,
-  Col,
-  Container,
-  ListGroup,
-  Table,
-  Form,
-} from "react-bootstrap"
+import { Row, Col, Container } from "react-bootstrap"
 import {
   MAINNET,
   // TESTNET,
-  networkLabel,
-  validateExtendedPublicKey,
 } from "unchained-bitcoin"
 import { LEDGER } from "unchained-wallets"
 
