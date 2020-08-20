@@ -41,7 +41,7 @@ const IndexPage = () => (
       </Row>
       <Row>
         <Col>
-          <XPubInput network={network} />
+          <XPubTool network={network} />
         </Col>
       </Row>
       <hr />
@@ -131,7 +131,7 @@ class PathAddressRow extends React.Component {
     return (
       <tr>
         <td>
-          <a title={this.props.fullPath}>{this.props.path}</a>
+          <span title={this.props.fullPath}>{this.props.path}</span>
         </td>
         <td>{this.props.address}</td>
       </tr>
@@ -139,7 +139,7 @@ class PathAddressRow extends React.Component {
   }
 }
 
-class XPubInput extends React.Component {
+class XPubTool extends React.Component {
   constructor(props) {
     super(props)
     let pub =
