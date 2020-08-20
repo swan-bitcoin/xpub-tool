@@ -39,7 +39,7 @@ const IndexPage = () => (
     <Container className="text-center">
       <Row>
         <Col>
-          <HardwareWalletPublicKeyImporter
+          <HardwareWalletExtendedPublicKeyImporter
             network={network}
             bip32Path="44/0/0/0"
             keystore={LEDGER}
