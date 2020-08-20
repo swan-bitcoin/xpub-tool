@@ -1,5 +1,5 @@
 module.exports = {
-  pathPrefix: "/gatsby-react-bootstrap-starter",
+  pathPrefix: "/xpub",
   siteMetadata: {
     title: `Swan's xPub Address Derivation Tool`,
     description: `A small tool that derives bitcoin addresses from existing xPubs, using unchained-bitcoin and bitcoinjs-lib.`,
