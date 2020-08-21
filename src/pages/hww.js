@@ -29,12 +29,9 @@ function harden(string) {
 const HWW = props => {
   const [accountNumber, setAccountNumber] = useState(0)
   let bip32Paths = bipPrefixes.map(purpose => {
-    return [
-      coinPrefix,
-      harden(purpose),
-      networkPrefix,
-      harden(accountNumber),
-    ].join(separator)
+    return [coinPrefix, harden(purpose), networkPrefix, accountNumber].join(
+      separator
+    )
   })
 
   const handleAccountNumberChange = event =>
