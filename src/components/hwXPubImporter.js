@@ -32,9 +32,9 @@ const AccountType = {
 }
 
 function maskXPub(xpub) {
-  const beginning = xpub.substr(0, 10)
-  const ending = xpub.substr(xpub.length - 5, xpub.length)
-  return beginning + "..." + ending
+  const beginning = xpub.substr(0, 15)
+  const ending = xpub.substr(xpub.length - 10, xpub.length)
+  return beginning + "...[REDACTED]..." + ending
 }
 
 class HardwareWalletExtendedPublicKeyImporter extends React.Component {
