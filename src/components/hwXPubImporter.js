@@ -79,6 +79,7 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
     } else {
       return (
         <div>
+          <h2>{this.humanReadable(bip32Path)}</h2>
           {this.renderMessages()}
           {error && <Alert type="danger">{error}</Alert>}
           <Button

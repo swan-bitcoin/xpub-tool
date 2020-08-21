@@ -20,6 +20,12 @@ const separator = "/"
 
 // m / purpose' / coin_type' / account' / change / address_index
 // Example: "m/44'/0'/0'"
+const bipPrefixes = [44, 49, 84]
+const acounts = [0, 1, 2, 3]
+const bip32Paths = bipPrefixes.map(purpose => {
+  return [coinPrefix, harden(purpose), networkPrefix, harden(0)].join(separator)
+})
+
 function bip32Permutations(
   depth = 2,
   bipPrefixes = [44, 49, 84],
@@ -49,7 +55,7 @@ const HWW = () => (
     <Tabs id="hardware-wallet-selector">
       {[LEDGER, TREZOR].map(type => (
         <Tab eventKey={type} title={type.toUpperCase()}>
-          {bip32Permutations().map(path => (
+          {bip32Paths.map(path => (
             <HardwareWalletExtendedPublicKeyImporter
               key={path}
               network={network}
