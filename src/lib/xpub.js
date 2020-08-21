@@ -70,7 +70,7 @@ function bip32PathFull(network, accountNumber, keyIndex) {
     "m",
     hardened("44"),
     hardened(net),
-    hardened(accountNumber),
+    accountNumber,
     change,
     keyIndex,
   ].join("/")
