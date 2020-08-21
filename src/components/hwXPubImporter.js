@@ -86,7 +86,7 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
                 navigator.clipboard.writeText(xpub)
               }}
             >
-              📋
+              <span>📋</span>
             </Button>
           </p>
         </div>
@@ -94,9 +94,9 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
     } else {
       return (
         <div>
-          <h2>
+          <h3>
             <code>{bip32Path}</code> ({this.humanReadable(bip32Path)})
-          </h2>
+          </h3>
           {this.renderMessages()}
           {error && <Alert type="danger">{error}</Alert>}
           <Button
