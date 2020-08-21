@@ -9,6 +9,7 @@ import { LEDGER, TREZOR } from "unchained-wallets"
 import Layout from "../components/layout"
 import HardwareWalletExtendedPublicKeyImporter from "../components/hwXPubImporter.js"
 
+// BIP32 Path Derivation
 const network = MAINNET // or TESTNET
 const coinPrefix = "m"
 const networkPrefix = network === MAINNET ? harden(0) : harden(1)
@@ -17,17 +18,19 @@ const separator = "/"
 // From unchained-wallets/trezor.js
 //  * const interaction = new TrezorExportExtendedPublicKey({network: MAINNET, bip32Path: "m/48'/0'/0'"});
 
+// m / purpose' / coin_type' / account' / change / address_index
+// Example: "m/44'/0'/0'"
 function bip32Permutations(
   depth = 2,
   bipPrefixes = [44, 49, 84],
   isHardened = true
 ) {
   let permutations = []
-  for (const bipPrefix of bipPrefixes) {
+  for (const purpose of bipPrefixes) {
     let path = [
       coinPrefix,
+      isHardened ? harden(purpose) : purpose,
       networkPrefix,
-      isHardened ? harden(bipPrefix) : bipPrefix,
     ]
     for (let i = 0; i < depth; i++) {
       path.push(isHardened ? harden(0) : 0)

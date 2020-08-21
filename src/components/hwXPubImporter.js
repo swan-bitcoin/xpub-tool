@@ -24,6 +24,13 @@ import {
   UNSUPPORTED,
 } from "unchained-wallets"
 
+// "Account" definitions as used by wallets
+const AccountType = {
+  "44": "Legacy", // 1addresses
+  "49": "Bitcoin", // 3addresses, SegWit = default
+  "84": "Native SegWit", // bc1addresses
+}
+
 class HardwareWalletExtendedPublicKeyImporter extends React.Component {
   // For this example, the required arguments are
   // passed into this component via `props`.
@@ -61,7 +68,9 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
     if (publicKey) {
       return (
         <div>
-          <p>xPub for BIP32 path {bip32Path}:</p>
+          <Alert key={bip32Path} variant="success" dismissible>
+            Imported {this.humanReadable(bip32Path)}
+          </Alert>
           <p>
             <code>{publicKey}</code>
           </p>
@@ -76,13 +85,26 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
             variant="outline-primary"
             disabled={keystoreState !== PENDING}
             onClick={this.importPublicKey}
+            title={this.humanReadable(bip32Path)}
           >
-            Import xPub {bip32Path}
+            Import {bip32Path}
           </Button>
           <hr />
         </div>
       )
     }
+  }
+
+  humanReadable(bip32Path) {
+    // m / purpose' / coin_type' / account' / change / address_index
+    // Example: "m/44'/0'/0'"
+    console.log(bip32Path)
+    let pathSegments = bip32Path.split("/")
+    console.log(pathSegments)
+    let purpose = pathSegments[1].replace("'", "")
+    let account = Number(pathSegments[3].replace("'", "")) + 1
+    console.log(purpose)
+    return AccountType[purpose.toString()] + " Account #" + account
   }
 
   renderMessages() {
