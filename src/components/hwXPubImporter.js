@@ -2,6 +2,7 @@
 // pattern would work for other frameworks.
 import React from "react"
 import PropTypes from "prop-types"
+import { Alert, Button } from "react-bootstrap"
 
 // The `unchained-bitcoin` library is used by `unchained-wallets`.
 import { MAINNET } from "unchained-bitcoin"
@@ -69,15 +70,15 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
     } else {
       return (
         <div>
-          <p>Click here to import the xPub for BIP32 path {bip32Path}.</p>
-          <button
+          {this.renderMessages()}
+          {error && <Alert type="danger">{error}</Alert>}
+          <Button
+            variant="outline-primary"
             disabled={keystoreState !== PENDING}
             onClick={this.importPublicKey}
           >
-            Import xPub
-          </button>
-          {this.renderMessages()}
-          {error && <p>{error}</p>}
+            Import xPub {bip32Path}
+          </Button>
           <hr />
         </div>
       )
@@ -89,13 +90,17 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
     // Here we grab just the messages relevant for the
     // current keystore state, but more complex filtering is possible...
     const messages = this.interaction().messagesFor({ state: keystoreState })
-    return <ul>{messages.map(this.renderMessage)}</ul>
+    return messages.map(this.renderMessage)
   }
 
   renderMessage(message, i) {
     // The `message` object will always have a `text` property
     // but may have additional properties useful for display.
-    return <li key={i}>{message.text}</li>
+    return (
+      <Alert variant="info" key={i}>
+        {message.text}
+      </Alert>
+    )
   }
 
   async importPublicKey() {
