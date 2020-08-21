@@ -31,6 +31,12 @@ const AccountType = {
   "84": "Native SegWit", // bc1addresses
 }
 
+function maskXPub(xpub) {
+  const beginning = xpub.substr(0, 10)
+  const ending = xpub.substr(xpub.length - 5, xpub.length)
+  return beginning + "..." + ending
+}
+
 class HardwareWalletExtendedPublicKeyImporter extends React.Component {
   // For this example, the required arguments are
   // passed into this component via `props`.
@@ -72,7 +78,7 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
             Imported {this.humanReadable(bip32Path)}
           </Alert>
           <p>
-            <code>{publicKey}</code>
+            <code>{maskXPub(publicKey)}</code>
           </p>
         </div>
       )
