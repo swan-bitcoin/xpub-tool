@@ -62,23 +62,23 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
     // and passed to the library.
     this.state = {
       keystoreState: this.interaction().isSupported() ? PENDING : UNSUPPORTED,
-      publicKey: "",
+      xpub: "",
       error: "",
     }
     this.importXPub = this.importXPub.bind(this)
   }
 
   render() {
-    const { keystoreState, publicKey, error } = this.state
+    const { keystoreState, xpub, error } = this.state
     const { bip32Path } = this.props
-    if (publicKey) {
+    if (xpub) {
       return (
         <div>
           <Alert key={bip32Path} variant="success" dismissible>
             Imported {this.humanReadable(bip32Path)}
           </Alert>
           <p>
-            <code>{maskXPub(publicKey)}</code>
+            <code>{maskXPub(xpub)}</code>
           </p>
         </div>
       )
