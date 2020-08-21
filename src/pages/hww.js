@@ -1,5 +1,5 @@
 import React from "react"
-import { Form, Row, Col, Container } from "react-bootstrap"
+import { Tabs, Tab, Row, Col, Container } from "react-bootstrap"
 import {
   MAINNET,
   // TESTNET,
@@ -43,27 +43,23 @@ function harden(string) {
 
 const HWW = () => (
   <Layout pageInfo={{ pageName: "hww" }}>
-    <Container className="text-center">
-      <Row>
-        <Col>
-          <Form>
-            {[LEDGER, TREZOR].map(type => (
-              <Form.Check type="radio" name="keystore" id={type} label={type} />
-            ))}
-          </Form>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
+    <Tabs id="hardware-wallet-selector">
+      {[LEDGER, TREZOR].map(type => (
+        <Tab eventKey={type} title={type.toUpperCase()}>
           {bip32Permutations().map(path => (
             <HardwareWalletExtendedPublicKeyImporter
               key={path}
               network={network}
               bip32Path={path}
-              keystore={TREZOR}
+              keystore={type}
             />
           ))}
-        </Col>
+        </Tab>
+      ))}
+    </Tabs>
+    <Container className="text-center">
+      <Row>
+        <Col></Col>
       </Row>
     </Container>
   </Layout>
