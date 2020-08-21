@@ -138,10 +138,10 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
     this.setState({ keystoreState: ACTIVE })
     try {
       // This is where we actually talk to the hardware wallet.
-      const publicKey = await this.interaction().run()
+      const xpub = await this.interaction().run()
       // If we succeed, reset the keystore state
       // and store the imported public key.
-      this.setState({ keystoreState: PENDING, publicKey })
+      this.setState({ keystoreState: PENDING, xpub })
     } catch (e) {
       // Something went wrong; revert the keystore
       // state and track the error message.
