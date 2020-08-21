@@ -78,6 +78,7 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
           </button>
           {this.renderMessages()}
           {error && <p>{error}</p>}
+          <hr />
         </div>
       )
     }

@@ -1,15 +1,21 @@
 import React from "react"
-import { Row, Col, Container } from "react-bootstrap"
+import { Form, Row, Col, Container } from "react-bootstrap"
 import {
   MAINNET,
   // TESTNET,
 } from "unchained-bitcoin"
-import { LEDGER } from "unchained-wallets"
+import { LEDGER, TREZOR } from "unchained-wallets"
 
 import Layout from "../components/layout"
 import HardwareWalletExtendedPublicKeyImporter from "../components/hwXPubImporter.js"
 
 const network = MAINNET // or TESTNET
+const coinPrefix = "m"
+const networkPrefix = network === MAINNET ? harden(0) : harden(1)
+const separator = "/"
+
+// From unchained-wallets/trezor.js
+//  * const interaction = new TrezorExportExtendedPublicKey({network: MAINNET, bip32Path: "m/48'/0'/0'"});
 
 function bip32Permutations(
   depth = 2,
@@ -17,11 +23,15 @@ function bip32Permutations(
   isHardened = true
 ) {
   let permutations = []
-  for (const bip of bipPrefixes) {
-    let path = isHardened ? harden(bip) : bip
+  for (const bipPrefix of bipPrefixes) {
+    let path = [
+      coinPrefix,
+      networkPrefix,
+      isHardened ? harden(bipPrefix) : bipPrefix,
+    ]
     for (let i = 0; i < depth; i++) {
-      path += "/" + (isHardened ? harden(0) : 0)
-      permutations.push(path)
+      path.push(isHardened ? harden(0) : 0)
+      permutations.push(path.join(separator))
     }
   }
   return permutations
@@ -36,24 +46,21 @@ const HWW = () => (
     <Container className="text-center">
       <Row>
         <Col>
-          {bip32Permutations(3, [49]).map(path => (
-            <HardwareWalletExtendedPublicKeyImporter
-              key={path}
-              network={network}
-              bip32Path={path}
-              keystore={LEDGER}
-            />
-          ))}
+          <Form>
+            {[LEDGER, TREZOR].map(type => (
+              <Form.Check type="radio" name="keystore" id={type} label={type} />
+            ))}
+          </Form>
         </Col>
       </Row>
       <Row>
         <Col>
-          {bip32Permutations(3, [49], false).map(path => (
+          {bip32Permutations().map(path => (
             <HardwareWalletExtendedPublicKeyImporter
               key={path}
               network={network}
               bip32Path={path}
-              keystore={LEDGER}
+              keystore={TREZOR}
             />
           ))}
         </Col>
