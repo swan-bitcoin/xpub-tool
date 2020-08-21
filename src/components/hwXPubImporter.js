@@ -79,6 +79,15 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
           </Alert>
           <p>
             <code>{maskXPub(xpub)}</code>
+            <Button
+              variant="light"
+              title="Copy to clipboard"
+              onClick={() => {
+                navigator.clipboard.writeText(xpub)
+              }}
+            >
+              📋
+            </Button>
           </p>
         </div>
       )
