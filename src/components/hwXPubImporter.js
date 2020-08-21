@@ -27,7 +27,7 @@ import {
 // "Account" definitions as used by wallets
 const AccountType = {
   "44": "Legacy", // 1addresses
-  "49": "Bitcoin", // 3addresses, SegWit = default
+  "49": "SegWit", // 3addresses, SegWit = default
   "84": "Native SegWit", // bc1addresses
 }
 
@@ -79,7 +79,9 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
     } else {
       return (
         <div>
-          <h2>{this.humanReadable(bip32Path)}</h2>
+          <h2>
+            <code>{bip32Path}</code> ({this.humanReadable(bip32Path)})
+          </h2>
           {this.renderMessages()}
           {error && <Alert type="danger">{error}</Alert>}
           <Button
