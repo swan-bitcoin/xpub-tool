@@ -59,7 +59,7 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
       publicKey: "",
       error: "",
     }
-    this.importPublicKey = this.importPublicKey.bind(this)
+    this.importXPub = this.importXPub.bind(this)
   }
 
   render() {
@@ -84,7 +84,7 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
           <Button
             variant="outline-primary"
             disabled={keystoreState !== PENDING}
-            onClick={this.importPublicKey}
+            onClick={this.importXPub}
             title={this.humanReadable(bip32Path)}
           >
             Import {bip32Path}
@@ -125,7 +125,7 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
     )
   }
 
-  async importPublicKey() {
+  async importXPub() {
     this.setState({ keystoreState: ACTIVE })
     try {
       // This is where we actually talk to the hardware wallet.
