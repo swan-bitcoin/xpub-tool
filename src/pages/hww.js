@@ -7,7 +7,7 @@ import {
 import { LEDGER, TREZOR } from "unchained-wallets"
 
 import Layout from "../components/layout"
-import XPubImporter from "../components/xpubImporter.js"
+import XPubImporter from "../components/XPubImporter.js"
 import { bip32AccountPath, bip32PurposePrefixes } from "../lib/bip32path.js"
 
 const NETWORK = MAINNET
