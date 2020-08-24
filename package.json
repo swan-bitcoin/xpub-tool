@@ -23,7 +23,8 @@
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
     "react-icons": "^3.6.1",
-    "unchained-bitcoin": "0.0.15"
+    "unchained-bitcoin": "0.0.15",
+    "unchained-wallets": "^0.1.10"
   },
   "devDependencies": {
     "gh-pages": "^2.0.1",

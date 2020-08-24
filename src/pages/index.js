@@ -108,7 +108,7 @@ const DerivedAddressesTable = props => {
         props.xpub,
         props.accountNumber,
         i,
-        AddressType.P2SH // P2SH = 3address = default
+        AddressType.P2PKH // P2SH = 3address = default
       )
 
       addresses.push(address)
