@@ -6,12 +6,12 @@ import {
 } from "unchained-bitcoin"
 import * as bitcoin from "bitcoinjs-lib"
 
-import { bip32AccountPath, bip32PartialPath } from "../lib/bip32path.js"
+import { bip32FullPath, bip32PartialPath } from "../lib/bip32path.js"
 
 const AddressType = {
-  P2PKH: 1,
-  P2SH: 3,
-  P2WPKH: "bc1",
+  P2PKH: 44, // 1...
+  P2SH: 49, // 3...
+  P2WPKH: 84, // bc1...
 }
 
 class DerivedAddress {
@@ -24,7 +24,7 @@ class DerivedAddress {
     xpub,
     accountNumber,
     keyIndex,
-    type = AddressType.P2SH,
+    purpose = AddressType.P2SH,
     network = TESTNET
   ) {
     const partialPath = bip32PartialPath(accountNumber, keyIndex)
@@ -34,8 +34,8 @@ class DerivedAddress {
     )
     return {
       path: partialPath,
-      address: this.deriveAddress(type, keyPair.publicKey),
-      fullPath: bip32AccountPath(this.network, accountNumber, keyIndex),
+      address: this.deriveAddress(purpose, keyPair.publicKey),
+      fullPath: bip32FullPath(purpose, accountNumber, keyIndex, this.network),
     }
   }
 

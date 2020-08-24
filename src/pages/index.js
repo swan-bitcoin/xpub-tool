@@ -17,6 +17,7 @@ import {
 
 import Layout from "../components/layout"
 import { DerivedAddress, AddressType } from "../lib/xpub.js"
+import { bip32AccountPath } from "../lib/bip32path.js"
 
 const NETWORK = MAINNET // or TESTNET
 const MAX_ACCOUNTS = 25
@@ -147,9 +148,11 @@ const PathAddressRow = props => (
 )
 
 const XPubTool = props => {
-  const pub = props.network === MAINNET ? EXAMPLE_XPUBS[0] : EXAMPLE_TPUBS[0]
+  const exampleXPub =
+    props.network === MAINNET ? EXAMPLE_XPUBS[0] : EXAMPLE_TPUBS[0]
 
-  const [xpub, setXpub] = useState(pub)
+  const [xpub, setXpub] = useState(exampleXPub)
+  const [addressType, setAddressType] = useState(AddressType.P2SH)
   const [accountNumber, setAccountNumber] = useState(0)
   const [addressCount, setAddressCount] = useState(5)
 
@@ -160,6 +163,7 @@ const XPubTool = props => {
   )
 
   const handleXpubChange = event => setXpub(event.target.value)
+  const handleAddressTypeChange = event => setAddressType(event.target.value)
   const handleAccountNumberChange = event =>
     setAccountNumber(event.target.value)
   const handleAddressCountChange = event => setAddressCount(event.target.value)
@@ -180,6 +184,15 @@ const XPubTool = props => {
             value={xpub}
             onChange={handleXpubChange}
           />
+        </Form.Group>
+        <Form.Group>
+          <Form.Control as="select" htmlSize={AddressType.size} custom>
+            {Object.values(AddressType).map(type => (
+              <option key={bip32AccountPath(type, accountNumber)}>
+                {bip32AccountPath(type, accountNumber)}
+              </option>
+            ))}
+          </Form.Control>
         </Form.Group>
         <Form.Group as={Row}>
           <Form.Label column sm="2">
@@ -210,6 +223,9 @@ const XPubTool = props => {
           </Col>
         </Form.Group>
       </Form>
+      <p>
+        <code>{bip32AccountPath(props.purpose, accountNumber)}</code>
+      </p>
       {isValidXpub ? (
         <DerivedAddressesTable
           network={props.network}

@@ -34,6 +34,19 @@ function harden(string) {
   return string + apostrophe
 }
 
+function bip32FullPath(
+  purpose,
+  accountNumber,
+  keyIndex,
+  network = MAINNET,
+  coinPrefix = "m"
+) {
+  return [
+    bip32AccountPath(purpose, accountNumber, network, coinPrefix),
+    keyIndex,
+  ].join(separator)
+}
+
 function bip32HumanReadablePath(bip32Path) {
   // m / purpose' / coin_type' / account' / change / address_index
   // Example: "m/44'/0'/0'"
@@ -45,6 +58,7 @@ function bip32HumanReadablePath(bip32Path) {
 
 export {
   bip32AccountPath,
+  bip32FullPath,
   bip32PartialPath,
   bip32HumanReadablePath,
   bip32PurposePrefixes,
