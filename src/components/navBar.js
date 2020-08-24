@@ -4,7 +4,6 @@ import { Link } from "gatsby"
 import { Navbar, Nav, Button } from "react-bootstrap"
 
 const CustomNavbar = ({ pageInfo }) => {
-  console.log(pageInfo)
   return (
     <>
       <Navbar variant="dark" expand="lg" id="site-navbar">

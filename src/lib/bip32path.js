@@ -36,12 +36,9 @@ function harden(string) {
 function bip32HumanReadablePath(bip32Path) {
   // m / purpose' / coin_type' / account' / change / address_index
   // Example: "m/44'/0'/0'"
-  console.log(bip32Path)
   let pathSegments = bip32Path.split("/")
-  console.log(pathSegments)
   let purpose = pathSegments[1].replace("'", "")
   let account = Number(pathSegments[3].replace("'", "")) + 1
-  console.log(purpose)
   return AccountType[purpose.toString()] + " Account #" + account
 }
 
