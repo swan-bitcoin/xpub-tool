@@ -1,5 +1,12 @@
-import { deriveChildPublicKey, networkData, MAINNET } from "unchained-bitcoin"
+import {
+  deriveChildPublicKey,
+  networkData,
+  MAINNET,
+  TESTNET,
+} from "unchained-bitcoin"
 import * as bitcoin from "bitcoinjs-lib"
+
+import { bip32AccountPath, bip32PartialPath } from "../lib/bip32path.js"
 
 const AddressType = {
   P2PKH: 1,
@@ -13,19 +20,25 @@ class DerivedAddress {
   }
 
   // AddressType defaults to P2SH `3addresses` until we support P2WPKH
-  fromXpub(xpub, accountNumber, keyIndex, type = AddressType.P2SH) {
+  fromXpub(
+    xpub,
+    accountNumber,
+    keyIndex,
+    type = AddressType.P2SH,
+    network = TESTNET
+  ) {
     const childPubKey = deriveChildPublicKey(
       xpub,
-      bip32Path(accountNumber, keyIndex),
+      bip32PartialPath(accountNumber, keyIndex),
       this.network
     )
     const keyPair = bitcoin.ECPair.fromPublicKey(
       Buffer.from(childPubKey, "hex")
     )
     return {
-      path: bip32Path(accountNumber, keyIndex),
+      path: bip32PartialPath(accountNumber, keyIndex),
       address: this.deriveAddress(type, keyPair.publicKey),
-      fullPath: bip32PathFull(this.network, accountNumber, keyIndex),
+      fullPath: bip32AccountPath(this.network, accountNumber, keyIndex),
     }
   }
 
@@ -58,26 +71,6 @@ class DerivedAddress {
       }
     }
   }
-}
-
-function bip32Path(accountNumber, keyIndex) {
-  return accountNumber + "/" + keyIndex
-}
-function bip32PathFull(network, accountNumber, keyIndex) {
-  const net = network === MAINNET ? 0 : 1
-  const change = 0
-  return [
-    "m",
-    hardened("44"),
-    hardened(net),
-    accountNumber,
-    change,
-    keyIndex,
-  ].join("/")
-}
-
-function hardened(string) {
-  return string + "'"
 }
 
 export { DerivedAddress, AddressType }

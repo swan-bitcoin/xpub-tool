@@ -18,7 +18,7 @@ import {
 import Layout from "../components/layout"
 import { DerivedAddress, AddressType } from "../lib/xpub.js"
 
-const network = MAINNET // or TESTNET
+const NETWORK = MAINNET // or TESTNET
 const MAX_ACCOUNTS = 25
 
 // Mainnet: xpub...
@@ -37,12 +37,12 @@ const IndexPage = () => (
     <Container className="text-center">
       <Row>
         <Col>
-          <XPubExamples network={network} />
+          <XPubExamples network={NETWORK} />
         </Col>
       </Row>
       <Row>
         <Col>
-          <XPubTool network={network} />
+          <XPubTool network={NETWORK} />
         </Col>
       </Row>
       <hr />
@@ -74,8 +74,6 @@ const IndexPage = () => (
     </Container>
   </Layout>
 )
-
-export default IndexPage
 
 const XPubExamples = props => {
   const pubs = props.network === MAINNET ? EXAMPLE_XPUBS : EXAMPLE_TPUBS
@@ -225,3 +223,5 @@ const XPubTool = props => {
     </div>
   )
 }
+
+export default IndexPage

@@ -7,31 +7,15 @@ import {
 import { LEDGER, TREZOR } from "unchained-wallets"
 
 import Layout from "../components/layout"
-import HardwareWalletExtendedPublicKeyImporter from "../components/hwXPubImporter.js"
+import XPubImporter from "../components/XPubImporter.js"
+import { bip32AccountPath, bip32PurposePrefixes } from "../lib/bip32path.js"
 
-// BIP32 Path Derivation
-const network = MAINNET // or TESTNET
-const coinPrefix = "m"
-const networkPrefix = network === MAINNET ? harden(0) : harden(1)
-const separator = "/"
-
-// From unchained-wallets/trezor.js
-//  * const interaction = new TrezorExportExtendedPublicKey({network: MAINNET, bip32Path: "m/48'/0'/0'"});
-
-// m / purpose' / coin_type' / account' / change / address_index
-// Example: "m/44'/0'/0'"
-const bipPrefixes = [44, 49, 84]
-
-function harden(string) {
-  return string + "'"
-}
+const NETWORK = MAINNET
 
 const HWW = props => {
   const [accountNumber, setAccountNumber] = useState(0)
-  let bip32Paths = bipPrefixes.map(purpose => {
-    return [coinPrefix, harden(purpose), networkPrefix, accountNumber].join(
-      separator
-    )
+  let bip32Paths = bip32PurposePrefixes.map(purpose => {
+    return bip32AccountPath(purpose, accountNumber, NETWORK)
   })
 
   const handleAccountNumberChange = event =>
@@ -66,9 +50,9 @@ const HWW = props => {
           {[LEDGER, TREZOR].map(type => (
             <Tab eventKey={type} title={type.toUpperCase()}>
               {bip32Paths.map(path => (
-                <HardwareWalletExtendedPublicKeyImporter
+                <XPubImporter
                   key={path}
-                  network={network}
+                  network={NETWORK}
                   bip32Path={path}
                   keystore={type}
                 />
