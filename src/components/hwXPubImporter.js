@@ -24,12 +24,7 @@ import {
   UNSUPPORTED,
 } from "unchained-wallets"
 
-// "Account" definitions as used by wallets
-const AccountType = {
-  "44": "Legacy", // 1addresses
-  "49": "SegWit", // 3addresses, SegWit = default
-  "84": "Native SegWit", // bc1addresses
-}
+import { bip32HumanReadablePath } from "../lib/xpub.js"
 
 function maskXPub(xpub) {
   const beginning = xpub.substr(0, 15)
@@ -75,7 +70,7 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
       return (
         <div>
           <Alert key={bip32Path} variant="success" dismissible>
-            Imported {this.humanReadable(bip32Path)}
+            Imported {bip32HumanReadablePath(bip32Path)}
           </Alert>
           <p>
             <code>{maskXPub(xpub)}</code>
@@ -95,7 +90,7 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
       return (
         <div>
           <h3>
-            <code>{bip32Path}</code> ({this.humanReadable(bip32Path)})
+            <code>{bip32Path}</code> ({bip32HumanReadablePath(bip32Path)})
           </h3>
           {this.renderMessages()}
           {error && <Alert type="danger">{error}</Alert>}
@@ -103,7 +98,7 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
             variant="outline-primary"
             disabled={keystoreState !== PENDING}
             onClick={this.importXPub}
-            title={this.humanReadable(bip32Path)}
+            title={bip32HumanReadablePath(bip32Path)}
           >
             Import {bip32Path}
           </Button>
@@ -111,18 +106,6 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
         </div>
       )
     }
-  }
-
-  humanReadable(bip32Path) {
-    // m / purpose' / coin_type' / account' / change / address_index
-    // Example: "m/44'/0'/0'"
-    console.log(bip32Path)
-    let pathSegments = bip32Path.split("/")
-    console.log(pathSegments)
-    let purpose = pathSegments[1].replace("'", "")
-    let account = Number(pathSegments[3].replace("'", "")) + 1
-    console.log(purpose)
-    return AccountType[purpose.toString()] + " Account #" + account
   }
 
   renderMessages() {

@@ -16,16 +16,16 @@ class DerivedAddress {
   fromXpub(xpub, accountNumber, keyIndex, type = AddressType.P2SH) {
     const childPubKey = deriveChildPublicKey(
       xpub,
-      bip32Path(accountNumber, keyIndex),
+      bip32PartialPath(accountNumber, keyIndex),
       this.network
     )
     const keyPair = bitcoin.ECPair.fromPublicKey(
       Buffer.from(childPubKey, "hex")
     )
     return {
-      path: bip32Path(accountNumber, keyIndex),
+      path: [accountNumber, keyIndex].join(separator),
       address: this.deriveAddress(type, keyPair.publicKey),
-      fullPath: bip32PathFull(this.network, accountNumber, keyIndex),
+      fullPath: bip32AccountPath(this.network, accountNumber, keyIndex),
     }
   }
 
@@ -60,24 +60,56 @@ class DerivedAddress {
   }
 }
 
-function bip32Path(accountNumber, keyIndex) {
-  return accountNumber + "/" + keyIndex
-}
-function bip32PathFull(network, accountNumber, keyIndex) {
-  const net = network === MAINNET ? 0 : 1
-  const change = 0
-  return [
-    "m",
-    hardened("44"),
-    hardened(net),
-    accountNumber,
-    change,
-    keyIndex,
-  ].join("/")
+function bip32PartialPath(accountNumber, keyIndex) {
+  return [accountNumber, keyIndex].join(separator)
 }
 
-function hardened(string) {
+// m / purpose' / coin_type' / account' / change / address_index
+// Example: "m/44'/0'/0'"
+const bip32PurposePrefixes = [44, 49, 84]
+const separator = "/"
+
+function bip32AccountPath(
+  purpose,
+  accountNumber,
+  network = MAINNET,
+  coinPrefix = "m"
+) {
+  return [
+    coinPrefix,
+    harden(purpose),
+    harden(network === MAINNET ? 0 : 1),
+    accountNumber,
+  ].join(separator)
+}
+function harden(string) {
   return string + "'"
 }
 
-export { DerivedAddress, AddressType }
+// "Account" definitions as used by wallets
+const AccountType = {
+  "44": "Legacy", // 1addresses
+  "49": "SegWit", // 3addresses, SegWit = default
+  "84": "Native SegWit", // bc1addresses
+}
+
+function bip32HumanReadablePath(bip32Path) {
+  // m / purpose' / coin_type' / account' / change / address_index
+  // Example: "m/44'/0'/0'"
+  console.log(bip32Path)
+  let pathSegments = bip32Path.split("/")
+  console.log(pathSegments)
+  let purpose = pathSegments[1].replace("'", "")
+  let account = Number(pathSegments[3].replace("'", "")) + 1
+  console.log(purpose)
+  return AccountType[purpose.toString()] + " Account #" + account
+}
+
+export {
+  DerivedAddress,
+  AddressType,
+  bip32AccountPath,
+  bip32PartialPath,
+  bip32HumanReadablePath,
+  bip32PurposePrefixes,
+}
