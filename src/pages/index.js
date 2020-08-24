@@ -159,7 +159,7 @@ const XPubTool = props => {
     props.network === MAINNET ? EXAMPLE_XPUBS[0] : EXAMPLE_TPUBS[0]
 
   const [xpub, setXpub] = useState(exampleXPub)
-  const [purpose, setPurpose] = useState(Purpose.P2PKH)
+  const [purpose, setPurpose] = useState(Purpose.P2SH) // default to 3addresses
   const [accountNumber, setAccountNumber] = useState(0)
   const [addressCount, setAddressCount] = useState(5)
 
@@ -241,7 +241,7 @@ const XPubTool = props => {
         </Form.Group>
       </Form>
       <p>
-        <code>{bip32AccountPath(purpose, accountNumber)}</code>
+        <code>{bip32AccountPath(purpose, accountNumber)}/i</code>
       </p>
       {isValidXpub ? (
         <DerivedAddressesTable
