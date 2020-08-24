@@ -13,6 +13,8 @@ const AccountType = {
   "84": "Native SegWit", // bc1addresses
 }
 
+// TODO: Rename bip32 -> derivationPaths (we are actually dealing with bip44/49/84 paths)
+
 function bip32PartialPath(accountNumber, keyIndex) {
   return [accountNumber, keyIndex].join(separator)
 }
