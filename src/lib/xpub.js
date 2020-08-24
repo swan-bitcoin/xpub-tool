@@ -6,12 +6,13 @@ import {
 } from "unchained-bitcoin"
 import * as bitcoin from "bitcoinjs-lib"
 
-import { bip32AccountPath, bip32PartialPath } from "../lib/bip32path.js"
+import { bip32FullPath, bip32PartialPath } from "../lib/bip32path.js"
 
-const AddressType = {
-  P2PKH: 1,
-  P2SH: 3,
-  P2WPKH: "bc1",
+// Purpose defines the address type
+const Purpose = {
+  P2PKH: 44, // 1...
+  P2SH: 49, // 3...
+  P2WPKH: 84, // bc1...
 }
 
 class DerivedAddress {
@@ -19,33 +20,23 @@ class DerivedAddress {
     this.network = network
   }
 
-  // AddressType defaults to P2SH `3addresses` until we support P2WPKH
-  fromXpub(
-    xpub,
-    accountNumber,
-    keyIndex,
-    type = AddressType.P2SH,
-    network = TESTNET
-  ) {
-    const childPubKey = deriveChildPublicKey(
-      xpub,
-      bip32PartialPath(accountNumber, keyIndex),
-      this.network
-    )
+  fromXpub(xpub, accountNumber, keyIndex, purpose, network = TESTNET) {
+    const partialPath = bip32PartialPath(accountNumber, keyIndex)
+    const childPubKey = deriveChildPublicKey(xpub, partialPath, this.network)
     const keyPair = bitcoin.ECPair.fromPublicKey(
       Buffer.from(childPubKey, "hex")
     )
     return {
-      path: bip32PartialPath(accountNumber, keyIndex),
-      address: this.deriveAddress(type, keyPair.publicKey),
-      fullPath: bip32AccountPath(this.network, accountNumber, keyIndex),
+      path: partialPath,
+      address: this.deriveAddress(purpose, keyPair.publicKey),
+      fullPath: bip32FullPath(purpose, accountNumber, keyIndex, this.network),
     }
   }
 
-  deriveAddress(type, pubkey) {
+  deriveAddress(purpose, pubkey) {
     let net = networkData(this.network)
-    switch (type) {
-      case AddressType.P2PKH: {
+    switch (Number(purpose)) {
+      case Purpose.P2PKH: {
         const { address: oneAddress } = bitcoin.payments.p2pkh({
           pubkey: pubkey,
           network: net,
@@ -53,7 +44,7 @@ class DerivedAddress {
         return oneAddress
       }
       default:
-      case AddressType.P2SH: {
+      case Purpose.P2SH: {
         const { address: threeAddress } = bitcoin.payments.p2sh({
           redeem: bitcoin.payments.p2wpkh({
             pubkey: pubkey,
@@ -62,7 +53,7 @@ class DerivedAddress {
         })
         return threeAddress
       }
-      case AddressType.P2WPKH: {
+      case Purpose.P2WPKH: {
         const { address: bc1Address } = bitcoin.payments.p2wpkh({
           pubkey: pubkey,
           network: net,
@@ -73,4 +64,4 @@ class DerivedAddress {
   }
 }
 
-export { DerivedAddress, AddressType }
+export { DerivedAddress, Purpose }

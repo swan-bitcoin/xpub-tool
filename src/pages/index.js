@@ -16,7 +16,8 @@ import {
 } from "unchained-bitcoin"
 
 import Layout from "../components/layout"
-import { DerivedAddress, AddressType } from "../lib/xpub.js"
+import { DerivedAddress, Purpose } from "../lib/xpub.js"
+import { bip32AccountPath } from "../lib/bip32path.js"
 
 const NETWORK = MAINNET // or TESTNET
 const MAX_ACCOUNTS = 25
@@ -106,14 +107,20 @@ const DerivedAddressesTable = props => {
         props.xpub,
         props.accountNumber,
         i,
-        AddressType.P2PKH // P2SH = 3address = default
+        props.purpose
       )
 
       addresses.push(address)
     }
 
     return addresses
-  }, [derivedAddress, props.addressCount, props.xpub, props.accountNumber])
+  }, [
+    props.purpose,
+    derivedAddress,
+    props.addressCount,
+    props.xpub,
+    props.accountNumber,
+  ])
 
   return (
     <Table bordered variant="dark">
@@ -147,9 +154,11 @@ const PathAddressRow = props => (
 )
 
 const XPubTool = props => {
-  const pub = props.network === MAINNET ? EXAMPLE_XPUBS[0] : EXAMPLE_TPUBS[0]
+  const exampleXPub =
+    props.network === MAINNET ? EXAMPLE_XPUBS[0] : EXAMPLE_TPUBS[0]
 
-  const [xpub, setXpub] = useState(pub)
+  const [xpub, setXpub] = useState(exampleXPub)
+  const [purpose, setPurpose] = useState(Purpose.P2SH) // default to 3addresses
   const [accountNumber, setAccountNumber] = useState(0)
   const [addressCount, setAddressCount] = useState(5)
 
@@ -160,6 +169,7 @@ const XPubTool = props => {
   )
 
   const handleXpubChange = event => setXpub(event.target.value)
+  const handlePurposeChange = event => setPurpose(event.target.value)
   const handleAccountNumberChange = event =>
     setAccountNumber(event.target.value)
   const handleAddressCountChange = event => setAddressCount(event.target.value)
@@ -183,12 +193,31 @@ const XPubTool = props => {
         </Form.Group>
         <Form.Group as={Row}>
           <Form.Label column sm="2">
+            BIP
+          </Form.Label>
+          <Col sm="10">
+            <Form.Control
+              as="select"
+              size="sm"
+              name="purpose"
+              value={purpose}
+              onChange={handlePurposeChange}
+            >
+              {Object.values(Purpose).map(type => (
+                <option key={type}>{type}</option>
+              ))}
+            </Form.Control>
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Form.Label column sm="2">
             Account Nr.
           </Form.Label>
           <Col sm="10">
             <Form.Control
               as="select"
               size="sm"
+              name="accountNumber"
               value={accountNumber}
               onChange={handleAccountNumberChange}
             >
@@ -210,10 +239,14 @@ const XPubTool = props => {
           </Col>
         </Form.Group>
       </Form>
+      <p>
+        <code>{bip32AccountPath(purpose, accountNumber)}/i</code>
+      </p>
       {isValidXpub ? (
         <DerivedAddressesTable
           network={props.network}
           xpub={xpub}
+          purpose={purpose}
           addressCount={addressCount}
           accountNumber={accountNumber}
         />

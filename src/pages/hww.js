@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react"
+import React, { useState } from "react"
 import { Form, Tabs, Tab, Row, Col, Container } from "react-bootstrap"
 import {
   MAINNET,
@@ -48,7 +48,7 @@ const HWW = props => {
         </Form>
         <Tabs id="hardware-wallet-selector">
           {[LEDGER, TREZOR].map(type => (
-            <Tab eventKey={type} title={type.toUpperCase()}>
+            <Tab key={type} eventKey={type} title={type.toUpperCase()}>
               {bip32Paths.map(path => (
                 <XPubImporter
                   key={path}
