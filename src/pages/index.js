@@ -103,7 +103,6 @@ const DerivedAddressesTable = props => {
     let addresses = []
 
     for (let i = 0; i < props.addressCount; i++) {
-      console.log(props.purpose)
       const address = derivedAddress.fromXpub(
         props.xpub,
         props.accountNumber,
