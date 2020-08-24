@@ -75,8 +75,6 @@ const IndexPage = () => (
   </Layout>
 )
 
-export default IndexPage
-
 const XPubExamples = props => {
   const pubs = props.network === MAINNET ? EXAMPLE_XPUBS : EXAMPLE_TPUBS
 
@@ -225,3 +223,5 @@ const XPubTool = props => {
     </div>
   )
 }
+
+export default IndexPage

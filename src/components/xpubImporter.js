@@ -32,7 +32,7 @@ function maskXPub(xpub) {
   return beginning + "...[REDACTED]..." + ending
 }
 
-class HWWXPubImporter extends React.Component {
+class XPubImporter extends React.Component {
   // For this example, the required arguments are
   // passed into this component via `props`.
   //
@@ -47,7 +47,7 @@ class HWWXPubImporter extends React.Component {
   // The interaction is stateless so can be instantiated
   // on the fly as needed, with appropriate arguments.
   interaction() {
-    const { keystore, network, bip32Path } = this.props
+    const { network, bip32Path, keystore } = this.props
     return ExportExtendedPublicKey({ keystore, network, bip32Path }, true)
   }
 
@@ -142,4 +142,4 @@ class HWWXPubImporter extends React.Component {
   }
 }
 
-export default HWWXPubImporter
+export default XPubImporter
