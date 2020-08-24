@@ -48,7 +48,7 @@ const HWW = props => {
         </Form>
         <Tabs id="hardware-wallet-selector">
           {[LEDGER, TREZOR].map(type => (
-            <Tab eventKey={type} title={type.toUpperCase()}>
+            <Tab key={type} eventKey={type} title={type.toUpperCase()}>
               {bip32Paths.map(path => (
                 <XPubImporter
                   key={path}
