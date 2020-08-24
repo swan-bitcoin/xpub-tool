@@ -35,7 +35,7 @@ class DerivedAddress {
 
   deriveAddress(purpose, pubkey) {
     let net = networkData(this.network)
-    switch (purpose) {
+    switch (Number(purpose)) {
       case Purpose.P2PKH: {
         const { address: oneAddress } = bitcoin.payments.p2pkh({
           pubkey: pubkey,
