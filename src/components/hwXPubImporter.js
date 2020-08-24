@@ -24,7 +24,7 @@ import {
   UNSUPPORTED,
 } from "unchained-wallets"
 
-import { bip32HumanReadablePath } from "../lib/xpub.js"
+import { bip32HumanReadablePath } from "../lib/bip32path.js"
 
 function maskXPub(xpub) {
   const beginning = xpub.substr(0, 15)

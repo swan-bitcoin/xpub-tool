@@ -8,7 +8,7 @@ import { LEDGER, TREZOR } from "unchained-wallets"
 
 import Layout from "../components/layout"
 import { HardwareWalletExtendedPublicKeyImporter } from "../components/hwXPubImporter.js"
-import { bip32AccountPath, bip32PurposePrefixes } from "../lib/xpub.js"
+import { bip32AccountPath, bip32PurposePrefixes } from "../lib/bip32path.js"
 
 const NETWORK = MAINNET
 
@@ -52,7 +52,7 @@ const HWW = props => {
               {bip32Paths.map(path => (
                 <HardwareWalletExtendedPublicKeyImporter
                   key={path}
-                  network={NETWORK}
+                  network="MAINNET"
                   bip32Path={path}
                   keystore={type}
                 />
