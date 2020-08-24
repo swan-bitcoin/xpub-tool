@@ -26,9 +26,9 @@ import {
 
 import { bip32HumanReadablePath } from "../lib/bip32path.js"
 
-function maskXPub(xpub) {
-  const beginning = xpub.substr(0, 15)
-  const ending = xpub.substr(xpub.length - 10, xpub.length)
+function maskXPub(xpub, pre = 15, post = 10) {
+  const beginning = xpub.substr(0, pre)
+  const ending = xpub.substr(xpub.length - post, xpub.length)
   return beginning + "...[REDACTED]..." + ending
 }
 
