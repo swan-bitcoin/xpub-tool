@@ -1,24 +1,9 @@
-// This is a React example but a similar
-// pattern would work for other frameworks.
 import React from "react"
 import PropTypes from "prop-types"
 import { Alert, Button } from "react-bootstrap"
 
-// The `unchained-bitcoin` library is used by `unchained-wallets`.
-import { MAINNET } from "unchained-bitcoin"
-
 import {
-  // This is the interaction we are implementing.
   ExportExtendedPublicKey,
-
-  // These are the keystores we want to support.  They both
-  // work identically as far as this minimal UI is concerned.
-  // Other keystores are supported but they would require a
-  // different UI.
-  TREZOR,
-  LEDGER,
-
-  // These are  possible states our keystore could be in.
   PENDING,
   ACTIVE,
   UNSUPPORTED,
@@ -33,19 +18,12 @@ function maskXPub(xpub, pre = 15, post = 10) {
 }
 
 class XPubImporter extends React.Component {
-  // For this example, the required arguments are
-  // passed into this component via `props`.
-  //
-  // A more realistic example would provide a UI for
-  // entering this or pull it from somewhere else.
   static propTypes = {
     network: PropTypes.string.isRequired,
     bip32Path: PropTypes.string.isRequired,
     keystore: PropTypes.string.isRequired,
   }
 
-  // The interaction is stateless so can be instantiated
-  // on the fly as needed, with appropriate arguments.
   interaction() {
     const { network, bip32Path, keystore } = this.props
     return ExportExtendedPublicKey({ keystore, network, bip32Path }, true)
@@ -53,8 +31,6 @@ class XPubImporter extends React.Component {
 
   constructor(props) {
     super(props)
-    // Keystore state is kept in the React component
-    // and passed to the library.
     this.state = {
       keystoreState: this.interaction().isSupported() ? PENDING : UNSUPPORTED,
       xpub: "",
