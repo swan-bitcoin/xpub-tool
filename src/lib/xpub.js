@@ -27,16 +27,13 @@ class DerivedAddress {
     type = AddressType.P2SH,
     network = TESTNET
   ) {
-    const childPubKey = deriveChildPublicKey(
-      xpub,
-      bip32PartialPath(accountNumber, keyIndex),
-      this.network
-    )
+    const partialPath = bip32PartialPath(accountNumber, keyIndex)
+    const childPubKey = deriveChildPublicKey(xpub, partialPath, this.network)
     const keyPair = bitcoin.ECPair.fromPublicKey(
       Buffer.from(childPubKey, "hex")
     )
     return {
-      path: bip32PartialPath(accountNumber, keyIndex),
+      path: partialPath,
       address: this.deriveAddress(type, keyPair.publicKey),
       fullPath: bip32AccountPath(this.network, accountNumber, keyIndex),
     }
