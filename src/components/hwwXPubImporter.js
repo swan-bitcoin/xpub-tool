@@ -32,7 +32,7 @@ function maskXPub(xpub) {
   return beginning + "...[REDACTED]..." + ending
 }
 
-class HardwareWalletExtendedPublicKeyImporter extends React.Component {
+class HWWXPubImporter extends React.Component {
   // For this example, the required arguments are
   // passed into this component via `props`.
   //
@@ -142,4 +142,4 @@ class HardwareWalletExtendedPublicKeyImporter extends React.Component {
   }
 }
 
-export default HardwareWalletExtendedPublicKeyImporter
+export default HWWXPubImporter

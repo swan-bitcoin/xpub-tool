@@ -7,7 +7,7 @@ import {
 import { LEDGER, TREZOR } from "unchained-wallets"
 
 import Layout from "../components/layout"
-import { HardwareWalletExtendedPublicKeyImporter } from "../components/hwXPubImporter.js"
+import { HWWXPubImporter } from "../components/hwwXPubImporter.js"
 import { bip32AccountPath, bip32PurposePrefixes } from "../lib/bip32path.js"
 
 const NETWORK = MAINNET
@@ -50,7 +50,7 @@ const HWW = props => {
           {[LEDGER, TREZOR].map(type => (
             <Tab eventKey={type} title={type.toUpperCase()}>
               {bip32Paths.map(path => (
-                <HardwareWalletExtendedPublicKeyImporter
+                <HWWXPubImporter
                   key={path}
                   network="MAINNET"
                   bip32Path={path}
