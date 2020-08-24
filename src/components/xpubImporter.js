@@ -42,46 +42,48 @@ class XPubImporter extends React.Component {
   render() {
     const { keystoreState, xpub, error } = this.state
     const { bip32Path } = this.props
-    if (xpub) {
-      return (
-        <div>
-          <Alert key={bip32Path} variant="success" dismissible>
-            Imported {bip32HumanReadablePath(bip32Path)}
-          </Alert>
-          <p>
-            <code>{maskXPub(xpub)}</code>
+    return (
+      <div>
+        <h3>
+          <code>{bip32Path}</code> ({bip32HumanReadablePath(bip32Path)})
+        </h3>
+        {xpub ? (
+          <div>
+            <Alert key={bip32Path} variant="success" dismissible>
+              Imported {bip32HumanReadablePath(bip32Path)}
+            </Alert>
+            <p>
+              <code>{maskXPub(xpub)}</code>
+              <Button
+                variant="light"
+                title="Copy to clipboard"
+                onClick={() => {
+                  navigator.clipboard.writeText(xpub)
+                }}
+              >
+                <span role="img" aria-label="Copy to clipboard">
+                  📋
+                </span>
+              </Button>
+            </p>
+          </div>
+        ) : (
+          <div>
+            {this.renderMessages()}
+            {error && <Alert type="danger">{error}</Alert>}
             <Button
-              variant="light"
-              title="Copy to clipboard"
-              onClick={() => {
-                navigator.clipboard.writeText(xpub)
-              }}
+              variant="outline-primary"
+              disabled={keystoreState !== PENDING}
+              onClick={this.importXPub}
+              title={bip32HumanReadablePath(bip32Path)}
             >
-              <span>📋</span>
+              Import {bip32Path}
             </Button>
-          </p>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <h3>
-            <code>{bip32Path}</code> ({bip32HumanReadablePath(bip32Path)})
-          </h3>
-          {this.renderMessages()}
-          {error && <Alert type="danger">{error}</Alert>}
-          <Button
-            variant="outline-primary"
-            disabled={keystoreState !== PENDING}
-            onClick={this.importXPub}
-            title={bip32HumanReadablePath(bip32Path)}
-          >
-            Import {bip32Path}
-          </Button>
-          <hr />
-        </div>
-      )
-    }
+          </div>
+        )}
+        <hr />
+      </div>
+    )
   }
 
   renderMessages() {
