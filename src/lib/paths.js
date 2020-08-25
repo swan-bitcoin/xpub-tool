@@ -47,14 +47,14 @@ function fullDerivationPath(
   ].join(SEPARATOR)
 }
 
-function humanReadableDerivationPath(bip32Path) {
+function humanReadableDerivationPath(bip32Path, accountString = "Account") {
   // Example:
   //   bip32HumanReadablePath("m/49'/0'/3'/0/1")
   //   -> "SegWit Account #3"
   let pathSegments = bip32Path.split(SEPARATOR)
   let purpose = pathSegments[1].replace(APOSTROPHE, "")
   let account = Number(pathSegments[3].replace(APOSTROPHE, "")) + 1
-  return AccountTypeName[purpose] + " Account #" + account
+  return accountString + " #" + account + " (" + AccountTypeName[purpose] + ")"
 }
 
 export {

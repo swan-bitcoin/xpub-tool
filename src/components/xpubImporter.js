@@ -45,7 +45,7 @@ class XPubImporter extends React.Component {
     return (
       <div>
         <h3>
-          <code>{bip32Path}</code> ({humanReadableDerivationPath(bip32Path)})
+          {humanReadableDerivationPath(bip32Path)} <code>{bip32Path}</code>
         </h3>
         {xpub ? (
           <div>
