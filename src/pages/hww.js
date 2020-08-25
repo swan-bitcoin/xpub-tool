@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Form, Tabs, Tab, Row, Col, Container } from "react-bootstrap"
+import { Tabs, Tab, Container } from "react-bootstrap"
 import { TESTNET } from "unchained-bitcoin"
 import { LEDGER, TREZOR } from "unchained-wallets"
 

@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from "react"
-import { Alert } from "react-bootstrap"
 import { MAINNET, validateExtendedPublicKey } from "unchained-bitcoin"
 import { EXAMPLE_XPUBS, EXAMPLE_TPUBS } from "../components/xpubExamples"
 import DerivedAddressesTable from "../components/derivedAddressesTable.js"
@@ -16,7 +15,6 @@ const XPubTool = props => {
   const [accountNumber, setAccountNumber] = useState(0)
   const [addressCount, setAddressCount] = useState(5)
 
-  // derived state. gets cached and recomputed by `useMemo` whenever `xpub` or `props.network` change
   const isValidXpub = useMemo(
     () => validateExtendedPublicKey(xpub, props.network) === "",
     [xpub, props.network]
@@ -40,8 +38,12 @@ const XPubTool = props => {
         accountNumberHandler={handleAccountNumberChange}
         addressCountHandler={handleAddressCountChange}
       />
-      <XPubInput xpub={props.xpub} changeHandler={handleXpubChange} />
-      {isValidXpub ? (
+      <XPubInput
+        xpub={xpub}
+        network={props.network}
+        changeHandler={handleXpubChange}
+      />
+      {isValidXpub && (
         <DerivedAddressesTable
           network={props.network}
           xpub={xpub}
@@ -49,8 +51,6 @@ const XPubTool = props => {
           addressCount={addressCount}
           accountNumber={accountNumber}
         />
-      ) : (
-        <Alert variant="warning">Invalid xPub</Alert>
       )}
     </div>
   )
