@@ -6,10 +6,7 @@ import {
 } from "unchained-bitcoin"
 import * as bitcoin from "bitcoinjs-lib"
 
-import {
-  fullDerivationPath,
-  partialKeyDerivationPath,
-} from "../lib/bip32path.js"
+import { fullDerivationPath, partialKeyDerivationPath } from "../lib/paths.js"
 
 // Purpose defines the address type
 const Purpose = {

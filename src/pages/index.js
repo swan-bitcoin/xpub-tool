@@ -17,7 +17,7 @@ import {
 
 import Layout from "../components/layout"
 import { DerivedAddress, Purpose } from "../lib/xpub.js"
-import { accountDerivationPath } from "../lib/bip32path.js"
+import { accountDerivationPath } from "../lib/paths.js"
 
 const NETWORK = MAINNET // or TESTNET
 const MAX_ACCOUNTS = 25
