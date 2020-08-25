@@ -24,8 +24,8 @@ function accountDerivationPath(
     coinPrefix,
     harden(purpose),
     harden(network === MAINNET ? 0 : 1),
-    accountNumber,
-  ].join(SEPARATOR)
+    harden(accountNumber),
+  ].join(separator)
 }
 function harden(string) {
   return string + APOSTROPHE
@@ -36,17 +36,20 @@ function fullDerivationPath(
   accountNumber,
   keyIndex,
   network = MAINNET,
-  coinPrefix = "m"
+  coinPrefix = "m",
+  change = 0
 ) {
   return [
     accountDerivationPath(purpose, accountNumber, network, coinPrefix),
+    change,
     keyIndex,
   ].join(SEPARATOR)
 }
 
 function humanReadableDerivationPath(bip32Path) {
-  // m / purpose' / coin_type' / account' / change / address_index
-  // Example: "m/44'/0'/0'"
+  // Example:
+  //   bip32HumanReadablePath("m/49'/0'/3'/0/1")
+  //   -> "SegWit Account #3"
   let pathSegments = bip32Path.split(SEPARATOR)
   let purpose = pathSegments[1].replace(APOSTROPHE, "")
   let account = Number(pathSegments[3].replace(APOSTROPHE, "")) + 1
