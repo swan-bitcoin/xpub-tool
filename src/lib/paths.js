@@ -3,7 +3,7 @@ import { MAINNET } from "unchained-bitcoin"
 // m / purpose' / coin_type' / account' / change / address_index
 // Example: "m/44'/0'/0'"
 const bip32PurposePrefixes = [44, 49, 84]
-const separator = "/"
+const SEPARATOR = "/"
 const apostrophe = "'"
 
 // "Account" definitions as used by wallets
@@ -16,7 +16,7 @@ const AccountType = {
 // TODO: Rename bip32 -> derivationPaths (we are actually dealing with bip44/49/84 paths)
 
 function partialKeyDerivationPath(accountNumber, keyIndex) {
-  return [accountNumber, keyIndex].join(separator)
+  return [accountNumber, keyIndex].join(SEPARATOR)
 }
 
 function accountDerivationPath(
@@ -30,7 +30,7 @@ function accountDerivationPath(
     harden(purpose),
     harden(network === MAINNET ? 0 : 1),
     accountNumber,
-  ].join(separator)
+  ].join(SEPARATOR)
 }
 function harden(string) {
   return string + apostrophe
@@ -46,13 +46,13 @@ function fullDerivationPath(
   return [
     accountDerivationPath(purpose, accountNumber, network, coinPrefix),
     keyIndex,
-  ].join(separator)
+  ].join(SEPARATOR)
 }
 
 function humanReadableDerivationPath(bip32Path) {
   // m / purpose' / coin_type' / account' / change / address_index
   // Example: "m/44'/0'/0'"
-  let pathSegments = bip32Path.split(separator)
+  let pathSegments = bip32Path.split(SEPARATOR)
   let purpose = pathSegments[1].replace(apostrophe, "")
   let account = Number(pathSegments[3].replace(apostrophe, "")) + 1
   return AccountType[purpose.toString()] + " Account #" + account
