@@ -9,7 +9,7 @@ import {
   UNSUPPORTED,
 } from "unchained-wallets"
 
-import { bip32HumanReadablePath } from "../lib/bip32path.js"
+import { bip32HumanReadablePath } from "../lib/paths.js"
 
 function maskXPub(xpub, pre = 15, post = 10) {
   const beginning = xpub.substr(0, pre)
