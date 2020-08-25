@@ -8,14 +8,15 @@ import { LEDGER, TREZOR } from "unchained-wallets"
 
 import Layout from "../components/layout"
 import XPubImporter from "../components/XPubImporter.js"
-import { bip32AccountPath, bip32PurposePrefixes } from "../lib/bip32path.js"
+import { accountDerivationPath } from "../lib/paths.js"
+import { Purpose } from "../lib/xpub.js"
 
 const NETWORK = MAINNET
 
 const HWW = props => {
   const [accountNumber, setAccountNumber] = useState(0)
-  let bip32Paths = bip32PurposePrefixes.map(purpose => {
-    return bip32AccountPath(purpose, accountNumber, NETWORK)
+  let bip32Paths = Object.values(Purpose).map(purpose => {
+    return accountDerivationPath(purpose, accountNumber, NETWORK)
   })
 
   const handleAccountNumberChange = event =>

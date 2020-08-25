@@ -9,7 +9,7 @@ import {
   UNSUPPORTED,
 } from "unchained-wallets"
 
-import { bip32HumanReadablePath } from "../lib/bip32path.js"
+import { humanReadableDerivationPath } from "../lib/paths.js"
 
 function maskXPub(xpub, pre = 15, post = 10) {
   const beginning = xpub.substr(0, pre)
@@ -45,12 +45,12 @@ class XPubImporter extends React.Component {
     return (
       <div>
         <h3>
-          <code>{bip32Path}</code> ({bip32HumanReadablePath(bip32Path)})
+          {humanReadableDerivationPath(bip32Path)} <code>{bip32Path}</code>
         </h3>
         {xpub ? (
           <div>
             <Alert key={bip32Path} variant="success" dismissible>
-              Imported {bip32HumanReadablePath(bip32Path)}
+              Imported {humanReadableDerivationPath(bip32Path)}
             </Alert>
             <p>
               <code>{maskXPub(xpub)}</code>
@@ -75,7 +75,7 @@ class XPubImporter extends React.Component {
               variant="outline-primary"
               disabled={keystoreState !== PENDING}
               onClick={this.importXPub}
-              title={bip32HumanReadablePath(bip32Path)}
+              title={humanReadableDerivationPath(bip32Path)}
             >
               Import {bip32Path}
             </Button>

@@ -17,7 +17,7 @@ import {
 
 import Layout from "../components/layout"
 import { DerivedAddress, Purpose } from "../lib/xpub.js"
-import { bip32AccountPath } from "../lib/bip32path.js"
+import { accountDerivationPath } from "../lib/paths.js"
 
 const NETWORK = MAINNET // or TESTNET
 const MAX_ACCOUNTS = 25
@@ -240,7 +240,7 @@ const XPubTool = props => {
         </Form.Group>
       </Form>
       <p>
-        <code>{bip32AccountPath(purpose, accountNumber)}/i</code>
+        <code>{accountDerivationPath(purpose, accountNumber)}/i</code>
       </p>
       {isValidXpub ? (
         <DerivedAddressesTable
