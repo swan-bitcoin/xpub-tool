@@ -19,7 +19,7 @@ function partialDerivationPath(accountNumber, keyIndex) {
   return [accountNumber, keyIndex].join(separator)
 }
 
-function bip32AccountPath(
+function accountDerivationPath(
   purpose,
   accountNumber,
   network = MAINNET,
@@ -44,7 +44,7 @@ function fullDerivationPath(
   coinPrefix = "m"
 ) {
   return [
-    bip32AccountPath(purpose, accountNumber, network, coinPrefix),
+    accountDerivationPath(purpose, accountNumber, network, coinPrefix),
     keyIndex,
   ].join(separator)
 }
@@ -59,7 +59,7 @@ function humanReadableDerivationPath(bip32Path) {
 }
 
 export {
-  bip32AccountPath,
+  accountDerivationPath,
   fullDerivationPath,
   partialDerivationPath,
   humanReadableDerivationPath,
