@@ -49,7 +49,7 @@ function bip32FullPath(
   ].join(separator)
 }
 
-function bip32HumanReadablePath(bip32Path) {
+function humanReadableDerivationPath(bip32Path) {
   // m / purpose' / coin_type' / account' / change / address_index
   // Example: "m/44'/0'/0'"
   let pathSegments = bip32Path.split(separator)
@@ -62,6 +62,6 @@ export {
   bip32AccountPath,
   bip32FullPath,
   partialDerivationPath,
-  bip32HumanReadablePath,
+  humanReadableDerivationPath,
   bip32PurposePrefixes,
 }
