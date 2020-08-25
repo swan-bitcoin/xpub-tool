@@ -1,8 +1,5 @@
 import { MAINNET } from "unchained-bitcoin"
 
-// m / purpose' / coin_type' / account' / change / address_index
-// Example: "m/44'/0'/0'"
-const bip32PurposePrefixes = [44, 49, 84]
 const SEPARATOR = "/"
 const apostrophe = "'"
 
@@ -61,5 +58,4 @@ export {
   fullDerivationPath,
   partialKeyDerivationPath,
   humanReadableDerivationPath,
-  bip32PurposePrefixes,
 }
