@@ -6,7 +6,7 @@ import {
 } from "unchained-bitcoin"
 import * as bitcoin from "bitcoinjs-lib"
 
-import { bip32FullPath, bip32PartialPath } from "../lib/bip32path.js"
+import { bip32FullPath, partialDerivationPath } from "../lib/bip32path.js"
 
 // Purpose defines the address type
 const Purpose = {
@@ -21,7 +21,7 @@ class DerivedAddress {
   }
 
   fromXpub(xpub, accountNumber, keyIndex, purpose, network = TESTNET) {
-    const partialPath = bip32PartialPath(accountNumber, keyIndex)
+    const partialPath = partialDerivationPath(accountNumber, keyIndex)
     const childPubKey = deriveChildPublicKey(xpub, partialPath, this.network)
     const keyPair = bitcoin.ECPair.fromPublicKey(
       Buffer.from(childPubKey, "hex")
