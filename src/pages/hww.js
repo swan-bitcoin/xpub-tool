@@ -33,7 +33,7 @@ const HWW = props => {
     <Layout pageInfo={{ pageName: "hww" }}>
       <Container>
         <AddressDerivationInput
-          // xpub={xpub}
+          // xpub={xpub} // TODO: optionals
           // purpose={purpose}
           accountNumber={accountNumber}
           // xpubHandler={handleXpubChange}
