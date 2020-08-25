@@ -36,7 +36,7 @@ function harden(string) {
   return string + apostrophe
 }
 
-function bip32FullPath(
+function fullDerivationPath(
   purpose,
   accountNumber,
   keyIndex,
@@ -60,7 +60,7 @@ function humanReadableDerivationPath(bip32Path) {
 
 export {
   bip32AccountPath,
-  bip32FullPath,
+  fullDerivationPath,
   partialDerivationPath,
   humanReadableDerivationPath,
   bip32PurposePrefixes,
