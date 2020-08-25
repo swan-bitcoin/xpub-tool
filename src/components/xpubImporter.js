@@ -26,7 +26,7 @@ class XPubImporter extends React.Component {
 
   interaction() {
     const { network, bip32Path, keystore } = this.props
-    return ExportExtendedPublicKey({ keystore, network, bip32Path }, true)
+    return ExportExtendedPublicKey({ keystore, network, bip32Path })
   }
 
   constructor(props) {
