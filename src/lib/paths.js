@@ -1,4 +1,4 @@
-import { MAINNET } from "unchained-bitcoin"
+import { MAINNET, TESTNET } from "unchained-bitcoin"
 
 const SEPARATOR = "/"
 const APOSTROPHE = "'"
@@ -18,7 +18,7 @@ function partialKeyDerivationPath(accountNumber, keyIndex) {
 function accountDerivationPath(
   purpose,
   accountNumber,
-  network = MAINNET,
+  network = TESTNET,
   coinPrefix = COIN_PREFIX
 ) {
   return [
@@ -36,7 +36,7 @@ function fullDerivationPath(
   purpose,
   accountNumber,
   keyIndex,
-  network = MAINNET,
+  network = TESTNET,
   coinPrefix = COIN_PREFIX,
   change = 0
 ) {
