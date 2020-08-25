@@ -29,7 +29,7 @@ function bip32AccountPath(
     coinPrefix,
     harden(purpose),
     harden(network === MAINNET ? 0 : 1),
-    accountNumber,
+    harden(accountNumber),
   ].join(separator)
 }
 function harden(string) {
