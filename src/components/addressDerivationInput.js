@@ -1,6 +1,7 @@
 import React from "react"
 import { Row, Col, Form } from "react-bootstrap"
 import { Purpose } from "../lib/xpub.js"
+import { accountDerivationPath } from "../lib/paths.js"
 
 const AddressDerivationInput = props => {
   const MAX_ACCOUNTS = 25
@@ -11,15 +12,6 @@ const AddressDerivationInput = props => {
 
   return (
     <Form>
-      <Form.Group>
-        <Form.Control
-          size="lg"
-          type="text"
-          placeholder="xpub..."
-          value={props.xpub}
-          onChange={props.xpubHandler}
-        />
-      </Form.Group>
       <Form.Group as={Row}>
         <Form.Label column sm="2">
           BIP
@@ -67,6 +59,11 @@ const AddressDerivationInput = props => {
           />
         </Col>
       </Form.Group>
+      <p>
+        <code>
+          {accountDerivationPath(props.purpose, props.accountNumber)}/i
+        </code>
+      </p>
     </Form>
   )
 }

@@ -4,7 +4,7 @@ import { MAINNET, validateExtendedPublicKey } from "unchained-bitcoin"
 import { EXAMPLE_XPUBS, EXAMPLE_TPUBS } from "../components/xpubExamples"
 import DerivedAddressesTable from "../components/derivedAddressesTable.js"
 import AddressDerivationInput from "../components/addressDerivationInput.js"
-import { accountDerivationPath } from "../lib/paths.js"
+import XPubInput from "../components/xpubInput.js"
 import { Purpose } from "../lib/xpub.js"
 
 const XPubTool = props => {
@@ -40,9 +40,7 @@ const XPubTool = props => {
         accountNumberHandler={handleAccountNumberChange}
         addressCountHandler={handleAddressCountChange}
       />
-      <p>
-        <code>{accountDerivationPath(purpose, accountNumber)}/i</code>
-      </p>
+      <XPubInput xpub={props.xpub} changeHandler={handleXpubChange} />
       {isValidXpub ? (
         <DerivedAddressesTable
           network={props.network}
