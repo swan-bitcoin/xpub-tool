@@ -1,22 +1,15 @@
 import React, { useState } from "react"
-import {
-  Button,
-  ButtonGroup,
-  Row,
-  Col,
-  Container,
-  ListGroup,
-} from "react-bootstrap"
-import { MAINNET, TESTNET } from "unchained-bitcoin"
+import { Row, Col, Container, ListGroup } from "react-bootstrap"
+import { MAINNET } from "unchained-bitcoin"
 
 import Layout from "../components/layout"
 import { XPubExamples } from "../components/xpubExamples"
 import XPubTool from "../components/xpubTool"
+import NetworkSwitcher from "../components/networkSwitcher"
 
 const DEFAULT_NETWORK = MAINNET // or TESTNET
 
 const IndexPage = props => {
-  const networks = [MAINNET, TESTNET]
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
 
   const handleNetworkChange = event => setNetwork(event.target.value)
@@ -26,20 +19,10 @@ const IndexPage = props => {
       <Container className="text-center">
         <Row>
           <Col>
-            <ButtonGroup size="lg" className="mb-2">
-              {networks.map(net => {
-                return (
-                  <Button
-                    key={net}
-                    value={net}
-                    variant={net === network ? "primary" : "outline-primary"}
-                    onClick={handleNetworkChange}
-                  >
-                    {net}
-                  </Button>
-                )
-              })}
-            </ButtonGroup>
+            <NetworkSwitcher
+              network={network}
+              changeHandler={handleNetworkChange}
+            />
           </Col>
         </Row>
         <Row>
