@@ -5,6 +5,7 @@ import { LEDGER, TREZOR } from "unchained-wallets"
 
 import Layout from "../components/layout"
 import XPubImporter from "../components/XPubImporter.js"
+import AddressDerivationInput from "../components/addressDerivationInput.js"
 import { accountDerivationPath } from "../lib/paths.js"
 import { Purpose } from "../lib/xpub.js"
 
@@ -31,23 +32,14 @@ const HWW = props => {
   return (
     <Layout pageInfo={{ pageName: "hww" }}>
       <Container>
-        <Form>
-          <Form.Group as={Row}>
-            <Form.Label column sm="2">
-              Account Nr.
-            </Form.Label>
-            <Col sm="10">
-              <Form.Control
-                as="select"
-                size="sm"
-                value={accountNumber}
-                onChange={handleAccountNumberChange}
-              >
-                {accountList}
-              </Form.Control>
-            </Col>
-          </Form.Group>
-        </Form>
+        <AddressDerivationInput
+          // xpub={xpub}
+          // purpose={purpose}
+          accountNumber={accountNumber}
+          // xpubHandler={handleXpubChange}
+          // purposeHandler={handlePurposeChange}
+          accountNumberHandler={handleAccountNumberChange}
+        />
         <Tabs id="hardware-wallet-selector">
           {[LEDGER, TREZOR].map(type => (
             <Tab key={type} eventKey={type} title={type.toUpperCase()}>
