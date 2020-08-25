@@ -41,10 +41,12 @@ function bip32FullPath(
   accountNumber,
   keyIndex,
   network = MAINNET,
-  coinPrefix = "m"
+  coinPrefix = "m",
+  change = 0
 ) {
   return [
     bip32AccountPath(purpose, accountNumber, network, coinPrefix),
+    change,
     keyIndex,
   ].join(separator)
 }
