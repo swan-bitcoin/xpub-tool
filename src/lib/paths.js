@@ -2,6 +2,7 @@ import { MAINNET } from "unchained-bitcoin"
 
 const SEPARATOR = "/"
 const APOSTROPHE = "'"
+const COIN_PREFIX = "m"
 
 // Human-readable account names as used by wallets
 const AccountTypeName = {
@@ -18,7 +19,7 @@ function accountDerivationPath(
   purpose,
   accountNumber,
   network = MAINNET,
-  coinPrefix = "m"
+  coinPrefix = COIN_PREFIX
 ) {
   return [
     coinPrefix,
@@ -36,7 +37,7 @@ function fullDerivationPath(
   accountNumber,
   keyIndex,
   network = MAINNET,
-  coinPrefix = "m",
+  coinPrefix = COIN_PREFIX,
   change = 0
 ) {
   return [
