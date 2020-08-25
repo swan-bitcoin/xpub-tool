@@ -1,7 +1,7 @@
 import { MAINNET } from "unchained-bitcoin"
 
 const SEPARATOR = "/"
-const apostrophe = "'"
+const APOSTROPHE = "'"
 
 // "Account" definitions as used by wallets
 const AccountType = {
@@ -28,7 +28,7 @@ function accountDerivationPath(
   ].join(SEPARATOR)
 }
 function harden(string) {
-  return string + apostrophe
+  return string + APOSTROPHE
 }
 
 function fullDerivationPath(
@@ -48,9 +48,9 @@ function humanReadableDerivationPath(bip32Path) {
   // m / purpose' / coin_type' / account' / change / address_index
   // Example: "m/44'/0'/0'"
   let pathSegments = bip32Path.split(SEPARATOR)
-  let purpose = pathSegments[1].replace(apostrophe, "")
-  let account = Number(pathSegments[3].replace(apostrophe, "")) + 1
   return AccountType[purpose.toString()] + " Account #" + account
+  let purpose = pathSegments[1].replace(APOSTROPHE, "")
+  let account = Number(pathSegments[3].replace(APOSTROPHE, "")) + 1
 }
 
 export {
