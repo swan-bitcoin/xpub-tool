@@ -3,11 +3,11 @@ import { MAINNET } from "unchained-bitcoin"
 const SEPARATOR = "/"
 const APOSTROPHE = "'"
 
-// "Account" definitions as used by wallets
-const AccountType = {
-  "44": "Legacy", // 1addresses
-  "49": "SegWit", // 3addresses, SegWit = default
-  "84": "Native SegWit", // bc1addresses
+// Human-readable account names as used by wallets
+const AccountTypeName = {
+  44: "Legacy", // 1addresses
+  49: "SegWit", // 3addresses, SegWit = default
+  84: "Native SegWit", // bc1addresses
 }
 
 function partialKeyDerivationPath(accountNumber, keyIndex) {
@@ -48,9 +48,9 @@ function humanReadableDerivationPath(bip32Path) {
   // m / purpose' / coin_type' / account' / change / address_index
   // Example: "m/44'/0'/0'"
   let pathSegments = bip32Path.split(SEPARATOR)
-  return AccountType[purpose.toString()] + " Account #" + account
   let purpose = pathSegments[1].replace(APOSTROPHE, "")
   let account = Number(pathSegments[3].replace(APOSTROPHE, "")) + 1
+  return AccountTypeName[purpose] + " Account #" + account
 }
 
 export {
