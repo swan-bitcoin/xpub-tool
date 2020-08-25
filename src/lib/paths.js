@@ -26,7 +26,7 @@ function accountDerivationPath(
     harden(purpose),
     harden(network === MAINNET ? 0 : 1),
     harden(accountNumber),
-  ].join(separator)
+  ].join(SEPARATOR)
 }
 function harden(string) {
   return string + APOSTROPHE
