@@ -7,18 +7,17 @@ import {
   Col,
   Container,
   ListGroup,
-  Table,
   Form,
 } from "react-bootstrap"
 import { MAINNET, TESTNET, validateExtendedPublicKey } from "unchained-bitcoin"
 
 import Layout from "../components/layout"
+import DerivedAddressesTable from "../components/derivedAddressesTable.js"
 import {
   XPubExamples,
   EXAMPLE_XPUBS,
   EXAMPLE_TPUBS,
 } from "../components/xpubExamples"
-import { DerivedAddress, Purpose } from "../lib/xpub.js"
 import { accountDerivationPath } from "../lib/paths.js"
 
 const DEFAULT_NETWORK = MAINNET // or TESTNET
@@ -91,63 +90,6 @@ const IndexPage = props => {
     </Layout>
   )
 }
-
-const DerivedAddressesTable = props => {
-  const derivedAddress = new DerivedAddress(props.network)
-  // generate the addresses and cache them inside the memo.
-  const addressList = useMemo(() => {
-    let addresses = []
-
-    for (let i = 0; i < props.addressCount; i++) {
-      const address = derivedAddress.fromXpub(
-        props.xpub,
-        props.accountNumber,
-        i,
-        props.purpose
-      )
-
-      addresses.push(address)
-    }
-
-    return addresses
-  }, [
-    props.purpose,
-    derivedAddress,
-    props.addressCount,
-    props.xpub,
-    props.accountNumber,
-  ])
-
-  return (
-    <Table bordered variant="dark">
-      <thead>
-        <tr>
-          <th>Path</th>
-          <th>Address</th>
-        </tr>
-      </thead>
-      <tbody>
-        {addressList.map(({ address, path, fullPath }) => (
-          <PathAddressRow
-            key={address}
-            path={path}
-            address={address}
-            fullPath={fullPath}
-          />
-        ))}
-      </tbody>
-    </Table>
-  )
-}
-
-const PathAddressRow = props => (
-  <tr>
-    <td>
-      <span title={props.fullPath}>{props.path}</span>
-    </td>
-    <td>{props.address}</td>
-  </tr>
-)
 
 const XPubTool = props => {
   const exampleXPub =
