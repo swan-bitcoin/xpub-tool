@@ -1,12 +1,9 @@
-import {
-  deriveChildPublicKey,
-  networkData,
-  MAINNET,
-  TESTNET,
-} from "unchained-bitcoin"
+import { deriveChildPublicKey, networkData, TESTNET } from "unchained-bitcoin"
 import * as bitcoin from "bitcoinjs-lib"
 
 import { fullDerivationPath, partialKeyDerivationPath } from "../lib/paths.js"
+
+const DEFAULT_NETWORK = TESTNET
 
 // Purpose defines the address type
 const Purpose = {
@@ -16,11 +13,11 @@ const Purpose = {
 }
 
 class DerivedAddress {
-  constructor(network = MAINNET) {
+  constructor(network = DEFAULT_NETWORK) {
     this.network = network
   }
 
-  fromXpub(xpub, accountNumber, keyIndex, purpose, network = TESTNET) {
+  fromXpub(xpub, accountNumber, keyIndex, purpose) {
     const partialPath = partialKeyDerivationPath(accountNumber, keyIndex)
     const childPubKey = deriveChildPublicKey(xpub, partialPath, this.network)
     const keyPair = bitcoin.ECPair.fromPublicKey(

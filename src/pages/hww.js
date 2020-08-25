@@ -1,9 +1,6 @@
 import React, { useState } from "react"
 import { Form, Tabs, Tab, Row, Col, Container } from "react-bootstrap"
-import {
-  MAINNET,
-  // TESTNET,
-} from "unchained-bitcoin"
+import { TESTNET } from "unchained-bitcoin"
 import { LEDGER, TREZOR } from "unchained-wallets"
 
 import Layout from "../components/layout"
@@ -11,12 +8,16 @@ import XPubImporter from "../components/XPubImporter.js"
 import { accountDerivationPath } from "../lib/paths.js"
 import { Purpose } from "../lib/xpub.js"
 
-const NETWORK = MAINNET
+const DEFAULT_NETWORK = TESTNET
 
 const HWW = props => {
   const [accountNumber, setAccountNumber] = useState(0)
   let bip32Paths = Object.values(Purpose).map(purpose => {
-    return accountDerivationPath(purpose, accountNumber, NETWORK)
+    return accountDerivationPath(
+      purpose,
+      accountNumber,
+      props.network || DEFAULT_NETWORK
+    )
   })
 
   const handleAccountNumberChange = event =>
@@ -53,7 +54,7 @@ const HWW = props => {
               {bip32Paths.map(path => (
                 <XPubImporter
                   key={path}
-                  network={NETWORK}
+                  network={props.network}
                   bip32Path={path}
                   keystore={type}
                 />
