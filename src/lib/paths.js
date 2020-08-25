@@ -15,7 +15,7 @@ const AccountType = {
 
 // TODO: Rename bip32 -> derivationPaths (we are actually dealing with bip44/49/84 paths)
 
-function partialDerivationPath(accountNumber, keyIndex) {
+function partialKeyDerivationPath(accountNumber, keyIndex) {
   return [accountNumber, keyIndex].join(separator)
 }
 
@@ -61,7 +61,7 @@ function humanReadableDerivationPath(bip32Path) {
 export {
   accountDerivationPath,
   fullDerivationPath,
-  partialDerivationPath,
+  partialKeyDerivationPath,
   humanReadableDerivationPath,
   bip32PurposePrefixes,
 }
