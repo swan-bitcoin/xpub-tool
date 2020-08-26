@@ -13,6 +13,7 @@ const XPubInput = props => {
       <Form.Group>
         <Form.Control
           isValid={isValidXpub}
+          isInvalid={!isValidXpub}
           size="lg"
           type="password"
           placeholder="xpub..."
