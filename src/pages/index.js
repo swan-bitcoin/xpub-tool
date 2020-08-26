@@ -19,20 +19,20 @@ const IndexPage = props => {
       <Container className="text-center">
         <Row>
           <Col>
-            <NetworkSwitcher
-              network={network}
-              changeHandler={handleNetworkChange}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
             <XPubExamples network={network} />
           </Col>
         </Row>
         <Row>
           <Col>
             <XPubTool network={network} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <NetworkSwitcher
+              network={network}
+              changeHandler={handleNetworkChange}
+            />
           </Col>
         </Row>
       </Container>
