@@ -1,10 +1,10 @@
 import React from "react"
-import { Row, Col, Form } from "react-bootstrap"
+import { Form } from "react-bootstrap"
 import { Purpose } from "../lib/xpub.js"
 import { accountDerivationPath } from "../lib/paths.js"
 
 const AddressDerivationInput = props => {
-  const MAX_ACCOUNTS = 25
+  const MAX_ACCOUNTS = 22
   let accountList = []
   for (var i = 0; i < MAX_ACCOUNTS; i++) {
     accountList.push(<option key={i}>{i}</option>)
