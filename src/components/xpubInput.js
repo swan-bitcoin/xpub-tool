@@ -9,9 +9,10 @@ const XPubInput = props => {
   )
 
   return (
-    <Form>
+    <Form noValidate>
       <Form.Group>
         <Form.Control
+          isValid={isValidXpub}
           size="lg"
           type="text"
           placeholder="xpub..."
