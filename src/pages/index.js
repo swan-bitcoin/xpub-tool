@@ -12,6 +12,7 @@ import NetworkSwitcher from "../components/networkSwitcher"
 import { XPubExamples } from "../components/xpubExamples"
 
 const DEFAULT_NETWORK = MAINNET // or TESTNET
+const NUMBER_OF_ADDRESSES = 100 // however many we need
 
 const IndexPage = props => {
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
@@ -21,7 +22,6 @@ const IndexPage = props => {
   const [isExpertMode, setExpertMode] = useState(false)
   const [purpose, setPurpose] = useState(Purpose.P2SH) // default to 3addresses
   const [accountNumber, setAccountNumber] = useState(0)
-  const [addressCount, setAddressCount] = useState(10)
 
   const handleNetworkChange = event => setNetwork(event.target.value)
   const handleXpubChange = event => setXpub(event.target.value)
@@ -37,7 +37,13 @@ const IndexPage = props => {
 
   let addressList = !isValidXpub
     ? []
-    : addressesFromXPub(xpub, addressCount, accountNumber, purpose, network)
+    : addressesFromXPub(
+        xpub,
+        NUMBER_OF_ADDRESSES,
+        accountNumber,
+        purpose,
+        network
+      )
 
   return (
     <Layout pageInfo={{ pageName: "index" }}>
@@ -58,7 +64,6 @@ const IndexPage = props => {
                 xpub={xpub}
                 purpose={purpose}
                 accountNumber={accountNumber}
-                addressCount={addressCount}
                 xpubHandler={handleXpubChange}
                 purposeHandler={handlePurposeChange}
                 accountNumberHandler={handleAccountNumberChange}
