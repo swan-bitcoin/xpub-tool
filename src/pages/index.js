@@ -19,7 +19,7 @@ const IndexPage = props => {
   const [isExpertMode, setExpertMode] = useState(false)
   const [purpose, setPurpose] = useState(Purpose.P2SH) // default to 3addresses
   const [accountNumber, setAccountNumber] = useState(0)
-  const [addressCount, setAddressCount] = useState(3)
+  const [addressCount, setAddressCount] = useState(10)
 
   const handleNetworkChange = event => setNetwork(event.target.value)
   const handleXpubChange = event => setXpub(event.target.value)
