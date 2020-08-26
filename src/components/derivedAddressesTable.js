@@ -1,6 +1,7 @@
 import React, { useMemo } from "react"
 import { DerivedAddress } from "../lib/xpub.js"
 import { Table } from "react-bootstrap"
+import { maskXPub } from "../lib/xpub.js"
 
 const DerivedAddressesTable = props => {
   const derivedAddress = new DerivedAddress(props.network)
@@ -28,11 +29,12 @@ const DerivedAddressesTable = props => {
   ])
 
   return (
-    <Table bordered variant="dark">
+    <Table bordered>
       <thead>
         <tr>
-          <th>Path</th>
-          <th>Address</th>
+          <th>
+            Addresses for <code>{maskXPub(props.xpub)}</code>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -52,9 +54,8 @@ const DerivedAddressesTable = props => {
 const PathAddressRow = props => (
   <tr>
     <td>
-      <span title={props.fullPath}>{props.path}</span>
+      <span title={props.fullPath}>{props.address}</span>
     </td>
-    <td>{props.address}</td>
   </tr>
 )
 
