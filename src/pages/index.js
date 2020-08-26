@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react"
-import { Row, Col, Container } from "react-bootstrap"
+import { Row, Col, Container, Form } from "react-bootstrap"
 import { MAINNET, validateExtendedPublicKey } from "unchained-bitcoin"
 
 import { Purpose } from "../lib/xpub.js"
@@ -16,6 +16,7 @@ const DEFAULT_NETWORK = MAINNET // or TESTNET
 const IndexPage = props => {
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
   const [xpub, setXpub] = useState("")
+  const [isExpertMode, setExpertMode] = useState(false)
   const [purpose, setPurpose] = useState(Purpose.P2SH) // default to 3addresses
   const [accountNumber, setAccountNumber] = useState(0)
   const [addressCount, setAddressCount] = useState(3)
@@ -25,6 +26,7 @@ const IndexPage = props => {
   const handlePurposeChange = event => setPurpose(event.target.value)
   const handleAccountNumberChange = event =>
     setAccountNumber(event.target.value)
+  const handleExpertModeChange = event => setExpertMode(event.target.checked)
 
   const isValidXpub = useMemo(
     () => validateExtendedPublicKey(xpub, network) === "",
@@ -36,7 +38,16 @@ const IndexPage = props => {
       <Container className="text-center">
         <Row>
           <Col>
-            {props.useCustomPath && (
+            <XPubInput
+              xpub={xpub}
+              network={network}
+              changeHandler={handleXpubChange}
+            />
+          </Col>
+        </Row>
+        {isExpertMode && (
+          <Row>
+            <Col>
               <AddressDerivationInput
                 xpub={xpub}
                 purpose={purpose}
@@ -46,18 +57,10 @@ const IndexPage = props => {
                 purposeHandler={handlePurposeChange}
                 accountNumberHandler={handleAccountNumberChange}
               />
-            )}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <XPubInput
-              xpub={xpub}
-              network={network}
-              changeHandler={handleXpubChange}
-            />
-          </Col>
-        </Row>
+              <hr />
+            </Col>
+          </Row>
+        )}
         {isValidXpub && (
           <Row>
             <Col>
@@ -73,17 +76,32 @@ const IndexPage = props => {
         )}
         <Row>
           <Col>
-            <XPubExamples network={network} />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <NetworkSwitcher
-              network={network}
-              changeHandler={handleNetworkChange}
+            <hr />
+            <Form.Check
+              type="checkbox"
+              label="Show developer options"
+              onChange={handleExpertModeChange}
             />
+            <hr />
           </Col>
         </Row>
+        {isExpertMode && (
+          <Row>
+            <Col>
+              <XPubExamples network={network} />
+            </Col>
+          </Row>
+        )}
+        {isExpertMode && (
+          <Row>
+            <Col>
+              <NetworkSwitcher
+                network={network}
+                changeHandler={handleNetworkChange}
+              />
+            </Col>
+          </Row>
+        )}
       </Container>
     </Layout>
   )
