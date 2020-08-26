@@ -10,12 +10,7 @@ import {
 } from "unchained-wallets"
 
 import { humanReadableDerivationPath } from "../lib/paths.js"
-
-function maskXPub(xpub, pre = 15, post = 10) {
-  const beginning = xpub.substr(0, pre)
-  const ending = xpub.substr(xpub.length - post, xpub.length)
-  return beginning + "...[REDACTED]..." + ending
-}
+import { maskXPub } from "../lib/xpub.js"
 
 class XPubImporter extends React.Component {
   static propTypes = {

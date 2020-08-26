@@ -1,70 +1,77 @@
 import React, { useState } from "react"
-import { Form, Tabs, Tab, Row, Col, Container } from "react-bootstrap"
-import { TESTNET } from "unchained-bitcoin"
-import { LEDGER, TREZOR } from "unchained-wallets"
+import { Form, Row, Col, Container } from "react-bootstrap"
+import { MAINNET } from "unchained-bitcoin"
 
-import Layout from "../components/layout"
-import XPubImporter from "../components/XPubImporter.js"
-import { accountDerivationPath } from "../lib/paths.js"
 import { Purpose } from "../lib/xpub.js"
 
-const DEFAULT_NETWORK = TESTNET
+import Layout from "../components/layout"
+import NetworkSwitcher from "../components/networkSwitcher"
+import AddressDerivationInput from "../components/addressDerivationInput.js"
+import HardwareWallets from "../components/hardwareWallets.js"
 
-const HWW = props => {
+const DEFAULT_NETWORK = MAINNET // or TESTNET
+
+const IndexPage = props => {
+  const [network, setNetwork] = useState(DEFAULT_NETWORK)
+  const [purpose, setPurpose] = useState(Purpose.P2SH) // default to 3addresses
   const [accountNumber, setAccountNumber] = useState(0)
-  let bip32Paths = Object.values(Purpose).map(purpose => {
-    return accountDerivationPath(
-      purpose,
-      accountNumber,
-      props.network || DEFAULT_NETWORK
-    )
-  })
+  const [isExpertMode, setExpertMode] = useState(false)
 
+  const handlePurposeChange = event => setPurpose(event.target.value)
   const handleAccountNumberChange = event =>
     setAccountNumber(event.target.value)
-
-  let accountList = []
-  for (var i = 0; i < 25; i++) {
-    accountList.push(<option key={i}>{i}</option>)
-  }
+  const handleNetworkChange = event => setNetwork(event.target.value)
+  const handleExpertModeChange = event => setExpertMode(event.target.checked)
 
   return (
     <Layout pageInfo={{ pageName: "hww" }}>
-      <Container>
-        <Form>
-          <Form.Group as={Row}>
-            <Form.Label column sm="2">
-              Account Nr.
-            </Form.Label>
-            <Col sm="10">
-              <Form.Control
-                as="select"
-                size="sm"
-                value={accountNumber}
-                onChange={handleAccountNumberChange}
-              >
-                {accountList}
-              </Form.Control>
+      <Container className="text-center">
+        {isExpertMode && (
+          <Row>
+            <Col>
+              <AddressDerivationInput
+                purpose={purpose}
+                accountNumber={accountNumber}
+                purposeHandler={handlePurposeChange}
+                accountNumberHandler={handleAccountNumberChange}
+                network={network}
+              />
             </Col>
-          </Form.Group>
-        </Form>
-        <Tabs id="hardware-wallet-selector">
-          {[LEDGER, TREZOR].map(type => (
-            <Tab key={type} eventKey={type} title={type.toUpperCase()}>
-              {bip32Paths.map(path => (
-                <XPubImporter
-                  key={path}
-                  network={props.network}
-                  bip32Path={path}
-                  keystore={type}
-                />
-              ))}
-            </Tab>
-          ))}
-        </Tabs>
+          </Row>
+        )}
+        <Row>
+          <Col>
+            <HardwareWallets
+              purpose={purpose}
+              accountNumber={accountNumber}
+              network={network}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <hr />
+            <Form.Check
+              type="checkbox"
+              label="Show developer options"
+              onChange={handleExpertModeChange}
+            />
+            <hr />
+          </Col>
+        </Row>
+        {isExpertMode && (
+          <Row>
+            <Col>
+              <NetworkSwitcher
+                network={network}
+                changeHandler={handleNetworkChange}
+              />
+            </Col>
+          </Row>
+        )}
       </Container>
     </Layout>
   )
 }
 
-export default HWW
+export default IndexPage
