@@ -3,8 +3,6 @@ import * as bitcoin from "bitcoinjs-lib"
 
 import { fullDerivationPath, partialKeyDerivationPath } from "../lib/paths.js"
 
-const DEFAULT_NETWORK = TESTNET
-
 // Purpose defines the address type
 const Purpose = {
   P2PKH: 44, // 1...
@@ -12,64 +10,78 @@ const Purpose = {
   P2WPKH: 84, // bc1...
 }
 
+const DEFAULT_NETWORK = TESTNET
+const DEFAULT_PURPOSE = Purpose.P2SH
+
 function maskXPub(xpub, pre = 15, post = 15) {
   const beginning = xpub.substr(0, pre)
   const ending = xpub.substr(xpub.length - post, xpub.length)
   return beginning + "[...]" + ending
 }
 
-class DerivedAddress {
-  constructor(network = DEFAULT_NETWORK) {
-    this.network = network
-  }
+function addressesFromXPub(
+  xpub,
+  addressCount,
+  accountNumber = 0,
+  purpose = DEFAULT_PURPOSE,
+  network = DEFAULT_NETWORK
+) {
+  let addresses = []
 
-  fromXpub(xpub, accountNumber, keyIndex, purpose) {
-    const partialPath = partialKeyDerivationPath(accountNumber, keyIndex)
-    const childPubKey = deriveChildPublicKey(xpub, partialPath, this.network)
-    const keyPair = bitcoin.ECPair.fromPublicKey(
-      Buffer.from(childPubKey, "hex")
+  for (let i = 0; i < addressCount; i++) {
+    const { path, address } = addressFromXPub(
+      xpub,
+      accountNumber,
+      i,
+      purpose,
+      network
     )
-    return {
-      path: partialPath,
-      address: this.deriveAddress(purpose, keyPair.publicKey),
-      fullPath: fullDerivationPath(
-        purpose,
-        accountNumber,
-        keyIndex,
-        this.network
-      ),
-    }
+
+    addresses.push({ path, address })
   }
 
-  deriveAddress(purpose, pubkey) {
-    let net = networkData(this.network)
-    switch (Number(purpose)) {
-      case Purpose.P2PKH: {
-        const { address: oneAddress } = bitcoin.payments.p2pkh({
+  return addresses
+}
+
+function addressFromXPub(xpub, accountNumber, keyIndex, purpose, network) {
+  const partialPath = partialKeyDerivationPath(accountNumber, keyIndex)
+  const fullPath = fullDerivationPath(purpose, accountNumber, keyIndex, network)
+  const childPubKey = deriveChildPublicKey(xpub, partialPath, network)
+  const keyPair = bitcoin.ECPair.fromPublicKey(Buffer.from(childPubKey, "hex"))
+  return {
+    path: fullPath,
+    address: deriveAddress(purpose, keyPair.publicKey, network),
+  }
+}
+
+function deriveAddress(purpose, pubkey, network) {
+  let net = networkData(network)
+  switch (Number(purpose)) {
+    case Purpose.P2PKH: {
+      const { address: oneAddress } = bitcoin.payments.p2pkh({
+        pubkey: pubkey,
+        network: net,
+      })
+      return oneAddress
+    }
+    default:
+    case Purpose.P2SH: {
+      const { address: threeAddress } = bitcoin.payments.p2sh({
+        redeem: bitcoin.payments.p2wpkh({
           pubkey: pubkey,
           network: net,
-        })
-        return oneAddress
-      }
-      default:
-      case Purpose.P2SH: {
-        const { address: threeAddress } = bitcoin.payments.p2sh({
-          redeem: bitcoin.payments.p2wpkh({
-            pubkey: pubkey,
-            network: net,
-          }),
-        })
-        return threeAddress
-      }
-      case Purpose.P2WPKH: {
-        const { address: bc1Address } = bitcoin.payments.p2wpkh({
-          pubkey: pubkey,
-          network: net,
-        })
-        return bc1Address
-      }
+        }),
+      })
+      return threeAddress
+    }
+    case Purpose.P2WPKH: {
+      const { address: bc1Address } = bitcoin.payments.p2wpkh({
+        pubkey: pubkey,
+        network: net,
+      })
+      return bc1Address
     }
   }
 }
 
-export { DerivedAddress, Purpose, maskXPub }
+export { Purpose, maskXPub, addressesFromXPub }
