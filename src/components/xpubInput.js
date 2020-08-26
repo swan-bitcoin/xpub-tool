@@ -14,7 +14,7 @@ const XPubInput = props => {
         <Form.Control
           isValid={isValidXpub}
           size="lg"
-          type="text"
+          type="password"
           placeholder="xpub..."
           value={props.xpub}
           onChange={props.changeHandler}
