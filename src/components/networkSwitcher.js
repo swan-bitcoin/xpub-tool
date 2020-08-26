@@ -12,7 +12,8 @@ const NetworkSwitcher = props => {
           <Button
             key={net}
             value={net}
-            variant={net === props.network ? "primary" : "outline-primary"}
+            variant={net === props.network ? "secondary" : "outline-secondary"}
+            size="sm"
             onClick={props.changeHandler}
           >
             {net}
