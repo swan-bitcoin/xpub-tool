@@ -1,6 +1,5 @@
-import { deriveChildPublicKey, networkData, TESTNET } from "unchained-bitcoin"
 import * as bitcoin from "bitcoinjs-lib"
-
+import { deriveChildPublicKey, networkData, TESTNET } from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "../lib/paths.js"
 
 // Purpose defines the address type
