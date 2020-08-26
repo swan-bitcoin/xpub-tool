@@ -18,10 +18,7 @@ const XPubExamples = props => {
 
   return (
     <div>
-      <p>
-        The following are some random example xpubs for easy testing (
-        {networkLabel(props.network)}):
-      </p>
+      <p>{networkLabel(props.network)} example xpubs:</p>
       <ul>
         {pubs.map((pub, i) => (
           <li key={i}>

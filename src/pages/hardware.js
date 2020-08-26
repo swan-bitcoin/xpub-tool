@@ -19,11 +19,6 @@ const IndexPage = props => {
       <Container className="text-center">
         <Row>
           <Col>
-            <XPubExamples network={network} />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
             <XPubTool network={network} useHardware={true} />
           </Col>
         </Row>
