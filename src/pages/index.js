@@ -74,6 +74,7 @@ const IndexPage = props => {
                 network={network}
                 xpub={xpub}
                 addressList={addressList}
+                showCount="3"
               />
             </Col>
           </Row>

@@ -13,9 +13,13 @@ const DerivedAddressesTable = props => {
         </tr>
       </thead>
       <tbody>
-        {props.addressList.map(({ path, address }) => (
-          <PathAddressRow key={path} path={path} address={address} />
-        ))}
+        {props.addressList.map(({ path, address }, i) => {
+          return (
+            i < (props.showCount || 10) && (
+              <PathAddressRow key={path} path={path} address={address} />
+            )
+          )
+        })}
         <PathAddressRow path="..." address="..." />
       </tbody>
     </Table>
