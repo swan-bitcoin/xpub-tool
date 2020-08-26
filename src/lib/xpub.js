@@ -12,6 +12,12 @@ const Purpose = {
   P2WPKH: 84, // bc1...
 }
 
+function maskXPub(xpub, pre = 15, post = 15) {
+  const beginning = xpub.substr(0, pre)
+  const ending = xpub.substr(xpub.length - post, xpub.length)
+  return beginning + "[...]" + ending
+}
+
 class DerivedAddress {
   constructor(network = DEFAULT_NETWORK) {
     this.network = network
@@ -66,4 +72,4 @@ class DerivedAddress {
   }
 }
 
-export { DerivedAddress, Purpose }
+export { DerivedAddress, Purpose, maskXPub }
