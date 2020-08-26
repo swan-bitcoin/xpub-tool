@@ -39,11 +39,13 @@ const XPubTool = props => {
         accountNumberHandler={handleAccountNumberChange}
         addressCountHandler={handleAddressCountChange}
       />
-      <HardwareWallets
-        purpose={purpose}
-        accountNumber={accountNumber}
-        network={props.network}
-      />
+      {props.useHardware && (
+        <HardwareWallets
+          purpose={purpose}
+          accountNumber={accountNumber}
+          network={props.network}
+        />
+      )}
       <XPubInput
         xpub={xpub}
         network={props.network}
