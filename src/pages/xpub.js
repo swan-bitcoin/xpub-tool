@@ -24,15 +24,15 @@ const IndexPage = props => {
         </Row>
         <Row>
           <Col>
-            <NetworkSwitcher
-              network={network}
-              changeHandler={handleNetworkChange}
-            />
+            <XPubExamples network={network} />
           </Col>
         </Row>
         <Row>
           <Col>
-            <XPubExamples network={network} />
+            <NetworkSwitcher
+              network={network}
+              changeHandler={handleNetworkChange}
+            />
           </Col>
         </Row>
       </Container>
