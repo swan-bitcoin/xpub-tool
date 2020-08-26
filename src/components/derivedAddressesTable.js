@@ -16,6 +16,7 @@ const DerivedAddressesTable = props => {
         {props.addressList.map(({ path, address }) => (
           <PathAddressRow key={path} path={path} address={address} />
         ))}
+        <PathAddressRow path="..." address="..." />
       </tbody>
     </Table>
   )
