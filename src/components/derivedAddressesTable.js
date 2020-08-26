@@ -4,7 +4,6 @@ import { Table } from "react-bootstrap"
 
 const DerivedAddressesTable = props => {
   const derivedAddress = new DerivedAddress(props.network)
-  // generate the addresses and cache them inside the memo.
   const addressList = useMemo(() => {
     let addresses = []
 
