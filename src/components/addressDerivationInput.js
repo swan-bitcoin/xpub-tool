@@ -11,59 +11,37 @@ const AddressDerivationInput = props => {
   }
 
   return (
-    <Form>
-      <Form.Group as={Row}>
-        <Form.Label column sm="2">
-          BIP
-        </Form.Label>
-        <Col sm="10">
-          <Form.Control
-            as="select"
-            size="sm"
-            name="purpose"
-            value={props.purpose}
-            onChange={props.purposeHandler}
-          >
-            {Object.values(Purpose).map(type => (
-              <option key={type}>{type}</option>
-            ))}
-          </Form.Control>
-        </Col>
-      </Form.Group>
-      <Form.Group as={Row}>
-        <Form.Label column sm="2">
-          Account Nr.
-        </Form.Label>
-        <Col sm="10">
-          <Form.Control
-            as="select"
-            size="sm"
-            name="accountNumber"
-            value={props.accountNumber}
-            onChange={props.accountNumberHandler}
-          >
-            {accountList}
-          </Form.Control>
-        </Col>
-        <Form.Label column sm="2">
-          Stacking Time
-        </Form.Label>
-        <Col sm="10">
-          <Form.Control
-            type="range"
-            name="addressCount"
-            min="1"
-            max="99"
-            value={props.addressCount}
-            onChange={props.addressCountHandler}
-          />
-        </Col>
-      </Form.Group>
-      <p>
-        <code>
+    <Form inline>
+      <Form.Group>
+        <Form.Label className="my-1 mr-2">BIP</Form.Label>
+        <Form.Control
+          as="select"
+          size="sm"
+          name="purpose"
+          className="my-1 mr-sm-2"
+          value={props.purpose}
+          onChange={props.purposeHandler}
+        >
+          {Object.values(Purpose).map(type => (
+            <option key={type}>{type}</option>
+          ))}
+        </Form.Control>
+        <Form.Label className="my-1 mr-2">Account Nr.</Form.Label>
+        <Form.Control
+          as="select"
+          size="sm"
+          name="accountNumber"
+          className="my-1 mr-sm-2"
+          value={props.accountNumber}
+          onChange={props.accountNumberHandler}
+        >
+          {accountList}
+        </Form.Control>
+        <Form.Text muted>
+          Derivation path:{" "}
           {accountDerivationPath(props.purpose, props.accountNumber)}/i
-        </code>
-      </p>
+        </Form.Text>
+      </Form.Group>
     </Form>
   )
 }
