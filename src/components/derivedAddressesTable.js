@@ -1,27 +1,8 @@
-import React, { useMemo } from "react"
-import { addressesFromXPub } from "../lib/xpub.js"
+import React from "react"
 import { Table } from "react-bootstrap"
 import { maskXPub } from "../lib/xpub.js"
 
 const DerivedAddressesTable = props => {
-  let addressList = useMemo(
-    () =>
-      addressesFromXPub(
-        props.xpub,
-        props.addressCount,
-        props.accountNumber,
-        props.purpose,
-        props.network
-      ),
-    [
-      props.xpub,
-      props.addressCount,
-      props.accountNumber,
-      props.purpose,
-      props.network,
-    ]
-  )
-
   return (
     <Table bordered>
       <thead>
@@ -32,7 +13,7 @@ const DerivedAddressesTable = props => {
         </tr>
       </thead>
       <tbody>
-        {addressList.map(({ path, address }) => (
+        {props.addressList.map(({ path, address }) => (
           <PathAddressRow key={path} path={path} address={address} />
         ))}
       </tbody>
