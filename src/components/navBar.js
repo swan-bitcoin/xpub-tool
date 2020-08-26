@@ -14,7 +14,7 @@ const CustomNavbar = ({ pageInfo }) => {
         <Link to="/xpub" className="link-no-style">
           <Navbar.Brand as="span">xPub</Navbar.Brand>
         </Link>
-        <Link to="/hardware" className="link-no-style">
+        <Link to="/hww" className="link-no-style">
           <Navbar.Brand as="span">HW Wallets</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

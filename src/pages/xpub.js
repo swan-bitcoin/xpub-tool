@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Row, Col, Container, ListGroup } from "react-bootstrap"
+import { Row, Col, Container } from "react-bootstrap"
 import { MAINNET } from "unchained-bitcoin"
 
 import Layout from "../components/layout"

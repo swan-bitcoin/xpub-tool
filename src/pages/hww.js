@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Row, Col, Container, ListGroup } from "react-bootstrap"
+import { Row, Col, Container } from "react-bootstrap"
 import { MAINNET } from "unchained-bitcoin"
 
 import Layout from "../components/layout"
@@ -14,7 +14,7 @@ const IndexPage = props => {
   const handleNetworkChange = event => setNetwork(event.target.value)
 
   return (
-    <Layout pageInfo={{ pageName: "hardware" }}>
+    <Layout pageInfo={{ pageName: "hww" }}>
       <Container className="text-center">
         <Row>
           <Col>

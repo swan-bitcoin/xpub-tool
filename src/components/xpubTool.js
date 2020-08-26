@@ -41,16 +41,18 @@ const XPubTool = props => {
         network={props.network}
         changeHandler={handleXpubChange}
       />
-      <AddressDerivationInput
-        xpub={xpub}
-        purpose={purpose}
-        accountNumber={accountNumber}
-        addressCount={addressCount}
-        xpubHandler={handleXpubChange}
-        purposeHandler={handlePurposeChange}
-        accountNumberHandler={handleAccountNumberChange}
-        addressCountHandler={handleAddressCountChange}
-      />
+      {props.useCustomPath && (
+        <AddressDerivationInput
+          xpub={xpub}
+          purpose={purpose}
+          accountNumber={accountNumber}
+          addressCount={addressCount}
+          xpubHandler={handleXpubChange}
+          purposeHandler={handlePurposeChange}
+          accountNumberHandler={handleAccountNumberChange}
+          addressCountHandler={handleAddressCountChange}
+        />
+      )}
       {isValidXpub && (
         <DerivedAddressesTable
           network={props.network}
