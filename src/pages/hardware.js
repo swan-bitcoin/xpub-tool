@@ -30,7 +30,7 @@ const HWW = props => {
   }
 
   return (
-    <Layout pageInfo={{ pageName: "hww" }}>
+    <Layout pageInfo={{ pageName: "hardware" }}>
       <Container>
         <AddressDerivationInput
           // xpub={xpub} // TODO: optionals
