@@ -13,10 +13,10 @@ const Purpose = {
 const DEFAULT_NETWORK = TESTNET
 const DEFAULT_PURPOSE = Purpose.P2SH
 
-function maskXPub(xpub, pre = 15, post = 15) {
+function maskXPub(xpub, pre = 15, post = 15, placeholder = "[...]") {
   const beginning = xpub.substr(0, pre)
   const ending = xpub.substr(xpub.length - post, xpub.length)
-  return beginning + "[...]" + ending
+  return beginning + placeholder + ending
 }
 
 function addressesFromXPub(
