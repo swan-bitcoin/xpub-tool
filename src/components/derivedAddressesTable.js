@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap"
 import { maskXPub } from "../lib/xpub.js"
 
 const DerivedAddressesTable = props => {
+  const showCount = props.showCount || props.addressList.length
   return (
     <Table bordered>
       <thead>
@@ -15,7 +16,7 @@ const DerivedAddressesTable = props => {
       <tbody>
         {props.addressList.map(({ path, address }, i) => {
           return (
-            i < (props.showCount || 10) && (
+            i < showCount && (
               <PathAddressRow key={path} path={path} address={address} />
             )
           )

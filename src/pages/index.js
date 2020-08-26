@@ -74,7 +74,7 @@ const IndexPage = props => {
                 network={network}
                 xpub={xpub}
                 addressList={addressList}
-                showCount="3"
+                showCount="5"
               />
             </Col>
           </Row>
