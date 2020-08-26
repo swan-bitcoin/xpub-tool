@@ -1,33 +1,9 @@
-import React, { useMemo } from "react"
-import { DerivedAddress } from "../lib/xpub.js"
+import React from "react"
 import { Table } from "react-bootstrap"
 import { maskXPub } from "../lib/xpub.js"
 
 const DerivedAddressesTable = props => {
-  const derivedAddress = new DerivedAddress(props.network)
-  const addressList = useMemo(() => {
-    let addresses = []
-
-    for (let i = 0; i < props.addressCount; i++) {
-      const address = derivedAddress.fromXpub(
-        props.xpub,
-        props.accountNumber,
-        i,
-        props.purpose
-      )
-
-      addresses.push(address)
-    }
-
-    return addresses
-  }, [
-    props.purpose,
-    derivedAddress,
-    props.addressCount,
-    props.xpub,
-    props.accountNumber,
-  ])
-
+  const showCount = props.showCount || props.addressList.length
   return (
     <Table bordered>
       <thead>
@@ -38,14 +14,14 @@ const DerivedAddressesTable = props => {
         </tr>
       </thead>
       <tbody>
-        {addressList.map(({ address, path, fullPath }) => (
-          <PathAddressRow
-            key={address}
-            path={path}
-            address={address}
-            fullPath={fullPath}
-          />
-        ))}
+        {props.addressList.map(({ path, address }, i) => {
+          return (
+            i < showCount && (
+              <PathAddressRow key={path} path={path} address={address} />
+            )
+          )
+        })}
+        <PathAddressRow path="..." address="..." />
       </tbody>
     </Table>
   )
@@ -54,7 +30,7 @@ const DerivedAddressesTable = props => {
 const PathAddressRow = props => (
   <tr>
     <td>
-      <span title={props.fullPath}>{props.address}</span>
+      <span title={props.path}>{props.address}</span>
     </td>
   </tr>
 )
