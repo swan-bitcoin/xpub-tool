@@ -8,12 +8,15 @@ const XPubInput = props => {
     [props.xpub, props.network]
   )
 
+  const isEmptyXpub = props.xpub === ""
+  const isFilled = !isEmptyXpub
+
   return (
     <Form noValidate>
       <Form.Group>
         <Form.Control
-          isValid={isValidXpub}
-          isInvalid={!isValidXpub}
+          isValid={isFilled && isValidXpub}
+          isInvalid={isFilled && !isValidXpub}
           size="lg"
           type="password"
           placeholder="xpub..."
@@ -21,7 +24,9 @@ const XPubInput = props => {
           onChange={props.changeHandler}
         />
       </Form.Group>
-      {!isValidXpub && <Alert variant="warning">Invalid xPub</Alert>}
+      {isFilled && !isValidXpub && (
+        <Alert variant="warning">Invalid xPub</Alert>
+      )}
     </Form>
   )
 }
