@@ -39,7 +39,12 @@ const AddressDerivationInput = props => {
         </Form.Control>
         <Form.Text muted>
           Derivation path:{" "}
-          {accountDerivationPath(props.purpose, props.accountNumber)}/i
+          {accountDerivationPath(
+            props.purpose,
+            props.accountNumber,
+            props.network
+          )}
+          /i
         </Form.Text>
       </Form.Group>
     </Form>

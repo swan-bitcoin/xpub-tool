@@ -29,13 +29,6 @@ const XPubTool = props => {
 
   return (
     <div>
-      {props.useHardware && (
-        <HardwareWallets
-          purpose={purpose}
-          accountNumber={accountNumber}
-          network={props.network}
-        />
-      )}
       <XPubInput
         xpub={xpub}
         network={props.network}
