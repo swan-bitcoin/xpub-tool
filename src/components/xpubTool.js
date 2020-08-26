@@ -14,7 +14,7 @@ const XPubTool = props => {
   const [xpub, setXpub] = useState(exampleXPub)
   const [purpose, setPurpose] = useState(Purpose.P2SH) // default to 3addresses
   const [accountNumber, setAccountNumber] = useState(0)
-  const [addressCount, setAddressCount] = useState(5)
+  const [addressCount, setAddressCount] = useState(3)
 
   const isValidXpub = useMemo(
     () => validateExtendedPublicKey(xpub, props.network) === "",
@@ -29,16 +29,6 @@ const XPubTool = props => {
 
   return (
     <div>
-      <AddressDerivationInput
-        xpub={xpub}
-        purpose={purpose}
-        accountNumber={accountNumber}
-        addressCount={addressCount}
-        xpubHandler={handleXpubChange}
-        purposeHandler={handlePurposeChange}
-        accountNumberHandler={handleAccountNumberChange}
-        addressCountHandler={handleAddressCountChange}
-      />
       {props.useHardware && (
         <HardwareWallets
           purpose={purpose}
@@ -50,6 +40,16 @@ const XPubTool = props => {
         xpub={xpub}
         network={props.network}
         changeHandler={handleXpubChange}
+      />
+      <AddressDerivationInput
+        xpub={xpub}
+        purpose={purpose}
+        accountNumber={accountNumber}
+        addressCount={addressCount}
+        xpubHandler={handleXpubChange}
+        purposeHandler={handlePurposeChange}
+        accountNumberHandler={handleAccountNumberChange}
+        addressCountHandler={handleAddressCountChange}
       />
       {isValidXpub && (
         <DerivedAddressesTable
