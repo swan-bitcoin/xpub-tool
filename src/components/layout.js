@@ -46,9 +46,18 @@ const Layout = ({ children, pageInfo }) => (
             <Col className="footer-col">
               <footer>
                 <span>
-                  © {new Date().getFullYear()}, Built with
+                  Built with
                   {` `}
-                  <a href="https://www.gatsbyjs.org">Gatsby</a>
+                  <a href="https://github.com/bitcoinjs/bitcoinjs-lib">
+                    bitcoinjs-lib
+                  </a>
+                  ,{` `}
+                  <a href="https://github.com/unchained-capital/unchained-bitcoin/">
+                    unchained-bitcoin
+                  </a>
+                  , and <a href="https://www.gatsbyjs.org">Gatsby</a>
+                  <br />© {new Date().getFullYear()}{" "}
+                  <a href="https://swanbitcoin.com">Swan Bitcoin</a>
                 </span>
               </footer>
             </Col>

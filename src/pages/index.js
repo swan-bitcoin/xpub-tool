@@ -35,32 +35,6 @@ const IndexPage = props => {
             <XPubTool network={network} />
           </Col>
         </Row>
-        <hr />
-        <Row>
-          <Col>
-            <p>Heavy lifting done by the following libraries:</p>
-          </Col>
-        </Row>
-        <Row className="justify-content-center my-3">
-          <Col md="6">
-            <ListGroup>
-              <ListGroup.Item
-                action
-                href="https://github.com/unchained-capital/unchained-bitcoin/"
-                target="_blank"
-              >
-                unchained-bitcoin
-              </ListGroup.Item>
-              <ListGroup.Item
-                action
-                href="https://github.com/bitcoinjs/bitcoinjs-lib"
-                target="_blank"
-              >
-                bitcoinjs-lib
-              </ListGroup.Item>
-            </ListGroup>
-          </Col>
-        </Row>
       </Container>
     </Layout>
   )
