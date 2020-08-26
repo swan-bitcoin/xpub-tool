@@ -1,62 +1,43 @@
 import React, { useState } from "react"
-import { Tabs, Tab, Container } from "react-bootstrap"
-import { TESTNET } from "unchained-bitcoin"
-import { LEDGER, TREZOR } from "unchained-wallets"
+import { Row, Col, Container, ListGroup } from "react-bootstrap"
+import { MAINNET } from "unchained-bitcoin"
 
 import Layout from "../components/layout"
-import XPubImporter from "../components/XPubImporter.js"
-import AddressDerivationInput from "../components/addressDerivationInput.js"
-import { accountDerivationPath } from "../lib/paths.js"
-import { Purpose } from "../lib/xpub.js"
+import { XPubExamples } from "../components/xpubExamples"
+import XPubTool from "../components/xpubTool"
+import NetworkSwitcher from "../components/networkSwitcher"
 
-const DEFAULT_NETWORK = TESTNET
+const DEFAULT_NETWORK = MAINNET // or TESTNET
 
-const HWW = props => {
-  const [accountNumber, setAccountNumber] = useState(0)
-  let bip32Paths = Object.values(Purpose).map(purpose => {
-    return accountDerivationPath(
-      purpose,
-      accountNumber,
-      props.network || DEFAULT_NETWORK
-    )
-  })
+const IndexPage = props => {
+  const [network, setNetwork] = useState(DEFAULT_NETWORK)
 
-  const handleAccountNumberChange = event =>
-    setAccountNumber(event.target.value)
-
-  let accountList = []
-  for (var i = 0; i < 25; i++) {
-    accountList.push(<option key={i}>{i}</option>)
-  }
+  const handleNetworkChange = event => setNetwork(event.target.value)
 
   return (
     <Layout pageInfo={{ pageName: "hardware" }}>
-      <Container>
-        <AddressDerivationInput
-          // xpub={xpub} // TODO: optionals
-          // purpose={purpose}
-          accountNumber={accountNumber}
-          // xpubHandler={handleXpubChange}
-          // purposeHandler={handlePurposeChange}
-          accountNumberHandler={handleAccountNumberChange}
-        />
-        <Tabs id="hardware-wallet-selector">
-          {[LEDGER, TREZOR].map(type => (
-            <Tab key={type} eventKey={type} title={type.toUpperCase()}>
-              {bip32Paths.map(path => (
-                <XPubImporter
-                  key={path}
-                  network={props.network}
-                  bip32Path={path}
-                  keystore={type}
-                />
-              ))}
-            </Tab>
-          ))}
-        </Tabs>
+      <Container className="text-center">
+        <Row>
+          <Col>
+            <XPubExamples network={network} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <XPubTool network={network} useHardware={true} />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <NetworkSwitcher
+              network={network}
+              changeHandler={handleNetworkChange}
+            />
+          </Col>
+        </Row>
       </Container>
     </Layout>
   )
 }
 
-export default HWW
+export default IndexPage
