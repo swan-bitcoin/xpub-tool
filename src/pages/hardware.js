@@ -3,7 +3,6 @@ import { Row, Col, Container, ListGroup } from "react-bootstrap"
 import { MAINNET } from "unchained-bitcoin"
 
 import Layout from "../components/layout"
-import { XPubExamples } from "../components/xpubExamples"
 import XPubTool from "../components/xpubTool"
 import NetworkSwitcher from "../components/networkSwitcher"
 
