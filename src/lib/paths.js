@@ -1,4 +1,4 @@
-import { MAINNET, TESTNET } from "unchained-bitcoin"
+import { NETWORKS } from "unchained-bitcoin"
 
 import { AccountTypeName } from "./purpose"
 
@@ -13,13 +13,13 @@ function partialKeyDerivationPath(accountNumber, keyIndex) {
 function accountDerivationPath(
   purpose,
   accountNumber,
-  network = TESTNET,
+  network = NETWORKS.TESTNET,
   coinPrefix = COIN_PREFIX
 ) {
   return [
     coinPrefix,
     harden(purpose),
-    harden(network === MAINNET ? 0 : 1),
+    harden(network === NETWORKS.MAINNET ? 0 : 1),
     harden(accountNumber),
   ].join(SEPARATOR)
 }
@@ -31,7 +31,7 @@ function fullDerivationPath(
   purpose,
   accountNumber,
   keyIndex,
-  network = TESTNET,
+  network = NETWORKS.TESTNET,
   coinPrefix = COIN_PREFIX,
   change = 0
 ) {
