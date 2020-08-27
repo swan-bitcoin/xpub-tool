@@ -1,15 +1,10 @@
 import { MAINNET, TESTNET } from "unchained-bitcoin"
 
+import { AccountTypeName } from "./purpose"
+
 const SEPARATOR = "/"
 const APOSTROPHE = "'"
 const COIN_PREFIX = "m"
-
-// Human-readable account names as used by wallets
-const AccountTypeName = {
-  44: "Legacy", // 1addresses
-  49: "SegWit", // 3addresses, SegWit = default
-  84: "Native SegWit", // bc1addresses
-}
 
 function partialKeyDerivationPath(accountNumber, keyIndex) {
   return [accountNumber, keyIndex].join(SEPARATOR)
