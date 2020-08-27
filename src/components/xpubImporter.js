@@ -13,12 +13,6 @@ import { humanReadableDerivationPath } from "../lib/paths"
 import { maskXPub } from "../lib/xpub"
 
 class XPubImporter extends React.Component {
-  static propTypes = {
-    network: PropTypes.string.isRequired,
-    bip32Path: PropTypes.string.isRequired,
-    keystore: PropTypes.string.isRequired,
-  }
-
   constructor(props) {
     super(props)
     this.state = {
@@ -113,6 +107,12 @@ class XPubImporter extends React.Component {
       </div>
     )
   }
+}
+
+XPubImporter.propTypes = {
+  network: PropTypes.string.isRequired,
+  bip32Path: PropTypes.string.isRequired,
+  keystore: PropTypes.string.isRequired,
 }
 
 export default XPubImporter
