@@ -2,7 +2,7 @@ import React from "react"
 import { Tabs, Tab } from "react-bootstrap"
 import { LEDGER, TREZOR } from "unchained-wallets"
 
-import XPubImporter from "../components/xpubImporter"
+import XPubImporter from "./xpubImporter"
 import { accountDerivationPath } from "../lib/paths"
 
 const HardwareWallets = ({ purpose, accountNumber, network }) => {
