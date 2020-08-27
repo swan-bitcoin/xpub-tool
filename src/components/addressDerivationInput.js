@@ -1,8 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Form } from "react-bootstrap"
-import { Purpose } from "../lib/xpub.js"
-import { accountDerivationPath } from "../lib/paths.js"
+import { accountDerivationPath, Purpose, NETWORKS } from "../lib"
 
 const AddressDerivationInput = props => {
   const MAX_ACCOUNTS = 22
