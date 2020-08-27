@@ -12,41 +12,6 @@ function maskXPub(xpub, pre = 15, post = 15, placeholder = "[...]") {
   return beginning + placeholder + ending
 }
 
-function addressesFromXPub(
-  xpub,
-  addressCount,
-  accountNumber = 0,
-  purpose = DEFAULT_PURPOSE,
-  network = DEFAULT_NETWORK
-) {
-  let addresses = []
-
-  for (let i = 0; i < addressCount; i++) {
-    const { path, address } = addressFromXPub(
-      xpub,
-      accountNumber,
-      i,
-      purpose,
-      network
-    )
-
-    addresses.push({ path, address })
-  }
-
-  return addresses
-}
-
-function addressFromXPub(xpub, accountNumber, keyIndex, purpose, network) {
-  const partialPath = partialKeyDerivationPath(accountNumber, keyIndex)
-  const fullPath = fullDerivationPath(purpose, accountNumber, keyIndex, network)
-  const childPubKey = deriveChildPublicKey(xpub, partialPath, network)
-  const keyPair = bitcoin.ECPair.fromPublicKey(Buffer.from(childPubKey, "hex"))
-  return {
-    path: fullPath,
-    address: deriveAddress(purpose, keyPair.publicKey, network),
-  }
-}
-
 function deriveAddress(purpose, pubkey, network) {
   const net = networkData(network)
   switch (purpose) {
@@ -75,6 +40,41 @@ function deriveAddress(purpose, pubkey, network) {
       return bc1Address
     }
   }
+}
+
+function addressFromXPub(xpub, accountNumber, keyIndex, purpose, network) {
+  const partialPath = partialKeyDerivationPath(accountNumber, keyIndex)
+  const fullPath = fullDerivationPath(purpose, accountNumber, keyIndex, network)
+  const childPubKey = deriveChildPublicKey(xpub, partialPath, network)
+  const keyPair = bitcoin.ECPair.fromPublicKey(Buffer.from(childPubKey, "hex"))
+  return {
+    path: fullPath,
+    address: deriveAddress(purpose, keyPair.publicKey, network),
+  }
+}
+
+function addressesFromXPub(
+  xpub,
+  addressCount,
+  accountNumber = 0,
+  purpose = DEFAULT_PURPOSE,
+  network = DEFAULT_NETWORK
+) {
+  let addresses = []
+
+  for (let i = 0; i < addressCount; i += 1) {
+    const { path, address } = addressFromXPub(
+      xpub,
+      accountNumber,
+      i,
+      purpose,
+      network
+    )
+
+    addresses.push({ path, address })
+  }
+
+  return addresses
 }
 
 export { Purpose, maskXPub, addressesFromXPub }
