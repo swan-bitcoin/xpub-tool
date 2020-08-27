@@ -62,6 +62,7 @@ const IndexPage = () => {
                 xpub={xpub}
                 purpose={purpose}
                 accountNumber={accountNumber}
+                network={network}
                 xpubHandler={handleXpubChange}
                 onPurposeChange={handlePurposeChange}
                 onAccountNumberChange={handleAccountNumberChange}

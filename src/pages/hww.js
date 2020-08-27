@@ -32,9 +32,9 @@ const IndexPage = () => {
               <AddressDerivationInput
                 purpose={purpose}
                 accountNumber={accountNumber}
+                network={network}
                 onPurposeChange={handlePurposeChange}
                 onAccountNumberChange={handleAccountNumberChange}
-                network={network}
               />
             </Col>
           </Row>

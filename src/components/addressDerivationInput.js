@@ -1,12 +1,12 @@
 import React, { useMemo } from "react"
 import PropTypes from "prop-types"
 import { Form } from "react-bootstrap"
-import { accountDerivationPath, Purpose, NETWORKS } from "../lib"
+import { accountDerivationPath, Purpose } from "../lib"
 
 const AddressDerivationInput = ({
   maxAccounts = 22,
   accountNumber,
-  network = NETWORKS.TESTNET,
+  network,
   purpose,
   onPurposeChange: purposeChangeHandler,
   onAccountNumberChange: accountNumberChangeHandler,
