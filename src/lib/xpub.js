@@ -60,7 +60,7 @@ function addressesFromXPub(
   purpose = DEFAULT_PURPOSE,
   network = DEFAULT_NETWORK
 ) {
-  let addresses = []
+  const addresses = []
 
   for (let i = 0; i < addressCount; i += 1) {
     const { path, address } = addressFromXPub(
