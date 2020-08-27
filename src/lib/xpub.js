@@ -1,6 +1,6 @@
 import * as bitcoin from "bitcoinjs-lib"
-import { deriveChildPublicKey, networkData, TESTNET } from "unchained-bitcoin"
-import { fullDerivationPath, partialKeyDerivationPath } from "../lib/paths.js"
+import { deriveChildPublicKey, networkData, NETWORKS } from "unchained-bitcoin"
+import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
 
 // Purpose defines the address type
 const Purpose = {
@@ -9,7 +9,7 @@ const Purpose = {
   P2WPKH: 84, // bc1...
 }
 
-const DEFAULT_NETWORK = TESTNET
+const DEFAULT_NETWORK = NETWORKS.TESTNET
 const DEFAULT_PURPOSE = Purpose.P2SH
 
 function maskXPub(xpub, pre = 15, post = 15, placeholder = "[...]") {
