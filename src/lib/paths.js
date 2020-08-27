@@ -10,6 +10,10 @@ function partialKeyDerivationPath(accountNumber, keyIndex) {
   return [accountNumber, keyIndex].join(SEPARATOR)
 }
 
+function harden(string) {
+  return string + APOSTROPHE
+}
+
 function accountDerivationPath(
   purpose,
   accountNumber,
@@ -22,9 +26,6 @@ function accountDerivationPath(
     harden(network === NETWORKS.MAINNET ? 0 : 1),
     harden(accountNumber),
   ].join(SEPARATOR)
-}
-function harden(string) {
-  return string + APOSTROPHE
 }
 
 function fullDerivationPath(
