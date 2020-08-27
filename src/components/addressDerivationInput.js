@@ -3,12 +3,19 @@ import PropTypes from "prop-types"
 import { Form } from "react-bootstrap"
 import { accountDerivationPath, Purpose, NETWORKS } from "../lib"
 
-const AddressDerivationInput = props => {
   const MAX_ACCOUNTS = 22
   let accountList = []
   for (var i = 0; i < MAX_ACCOUNTS; i++) {
     accountList.push(<option key={i}>{i}</option>)
   }
+const AddressDerivationInput = ({
+  maxAccounts = 22,
+  accountNumber,
+  network = NETWORKS.TESTNET,
+  purpose,
+  onPurposeChange: purposeChangeHandler,
+  onAccountChange: accountNumberChangeHandler,
+}) => {
 
   return (
     <Form inline>
@@ -19,8 +26,8 @@ const AddressDerivationInput = props => {
           size="sm"
           name="purpose"
           className="my-1 mr-sm-2"
-          value={props.purpose}
-          onChange={props.purposeHandler}
+          value={purpose}
+          onChange={purposeChangeHandler}
         >
           {Object.values(Purpose).map(type => (
             <option key={type}>{type}</option>
@@ -32,18 +39,14 @@ const AddressDerivationInput = props => {
           size="sm"
           name="accountNumber"
           className="my-1 mr-sm-2"
-          value={props.accountNumber}
-          onChange={props.accountNumberHandler}
+          value={accountNumber}
+          onChange={accountNumberChangeHandler}
         >
           {accountList}
         </Form.Control>
         <Form.Text muted>
           Derivation path:{" "}
-          {accountDerivationPath(
-            props.purpose,
-            props.accountNumber,
-            props.network
-          )}
+          {accountDerivationPath(purpose, accountNumber, network)}
           /i
         </Form.Text>
       </Form.Group>

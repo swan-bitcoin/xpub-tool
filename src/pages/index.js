@@ -63,8 +63,8 @@ const IndexPage = props => {
                 purpose={purpose}
                 accountNumber={accountNumber}
                 xpubHandler={handleXpubChange}
-                purposeHandler={handlePurposeChange}
-                accountNumberHandler={handleAccountNumberChange}
+                onPurposeChange={handlePurposeChange}
+                onAccountNumberChange={handleAccountNumberChange}
               />
               <hr />
             </Col>
