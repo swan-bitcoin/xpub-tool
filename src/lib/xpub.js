@@ -13,12 +13,11 @@ function maskXPub({ xpub, pre = 15, post = 15, placeholder = "[...]" }) {
 }
 
 function deriveAddress({ purpose, pubkey, network }) {
-  const net = networkData(network)
   switch (purpose) {
     case Purpose.P2PKH: {
       const { address: oneAddress } = bitcoin.payments.p2pkh({
         pubkey,
-        network: net,
+        network: networkData(network),
       })
       return oneAddress
     }
@@ -27,7 +26,7 @@ function deriveAddress({ purpose, pubkey, network }) {
       const { address: threeAddress } = bitcoin.payments.p2sh({
         redeem: bitcoin.payments.p2wpkh({
           pubkey,
-          network: net,
+          network: networkData(network),
         }),
       })
       return threeAddress
@@ -35,7 +34,7 @@ function deriveAddress({ purpose, pubkey, network }) {
     case Purpose.P2WPKH: {
       const { address: bc1Address } = bitcoin.payments.p2wpkh({
         pubkey,
-        network: net,
+        network: networkData(network),
       })
       return bc1Address
     }
