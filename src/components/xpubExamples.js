@@ -1,6 +1,6 @@
 import React from "react"
 
-import { MAINNET, networkLabel } from "unchained-bitcoin"
+import { NETWORKS, networkLabel } from "unchained-bitcoin"
 
 // Mainnet: xpub...
 // Testnet: tpub...
@@ -14,7 +14,7 @@ const EXAMPLE_TPUBS = [
 ]
 
 const XPubExamples = ({ network }) => {
-  const pubs = network === MAINNET ? EXAMPLE_XPUBS : EXAMPLE_TPUBS
+  const pubs = network === NETWORKS.MAINNET ? EXAMPLE_XPUBS : EXAMPLE_TPUBS
 
   return (
     <div>
