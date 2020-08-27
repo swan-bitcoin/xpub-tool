@@ -33,7 +33,7 @@ const IndexPage = props => {
     [xpub, network]
   )
 
-  let addressList = !isValidXpub
+  const addressList = !isValidXpub
     ? []
     : addressesFromXPub({
         xpub,
