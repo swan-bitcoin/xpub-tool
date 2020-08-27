@@ -19,11 +19,6 @@ class XPubImporter extends React.Component {
     keystore: PropTypes.string.isRequired,
   }
 
-  interaction() {
-    const { network, bip32Path, keystore } = this.props
-    return ExportExtendedPublicKey({ keystore, network, bip32Path })
-  }
-
   constructor(props) {
     super(props)
     this.state = {
@@ -32,6 +27,11 @@ class XPubImporter extends React.Component {
       error: "",
     }
     this.importXPub = this.importXPub.bind(this)
+  }
+
+  interaction() {
+    const { network, bip32Path, keystore } = this.props
+    return ExportExtendedPublicKey({ keystore, network, bip32Path })
   }
 
   renderMessages() {
