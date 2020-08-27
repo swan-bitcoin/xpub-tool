@@ -43,8 +43,13 @@ function deriveAddress({ purpose, pubkey, network }) {
 }
 
 function addressFromXPub({ xpub, accountNumber, keyIndex, purpose, network }) {
-  const partialPath = partialKeyDerivationPath(accountNumber, keyIndex)
-  const fullPath = fullDerivationPath(purpose, accountNumber, keyIndex, network)
+  const partialPath = partialKeyDerivationPath({ accountNumber, keyIndex })
+  const fullPath = fullDerivationPath({
+    purpose,
+    accountNumber,
+    keyIndex,
+    network,
+  })
   const childPubKey = deriveChildPublicKey(xpub, partialPath, network)
   const keyPair = bitcoin.ECPair.fromPublicKey(Buffer.from(childPubKey, "hex"))
   const pubkey = keyPair.publicKey

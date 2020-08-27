@@ -46,7 +46,7 @@ const AddressDerivationInput = ({
         </Form.Control>
         <Form.Text muted>
           Derivation path:{" "}
-          {accountDerivationPath(purpose, accountNumber, network)}
+          {accountDerivationPath({ purpose, accountNumber, network })}
           /i
         </Form.Text>
       </Form.Group>

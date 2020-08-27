@@ -6,7 +6,7 @@ const SEPARATOR = "/"
 const APOSTROPHE = "'"
 const COIN_PREFIX = "m"
 
-function partialKeyDerivationPath(accountNumber, keyIndex) {
+function partialKeyDerivationPath({ accountNumber, keyIndex }) {
   return [accountNumber, keyIndex].join(SEPARATOR)
 }
 
@@ -14,12 +14,12 @@ function harden(string) {
   return string + APOSTROPHE
 }
 
-function accountDerivationPath(
+function accountDerivationPath({
+  coinPrefix = COIN_PREFIX,
   purpose,
-  accountNumber,
   network = NETWORKS.TESTNET,
-  coinPrefix = COIN_PREFIX
-) {
+  accountNumber,
+}) {
   return [
     coinPrefix,
     harden(purpose),
@@ -28,22 +28,22 @@ function accountDerivationPath(
   ].join(SEPARATOR)
 }
 
-function fullDerivationPath(
-  purpose,
-  accountNumber,
-  keyIndex,
-  network = NETWORKS.TESTNET,
+function fullDerivationPath({
   coinPrefix = COIN_PREFIX,
-  change = 0
-) {
+  purpose,
+  network = NETWORKS.TESTNET,
+  accountNumber,
+  change = 0,
+  keyIndex,
+}) {
   return [
-    accountDerivationPath(purpose, accountNumber, network, coinPrefix),
+    accountDerivationPath({ purpose, accountNumber, network, coinPrefix }),
     change,
     keyIndex,
   ].join(SEPARATOR)
 }
 
-function humanReadableDerivationPath(bip32Path, accountString = "Account") {
+function humanReadableDerivationPath({ bip32Path, accountString = "Account" }) {
   // Example:
   //   bip32HumanReadablePath("m/49'/0'/3'/0/1")
   //   -> "SegWit Account #3"

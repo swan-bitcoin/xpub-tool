@@ -67,12 +67,12 @@ class XPubImporter extends React.Component {
     return (
       <div>
         <h3>
-          {humanReadableDerivationPath(bip32Path)} <code>{bip32Path}</code>
+          {humanReadableDerivationPath({ bip32Path })} <code>{bip32Path}</code>
         </h3>
         {xpub ? (
           <div>
             <Alert key={bip32Path} variant="success" dismissible>
-              Imported {humanReadableDerivationPath(bip32Path)}
+              Imported {humanReadableDerivationPath({ bip32Path })}
             </Alert>
             <p>
               <code>{maskXPub({ xpub })}</code>
@@ -97,7 +97,7 @@ class XPubImporter extends React.Component {
               variant="outline-primary"
               disabled={keystoreState !== PENDING}
               onClick={this.importXPub}
-              title={humanReadableDerivationPath(bip32Path)}
+              title={humanReadableDerivationPath({ bip32Path })}
             >
               Import {bip32Path}
             </Button>
