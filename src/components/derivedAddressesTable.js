@@ -1,6 +1,6 @@
 import React from "react"
 import { Table } from "react-bootstrap"
-import { maskXPub } from "../lib/xpub.js"
+import { maskXPub } from "../lib/xpub"
 
 const DerivedAddressesTable = props => {
   const showCount = props.showCount || props.addressList.length
