@@ -2,6 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Alert, Button } from "react-bootstrap"
 
+import { NETWORKS } from "unchained-bitcoin"
 import {
   ExportExtendedPublicKey,
   PENDING,
@@ -110,7 +111,7 @@ class XPubImporter extends React.Component {
 }
 
 XPubImporter.propTypes = {
-  network: PropTypes.string.isRequired,
+  network: PropTypes.oneOf(Object.values(NETWORKS)).isRequired,
   bip32Path: PropTypes.string.isRequired,
   keystore: PropTypes.string.isRequired,
 }
