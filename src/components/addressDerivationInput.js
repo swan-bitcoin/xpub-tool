@@ -58,7 +58,7 @@ AddressDerivationInput.propTypes = {
   purpose: PropTypes.oneOf(Object.values(Purpose)).isRequired,
   accountNumber: PropTypes.number.isRequired,
   onPurposeChange: PropTypes.func.isRequired,
-  onAccountChange: PropTypes.func.isRequired,
+  onAccountNumberChange: PropTypes.func.isRequired,
 }
 
 export default AddressDerivationInput
