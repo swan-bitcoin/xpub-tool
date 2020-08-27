@@ -64,7 +64,7 @@ const IndexPage = () => {
             <Col>
               <NetworkSwitcher
                 network={network}
-                changeHandler={handleNetworkChange}
+                onChange={handleNetworkChange}
               />
             </Col>
           </Row>

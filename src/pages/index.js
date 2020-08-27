@@ -51,7 +51,7 @@ const IndexPage = () => {
             <XPubInput
               xpub={xpub}
               network={network}
-              changeHandler={handleXpubChange}
+              onChange={handleXpubChange}
             />
           </Col>
         </Row>
@@ -104,7 +104,7 @@ const IndexPage = () => {
             <Col>
               <NetworkSwitcher
                 network={network}
-                changeHandler={handleNetworkChange}
+                onChange={handleNetworkChange}
               />
             </Col>
           </Row>

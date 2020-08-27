@@ -2,7 +2,7 @@ import React, { useMemo } from "react"
 import { Alert, Form } from "react-bootstrap"
 import { validateExtendedPublicKey } from "unchained-bitcoin"
 
-const XPubInput = ({ xpub, network, changeHandler }) => {
+const XPubInput = ({ xpub, network, onChange }) => {
   const isValidXpub = useMemo(
     () => validateExtendedPublicKey(xpub, network) === "",
     [xpub, network]
@@ -21,7 +21,7 @@ const XPubInput = ({ xpub, network, changeHandler }) => {
           type="password"
           placeholder="xpub..."
           value={xpub}
-          onChange={changeHandler}
+          onChange={onChange}
         />
       </Form.Group>
       {isFilled && !isValidXpub && (
