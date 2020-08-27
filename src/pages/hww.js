@@ -32,8 +32,8 @@ const IndexPage = props => {
               <AddressDerivationInput
                 purpose={purpose}
                 accountNumber={accountNumber}
-                purposeHandler={handlePurposeChange}
-                accountNumberHandler={handleAccountNumberChange}
+                onPurposeChange={handlePurposeChange}
+                onAccountNumberChange={handleAccountNumberChange}
                 network={network}
               />
             </Col>
