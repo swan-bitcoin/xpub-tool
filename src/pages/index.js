@@ -2,12 +2,12 @@ import React, { useState, useMemo } from "react"
 import { Row, Col, Container, Form } from "react-bootstrap"
 import { MAINNET, validateExtendedPublicKey } from "unchained-bitcoin"
 
-import { Purpose, addressesFromXPub } from "../lib/xpub.js"
+import { Purpose, addressesFromXPub } from "../lib/xpub"
 
 import Layout from "../components/layout"
-import DerivedAddressesTable from "../components/derivedAddressesTable.js"
-import AddressDerivationInput from "../components/addressDerivationInput.js"
-import XPubInput from "../components/xpubInput.js"
+import DerivedAddressesTable from "../components/derivedAddressesTable"
+import AddressDerivationInput from "../components/addressDerivationInput"
+import XPubInput from "../components/xpubInput"
 import NetworkSwitcher from "../components/networkSwitcher"
 import { XPubExamples } from "../components/xpubExamples"
 
