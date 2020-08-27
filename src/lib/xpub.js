@@ -12,7 +12,7 @@ function maskXPub(xpub, pre = 15, post = 15, placeholder = "[...]") {
   return beginning + placeholder + ending
 }
 
-function deriveAddress(purpose, pubkey, network) {
+function deriveAddress({ purpose, pubkey, network }) {
   const net = networkData(network)
   switch (purpose) {
     case Purpose.P2PKH: {
@@ -42,34 +42,35 @@ function deriveAddress(purpose, pubkey, network) {
   }
 }
 
-function addressFromXPub(xpub, accountNumber, keyIndex, purpose, network) {
+function addressFromXPub({ xpub, accountNumber, keyIndex, purpose, network }) {
   const partialPath = partialKeyDerivationPath(accountNumber, keyIndex)
   const fullPath = fullDerivationPath(purpose, accountNumber, keyIndex, network)
   const childPubKey = deriveChildPublicKey(xpub, partialPath, network)
   const keyPair = bitcoin.ECPair.fromPublicKey(Buffer.from(childPubKey, "hex"))
+  const pubkey = keyPair.publicKey
   return {
     path: fullPath,
-    address: deriveAddress(purpose, keyPair.publicKey, network),
+    address: deriveAddress({ purpose, pubkey, network }),
   }
 }
 
-function addressesFromXPub(
+function addressesFromXPub({
   xpub,
   addressCount,
   accountNumber = 0,
   purpose = DEFAULT_PURPOSE,
-  network = DEFAULT_NETWORK
-) {
+  network = DEFAULT_NETWORK,
+}) {
   const addresses = []
 
-  for (let i = 0; i < addressCount; i += 1) {
-    const { path, address } = addressFromXPub(
+  for (let keyIndex = 0; keyIndex < addressCount; keyIndex += 1) {
+    const { path, address } = addressFromXPub({
       xpub,
       accountNumber,
-      i,
+      keyIndex,
       purpose,
-      network
-    )
+      network,
+    })
 
     addresses.push({ path, address })
   }

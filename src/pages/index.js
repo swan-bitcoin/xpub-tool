@@ -35,13 +35,13 @@ const IndexPage = props => {
 
   let addressList = !isValidXpub
     ? []
-    : addressesFromXPub(
+    : addressesFromXPub({
         xpub,
-        NUMBER_OF_ADDRESSES,
+        addressCount: NUMBER_OF_ADDRESSES,
         accountNumber,
         purpose,
-        network
-      )
+        network,
+      })
 
   return (
     <Layout pageInfo={{ pageName: "index" }}>
