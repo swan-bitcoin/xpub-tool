@@ -75,7 +75,7 @@ class XPubImporter extends React.Component {
               Imported {humanReadableDerivationPath(bip32Path)}
             </Alert>
             <p>
-              <code>{maskXPub(xpub)}</code>
+              <code>{maskXPub({ xpub })}</code>
               <Button
                 variant="light"
                 title="Copy to clipboard"

@@ -8,7 +8,7 @@ const DerivedAddressesTable = ({ addressList, showCount, xpub }) => {
       <thead>
         <tr>
           <th>
-            Addresses for <code>{maskXPub(xpub)}</code>
+            Addresses for <code>{maskXPub({ xpub })}</code>
           </th>
         </tr>
       </thead>
