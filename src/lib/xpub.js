@@ -48,11 +48,11 @@ function addressFromXPub(xpub, accountNumber, keyIndex, purpose, network) {
 }
 
 function deriveAddress(purpose, pubkey, network) {
-  let net = networkData(network)
+  const net = networkData(network)
   switch (purpose) {
     case Purpose.P2PKH: {
       const { address: oneAddress } = bitcoin.payments.p2pkh({
-        pubkey: pubkey,
+        pubkey,
         network: net,
       })
       return oneAddress
@@ -61,7 +61,7 @@ function deriveAddress(purpose, pubkey, network) {
     case Purpose.P2SH: {
       const { address: threeAddress } = bitcoin.payments.p2sh({
         redeem: bitcoin.payments.p2wpkh({
-          pubkey: pubkey,
+          pubkey,
           network: net,
         }),
       })
@@ -69,7 +69,7 @@ function deriveAddress(purpose, pubkey, network) {
     }
     case Purpose.P2WPKH: {
       const { address: bc1Address } = bitcoin.payments.p2wpkh({
-        pubkey: pubkey,
+        pubkey,
         network: net,
       })
       return bc1Address
