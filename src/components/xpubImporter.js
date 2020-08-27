@@ -34,6 +34,24 @@ class XPubImporter extends React.Component {
     this.importXPub = this.importXPub.bind(this)
   }
 
+  renderMessages() {
+    const { keystoreState } = this.state
+    // Here we grab just the messages relevant for the
+    // current keystore state, but more complex filtering is possible...
+    const messages = this.interaction().messagesFor({ state: keystoreState })
+    return messages.map(this.renderMessage)
+  }
+
+  renderMessage(message, i) {
+    // The `message` object will always have a `text` property
+    // but may have additional properties useful for display.
+    return (
+      <Alert variant="info" key={i}>
+        {message.text}
+      </Alert>
+    )
+  }
+
   render() {
     const { keystoreState, xpub, error } = this.state
     const { bip32Path } = this.props
@@ -78,24 +96,6 @@ class XPubImporter extends React.Component {
         )}
         <hr />
       </div>
-    )
-  }
-
-  renderMessages() {
-    const { keystoreState } = this.state
-    // Here we grab just the messages relevant for the
-    // current keystore state, but more complex filtering is possible...
-    const messages = this.interaction().messagesFor({ state: keystoreState })
-    return messages.map(this.renderMessage)
-  }
-
-  renderMessage(message, i) {
-    // The `message` object will always have a `text` property
-    // but may have additional properties useful for display.
-    return (
-      <Alert variant="info" key={i}>
-        {message.text}
-      </Alert>
     )
   }
 
