@@ -2,21 +2,20 @@ import React from "react"
 import { Table } from "react-bootstrap"
 import { maskXPub } from "../lib/xpub"
 
-const DerivedAddressesTable = props => {
-  const showCount = props.showCount || props.addressList.length
+const DerivedAddressesTable = ({ addressList, showCount, xpub }) => {
   return (
     <Table bordered>
       <thead>
         <tr>
           <th>
-            Addresses for <code>{maskXPub(props.xpub)}</code>
+            Addresses for <code>{maskXPub(xpub)}</code>
           </th>
         </tr>
       </thead>
       <tbody>
-        {props.addressList.map(({ path, address }, i) => {
+        {addressList.map(({ path, address }, i) => {
           return (
-            i < showCount && (
+            i < (showCount || addressList.length) && (
               <PathAddressRow key={path} path={path} address={address} />
             )
           )
@@ -27,10 +26,10 @@ const DerivedAddressesTable = props => {
   )
 }
 
-const PathAddressRow = props => (
+const PathAddressRow = ({ path, address }) => (
   <tr>
     <td>
-      <span title={props.path}>{props.address}</span>
+      <span title={path}>{address}</span>
     </td>
   </tr>
 )
