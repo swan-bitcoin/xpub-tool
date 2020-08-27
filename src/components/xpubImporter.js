@@ -34,15 +34,30 @@ class XPubImporter extends React.Component {
     return ExportExtendedPublicKey({ keystore, network, bip32Path })
   }
 
+  async importXPub() {
+    this.setState({ keystoreState: ACTIVE })
+    try {
+      // This is where we actually talk to the hardware wallet.
+      const xpub = await this.interaction().run()
+      // If we succeed, reset the keystore state
+      // and store the imported public key.
+      this.setState({ keystoreState: PENDING, xpub })
+    } catch (e) {
+      // Something went wrong; revert the keystore
+      // state and track the error message.
+      this.setState({ keystoreState: PENDING, error: e.message })
+    }
+  }
+
   renderMessages() {
     const { keystoreState } = this.state
     // Here we grab just the messages relevant for the
     // current keystore state, but more complex filtering is possible...
     const messages = this.interaction().messagesFor({ state: keystoreState })
-    return messages.map(this.renderMessage)
+    return messages.map(XPubImporter.renderMessage)
   }
 
-  renderMessage(message, i) {
+  static renderMessage(message, i) {
     // The `message` object will always have a `text` property
     // but may have additional properties useful for display.
     return (
@@ -97,21 +112,6 @@ class XPubImporter extends React.Component {
         <hr />
       </div>
     )
-  }
-
-  async importXPub() {
-    this.setState({ keystoreState: ACTIVE })
-    try {
-      // This is where we actually talk to the hardware wallet.
-      const xpub = await this.interaction().run()
-      // If we succeed, reset the keystore state
-      // and store the imported public key.
-      this.setState({ keystoreState: PENDING, xpub })
-    } catch (e) {
-      // Something went wrong; revert the keystore
-      // state and track the error message.
-      this.setState({ keystoreState: PENDING, error: e.message })
-    }
   }
 }
 
