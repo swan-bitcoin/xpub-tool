@@ -1,5 +1,4 @@
 import * as bitcoin from "bitcoinjs-lib"
-
 import { deriveChildPublicKey, networkData, NETWORKS } from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "../lib/paths.js"
 import Purpose from "./purpose"
