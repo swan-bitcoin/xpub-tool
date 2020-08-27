@@ -1,4 +1,5 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { Form } from "react-bootstrap"
 import { Purpose } from "../lib/xpub.js"
 import { accountDerivationPath } from "../lib/paths.js"
@@ -49,6 +50,13 @@ const AddressDerivationInput = props => {
       </Form.Group>
     </Form>
   )
+}
+
+AddressDerivationInput.propTypes = {
+  purpose: PropTypes.oneOf(Object.values(Purpose)).isRequired,
+  accountNumber: PropTypes.number.isRequired,
+  onPurposeChange: PropTypes.func.isRequired,
+  onAccountChange: PropTypes.func.isRequired,
 }
 
 export default AddressDerivationInput
