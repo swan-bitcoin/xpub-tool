@@ -1,13 +1,7 @@
 import * as bitcoin from "bitcoinjs-lib"
 import { deriveChildPublicKey, networkData, TESTNET } from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "../lib/paths.js"
-
-// Purpose defines the address type
-const Purpose = {
-  P2PKH: 44, // 1...
-  P2SH: 49, // 3...
-  P2WPKH: 84, // bc1...
-}
+import Purpose from "./purpose"
 
 const DEFAULT_NETWORK = TESTNET
 const DEFAULT_PURPOSE = Purpose.P2SH
@@ -55,7 +49,7 @@ function addressFromXPub(xpub, accountNumber, keyIndex, purpose, network) {
 
 function deriveAddress(purpose, pubkey, network) {
   let net = networkData(network)
-  switch (Number(purpose)) {
+  switch (purpose) {
     case Purpose.P2PKH: {
       const { address: oneAddress } = bitcoin.payments.p2pkh({
         pubkey: pubkey,
