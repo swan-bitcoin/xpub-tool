@@ -6,7 +6,7 @@ import XPubImporter from "./xpubImporter"
 import { accountDerivationPath } from "../lib/paths"
 
 const HardwareWallets = ({ purpose, accountNumber, network }) => {
-  const path = accountDerivationPath(purpose, accountNumber, network)
+  const path = accountDerivationPath({ purpose, accountNumber, network })
 
   return (
     <Tabs id="hardware-wallet-selector">
