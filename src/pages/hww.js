@@ -11,7 +11,7 @@ import HardwareWallets from "../components/hardwareWallets"
 
 const DEFAULT_NETWORK = MAINNET // or TESTNET
 
-const IndexPage = props => {
+const IndexPage = () => {
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
   const [purpose, setPurpose] = useState(Purpose.P2SH) // default to 3addresses
   const [accountNumber, setAccountNumber] = useState(0)
