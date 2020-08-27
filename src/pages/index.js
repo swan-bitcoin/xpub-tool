@@ -14,7 +14,7 @@ import { XPubExamples } from "../components/xpubExamples"
 const DEFAULT_NETWORK = MAINNET // or TESTNET
 const NUMBER_OF_ADDRESSES = 100 // however many we need
 
-const IndexPage = props => {
+const IndexPage = () => {
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
   const [xpub, setXpub] = useState("")
   const [isExpertMode, setExpertMode] = useState(false)
