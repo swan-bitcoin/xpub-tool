@@ -2,13 +2,13 @@ import React, { useMemo } from "react"
 import { Alert, Form } from "react-bootstrap"
 import { validateExtendedPublicKey } from "unchained-bitcoin"
 
-const XPubInput = props => {
+const XPubInput = ({ xpub, network, changeHandler }) => {
   const isValidXpub = useMemo(
-    () => validateExtendedPublicKey(props.xpub, props.network) === "",
-    [props.xpub, props.network]
+    () => validateExtendedPublicKey(xpub, network) === "",
+    [xpub, network]
   )
 
-  const isEmptyXpub = props.xpub === ""
+  const isEmptyXpub = xpub === ""
   const isFilled = !isEmptyXpub
 
   return (
@@ -20,8 +20,8 @@ const XPubInput = props => {
           size="lg"
           type="password"
           placeholder="xpub..."
-          value={props.xpub}
-          onChange={props.changeHandler}
+          value={xpub}
+          onChange={changeHandler}
         />
       </Form.Group>
       {isFilled && !isValidXpub && (
