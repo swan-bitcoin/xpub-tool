@@ -20,8 +20,8 @@ const XPubExamples = ({ network }) => {
     <div>
       <p>{networkLabel(network)} example xpubs:</p>
       <ul>
-        {pubs.map((pub, i) => (
-          <li key={i}>
+        {pubs.map(pub => (
+          <li key={pub.id}>
             <code>{pub}</code>
           </li>
         ))}
