@@ -9,7 +9,7 @@ const AddressDerivationInput = ({
   network = NETWORKS.TESTNET,
   purpose,
   onPurposeChange: purposeChangeHandler,
-  onAccountChange: accountNumberChangeHandler,
+  onAccountNumberChange: accountNumberChangeHandler,
 }) => {
   const accountList = useMemo(
     // eslint-disable-next-line react/no-array-index-key
