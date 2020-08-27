@@ -1,13 +1,8 @@
-import React from "react"
+import React, { useMemo } from "react"
 import PropTypes from "prop-types"
 import { Form } from "react-bootstrap"
 import { accountDerivationPath, Purpose, NETWORKS } from "../lib"
 
-  const MAX_ACCOUNTS = 22
-  let accountList = []
-  for (var i = 0; i < MAX_ACCOUNTS; i++) {
-    accountList.push(<option key={i}>{i}</option>)
-  }
 const AddressDerivationInput = ({
   maxAccounts = 22,
   accountNumber,
@@ -16,6 +11,11 @@ const AddressDerivationInput = ({
   onPurposeChange: purposeChangeHandler,
   onAccountChange: accountNumberChangeHandler,
 }) => {
+  const accountList = useMemo(
+    // eslint-disable-next-line react/no-array-index-key
+    () => [...Array(maxAccounts)].map((_, i) => <option key={i}>{i}</option>),
+    [maxAccounts]
+  )
 
   return (
     <Form inline>
