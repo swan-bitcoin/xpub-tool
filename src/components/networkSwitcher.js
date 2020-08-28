@@ -4,7 +4,7 @@ import { MAINNET, TESTNET } from "unchained-bitcoin"
 
 const NETWORKS = [MAINNET, TESTNET]
 
-const NetworkSwitcher = ({ network, onChange }) => {
+const NetworkSwitcher = ({ network, onClick }) => {
   return (
     <ButtonGroup size="lg" className="mb-2">
       {NETWORKS.map(net => {
@@ -14,7 +14,7 @@ const NetworkSwitcher = ({ network, onChange }) => {
             value={net}
             variant={net === network ? "secondary" : "outline-secondary"}
             size="sm"
-            onClick={onChange}
+            onClick={onClick}
           >
             {net}
           </Button>
