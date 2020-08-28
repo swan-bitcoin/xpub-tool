@@ -2,16 +2,16 @@ import React, { useState } from "react"
 import { Form, Row, Col, Container } from "react-bootstrap"
 import { MAINNET } from "unchained-bitcoin"
 
-import { Purpose } from "../lib/xpub.js"
+import { Purpose } from "../lib/xpub"
 
 import Layout from "../components/layout"
 import NetworkSwitcher from "../components/networkSwitcher"
-import AddressDerivationInput from "../components/addressDerivationInput.js"
-import HardwareWallets from "../components/hardwareWallets.js"
+import AddressDerivationInput from "../components/addressDerivationInput"
+import HardwareWallets from "../components/hardwareWallets"
 
 const DEFAULT_NETWORK = MAINNET // or TESTNET
 
-const IndexPage = props => {
+const IndexPage = () => {
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
   const [purpose, setPurpose] = useState(Purpose.P2SH) // default to 3addresses
   const [accountNumber, setAccountNumber] = useState(0)
@@ -32,9 +32,9 @@ const IndexPage = props => {
               <AddressDerivationInput
                 purpose={purpose}
                 accountNumber={accountNumber}
+                network={network}
                 onPurposeChange={handlePurposeChange}
                 onAccountNumberChange={handleAccountNumberChange}
-                network={network}
               />
             </Col>
           </Row>
@@ -64,7 +64,7 @@ const IndexPage = props => {
             <Col>
               <NetworkSwitcher
                 network={network}
-                changeHandler={handleNetworkChange}
+                onClick={handleNetworkChange}
               />
             </Col>
           </Row>

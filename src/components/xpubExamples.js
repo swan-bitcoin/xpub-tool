@@ -1,6 +1,6 @@
 import React from "react"
 
-import { MAINNET, networkLabel } from "unchained-bitcoin"
+import { NETWORKS, networkLabel } from "unchained-bitcoin"
 
 // Mainnet: xpub...
 // Testnet: tpub...
@@ -13,15 +13,15 @@ const EXAMPLE_TPUBS = [
   "tpubDCZv1xNTnmwmXe3BBMyXekiVreY853jFeC8k9AaEAqCDYi1ZTSTLH3uQonwCTRk9jL1SFu1cLNbDY76YtcDR8n2inSMwBEAdZs37EpYS9px",
 ]
 
-const XPubExamples = props => {
-  const pubs = props.network === MAINNET ? EXAMPLE_XPUBS : EXAMPLE_TPUBS
+const XPubExamples = ({ network }) => {
+  const pubs = network === NETWORKS.MAINNET ? EXAMPLE_XPUBS : EXAMPLE_TPUBS
 
   return (
     <div>
-      <p>{networkLabel(props.network)} example xpubs:</p>
+      <p>{networkLabel(network)} example xpubs:</p>
       <ul>
-        {pubs.map((pub, i) => (
-          <li key={i}>
+        {pubs.map(pub => (
+          <li key={pub.id}>
             <code>{pub}</code>
           </li>
         ))}

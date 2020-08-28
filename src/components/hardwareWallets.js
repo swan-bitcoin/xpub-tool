@@ -2,15 +2,11 @@ import React from "react"
 import { Tabs, Tab } from "react-bootstrap"
 import { LEDGER, TREZOR } from "unchained-wallets"
 
-import XPubImporter from "../components/XPubImporter.js"
-import { accountDerivationPath } from "../lib/paths.js"
+import XPubImporter from "./xpubImporter"
+import { accountDerivationPath } from "../lib/paths"
 
-const HardwareWallets = props => {
-  const path = accountDerivationPath(
-    props.purpose,
-    props.accountNumber,
-    props.network
-  )
+const HardwareWallets = ({ purpose, accountNumber, network }) => {
+  const path = accountDerivationPath({ purpose, accountNumber, network })
 
   return (
     <Tabs id="hardware-wallet-selector">
@@ -18,7 +14,7 @@ const HardwareWallets = props => {
         <Tab key={type} eventKey={type} title={type.toUpperCase()}>
           <XPubImporter
             key={path}
-            network={props.network}
+            network={network}
             bip32Path={path}
             keystore={type}
           />

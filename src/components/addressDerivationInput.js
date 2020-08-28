@@ -1,15 +1,15 @@
 import React, { useMemo } from "react"
 import PropTypes from "prop-types"
 import { Form } from "react-bootstrap"
-import { accountDerivationPath, Purpose, NETWORKS } from "../lib"
+import { accountDerivationPath, Purpose } from "../lib"
 
 const AddressDerivationInput = ({
   maxAccounts = 22,
   accountNumber,
-  network = NETWORKS.TESTNET,
+  network,
   purpose,
   onPurposeChange: purposeChangeHandler,
-  onAccountChange: accountNumberChangeHandler,
+  onAccountNumberChange: accountNumberChangeHandler,
 }) => {
   const accountList = useMemo(
     // eslint-disable-next-line react/no-array-index-key
@@ -46,7 +46,7 @@ const AddressDerivationInput = ({
         </Form.Control>
         <Form.Text muted>
           Derivation path:{" "}
-          {accountDerivationPath(purpose, accountNumber, network)}
+          {accountDerivationPath({ purpose, accountNumber, network })}
           /i
         </Form.Text>
       </Form.Group>
@@ -58,7 +58,7 @@ AddressDerivationInput.propTypes = {
   purpose: PropTypes.oneOf(Object.values(Purpose)).isRequired,
   accountNumber: PropTypes.number.isRequired,
   onPurposeChange: PropTypes.func.isRequired,
-  onAccountChange: PropTypes.func.isRequired,
+  onAccountNumberChange: PropTypes.func.isRequired,
 }
 
 export default AddressDerivationInput

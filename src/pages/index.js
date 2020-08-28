@@ -2,19 +2,19 @@ import React, { useState, useMemo } from "react"
 import { Row, Col, Container, Form } from "react-bootstrap"
 import { MAINNET, validateExtendedPublicKey } from "unchained-bitcoin"
 
-import { Purpose, addressesFromXPub } from "../lib/xpub.js"
+import { Purpose, addressesFromXPub } from "../lib/xpub"
 
 import Layout from "../components/layout"
-import DerivedAddressesTable from "../components/derivedAddressesTable.js"
-import AddressDerivationInput from "../components/addressDerivationInput.js"
-import XPubInput from "../components/xpubInput.js"
+import DerivedAddressesTable from "../components/derivedAddressesTable"
+import AddressDerivationInput from "../components/addressDerivationInput"
+import XPubInput from "../components/xpubInput"
 import NetworkSwitcher from "../components/networkSwitcher"
 import { XPubExamples } from "../components/xpubExamples"
 
 const DEFAULT_NETWORK = MAINNET // or TESTNET
 const NUMBER_OF_ADDRESSES = 100 // however many we need
 
-const IndexPage = props => {
+const IndexPage = () => {
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
   const [xpub, setXpub] = useState("")
   const [isExpertMode, setExpertMode] = useState(false)
@@ -33,15 +33,15 @@ const IndexPage = props => {
     [xpub, network]
   )
 
-  let addressList = !isValidXpub
+  const addressList = !isValidXpub
     ? []
-    : addressesFromXPub(
+    : addressesFromXPub({
         xpub,
-        NUMBER_OF_ADDRESSES,
+        addressCount: NUMBER_OF_ADDRESSES,
         accountNumber,
         purpose,
-        network
-      )
+        network,
+      })
 
   return (
     <Layout pageInfo={{ pageName: "index" }}>
@@ -51,7 +51,7 @@ const IndexPage = props => {
             <XPubInput
               xpub={xpub}
               network={network}
-              changeHandler={handleXpubChange}
+              onChange={handleXpubChange}
             />
           </Col>
         </Row>
@@ -59,10 +59,9 @@ const IndexPage = props => {
           <Row>
             <Col>
               <AddressDerivationInput
-                xpub={xpub}
                 purpose={purpose}
                 accountNumber={accountNumber}
-                xpubHandler={handleXpubChange}
+                network={network}
                 onPurposeChange={handlePurposeChange}
                 onAccountNumberChange={handleAccountNumberChange}
               />
@@ -105,7 +104,7 @@ const IndexPage = props => {
             <Col>
               <NetworkSwitcher
                 network={network}
-                changeHandler={handleNetworkChange}
+                onClick={handleNetworkChange}
               />
             </Col>
           </Row>
