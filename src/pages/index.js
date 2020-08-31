@@ -5,11 +5,11 @@ import { MAINNET, validateExtendedPublicKey } from "unchained-bitcoin"
 import { Purpose, addressesFromXPub } from "../lib/xpub"
 
 import Layout from "../components/layout"
-import DerivedAddressesTable from "../components/derivedAddressesTable"
-import AddressDerivationInput from "../components/addressDerivationInput"
-import XPubInput from "../components/xpubInput"
-import NetworkSwitcher from "../components/networkSwitcher"
-import { XPubExamples } from "../components/xpubExamples"
+import DerivedAddressesTable from "../components/bootstrap/derivedAddressesTable"
+import AddressDerivationInput from "../components/bootstrap/addressDerivationInput"
+import XPubInput from "../components/bootstrap/xpubInput"
+import NetworkSwitcher from "../components/bootstrap/networkSwitcher"
+import { XPubExamples } from "../components/bootstrap/xpubExamples"
 
 const DEFAULT_NETWORK = MAINNET // or TESTNET
 const NUMBER_OF_ADDRESSES = 100 // however many we need

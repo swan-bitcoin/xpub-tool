@@ -5,9 +5,9 @@ import { MAINNET } from "unchained-bitcoin"
 import { Purpose } from "../lib/xpub"
 
 import Layout from "../components/layout"
-import NetworkSwitcher from "../components/networkSwitcher"
-import AddressDerivationInput from "../components/addressDerivationInput"
-import HardwareWallets from "../components/hardwareWallets"
+import NetworkSwitcher from "../components/bootstrap/networkSwitcher"
+import AddressDerivationInput from "../components/bootstrap/addressDerivationInput"
+import HardwareWallets from "../components/bootstrap/hardwareWallets"
 
 const DEFAULT_NETWORK = MAINNET // or TESTNET
 

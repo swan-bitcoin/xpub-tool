@@ -10,8 +10,8 @@ import {
   UNSUPPORTED,
 } from "unchained-wallets"
 
-import { humanReadableDerivationPath } from "../lib/paths"
-import { maskXPub } from "../lib/xpub"
+import { humanReadableDerivationPath } from "../../lib/paths"
+import { maskXPub } from "../../lib/xpub"
 
 class XPubImporter extends React.Component {
   constructor(props) {
