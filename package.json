@@ -23,6 +23,7 @@
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
     "react-icons": "^3.6.1",
+    "styled-components": "^5.1.1",
     "unchained-bitcoin": "0.0.15",
     "unchained-wallets": "^0.1.10"
   },
@@ -62,8 +63,8 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-        "prettier — write",
-        "git add"
+      "prettier — write",
+      "git add"
     ]
   },
   "repository": {
