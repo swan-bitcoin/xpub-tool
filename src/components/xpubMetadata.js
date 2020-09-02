@@ -1,6 +1,6 @@
 import React from "react"
 import { Table } from "react-bootstrap"
-import { maskXPub, getXpubMetadata } from "../lib/xpub"
+import { getXpubMetadata } from "../lib/xpub"
 
 const XPubMetadata = ({ xpub }) => {
   const meta = getXpubMetadata(xpub)
@@ -15,11 +15,11 @@ const XPubMetadata = ({ xpub }) => {
   })
 
   return (
-    <Table>
+    <Table variant="dark">
       <thead>
         <tr>
           <th colSpan="2">
-            Metadata for <code>{maskXPub({ xpub })}</code>
+            <code>{xpub}</code>
           </th>
         </tr>
       </thead>
