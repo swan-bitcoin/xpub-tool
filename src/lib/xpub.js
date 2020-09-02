@@ -20,6 +20,7 @@ function maskXPub({ xpub, pre = 15, post = 15, placeholder = "[...]" }) {
 function getXpubMetadata(xpub) {
   try {
     const xpubObj = ExtendedPublicKey.fromBase58(xpub)
+
     return {
       path: xpubObj.path,
       index: xpubObj.index,
@@ -28,12 +29,24 @@ function getXpubMetadata(xpub) {
       pubkey: xpubObj.pubkey,
       chaincode: xpubObj.chaincode,
       parentFingerprint: xpubObj.parentFingerprint,
-      network: xpubObj.network,
+      network: getNetworkFromXpub(xpub),
       version: xpubObj.version,
     }
   } catch (error) {
     return {}
   }
+}
+
+function getNetworkFromXpub(xpub) {
+  const prefix = xpub.slice(0, 4)
+  if (prefix === "xpub") {
+    return NETWORKS.MAINNET
+  }
+  if (prefix === "tpub") {
+    return NETWORKS.TESTNET
+  }
+
+  return undefined
 }
 
 function deriveAddress({ purpose, pubkey, network }) {
