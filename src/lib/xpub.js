@@ -22,9 +22,7 @@ function getXpubMetadata(xpub) {
     const xpubObj = ExtendedPublicKey.fromBase58(xpub)
 
     return {
-      path: xpubObj.path,
       index: xpubObj.index,
-      sequence: xpubObj.sequence,
       depth: xpubObj.depth,
       pubkey: xpubObj.pubkey,
       chaincode: xpubObj.chaincode,
