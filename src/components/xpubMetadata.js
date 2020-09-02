@@ -3,57 +3,20 @@ import { Table } from "react-bootstrap"
 import { getXpubMetadata } from "../lib/xpub"
 
 const XPubMetadata = ({ xpub }) => {
-  const {
-    path,
-    index,
-    sequence,
-    depth,
-    pubkey,
-    chaincode,
-    parentFingerprint,
-    network,
-    version,
-  } = getXpubMetadata(xpub)
+  const meta = getXpubMetadata(xpub)
+  const tableRows = []
+  Object.entries(meta).forEach(([key, value]) => {
+    tableRows.push(
+      <tr key={key}>
+        <th>{key}</th>
+        <td>{value}</td>
+      </tr>
+    )
+  })
+
   return (
     <Table>
-      <tbody>
-        <tr>
-          <th>Path: </th>
-          <td>{path}</td>
-        </tr>
-        <tr>
-          <th>Index: </th>
-          <td>{index}</td>
-        </tr>
-        <tr>
-          <th>Sequence: </th>
-          <td>{sequence}</td>
-        </tr>
-        <tr>
-          <th>Depth: </th>
-          <td>{depth}</td>
-        </tr>
-        <tr>
-          <th>Pubkey: </th>
-          <td>{pubkey}</td>
-        </tr>
-        <tr>
-          <th>chaincode: </th>
-          <td>{chaincode}</td>
-        </tr>
-        <tr>
-          <th>Parent Fingerprint: </th>
-          <td>{parentFingerprint}</td>
-        </tr>
-        <tr>
-          <th>Network: </th>
-          <td>{network}</td>
-        </tr>
-        <tr>
-          <th>Version: </th>
-          <td>{version}</td>
-        </tr>
-      </tbody>
+      <tbody>{tableRows}</tbody>
     </Table>
   )
 }

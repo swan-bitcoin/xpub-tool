@@ -1,7 +1,6 @@
 import React, { useMemo } from "react"
 import { Alert, Form } from "react-bootstrap"
 import { validateExtendedPublicKey } from "unchained-bitcoin"
-import XPubMetadata from "./xpubMetadata"
 
 const XPubInput = ({ xpub, network, onChange }) => {
   const isValidXpub = useMemo(
