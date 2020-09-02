@@ -4,7 +4,6 @@ import {
   networkData,
   NETWORKS,
   ExtendedPublicKey,
-  validateExtendedPublicKey,
 } from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
 import Purpose from "./purpose"
@@ -18,34 +17,24 @@ function maskXPub({ xpub, pre = 15, post = 15, placeholder = "[...]" }) {
   return beginning + placeholder + ending
 }
 
-function getXpubMetadata(xpub, net = DEFAULT_NETWORK) {
-  const isValid = validateExtendedPublicKey(xpub, net) === ""
-  if (!isValid) {
+function getXpubMetadata(xpub) {
+  try {
+    const xpubObj = ExtendedPublicKey.fromBase58(xpub)
+    console.log("VERSION: ")
+    console.log(xpubObj.version)
+    return {
+      path: xpubObj.path,
+      index: xpubObj.index,
+      sequence: xpubObj.sequence,
+      depth: xpubObj.depth,
+      pubkey: xpubObj.pubkey,
+      chaincode: xpubObj.chaincode,
+      parentFingerprint: xpubObj.parentFingerprint,
+      network: xpubObj.network,
+      version: xpubObj.version,
+    }
+  } catch (error) {
     return {}
-  }
-
-  const {
-    path,
-    index,
-    sequence,
-    depth,
-    pubkey,
-    chaincode,
-    parentFingerprint,
-    network,
-    version,
-  } = ExtendedPublicKey.fromBase58(xpub)
-
-  return {
-    path,
-    index,
-    sequence,
-    depth,
-    pubkey,
-    chaincode,
-    parentFingerprint,
-    network,
-    version,
   }
 }
 

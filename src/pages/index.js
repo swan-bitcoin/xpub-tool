@@ -10,12 +10,14 @@ import AddressDerivationInput from "../components/addressDerivationInput"
 import XPubInput from "../components/xpubInput"
 import NetworkSwitcher from "../components/networkSwitcher"
 import { XPubExamples } from "../components/xpubExamples"
+import XPubMetadata from "../components/xpubMetadata"
 
 const DEFAULT_NETWORK = MAINNET // or TESTNET
 const NUMBER_OF_ADDRESSES = 100 // however many we need
 
 const IndexPage = () => {
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
+  // xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab
   const [xpub, setXpub] = useState("")
   const [isExpertMode, setExpertMode] = useState(false)
   const [purpose, setPurpose] = useState(Purpose.P2SH) // default to 3addresses
@@ -96,6 +98,13 @@ const IndexPage = () => {
           <Row>
             <Col>
               <XPubExamples network={network} />
+            </Col>
+          </Row>
+        )}
+        {isExpertMode && isValidXpub && (
+          <Row>
+            <Col>
+              <XPubMetadata xpub={xpub} />
             </Col>
           </Row>
         )}

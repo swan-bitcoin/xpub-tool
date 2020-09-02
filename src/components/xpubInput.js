@@ -1,7 +1,7 @@
 import React, { useMemo } from "react"
 import { Alert, Form } from "react-bootstrap"
 import { validateExtendedPublicKey } from "unchained-bitcoin"
-import { getXpubMetadata } from "../lib/xpub"
+import XPubMetadata from "./xpubMetadata"
 
 const XPubInput = ({ xpub, network, onChange }) => {
   const isValidXpub = useMemo(
@@ -11,8 +11,6 @@ const XPubInput = ({ xpub, network, onChange }) => {
 
   const isEmptyXpub = xpub === ""
   const isFilled = !isEmptyXpub
-
-  const { depth, network: xnet, version } = getXpubMetadata(xpub, network)
 
   return (
     <Form noValidate>
@@ -29,11 +27,6 @@ const XPubInput = ({ xpub, network, onChange }) => {
       </Form.Group>
       {isFilled && !isValidXpub && (
         <Alert variant="warning">Invalid xPub</Alert>
-      )}
-      {isValidXpub && (
-        <p>
-          depth: {depth}, network: {xnet}, version: {version}
-        </p>
       )}
     </Form>
   )
