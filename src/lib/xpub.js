@@ -18,8 +18,8 @@ function maskXPub({ xpub, pre = 15, post = 15, placeholder = "[...]" }) {
   return beginning + placeholder + ending
 }
 
-function getXpubMetadata(xpub) {
-  const isValid = validateExtendedPublicKey(xpub, network) === ""
+function getXpubMetadata(xpub, net = DEFAULT_NETWORK) {
+  const isValid = validateExtendedPublicKey(xpub, net) === ""
   if (!isValid) {
     return {}
   }

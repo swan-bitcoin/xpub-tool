@@ -12,7 +12,7 @@ const XPubInput = ({ xpub, network, onChange }) => {
   const isEmptyXpub = xpub === ""
   const isFilled = !isEmptyXpub
 
-  const { depth, network: xnet, version } = getXpubMetadata(xpub)
+  const { depth, network: xnet, version } = getXpubMetadata(xpub, network)
 
   return (
     <Form noValidate>
