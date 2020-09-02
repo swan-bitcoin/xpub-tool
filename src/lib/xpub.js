@@ -20,8 +20,6 @@ function maskXPub({ xpub, pre = 15, post = 15, placeholder = "[...]" }) {
 function getXpubMetadata(xpub) {
   try {
     const xpubObj = ExtendedPublicKey.fromBase58(xpub)
-    console.log("VERSION: ")
-    console.log(xpubObj.version)
     return {
       path: xpubObj.path,
       index: xpubObj.index,
