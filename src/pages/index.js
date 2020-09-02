@@ -17,10 +17,7 @@ const NUMBER_OF_ADDRESSES = 100 // however many we need
 
 const IndexPage = () => {
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
-  // xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab
-  const [xpub, setXpub] = useState(
-    "xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab"
-  )
+  const [xpub, setXpub] = useState("")
   const [isExpertMode, setExpertMode] = useState(false)
   const [purpose, setPurpose] = useState(Purpose.P2SH) // default to 3addresses
   const [accountNumber, setAccountNumber] = useState(0)
