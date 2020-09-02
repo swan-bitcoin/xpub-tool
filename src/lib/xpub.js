@@ -1,5 +1,11 @@
 import * as bitcoin from "bitcoinjs-lib"
-import { deriveChildPublicKey, networkData, NETWORKS } from "unchained-bitcoin"
+import {
+  deriveChildPublicKey,
+  networkData,
+  NETWORKS,
+  ExtendedPublicKey,
+  validateExtendedPublicKey,
+} from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
 import Purpose from "./purpose"
 
@@ -10,6 +16,37 @@ function maskXPub({ xpub, pre = 15, post = 15, placeholder = "[...]" }) {
   const beginning = xpub.substr(0, pre)
   const ending = xpub.substr(xpub.length - post, xpub.length)
   return beginning + placeholder + ending
+}
+
+function getXpubMetadata(xpub) {
+  const isValid = validateExtendedPublicKey(xpub, network) === ""
+  if (!isValid) {
+    return {}
+  }
+
+  const {
+    path,
+    index,
+    sequence,
+    depth,
+    pubkey,
+    chaincode,
+    parentFingerprint,
+    network,
+    version,
+  } = ExtendedPublicKey.fromBase58(xpub)
+
+  return {
+    path,
+    index,
+    sequence,
+    depth,
+    pubkey,
+    chaincode,
+    parentFingerprint,
+    network,
+    version,
+  }
 }
 
 function deriveAddress({ purpose, pubkey, network }) {
@@ -82,4 +119,4 @@ function addressesFromXPub({
   return addresses
 }
 
-export { Purpose, maskXPub, addressesFromXPub }
+export { Purpose, maskXPub, addressesFromXPub, getXpubMetadata }
