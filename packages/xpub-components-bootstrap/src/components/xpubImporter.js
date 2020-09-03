@@ -2,13 +2,13 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Alert, Button } from "react-bootstrap"
 
-import { NETWORKS } from "unchained-bitcoin"
 import {
+  NETWORKS,
   ExportExtendedPublicKey,
   PENDING,
   ACTIVE,
   UNSUPPORTED,
-} from "unchained-wallets"
+} from "@swan/xpub-lib"
 
 import { humanReadableDerivationPath, maskXPub } from "@swan/xpub-lib"
 
