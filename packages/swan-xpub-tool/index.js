@@ -1,3 +1,3 @@
-var xpub-lib = require('swan-xpub-lib')
-var xpub-comp = require('swan-xpub-components-bootstrap')
-console.log(xpub-lib + " " + xpub-comp)
+var xpublib = require('swan-xpub-lib')
+var xpubcomp = require('swan-xpub-components-bootstrap')
+console.log(xpublib + " " + xpubcomp)
