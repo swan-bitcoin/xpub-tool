@@ -2,7 +2,7 @@ import React from "react"
 import { Tabs, Tab } from "react-bootstrap"
 
 import { LEDGER, TREZOR, accountDerivationPath } from "@swan/xpub-lib"
-import XPubImporter from "./xpubImporter"
+import { XPubImporter } from "./xpubImporter"
 
 const HardwareWallets = ({ purpose, accountNumber, network }) => {
   const path = accountDerivationPath({ purpose, accountNumber, network })
