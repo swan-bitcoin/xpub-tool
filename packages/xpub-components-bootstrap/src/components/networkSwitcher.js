@@ -1,13 +1,13 @@
 import React from "react"
 import { Button, ButtonGroup } from "react-bootstrap"
-import { MAINNET, TESTNET } from "@swan/xpub-lib"
+import { NETWORKS } from "@swan/xpub-lib"
 
-const NETWORKS = [MAINNET, TESTNET]
+const SUPPORTED_NETWORKS = [NETWORKS.MAINNET, NETWORKS.TESTNET]
 
 const NetworkSwitcher = ({ network, onClick }) => {
   return (
     <ButtonGroup size="lg" className="mb-2">
-      {NETWORKS.map(net => {
+      {SUPPORTED_NETWORKS.map(net => {
         return (
           <Button
             key={net}
