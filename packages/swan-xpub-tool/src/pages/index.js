@@ -2,15 +2,19 @@ import React, { useState, useMemo } from "react"
 import { Row, Col, Container, Form } from "react-bootstrap"
 import { MAINNET, validateExtendedPublicKey } from "unchained-bitcoin"
 
-import { Purpose, addressesFromXPub } from "../lib/xpub"
+import { Purpose, addressesFromXPub } from "swan-xpub-lib"
 
-import Layout from "../components/layout"
-import DerivedAddressesTable from "../components/derivedAddressesTable"
-import AddressDerivationInput from "../components/addressDerivationInput"
-import XPubInput from "../components/xpubInput"
-import NetworkSwitcher from "../components/networkSwitcher"
-import { XPubExamples } from "../components/xpubExamples"
-import XPubMetadata from "../components/xpubMetadata"
+import {
+  Layout,
+  DerivedAddressesTable,
+  AddressDerivationInput,
+  XPubInput,
+  NetworkSwitcher,
+  XPubExamples,
+  XPubMetadata,
+} from "swan-xpub-components-bootstrap"
+
+import Layout from "src/components/layout"
 
 const DEFAULT_NETWORK = MAINNET // or TESTNET
 const NUMBER_OF_ADDRESSES = 100 // however many we need
