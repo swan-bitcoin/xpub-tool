@@ -61,4 +61,4 @@ AddressDerivationInput.propTypes = {
   onAccountNumberChange: PropTypes.func.isRequired,
 }
 
-export default AddressDerivationInput
+export { AddressDerivationInput }

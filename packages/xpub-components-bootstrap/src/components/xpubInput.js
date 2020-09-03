@@ -31,4 +31,4 @@ const XPubInput = ({ xpub, network, onChange }) => {
   )
 }
 
-export default XPubInput
+export { XPubInput }

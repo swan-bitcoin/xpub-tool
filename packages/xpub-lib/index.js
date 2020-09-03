@@ -4,6 +4,8 @@ export {
   PENDING,
   ACTIVE,
   UNSUPPORTED,
+  LEDGER,
+  TREZOR,
 } from "unchained-wallets"
 
 export * from "./src/paths"

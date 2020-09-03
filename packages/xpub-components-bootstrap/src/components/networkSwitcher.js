@@ -24,4 +24,4 @@ const NetworkSwitcher = ({ network, onClick }) => {
   )
 }
 
-export default NetworkSwitcher
+export { NetworkSwitcher }

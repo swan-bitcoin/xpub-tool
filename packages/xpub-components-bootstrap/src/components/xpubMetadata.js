@@ -28,4 +28,4 @@ const XPubMetadata = ({ xpub }) => {
   )
 }
 
-export default XPubMetadata
+export { XPubMetadata }

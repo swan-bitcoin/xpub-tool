@@ -30,4 +30,4 @@ const XPubExamples = ({ network }) => {
   )
 }
 
-export default XPubExamples
+export { XPubExamples }

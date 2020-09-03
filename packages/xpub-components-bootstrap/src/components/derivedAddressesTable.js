@@ -34,4 +34,4 @@ const PathAddressRow = ({ path, address }) => (
   </tr>
 )
 
-export default DerivedAddressesTable
+export { DerivedAddressesTable }

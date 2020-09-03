@@ -8,9 +8,9 @@ import {
   PENDING,
   ACTIVE,
   UNSUPPORTED,
+  humanReadableDerivationPath,
+  maskXPub,
 } from "@swan/xpub-lib"
-
-import { humanReadableDerivationPath, maskXPub } from "@swan/xpub-lib"
 
 class XPubImporter extends React.Component {
   constructor(props) {
@@ -115,4 +115,4 @@ XPubImporter.propTypes = {
   keystore: PropTypes.string.isRequired,
 }
 
-export default XPubImporter
+export { XPubImporter }
