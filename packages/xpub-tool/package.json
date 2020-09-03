@@ -1,12 +1,12 @@
 {
-  "name": "swan-bitcoin-xpub-tool",
+  "name": "@swan/xpub-tool",
   "private": true,
   "description": "A small JavaScript tool that derives bitcoin addresses from existing xPubs built upon unchained-bitcoin and bitcoinjs-lib.",
   "version": "0.0.1",
   "author": "Gigi <gigi@swanbitcoin.com>",
   "dependencies": {
-    "swan-xpub-lib": "0.0.1",
-    "swan-xpub-components-bootstrap": "0.0.1",
+    "@swan/xpub-lib": "0.0.1",
+    "@swan/xpub-components-bootstrap": "0.0.1",
     "bootstrap": "^4.3.1",
     "gatsby": "^2.3.34",
     "gatsby-image": "^2.0.41",

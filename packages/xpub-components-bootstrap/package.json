@@ -1,12 +1,10 @@
 {
-  "name": "swan-xpub-lib",
+  "name": "@swan/xpub-components-bootstrap",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "bitcoinjs-lib": "^5.1.10",
-    "unchained-bitcoin": "0.0.15",
-    "unchained-wallets": "^0.1.10"
+    "@swan/xpub-lib": "0.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
