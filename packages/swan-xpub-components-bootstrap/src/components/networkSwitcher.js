@@ -1,6 +1,6 @@
 import React from "react"
 import { Button, ButtonGroup } from "react-bootstrap"
-import { MAINNET, TESTNET } from "unchained-bitcoin"
+import { MAINNET, TESTNET } from "swan-xpub-lib"
 
 const NETWORKS = [MAINNET, TESTNET]
 

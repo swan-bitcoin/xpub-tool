@@ -1,4 +1,4 @@
-export { NETWORKS } from "unchained-bitcoin"
+export { NETWORKS, networkLabel } from "unchained-bitcoin"
 
 export * from "src"
 

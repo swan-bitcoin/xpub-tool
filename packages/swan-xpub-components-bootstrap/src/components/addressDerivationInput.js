@@ -1,7 +1,7 @@
 import React, { useMemo } from "react"
 import PropTypes from "prop-types"
 import { Form } from "react-bootstrap"
-import { accountDerivationPath, Purpose } from "../lib"
+import { accountDerivationPath, Purpose } from "swan-xpub-lib"
 
 const AddressDerivationInput = ({
   maxAccounts = 22,

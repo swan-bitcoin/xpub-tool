@@ -1,6 +1,6 @@
 import React from "react"
 
-import { NETWORKS, networkLabel } from "unchained-bitcoin"
+import { NETWORKS, networkLabel } from "swan-xpub-lib"
 
 // Mainnet: xpub...
 // Testnet: tpub...
