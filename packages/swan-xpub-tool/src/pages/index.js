@@ -5,7 +5,6 @@ import { MAINNET, validateExtendedPublicKey } from "unchained-bitcoin"
 import { Purpose, addressesFromXPub } from "swan-xpub-lib"
 
 import {
-  Layout,
   DerivedAddressesTable,
   AddressDerivationInput,
   XPubInput,
@@ -14,7 +13,7 @@ import {
   XPubMetadata,
 } from "swan-xpub-components-bootstrap"
 
-import Layout from "src/components/layout"
+import Layout from "../components/layout"
 
 const DEFAULT_NETWORK = MAINNET // or TESTNET
 const NUMBER_OF_ADDRESSES = 100 // however many we need

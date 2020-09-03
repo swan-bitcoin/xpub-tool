@@ -1,5 +1,5 @@
 export { NETWORKS, networkLabel } from "unchained-bitcoin"
 
-export * from "src"
-
-module.exports = "swan-xpub-lib"
+export * from "./src/paths"
+export * from "./src/purpose"
+export * from "./src/xpub"
