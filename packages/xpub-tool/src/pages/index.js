@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react"
 import { Row, Col, Container, Form } from "react-bootstrap"
 import { MAINNET, validateExtendedPublicKey } from "unchained-bitcoin"
 
-import { Purpose, addressesFromXPub } from "swan-xpub-lib"
+import { Purpose, addressesFromXPub } from "@swan/xpub-lib"
 
 import {
   DerivedAddressesTable,
@@ -11,7 +11,7 @@ import {
   NetworkSwitcher,
   XPubExamples,
   XPubMetadata,
-} from "swan-xpub-components-bootstrap"
+} from "@swan/xpub-components-bootstrap"
 
 import Layout from "../components/layout"
 

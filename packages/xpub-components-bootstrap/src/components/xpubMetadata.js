@@ -1,6 +1,6 @@
 import React from "react"
 import { Table } from "react-bootstrap"
-import { getXpubMetadata } from "swan-xpub-lib"
+import { getXpubMetadata } from "@swan/xpub-lib"
 
 const XPubMetadata = ({ xpub }) => {
   const meta = getXpubMetadata(xpub)

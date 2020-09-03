@@ -2,12 +2,12 @@ import React, { useState } from "react"
 import { Form, Row, Col, Container } from "react-bootstrap"
 import { MAINNET } from "unchained-bitcoin"
 
-import { Purpose } from "swan-xpub-lib"
+import { Purpose } from "@swan/xpub-lib"
 import {
   NetworkSwitcher,
   AddressDerivationInput,
   HardwareWallets,
-} from "swan-xpub-components-bootstrap"
+} from "@swan/xpub-components-bootstrap"
 
 import Layout from "../components/layout"
 

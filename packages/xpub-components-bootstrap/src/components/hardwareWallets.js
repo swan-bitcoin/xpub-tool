@@ -3,7 +3,7 @@ import { Tabs, Tab } from "react-bootstrap"
 import { LEDGER, TREZOR } from "unchained-wallets"
 
 import XPubImporter from "./xpubImporter"
-import { accountDerivationPath } from "swan-xpub-lib"
+import { accountDerivationPath } from "@swan/xpub-lib"
 
 const HardwareWallets = ({ purpose, accountNumber, network }) => {
   const path = accountDerivationPath({ purpose, accountNumber, network })
