@@ -8,7 +8,7 @@ const CustomNavbar = () => {
     <>
       <Navbar variant="dark" expand="lg" id="site-navbar">
         <Link to="/" className="link-no-style">
-          <Navbar.Brand as="span">xpub</Navbar.Brand>
+          <Navbar.Brand as="span">Address Derivation</Navbar.Brand>
         </Link>
         <Link to="/hww" className="link-no-style">
           <Navbar.Brand as="span">HW Wallets</Navbar.Brand>
