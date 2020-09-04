@@ -12,9 +12,9 @@ import Purpose from "./purpose"
 const DEFAULT_NETWORK = NETWORKS.TESTNET
 const DEFAULT_PURPOSE = Purpose.P2SH
 
-function maskXPub({ xpub, pre = 15, post = 15, placeholder = "[...]" }) {
-  const beginning = xpub.substr(0, pre)
-  const ending = xpub.substr(xpub.length - post, xpub.length)
+function maskKey(key, pre = 15, post = 15, placeholder = "[...]") {
+  const beginning = key.substr(0, pre)
+  const ending = key.substr(key.length - post, key.length)
   return beginning + placeholder + ending
 }
 
@@ -122,4 +122,4 @@ function addressesFromXPub({
   return addresses
 }
 
-export { Purpose, maskXPub, isValidXPub, addressesFromXPub, getXpubMetadata }
+export { Purpose, maskKey, isValidXPub, addressesFromXPub, getXpubMetadata }

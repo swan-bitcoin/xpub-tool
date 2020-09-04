@@ -9,7 +9,7 @@ import {
   ACTIVE,
   UNSUPPORTED,
   humanReadableDerivationPath,
-  maskXPub,
+  maskKey,
 } from "@swan/xpub-lib"
 
 class XPubImporter extends React.Component {
@@ -75,7 +75,7 @@ class XPubImporter extends React.Component {
               Imported {humanReadableDerivationPath({ bip32Path })}
             </Alert>
             <p>
-              <code>{maskXPub({ xpub })}</code>
+              <code>{maskKey(xpub)}</code>
               <Button
                 variant="light"
                 title="Copy to clipboard"
