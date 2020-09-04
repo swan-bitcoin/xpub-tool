@@ -2,7 +2,7 @@ import React from "react"
 import { Table } from "react-bootstrap"
 import { getXpubMetadata } from "@swan/xpub-lib"
 
-const XPubMetadata = ({ xpub }) => {
+const XpubMetadata = ({ xpub }) => {
   const meta = getXpubMetadata(xpub)
   const tableRows = []
   Object.entries(meta).forEach(([key, value]) => {
@@ -28,4 +28,4 @@ const XPubMetadata = ({ xpub }) => {
   )
 }
 
-export { XPubMetadata }
+export { XpubMetadata }

@@ -18,7 +18,7 @@ function maskKey(key, pre = 15, post = 15, placeholder = "[...]") {
   return beginning + placeholder + ending
 }
 
-function isValidXPub(xpub, network) {
+function isValidXpub(xpub, network) {
   return validateExtendedPublicKey(xpub, network) === ""
 }
 
@@ -81,7 +81,7 @@ function deriveAddress({ purpose, pubkey, network }) {
   }
 }
 
-function addressFromXPub({ xpub, accountNumber, keyIndex, purpose, network }) {
+function addressFromXpub({ xpub, accountNumber, keyIndex, purpose, network }) {
   const partialPath = partialKeyDerivationPath({ accountNumber, keyIndex })
   const fullPath = fullDerivationPath({
     purpose,
@@ -98,7 +98,7 @@ function addressFromXPub({ xpub, accountNumber, keyIndex, purpose, network }) {
   }
 }
 
-function addressesFromXPub({
+function addressesFromXpub({
   xpub,
   addressCount,
   accountNumber = 0,
@@ -108,7 +108,7 @@ function addressesFromXPub({
   const addresses = []
 
   for (let keyIndex = 0; keyIndex < addressCount; keyIndex += 1) {
-    const { path, address } = addressFromXPub({
+    const { path, address } = addressFromXpub({
       xpub,
       accountNumber,
       keyIndex,
@@ -122,4 +122,4 @@ function addressesFromXPub({
   return addresses
 }
 
-export { Purpose, maskKey, isValidXPub, addressesFromXPub, getXpubMetadata }
+export { Purpose, maskKey, isValidXpub, addressesFromXpub, getXpubMetadata }

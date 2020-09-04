@@ -12,7 +12,7 @@ import {
   maskKey,
 } from "@swan/xpub-lib"
 
-class XPubImporter extends React.Component {
+class XpubImporter extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -20,7 +20,7 @@ class XPubImporter extends React.Component {
       xpub: "",
       error: "",
     }
-    this.importXPub = this.importXPub.bind(this)
+    this.importXpub = this.importXpub.bind(this)
   }
 
   interaction() {
@@ -28,7 +28,7 @@ class XPubImporter extends React.Component {
     return ExportExtendedPublicKey({ keystore, network, bip32Path })
   }
 
-  async importXPub() {
+  async importXpub() {
     this.setState({ keystoreState: ACTIVE })
     try {
       // This is where we actually talk to the hardware wallet.
@@ -48,7 +48,7 @@ class XPubImporter extends React.Component {
     // Here we grab just the messages relevant for the
     // current keystore state, but more complex filtering is possible...
     const messages = this.interaction().messagesFor({ state: keystoreState })
-    return messages.map(XPubImporter.renderMessage)
+    return messages.map(XpubImporter.renderMessage)
   }
 
   static renderMessage(message, i) {
@@ -96,7 +96,7 @@ class XPubImporter extends React.Component {
             <Button
               variant="outline-primary"
               disabled={keystoreState !== PENDING}
-              onClick={this.importXPub}
+              onClick={this.importXpub}
               title={humanReadableDerivationPath({ bip32Path })}
             >
               Import {bip32Path}
@@ -109,10 +109,10 @@ class XPubImporter extends React.Component {
   }
 }
 
-XPubImporter.propTypes = {
+XpubImporter.propTypes = {
   network: PropTypes.oneOf(Object.values(NETWORKS)).isRequired,
   bip32Path: PropTypes.string.isRequired,
   keystore: PropTypes.string.isRequired,
 }
 
-export { XPubImporter }
+export { XpubImporter }
