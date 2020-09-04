@@ -4,6 +4,7 @@ import {
   networkData,
   NETWORKS,
   ExtendedPublicKey,
+  validateExtendedPublicKey,
 } from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
 import Purpose from "./purpose"
@@ -15,6 +16,10 @@ function maskXPub({ xpub, pre = 15, post = 15, placeholder = "[...]" }) {
   const beginning = xpub.substr(0, pre)
   const ending = xpub.substr(xpub.length - post, xpub.length)
   return beginning + placeholder + ending
+}
+
+function isValidXPub(xpub, network) {
+  return validateExtendedPublicKey(xpub, network) === ""
 }
 
 function getXpubMetadata(xpub) {
@@ -117,4 +122,4 @@ function addressesFromXPub({
   return addresses
 }
 
-export { Purpose, maskXPub, addressesFromXPub, getXpubMetadata }
+export { Purpose, maskXPub, isValidXPub, addressesFromXPub, getXpubMetadata }

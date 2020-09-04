@@ -1,12 +1,9 @@
 import React, { useMemo } from "react"
 import { Alert, Form } from "react-bootstrap"
-import { validateExtendedPublicKey } from "unchained-bitcoin"
+import { isValidXPub } from "@swan/xpub-lib"
 
 const XPubInput = ({ xpub, network, onChange }) => {
-  const isValidXpub = useMemo(
-    () => validateExtendedPublicKey(xpub, network) === "",
-    [xpub, network]
-  )
+  const isValid = useMemo(() => isValidXPub(xpub, network), [xpub, network])
 
   const isEmptyXpub = xpub === ""
   const isFilled = !isEmptyXpub
@@ -15,8 +12,8 @@ const XPubInput = ({ xpub, network, onChange }) => {
     <Form noValidate>
       <Form.Group>
         <Form.Control
-          isValid={isFilled && isValidXpub}
-          isInvalid={isFilled && !isValidXpub}
+          isValid={isFilled && isValid}
+          isInvalid={isFilled && !isValid}
           size="lg"
           type="password"
           placeholder="xpub..."
@@ -24,9 +21,7 @@ const XPubInput = ({ xpub, network, onChange }) => {
           onChange={onChange}
         />
       </Form.Group>
-      {isFilled && !isValidXpub && (
-        <Alert variant="warning">Invalid xPub</Alert>
-      )}
+      {isFilled && !isValid && <Alert variant="warning">Invalid xPub</Alert>}
     </Form>
   )
 }
