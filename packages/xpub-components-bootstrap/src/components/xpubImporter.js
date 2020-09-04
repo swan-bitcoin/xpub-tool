@@ -2,16 +2,15 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Alert, Button } from "react-bootstrap"
 
-import { NETWORKS } from "unchained-bitcoin"
 import {
+  NETWORKS,
   ExportExtendedPublicKey,
   PENDING,
   ACTIVE,
   UNSUPPORTED,
-} from "unchained-wallets"
-
-import { humanReadableDerivationPath } from "../lib/paths"
-import { maskXPub } from "../lib/xpub"
+  humanReadableDerivationPath,
+  maskXPub,
+} from "@swan/xpub-lib"
 
 class XPubImporter extends React.Component {
   constructor(props) {
@@ -116,4 +115,4 @@ XPubImporter.propTypes = {
   keystore: PropTypes.string.isRequired,
 }
 
-export default XPubImporter
+export { XPubImporter }

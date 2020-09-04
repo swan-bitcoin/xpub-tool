@@ -2,12 +2,14 @@ import React, { useState } from "react"
 import { Form, Row, Col, Container } from "react-bootstrap"
 import { MAINNET } from "unchained-bitcoin"
 
-import { Purpose } from "../lib/xpub"
+import { Purpose } from "@swan/xpub-lib"
+import {
+  NetworkSwitcher,
+  AddressDerivationInput,
+  HardwareWallets,
+} from "@swan/xpub-components-bootstrap"
 
 import Layout from "../components/layout"
-import NetworkSwitcher from "../components/networkSwitcher"
-import AddressDerivationInput from "../components/addressDerivationInput"
-import HardwareWallets from "../components/hardwareWallets"
 
 const DEFAULT_NETWORK = MAINNET // or TESTNET
 
