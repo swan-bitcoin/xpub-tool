@@ -21,7 +21,9 @@ const XpubInput = ({ xpub, network, onChange }) => {
           onChange={onChange}
         />
       </Form.Group>
-      {isFilled && !isValid && <Alert variant="warning">Invalid xPub</Alert>}
+      {isFilled && !isValid && (
+        <Alert variant="warning">Invalid public key</Alert>
+      )}
     </Form>
   )
 }
