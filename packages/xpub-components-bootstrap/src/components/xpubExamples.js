@@ -13,7 +13,7 @@ const EXAMPLE_TPUBS = [
   "tpubDCZv1xNTnmwmXe3BBMyXekiVreY853jFeC8k9AaEAqCDYi1ZTSTLH3uQonwCTRk9jL1SFu1cLNbDY76YtcDR8n2inSMwBEAdZs37EpYS9px",
 ]
 
-const XPubExamples = ({ network }) => {
+const XpubExamples = ({ network }) => {
   const pubs = network === NETWORKS.MAINNET ? EXAMPLE_XPUBS : EXAMPLE_TPUBS
 
   return (
@@ -30,4 +30,4 @@ const XPubExamples = ({ network }) => {
   )
 }
 
-export { XPubExamples }
+export { XpubExamples }

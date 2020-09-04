@@ -4,17 +4,17 @@ import { Row, Col, Container, Form } from "react-bootstrap"
 import {
   NETWORKS,
   Purpose,
-  addressesFromXPub,
-  isValidXPub,
+  addressesFromXpub,
+  isValidXpub,
 } from "@swan/xpub-lib"
 
 import {
   DerivedAddressesTable,
   AddressDerivationInput,
-  XPubInput,
+  XpubInput,
   NetworkSwitcher,
-  XPubExamples,
-  XPubMetadata,
+  XpubExamples,
+  XpubMetadata,
 } from "@swan/xpub-components-bootstrap"
 
 import Layout from "../components/layout"
@@ -36,11 +36,11 @@ const IndexPage = () => {
     setAccountNumber(event.target.value)
   const handleExpertModeChange = event => setExpertMode(event.target.checked)
 
-  const isValid = useMemo(() => isValidXPub(xpub, network), [xpub, network])
+  const isValid = useMemo(() => isValidXpub(xpub, network), [xpub, network])
 
   const addressList = !isValid
     ? []
-    : addressesFromXPub({
+    : addressesFromXpub({
         xpub,
         addressCount: NUMBER_OF_ADDRESSES,
         accountNumber,
@@ -53,7 +53,7 @@ const IndexPage = () => {
       <Container className="text-center">
         <Row>
           <Col>
-            <XPubInput
+            <XpubInput
               xpub={xpub}
               network={network}
               onChange={handleXpubChange}
@@ -100,14 +100,14 @@ const IndexPage = () => {
         {isExpertMode && (
           <Row>
             <Col>
-              <XPubExamples network={network} />
+              <XpubExamples network={network} />
             </Col>
           </Row>
         )}
         {isExpertMode && isValid && (
           <Row>
             <Col>
-              <XPubMetadata xpub={xpub} />
+              <XpubMetadata xpub={xpub} />
             </Col>
           </Row>
         )}

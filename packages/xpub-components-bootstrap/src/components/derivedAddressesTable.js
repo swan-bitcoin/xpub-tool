@@ -1,6 +1,6 @@
 import React from "react"
 import { Table } from "react-bootstrap"
-import { maskXPub } from "@swan/xpub-lib"
+import { maskKey } from "@swan/xpub-lib"
 
 const DerivedAddressesTable = ({ addressList, showCount, xpub }) => {
   return (
@@ -8,7 +8,7 @@ const DerivedAddressesTable = ({ addressList, showCount, xpub }) => {
       <thead>
         <tr>
           <th>
-            Addresses for <code>{maskXPub({ xpub })}</code>
+            Addresses for <code>{maskKey(xpub)}</code>
           </th>
         </tr>
       </thead>

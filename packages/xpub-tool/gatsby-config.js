@@ -1,8 +1,8 @@
 module.exports = {
   pathPrefix: "/xpub",
   siteMetadata: {
-    title: `Swan's xPub Address Derivation Tool`,
-    description: `A small tool that derives bitcoin addresses from existing xPubs, using unchained-bitcoin and bitcoinjs-lib.`,
+    title: `Swan's Address Derivation Tool`,
+    description: `A small tool that derives bitcoin addresses from extended public keys, using unchained-bitcoin and bitcoinjs-lib.`,
     author: `Gigi`,
   },
   plugins: [
