@@ -26,7 +26,7 @@ const IndexPage = () => {
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
   const [xpub, setXpub] = useState("")
   const [isExpertMode, setExpertMode] = useState(false)
-  const [purpose, setPurpose] = useState(Purpose.P2SH) // default to 3addresses
+  const [purpose, setPurpose] = useState(Purpose.P2WPKH) // default to bech32
   const [accountNumber, setAccountNumber] = useState(0)
 
   const handleNetworkChange = event => setNetwork(event.target.value)

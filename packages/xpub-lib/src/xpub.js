@@ -10,7 +10,7 @@ import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
 import Purpose from "./purpose"
 
 const DEFAULT_NETWORK = NETWORKS.TESTNET
-const DEFAULT_PURPOSE = Purpose.P2SH
+const DEFAULT_PURPOSE = Purpose.P2WPKH
 
 function maskKey(key, pre = 15, post = 15, placeholder = "[...]") {
   const beginning = key.substr(0, pre)
@@ -61,7 +61,6 @@ function deriveAddress({ purpose, pubkey, network }) {
       })
       return oneAddress
     }
-    default:
     case Purpose.P2SH: {
       const { address: threeAddress } = bitcoin.payments.p2sh({
         redeem: bitcoin.payments.p2wpkh({
@@ -71,6 +70,7 @@ function deriveAddress({ purpose, pubkey, network }) {
       })
       return threeAddress
     }
+    default:
     case Purpose.P2WPKH: {
       const { address: bc1Address } = bitcoin.payments.p2wpkh({
         pubkey,
