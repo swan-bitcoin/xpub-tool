@@ -1,8 +1,12 @@
 import React, { useState, useMemo } from "react"
 import { Row, Col, Container, Form } from "react-bootstrap"
-import { MAINNET, validateExtendedPublicKey } from "unchained-bitcoin"
 
-import { Purpose, addressesFromXPub } from "@swan/xpub-lib"
+import {
+  NETWORKS,
+  Purpose,
+  addressesFromXPub,
+  isValidXPub,
+} from "@swan/xpub-lib"
 
 import {
   DerivedAddressesTable,
@@ -15,7 +19,7 @@ import {
 
 import Layout from "../components/layout"
 
-const DEFAULT_NETWORK = MAINNET // or TESTNET
+const DEFAULT_NETWORK = NETWORKS.MAINNET // or TESTNET
 const NUMBER_OF_ADDRESSES = 100 // however many we need
 
 const IndexPage = () => {
@@ -32,12 +36,9 @@ const IndexPage = () => {
     setAccountNumber(event.target.value)
   const handleExpertModeChange = event => setExpertMode(event.target.checked)
 
-  const isValidXpub = useMemo(
-    () => validateExtendedPublicKey(xpub, network) === "",
-    [xpub, network]
-  )
+  const isValid = useMemo(() => isValidXPub(xpub, network), [xpub, network])
 
-  const addressList = !isValidXpub
+  const addressList = !isValid
     ? []
     : addressesFromXPub({
         xpub,
@@ -73,7 +74,7 @@ const IndexPage = () => {
             </Col>
           </Row>
         )}
-        {isValidXpub && (
+        {isValid && (
           <Row>
             <Col>
               <DerivedAddressesTable
@@ -103,7 +104,7 @@ const IndexPage = () => {
             </Col>
           </Row>
         )}
-        {isExpertMode && isValidXpub && (
+        {isExpertMode && isValid && (
           <Row>
             <Col>
               <XPubMetadata xpub={xpub} />
