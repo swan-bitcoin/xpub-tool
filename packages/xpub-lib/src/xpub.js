@@ -17,6 +17,10 @@ function maskXPub({ xpub, pre = 15, post = 15, placeholder = "[...]" }) {
   return beginning + placeholder + ending
 }
 
+function isValidXPub({ xpub, network }) {
+  return validateExtendedPublicKey(xpub, network) === ""
+}
+
 function getXpubMetadata(xpub) {
   try {
     const xpubObj = ExtendedPublicKey.fromBase58(xpub)
@@ -117,4 +121,4 @@ function addressesFromXPub({
   return addresses
 }
 
-export { Purpose, maskXPub, addressesFromXPub, getXpubMetadata }
+export { Purpose, maskXPub, isValidXPub, addressesFromXPub, getXpubMetadata }
