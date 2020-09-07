@@ -29,6 +29,22 @@ function isValidXpub(xpub, network) {
   return validateExtendedPublicKey(xpub, network) === ""
 }
 
+function getNetworkFromXpub(xpub) {
+  const prefix = xpub.slice(0, 4)
+  switch (prefix) {
+    case XPUB:
+    case YPUB:
+    case ZPUB:
+      return NETWORKS.MAINNET
+    case TPUB:
+    case UPUB:
+    case VPUB:
+      return NETWORKS.TESTNET
+    default:
+      return undefined
+  }
+}
+
 function getXpubMetadata(xpub) {
   try {
     const xpubObj = ExtendedPublicKey.fromBase58(xpub)
@@ -64,22 +80,6 @@ function getXpubType(xpub) {
     case ZPUB:
     case VPUB:
       return Purpose.P2WPKH
-    default:
-      return undefined
-  }
-}
-
-function getNetworkFromXpub(xpub) {
-  const prefix = xpub.slice(0, 4)
-  switch (prefix) {
-    case XPUB:
-    case YPUB:
-    case ZPUB:
-      return NETWORKS.MAINNET
-    case TPUB:
-    case UPUB:
-    case VPUB:
-      return NETWORKS.TESTNET
     default:
       return undefined
   }
