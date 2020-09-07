@@ -50,6 +50,7 @@ function getXpubMetadata(xpub) {
     const xpubObj = ExtendedPublicKey.fromBase58(xpub)
 
     return {
+      type: getXpubType(xpub),
       index: xpubObj.index,
       depth: xpubObj.depth,
       pubkey: xpubObj.pubkey,
