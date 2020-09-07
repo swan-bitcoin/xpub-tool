@@ -5,6 +5,7 @@ import {
   NETWORKS,
   ExtendedPublicKey,
   validateExtendedPublicKey,
+  convertExtendedPublicKey,
 } from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
 import Purpose from "./purpose"
@@ -26,7 +27,10 @@ function maskKey(key, pre = 15, post = 15, placeholder = "[...]") {
 }
 
 function isValidXpub(xpub, network) {
-  return validateExtendedPublicKey(xpub, network) === ""
+  const convertedXpub = convertToBIP32(xpub, network)
+
+  // validateExtendedPublicKey expects "xpub..." or "tpub..."
+  return validateExtendedPublicKey(convertedXpub, network) === ""
 }
 
 function getNetworkFromXpub(xpub) {
@@ -86,6 +90,13 @@ function getXpubMetadata(xpub) {
   }
 }
 
+function convertToBIP32(xpub, network) {
+  const targetPrefix = network === NETWORKS.MAINNET ? "xpub" : "tpub"
+  console.log(xpub)
+  console.log(targetPrefix)
+  return convertExtendedPublicKey(xpub, targetPrefix)
+}
+
 function deriveAddress({ purpose, pubkey, network }) {
   switch (purpose) {
     case Purpose.P2PKH: {
@@ -123,6 +134,9 @@ function addressFromXpub({ xpub, accountNumber, keyIndex, purpose, network }) {
     keyIndex,
     network,
   })
+  console.log(xpub)
+  console.log(partialPath)
+  console.log(network)
   const childPubKey = deriveChildPublicKey(xpub, partialPath, network)
   const keyPair = bitcoin.ECPair.fromPublicKey(Buffer.from(childPubKey, "hex"))
   const pubkey = keyPair.publicKey
@@ -139,11 +153,13 @@ function addressesFromXpub({
   purpose = DEFAULT_PURPOSE,
   network = DEFAULT_NETWORK,
 }) {
+  const convertedXpub = convertToBIP32(xpub, network)
+
   const addresses = []
 
   for (let keyIndex = 0; keyIndex < addressCount; keyIndex += 1) {
     const { path, address } = addressFromXpub({
-      xpub,
+      convertedXpub,
       accountNumber,
       keyIndex,
       purpose,

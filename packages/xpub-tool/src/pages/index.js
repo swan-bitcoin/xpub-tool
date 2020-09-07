@@ -24,7 +24,9 @@ const NUMBER_OF_ADDRESSES = 100 // however many we need
 
 const IndexPage = () => {
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
-  const [xpub, setXpub] = useState("")
+  const [xpub, setXpub] = useState(
+    "ypub6ZjkLiEwNDVeZ6VaFpaULvtV3sGT6n43CvrktC2G6H87ME8PTxCe59inL5QUWnRM4f5LVhkvxPsoR5C33Hqu4Bb3FY35oYPRp6d7CCfcqmo"
+  )
   const [isExpertMode, setExpertMode] = useState(false)
   const [purpose, setPurpose] = useState(Purpose.P2WPKH) // default to bech32
   const [accountNumber, setAccountNumber] = useState(0)
@@ -38,6 +40,7 @@ const IndexPage = () => {
 
   const isValid = useMemo(() => isValidXpub(xpub, network), [xpub, network])
 
+  // const addressList = []
   const addressList = !isValid
     ? []
     : addressesFromXpub({
