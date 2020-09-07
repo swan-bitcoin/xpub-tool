@@ -12,6 +12,13 @@ import Purpose from "./purpose"
 const DEFAULT_NETWORK = NETWORKS.TESTNET
 const DEFAULT_PURPOSE = Purpose.P2WPKH
 
+const XPUB = "xpub"
+const YPUB = "ypub"
+const ZPUB = "zpub"
+const TPUB = "tpub"
+const UPUB = "upub"
+const VPUB = "vpub"
+
 function maskKey(key, pre = 15, post = 15, placeholder = "[...]") {
   const beginning = key.substr(0, pre)
   const ending = key.substr(key.length - post, key.length)
@@ -42,14 +49,18 @@ function getXpubMetadata(xpub) {
 
 function getNetworkFromXpub(xpub) {
   const prefix = xpub.slice(0, 4)
-  if (prefix === "xpub") {
-    return NETWORKS.MAINNET
+  switch (prefix) {
+    case XPUB:
+    case YPUB:
+    case ZPUB:
+      return NETWORKS.MAINNET
+    case TPUB:
+    case UPUB:
+    case VPUB:
+      return NETWORKS.TESTNET
+    default:
+      return undefined
   }
-  if (prefix === "tpub") {
-    return NETWORKS.TESTNET
-  }
-
-  return undefined
 }
 
 function deriveAddress({ purpose, pubkey, network }) {
