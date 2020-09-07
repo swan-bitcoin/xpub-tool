@@ -45,25 +45,6 @@ function getNetworkFromXpub(xpub) {
   }
 }
 
-function getXpubMetadata(xpub) {
-  try {
-    const xpubObj = ExtendedPublicKey.fromBase58(xpub)
-
-    return {
-      type: getXpubType(xpub),
-      index: xpubObj.index,
-      depth: xpubObj.depth,
-      pubkey: xpubObj.pubkey,
-      chaincode: xpubObj.chaincode,
-      parentFingerprint: xpubObj.parentFingerprint,
-      network: getNetworkFromXpub(xpub),
-      version: xpubObj.version,
-    }
-  } catch (error) {
-    return {}
-  }
-}
-
 function getXpubType(xpub) {
   const network = getNetworkFromXpub(xpub)
   if (!isValidXpub(xpub, network)) {
@@ -83,6 +64,25 @@ function getXpubType(xpub) {
       return Purpose.P2WPKH
     default:
       return undefined
+  }
+}
+
+function getXpubMetadata(xpub) {
+  try {
+    const xpubObj = ExtendedPublicKey.fromBase58(xpub)
+
+    return {
+      type: getXpubType(xpub),
+      index: xpubObj.index,
+      depth: xpubObj.depth,
+      pubkey: xpubObj.pubkey,
+      chaincode: xpubObj.chaincode,
+      parentFingerprint: xpubObj.parentFingerprint,
+      network: getNetworkFromXpub(xpub),
+      version: xpubObj.version,
+    }
+  } catch (error) {
+    return {}
   }
 }
 
