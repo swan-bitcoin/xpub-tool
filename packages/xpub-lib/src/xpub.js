@@ -47,6 +47,28 @@ function getXpubMetadata(xpub) {
   }
 }
 
+function getXpubType(xpub) {
+  const network = getNetworkFromXpub(xpub)
+  if (!isValidXpub(xpub, network)) {
+    return undefined
+  }
+
+  const prefix = xpub.slice(0, 4)
+  switch (prefix) {
+    case XPUB:
+    case TPUB:
+      return Purpose.P2PKH
+    case YPUB:
+    case UPUB:
+      return Purpose.P2SH
+    case ZPUB:
+    case VPUB:
+      return Purpose.P2WPKH
+    default:
+      return undefined
+  }
+}
+
 function getNetworkFromXpub(xpub) {
   const prefix = xpub.slice(0, 4)
   switch (prefix) {
