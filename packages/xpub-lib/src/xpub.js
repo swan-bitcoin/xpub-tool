@@ -92,8 +92,6 @@ function getXpubMetadata(xpub) {
 
 function convertToBIP32(xpub, network) {
   const targetPrefix = network === NETWORKS.MAINNET ? "xpub" : "tpub"
-  console.log(xpub)
-  console.log(targetPrefix)
   return convertExtendedPublicKey(xpub, targetPrefix)
 }
 
@@ -134,9 +132,6 @@ function addressFromXpub({ xpub, accountNumber, keyIndex, purpose, network }) {
     keyIndex,
     network,
   })
-  console.log(xpub)
-  console.log(partialPath)
-  console.log(network)
   const childPubKey = deriveChildPublicKey(xpub, partialPath, network)
   const keyPair = bitcoin.ECPair.fromPublicKey(Buffer.from(childPubKey, "hex"))
   const pubkey = keyPair.publicKey
