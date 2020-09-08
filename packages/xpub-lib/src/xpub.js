@@ -27,10 +27,13 @@ function maskKey(key, pre = 15, post = 15, placeholder = "[...]") {
 }
 
 function isValidXpub(xpub, network) {
-  const convertedXpub = convertToBIP32(xpub, network)
-
-  // validateExtendedPublicKey expects "xpub..." or "tpub..."
-  return validateExtendedPublicKey(convertedXpub, network) === ""
+  try {
+    const convertedXpub = convertToBIP32(xpub, network)
+    // validateExtendedPublicKey expects "xpub..." or "tpub..."
+    return validateExtendedPublicKey(convertedXpub, network) === ""
+  } catch (error) {
+    return false
+  }
 }
 
 function getNetworkFromXpub(xpub) {

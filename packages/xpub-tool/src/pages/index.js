@@ -39,15 +39,15 @@ const IndexPage = () => {
   const isValid = useMemo(() => isValidXpub(xpub, network), [xpub, network])
 
   // const addressList = []
-  const addressList = !isValid
-    ? []
-    : addressesFromXpub({
+  const addressList = isValid
+    ? addressesFromXpub({
         xpub,
         addressCount: NUMBER_OF_ADDRESSES,
         accountNumber,
         purpose,
         network,
       })
+    : []
 
   return (
     <Layout pageInfo={{ pageName: "index" }}>
