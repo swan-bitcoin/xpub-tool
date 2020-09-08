@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "bitcoinjs-lib": "^5.1.10",
+    "bs58check": "^2.1.2",
     "unchained-bitcoin": "0.0.15",
     "unchained-wallets": "^0.1.10"
   },
