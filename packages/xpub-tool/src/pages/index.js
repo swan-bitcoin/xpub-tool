@@ -38,7 +38,6 @@ const IndexPage = () => {
 
   const isValid = useMemo(() => isValidXpub(xpub, network), [xpub, network])
 
-  // const addressList = []
   const addressList = isValid
     ? addressesFromXpub({
         xpub,
