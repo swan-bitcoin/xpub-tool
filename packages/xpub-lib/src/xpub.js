@@ -94,7 +94,7 @@ function getXpubMetadata(xpub) {
 }
 
 function convertToBIP32(xpub, network) {
-  const targetPrefix = network === NETWORKS.MAINNET ? "xpub" : "tpub"
+  const targetPrefix = network === NETWORKS.MAINNET ? XPUB : TPUB
   return convertExtendedPublicKey(xpub, targetPrefix)
 }
 
