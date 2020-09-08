@@ -159,7 +159,7 @@ function addressesFromXpub({
 
   for (let keyIndex = 0; keyIndex < addressCount; keyIndex += 1) {
     const { path, address } = addressFromXpub({
-      convertedXpub,
+      xpub: convertedXpub,
       accountNumber,
       keyIndex,
       purpose,
