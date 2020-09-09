@@ -2,6 +2,44 @@ import { NETWORKS } from "unchained-bitcoin"
 import { isValidXpub } from "./xpub"
 
 describe("isValidXpub", () => {
+  test("invalid keys are invalid on mainnet", () => {
+    expect(isValidXpub("", NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidXpub("xpub...", NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidXpub("ypub...", NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidXpub("zpub...", NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidXpub("tpub...", NETWORKS.TESTNET)).toBeFalsy()
+    expect(isValidXpub("upub...", NETWORKS.TESTNET)).toBeFalsy()
+    expect(isValidXpub("vpub...", NETWORKS.TESTNET)).toBeFalsy()
+    expect(
+      isValidXpub(
+        "Xpub6D7NqpxWckGwCHhpXoL4pH38m5xVty62KY2wUh6JoyDCofwHciDRoQ3xm7WAg2ffpHaC6X4bEociYq81niyNUGhCxEs6fDFAd1LPbEmzcAm",
+        NETWORKS.MAINNET
+      )
+    ).toBeFalsy()
+    expect(
+      isValidXpub(
+        "xpub6BfKpqjTwvH21wJGWEfxLppb8sU7C6FJge2kWb9315oP4ZVqCXG29cdUtkyu7YQhHyfA5nt63nzcNZHYmqXYHDxYo8mm1Xq1dAC7YtodwUr",
+        NETWORKS.MAINNET
+      )
+    ).toBeFalsy()
+  })
+  test("xpub is invalid on testnet", () => {
+    expect(
+      isValidXpub(
+        "xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab",
+        NETWORKS.TESTNET
+      )
+    ).toBeFalsy()
+  })
+  test("tpub is invalid on mainnet", () => {
+    expect(
+      isValidXpub(
+        "tpubDCZv1xNTnmwmXe3BBMyXekiVreY853jFeC8k9AaEAqCDYi1ZTSTLH3uQonwCTRk9jL1SFu1cLNbDY76YtcDR8n2inSMwBEAdZs37EpYS9px",
+        NETWORKS.MAINNET
+      )
+    ).toBeFalsy()
+  })
+
   // BIP 32 and BIP 44: XPUB & TPUB
   test("mainnet xpub is valid", () => {
     expect(
