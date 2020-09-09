@@ -34,4 +34,9 @@ describe("humanReadableDerivationPath", () => {
       "Account #3 (Native SegWit)"
     )
   })
+  test("empty path", () => {
+    expect(() => {
+      humanReadableDerivationPath({ bip32Path: "" })
+    }).toThrow()
+  })
 })
