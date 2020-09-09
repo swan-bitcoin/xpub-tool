@@ -1,5 +1,5 @@
 import { NETWORKS } from "unchained-bitcoin"
-import { isValidXpub } from "./xpub"
+import { isValidXpub, getXpubType } from "./xpub"
 
 describe("isValidXpub", () => {
   test("invalid keys are invalid on mainnet", () => {
@@ -164,5 +164,29 @@ describe("isValidXpub", () => {
         NETWORKS.TESTNET
       )
     ).toBeTruthy()
+  })
+})
+
+describe("getXpubType", () => {
+  test("xpub should be of type P2PKH (BIP 44)", () => {
+    expect(
+      getXpubType(
+        "xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab"
+      )
+    ).toBe("44")
+  })
+  test("ypub should be of type P2SH (BIP 49)", () => {
+    expect(
+      getXpubType(
+        "ypub6ZjkLiEwNDVeZ6VaFpaULvtV3sGT6n43CvrktC2G6H87ME8PTxCe59inL5QUWnRM4f5LVhkvxPsoR5C33Hqu4Bb3FY35oYPRp6d7CCfcqmo"
+      )
+    ).toBe("49")
+  })
+  test("zpub should be of type P2WPKH (BIP 84)", () => {
+    expect(
+      getXpubType(
+        "zpub6ssizzcfQnWpVVeQJ7zy5tXEWA5gqRo3cFLn1cM8z8tdqoTQPDoKayrj9zF4mraaNUTeHA6cSyb5qL93QdMFrzruEdGYjRC1hKEyghMhwZZ"
+      )
+    ).toBe("84")
   })
 })
