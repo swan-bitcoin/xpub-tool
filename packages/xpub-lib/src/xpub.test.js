@@ -168,24 +168,39 @@ describe("isValidXpub", () => {
 })
 
 describe("getXpubType", () => {
-  test("xpub should be of type P2PKH (BIP 44)", () => {
+  test("xpub/tpub should be of type P2PKH (BIP 44)", () => {
     expect(
       getXpubType(
         "xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab"
       )
     ).toBe("44")
+    expect(
+      getXpubType(
+        "tpubDCZv1xNTnmwmXe3BBMyXekiVreY853jFeC8k9AaEAqCDYi1ZTSTLH3uQonwCTRk9jL1SFu1cLNbDY76YtcDR8n2inSMwBEAdZs37EpYS9px"
+      )
+    ).toBe("44")
   })
-  test("ypub should be of type P2SH (BIP 49)", () => {
+  test("ypub/upub should be of type P2SH (BIP 49)", () => {
     expect(
       getXpubType(
         "ypub6ZjkLiEwNDVeZ6VaFpaULvtV3sGT6n43CvrktC2G6H87ME8PTxCe59inL5QUWnRM4f5LVhkvxPsoR5C33Hqu4Bb3FY35oYPRp6d7CCfcqmo"
       )
     ).toBe("49")
+    expect(
+      getXpubType(
+        "upub5GGT3WZcGGFQZycqExe4iTxx8iL2BqXcJTXGTCALaoRvDjPD889bHZPXoRz3z9EGnx3GzCu7WuAPDnNUronFVDZjWsGJSUWpf63qVJqmGt1"
+      )
+    ).toBe("49")
   })
-  test("zpub should be of type P2WPKH (BIP 84)", () => {
+  test("zpub/vpub should be of type P2WPKH (BIP 84)", () => {
     expect(
       getXpubType(
         "zpub6ssizzcfQnWpVVeQJ7zy5tXEWA5gqRo3cFLn1cM8z8tdqoTQPDoKayrj9zF4mraaNUTeHA6cSyb5qL93QdMFrzruEdGYjRC1hKEyghMhwZZ"
+      )
+    ).toBe("84")
+    expect(
+      getXpubType(
+        "vpub5bTmE9K4QmkbLUnWm6pmKgRDLkckrJprBBUx49PwEEAqgb3ehJo45FamVZ481S3dvhaRbDnUrFxqDC61yLTGSEcHyvAA365DmsjpADBAqrB"
       )
     ).toBe("84")
   })
