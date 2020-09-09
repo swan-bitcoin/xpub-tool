@@ -26,14 +26,9 @@ function maskKey(key, pre = 15, post = 15, placeholder = "[...]") {
   return beginning + placeholder + ending
 }
 
-function isValidXpub(xpub, network) {
-  try {
-    const convertedXpub = convertToBIP32(xpub, network)
-    // validateExtendedPublicKey expects "xpub..." or "tpub..."
-    return validateExtendedPublicKey(convertedXpub, network) === ""
-  } catch (error) {
-    return false
-  }
+function convertToBIP32(xpub, network) {
+  const targetPrefix = network === NETWORKS.MAINNET ? XPUB : TPUB
+  return convertExtendedPublicKey(xpub, targetPrefix)
 }
 
 function getNetworkFromXpub(xpub) {
@@ -49,6 +44,20 @@ function getNetworkFromXpub(xpub) {
       return NETWORKS.TESTNET
     default:
       return undefined
+  }
+}
+
+function isValidXpub(xpub, network) {
+  const isNetworkMatch = getNetworkFromXpub(xpub) === network
+  if (!isNetworkMatch) {
+    return false
+  }
+  try {
+    const convertedXpub = convertToBIP32(xpub, network)
+    // validateExtendedPublicKey expects "xpub..." or "tpub..."
+    return validateExtendedPublicKey(convertedXpub, network) === ""
+  } catch (error) {
+    return false
   }
 }
 
@@ -91,11 +100,6 @@ function getXpubMetadata(xpub) {
   } catch (error) {
     return {}
   }
-}
-
-function convertToBIP32(xpub, network) {
-  const targetPrefix = network === NETWORKS.MAINNET ? XPUB : TPUB
-  return convertExtendedPublicKey(xpub, targetPrefix)
 }
 
 function deriveAddress({ purpose, pubkey, network }) {
