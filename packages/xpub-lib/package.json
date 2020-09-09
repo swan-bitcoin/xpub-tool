@@ -9,7 +9,11 @@
     "unchained-wallets": "^0.1.10"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "babel -d lib/ src/",
+    "compile:watch": "babel --watch -d lib/ src/",
+    "pretest": "yarn run compile",
+    "test": "jest lib",
+    "test:watch": "jest --watch src"
   },
   "keywords": [],
   "author": "",
