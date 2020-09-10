@@ -1,4 +1,6 @@
-import { humanReadableDerivationPath } from "./paths"
+import { NETWORKS } from "unchained-bitcoin"
+import { accountDerivationPath, humanReadableDerivationPath } from "./paths"
+import Purpose from "./purpose"
 
 describe("humanReadableDerivationPath", () => {
   test("Legacy", () => {
@@ -38,5 +40,42 @@ describe("humanReadableDerivationPath", () => {
     expect(() => {
       humanReadableDerivationPath({ bip32Path: "" })
     }).toThrow()
+  })
+})
+
+describe("accountDerivationPath", () => {
+  test("testnet derivation paths", () => {
+    expect(
+      accountDerivationPath({ purpose: Purpose.P2PKH, accountNumber: 0 })
+    ).toBe("m/44'/1'/0'")
+    expect(
+      accountDerivationPath({ purpose: Purpose.P2SH, accountNumber: 0 })
+    ).toBe("m/49'/1'/0'")
+    expect(
+      accountDerivationPath({ purpose: Purpose.P2WPKH, accountNumber: 0 })
+    ).toBe("m/84'/1'/0'")
+  })
+  test("mainnet derivation paths", () => {
+    expect(
+      accountDerivationPath({
+        purpose: Purpose.P2PKH,
+        accountNumber: 0,
+        network: NETWORKS.MAINNET,
+      })
+    ).toBe("m/44'/0'/0'")
+    expect(
+      accountDerivationPath({
+        purpose: Purpose.P2SH,
+        accountNumber: 0,
+        network: NETWORKS.MAINNET,
+      })
+    ).toBe("m/49'/0'/0'")
+    expect(
+      accountDerivationPath({
+        purpose: Purpose.P2WPKH,
+        accountNumber: 0,
+        network: NETWORKS.MAINNET,
+      })
+    ).toBe("m/84'/0'/0'")
   })
 })
