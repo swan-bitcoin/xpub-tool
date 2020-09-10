@@ -2,12 +2,6 @@ import { NETWORKS, ExtendedPublicKey } from "unchained-bitcoin"
 import Purpose from "./purpose"
 import TYPE from "./types"
 
-function maskKey(key, pre = 15, post = 15, placeholder = "[...]") {
-  const beginning = key.substr(0, pre)
-  const ending = key.substr(key.length - post, key.length)
-  return beginning + placeholder + ending
-}
-
 function getNetworkFromXpub(xpub) {
   const prefix = xpub.slice(0, 4)
   switch (prefix) {
@@ -60,4 +54,4 @@ function getXpubMetadata(xpub) {
   }
 }
 
-export { maskKey, getXpubType, getXpubMetadata, getNetworkFromXpub }
+export { getXpubType, getXpubMetadata, getNetworkFromXpub }
