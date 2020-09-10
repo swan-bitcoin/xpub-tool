@@ -1,17 +1,7 @@
-import {
-  NETWORKS,
-  ExtendedPublicKey,
-  convertExtendedPublicKey,
-} from "unchained-bitcoin"
+import { NETWORKS, ExtendedPublicKey } from "unchained-bitcoin"
 import { isValidXpub } from "./validation"
 import Purpose from "./purpose"
-
-const XPUB = "xpub"
-const YPUB = "ypub"
-const ZPUB = "zpub"
-const TPUB = "tpub"
-const UPUB = "upub"
-const VPUB = "vpub"
+import TYPE from "./types"
 
 function maskKey(key, pre = 15, post = 15, placeholder = "[...]") {
   const beginning = key.substr(0, pre)
@@ -19,21 +9,16 @@ function maskKey(key, pre = 15, post = 15, placeholder = "[...]") {
   return beginning + placeholder + ending
 }
 
-function convertToBIP32(xpub, network) {
-  const targetPrefix = network === NETWORKS.MAINNET ? XPUB : TPUB
-  return convertExtendedPublicKey(xpub, targetPrefix)
-}
-
 function getNetworkFromXpub(xpub) {
   const prefix = xpub.slice(0, 4)
   switch (prefix) {
-    case XPUB:
-    case YPUB:
-    case ZPUB:
+    case TYPE.XPUB:
+    case TYPE.YPUB:
+    case TYPE.ZPUB:
       return NETWORKS.MAINNET
-    case TPUB:
-    case UPUB:
-    case VPUB:
+    case TYPE.TPUB:
+    case TYPE.UPUB:
+    case TYPE.VPUB:
       return NETWORKS.TESTNET
     default:
       return undefined
@@ -48,14 +33,14 @@ function getXpubType(xpub) {
 
   const prefix = xpub.slice(0, 4)
   switch (prefix) {
-    case XPUB:
-    case TPUB:
+    case TYPE.XPUB:
+    case TYPE.TPUB:
       return Purpose.P2PKH
-    case YPUB:
-    case UPUB:
+    case TYPE.YPUB:
+    case TYPE.UPUB:
       return Purpose.P2SH
-    case ZPUB:
-    case VPUB:
+    case TYPE.ZPUB:
+    case TYPE.VPUB:
       return Purpose.P2WPKH
     default:
       return undefined
@@ -81,10 +66,4 @@ function getXpubMetadata(xpub) {
   }
 }
 
-export {
-  maskKey,
-  getXpubType,
-  getXpubMetadata,
-  convertToBIP32,
-  getNetworkFromXpub,
-}
+export { maskKey, getXpubType, getXpubMetadata, getNetworkFromXpub }

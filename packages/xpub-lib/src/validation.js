@@ -1,5 +1,6 @@
 import { validateExtendedPublicKey } from "unchained-bitcoin"
-import { convertToBIP32, getNetworkFromXpub } from "./xpub"
+import { convertToBIP32 } from "./conversion"
+import { getNetworkFromXpub } from "./metadata"
 
 function isNetworkMatch(xpub, network) {
   return getNetworkFromXpub(xpub) === network

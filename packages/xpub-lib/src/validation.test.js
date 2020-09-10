@@ -1,8 +1,6 @@
 import { NETWORKS } from "unchained-bitcoin"
-import { KEY, KEYS, WASABI, SAMOURAI } from "../test/fixtures"
-import { isValidXpub } from "./xpub"
-
-import { addressFromXpub, addressesFromXpub } from "./derivation"
+import { KEYS } from "../test/fixtures"
+import { isValidXpub } from "./validation"
 
 describe("isValidXpub", () => {
   test("invalid keys are invalid on mainnet", () => {
