@@ -37,6 +37,8 @@ const VALID_VPUBS = [
 
 const WASABI_XPUB =
   "xpub6CQtk4bkfG1d4UTWNBwmWGP95gjvTvEKZhm74CxLfbd4XqXY5wkyaUvLoWyy6Le24VxCqg2nASLu2xhNaDh5FhFDf8ndUUgbm8q1VDqCipy"
+const WASABI_YPUB =
+  "ypub6XFA3jGfowZ6umedCYjPiMUeFetNQYDpUpHKqbrE3bzwawLmLbvYCYaUpiwZ6FHwU951b9dLd6hSvFJwHv763vvpXUV44PW62rtesm5g4wa"
 const WASABI_ZPUB =
   "zpub6r5RMPwaxd6am4qk2uX1vSa9Rd2pMADKPvoYczk7RcNpe39zbG66pcEcqvu969wrsnBpLdDu5m3zoXvW1cX6rAcRPpBUeJKaJaxJGLBWaLe"
 const WASABI_ADDRESSES = [
@@ -139,11 +141,19 @@ describe("getXpubType", () => {
 })
 
 describe("addressesFromXpub", () => {
-  // Wasabi
   test("default address generation from xpub on mainnet", () => {
     expect(
       addressesFromXpub({
         xpub: WASABI_XPUB,
+        addressCount: 3,
+        network: NETWORKS.MAINNET,
+      }).map(obj => obj.address)
+    ).toStrictEqual(WASABI_ADDRESSES)
+  })
+  test("default address generation from ypub on mainnet", () => {
+    expect(
+      addressesFromXpub({
+        xpub: WASABI_YPUB,
         addressCount: 3,
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)
@@ -164,5 +174,12 @@ describe("addressesFromXpub", () => {
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)
     ).toStrictEqual(SAMOURAI_ADDRESSES)
+    expect(
+      addressesFromXpub({
+        xpub: SAMOURAI_ZPUB,
+        addressCount: 20, // generate 20 addresses
+        network: NETWORKS.MAINNET,
+      }).map(obj => obj.address)[19] // pick nr. 20 and compare
+    ).toEqual("bc1qrkv7s6enp5n7nnz97g2em2q4jefcmt9208syg0")
   })
 })
