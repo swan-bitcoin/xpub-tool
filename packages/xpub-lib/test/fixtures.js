@@ -20,8 +20,8 @@ const KEY = {
     VPUB:
       "vpub5bExRiEBvAsD1CvDkkDbifbyXxq7Gv5YTbJ6Y1LbxFzUBvghhyhxCxkNGTXiX4TaqjivFGyFaQp9mDMLtCbrfUYEeWwp3ovxzvSB2XY87ph",
     LEGACY: "muvKiYeij3wEujshbBjFU7kupyLHsFWgxE",
-    SEGWIT: "3JDVonJcuQ7yQQQJh1tFLV74uRZUP6LgvF",
-    BECH32: "bc1qdx0pd4h65d7mekkhk7n6jwzfwgqath7s0e368g",
+    SEGWIT: "TODO", // FIXME
+    BECH32: "TODO", // FIXME
   },
 }
 
