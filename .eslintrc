@@ -23,16 +23,15 @@
       "experimentalObjectRestSpread": true
     }
   },
-  "plugins": [
-    "react", 
-    "react-hooks", 
-    "jsx-a11y", 
-    "prettier"
-  ],
+  "plugins": ["react", "react-hooks", "jsx-a11y", "prettier"],
   "rules": {
-    "react/jsx-filename-extension": [1, {
-      "extensions": [".js", ".jsx"]
-    }],
+    "import/prefer-default-export": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "no-console": "off",
