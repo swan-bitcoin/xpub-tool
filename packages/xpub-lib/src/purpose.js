@@ -6,10 +6,10 @@ const Purpose = {
 }
 
 // Human-readable account names as used by wallets
-export const AccountTypeName = {
+const AccountTypeName = {
   [Purpose.P2PKH]: "Legacy", // 1addresses
   [Purpose.P2SH]: "SegWit", // 3addresses, SegWit = default
   [Purpose.P2WPKH]: "Native SegWit", // bc1addresses
 }
 
-export default Purpose
+export { Purpose, AccountTypeName }
