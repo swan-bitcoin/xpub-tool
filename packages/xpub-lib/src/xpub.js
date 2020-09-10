@@ -47,9 +47,12 @@ function getNetworkFromXpub(xpub) {
   }
 }
 
+function isNetworkMatch(xpub, network) {
+  return getNetworkFromXpub(xpub) === network
+}
+
 function isValidXpub(xpub, network) {
-  const isNetworkMatch = getNetworkFromXpub(xpub) === network
-  if (!isNetworkMatch) {
+  if (!isNetworkMatch(xpub, network)) {
     return false
   }
   try {
@@ -132,6 +135,9 @@ function deriveAddress({ purpose, pubkey, network }) {
 }
 
 function addressFromXpub({ xpub, accountNumber, keyIndex, purpose, network }) {
+  if (!isValidXpub(xpub, network)) {
+    throw TypeError("Invalid extended public key")
+  }
   const partialPath = partialKeyDerivationPath({ accountNumber, keyIndex })
   const fullPath = fullDerivationPath({
     purpose,
@@ -139,7 +145,8 @@ function addressFromXpub({ xpub, accountNumber, keyIndex, purpose, network }) {
     keyIndex,
     network,
   })
-  const childPubKey = deriveChildPublicKey(xpub, partialPath, network)
+  const convertedXpub = convertToBIP32(xpub, network)
+  const childPubKey = deriveChildPublicKey(convertedXpub, partialPath, network)
   const keyPair = bitcoin.ECPair.fromPublicKey(Buffer.from(childPubKey, "hex"))
   const pubkey = keyPair.publicKey
   return {
@@ -155,13 +162,11 @@ function addressesFromXpub({
   purpose = DEFAULT_PURPOSE,
   network = DEFAULT_NETWORK,
 }) {
-  const convertedXpub = convertToBIP32(xpub, network)
-
   const addresses = []
 
   for (let keyIndex = 0; keyIndex < addressCount; keyIndex += 1) {
     const { path, address } = addressFromXpub({
-      xpub: convertedXpub,
+      xpub,
       accountNumber,
       keyIndex,
       purpose,
@@ -174,4 +179,11 @@ function addressesFromXpub({
   return addresses
 }
 
-export { maskKey, isValidXpub, getXpubType, addressesFromXpub, getXpubMetadata }
+export {
+  maskKey,
+  isValidXpub,
+  getXpubType,
+  addressFromXpub,
+  addressesFromXpub,
+  getXpubMetadata,
+}

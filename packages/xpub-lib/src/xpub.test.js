@@ -1,5 +1,10 @@
 import { NETWORKS } from "unchained-bitcoin"
-import { addressesFromXpub, getXpubType, isValidXpub } from "./xpub"
+import {
+  addressFromXpub,
+  addressesFromXpub,
+  getXpubType,
+  isValidXpub,
+} from "./xpub"
 
 const VALID_XPUBS = [
   "xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab",
@@ -137,6 +142,18 @@ describe("getXpubType", () => {
   test("zpub/vpub should be of type P2WPKH (BIP 84)", () => {
     expect(getXpubType(VALID_ZPUBS[0])).toBe("84")
     expect(getXpubType(VALID_VPUBS[0])).toBe("84")
+  })
+})
+
+describe("addressFromXpub", () => {
+  test("mainnet address generation from testnet key", () => {
+    expect(() => {
+      addressFromXpub({
+        xpub: VALID_XPUBS[0],
+        addressCount: 3,
+        network: NETWORKS.TESTNET,
+      })
+    }).toThrow()
   })
 })
 
