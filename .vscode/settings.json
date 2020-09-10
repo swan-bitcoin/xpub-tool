@@ -1,20 +1,21 @@
 {
-    "editor.formatOnSave": true,
-    "cSpell.words": [
-        "BECH",
-        "SAMOURAI",
-        "SEGWIT",
-        "TPUBS",
-        "WPKH",
-        "XPUBS",
-        "bitcoinjs",
-        "chaincode",
-        "pubkey",
-        "tpub",
-        "upub",
-        "vpub",
-        "xpub",
-        "ypub",
-        "zpub"
-    ]
+  "editor.formatOnSave": true,
+  "cSpell.words": [
+    "BECH",
+    "SAMOURAI",
+    "SEGWIT",
+    "TPUBS",
+    "WPKH",
+    "XPUBS",
+    "bitcoinjs",
+    "chaincode",
+    "pubkey",
+    "tpub",
+    "upub",
+    "vpub",
+    "xpub",
+    "ypub",
+    "zpub"
+  ],
+  "cSpell.ignorePaths": ["fixtures.js"]
 }
