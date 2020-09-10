@@ -2,7 +2,6 @@ import { NETWORKS } from "unchained-bitcoin"
 import { addressesFromXpub, getXpubType, isValidXpub } from "./xpub"
 
 const VALID_XPUBS = [
-  "xpub6CQtk4bkfG1d4UTWNBwmWGP95gjvTvEKZhm74CxLfbd4XqXY5wkyaUvLoWyy6Le24VxCqg2nASLu2xhNaDh5FhFDf8ndUUgbm8q1VDqCipy",
   "xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab",
   "xpub6D7NqpxWckGwCHhpXoL4pH38m5xVty62KY2wUh6JoyDCofwHciDRoQ3xm7WAg2ffpHaC6X4bEociYq81niyNUGhCxEs6fDFAd1LPbEmzcAm",
   "xpub6BfKpqjTwvH21wJGWEfxLppb8sU7C6FJge2kWb9315oP4ZVqCXG29cdUtkyu7YQhHyfA5nt63nzcNZHYmqXYHDxYo8mm1Xq1dAC7YtodwUR",
@@ -34,6 +33,24 @@ const VALID_VPUBS = [
   "vpub5bTmE9K4QmkbLUnWm6pmKgRDLkckrJprBBUx49PwEEAqgb3ehJo45FamVZ481S3dvhaRbDnUrFxqDC61yLTGSEcHyvAA365DmsjpADBAqrB",
   "vpub5Ybrievs5pSmu6utBXJGqxLWZ9cNcL4qkPZAZd7vbM68tUKh7wewzRDTTEKtoqC25VvWEZbrTRuhhcx9eN7kYCxann64AzrbFtTG2Vq9zF5",
   "vpub5abgwCpBesPT6h2Z1Qg3GbemVfRnquT3ogegq97tPTfiaqALZJdfSEnB1cwWxY2C2Z3MsARyDLX2t7GqbZHterjT8P874KwMC4W89mm2Q4U",
+]
+
+const WASABI_XPUB =
+  "xpub6CQtk4bkfG1d4UTWNBwmWGP95gjvTvEKZhm74CxLfbd4XqXY5wkyaUvLoWyy6Le24VxCqg2nASLu2xhNaDh5FhFDf8ndUUgbm8q1VDqCipy"
+const WASABI_ZPUB =
+  "zpub6r5RMPwaxd6am4qk2uX1vSa9Rd2pMADKPvoYczk7RcNpe39zbG66pcEcqvu969wrsnBpLdDu5m3zoXvW1cX6rAcRPpBUeJKaJaxJGLBWaLe"
+const WASABI_ADDRESSES = [
+  "bc1qcksx27qlksr2cy3pnwdw0mnm94c5cm0vz3jh6e",
+  "bc1qw0c77zue3xduyh4jef3r3jhfpx30jxc7s5z7lv",
+  "bc1ql4l5m2wnlcwl28rsu0k8k5rx7yjg9fkr2vld8p",
+]
+
+const SAMOURAI_ZPUB =
+  "zpub6rk5rRte9pPyKTNuP2iKak9ZSEqvsXMP48TQoP23vjVDLeywBwJKcCzj1avQEybYVD1A9uTDmou8F5hcL6KFataVGjyzZxwYyDLqBEv9H8R"
+const SAMOURAI_ADDRESSES = [
+  "bc1qg7v2efej3lqmj828lcgfnedptrdncjv4mgpyfd",
+  "bc1qjvpph2k4h3rvfdwrlczgsrs0ku6ymzq9z5ct2v",
+  "bc1qtnew2mxs90w53qwta7wqhk89hruka6mqsrnkr8",
 ]
 
 describe("isValidXpub", () => {
@@ -122,17 +139,30 @@ describe("getXpubType", () => {
 })
 
 describe("addressesFromXpub", () => {
+  // Wasabi
   test("default address generation from xpub on mainnet", () => {
     expect(
       addressesFromXpub({
-        xpub: VALID_XPUBS[0],
+        xpub: WASABI_XPUB,
         addressCount: 3,
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)
-    ).toStrictEqual([
-      "bc1qcksx27qlksr2cy3pnwdw0mnm94c5cm0vz3jh6e",
-      "bc1qw0c77zue3xduyh4jef3r3jhfpx30jxc7s5z7lv",
-      "bc1ql4l5m2wnlcwl28rsu0k8k5rx7yjg9fkr2vld8p",
-    ])
+    ).toStrictEqual(WASABI_ADDRESSES)
+  })
+  test("default address generation from zpub on mainnet", () => {
+    expect(
+      addressesFromXpub({
+        xpub: WASABI_ZPUB,
+        addressCount: 3,
+        network: NETWORKS.MAINNET,
+      }).map(obj => obj.address)
+    ).toStrictEqual(WASABI_ADDRESSES)
+    expect(
+      addressesFromXpub({
+        xpub: SAMOURAI_ZPUB,
+        addressCount: 3,
+        network: NETWORKS.MAINNET,
+      }).map(obj => obj.address)
+    ).toStrictEqual(SAMOURAI_ADDRESSES)
   })
 })
