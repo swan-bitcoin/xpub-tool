@@ -174,11 +174,4 @@ function addressesFromXpub({
   return addresses
 }
 
-export {
-  Purpose,
-  maskKey,
-  isValidXpub,
-  getXpubType,
-  addressesFromXpub,
-  getXpubMetadata,
-}
+export { maskKey, isValidXpub, getXpubType, addressesFromXpub, getXpubMetadata }

@@ -1,7 +1,8 @@
 import { NETWORKS } from "unchained-bitcoin"
-import { isValidXpub, getXpubType } from "./xpub"
+import { addressesFromXpub, getXpubType, isValidXpub } from "./xpub"
 
 const VALID_XPUBS = [
+  "xpub6CQtk4bkfG1d4UTWNBwmWGP95gjvTvEKZhm74CxLfbd4XqXY5wkyaUvLoWyy6Le24VxCqg2nASLu2xhNaDh5FhFDf8ndUUgbm8q1VDqCipy",
   "xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab",
   "xpub6D7NqpxWckGwCHhpXoL4pH38m5xVty62KY2wUh6JoyDCofwHciDRoQ3xm7WAg2ffpHaC6X4bEociYq81niyNUGhCxEs6fDFAd1LPbEmzcAm",
   "xpub6BfKpqjTwvH21wJGWEfxLppb8sU7C6FJge2kWb9315oP4ZVqCXG29cdUtkyu7YQhHyfA5nt63nzcNZHYmqXYHDxYo8mm1Xq1dAC7YtodwUR",
@@ -117,5 +118,21 @@ describe("getXpubType", () => {
   test("zpub/vpub should be of type P2WPKH (BIP 84)", () => {
     expect(getXpubType(VALID_ZPUBS[0])).toBe("84")
     expect(getXpubType(VALID_VPUBS[0])).toBe("84")
+  })
+})
+
+describe("addressesFromXpub", () => {
+  test("default address generation from xpub on mainnet", () => {
+    expect(
+      addressesFromXpub({
+        xpub: VALID_XPUBS[0],
+        addressCount: 3,
+        network: NETWORKS.MAINNET,
+      }).map(obj => obj.address)
+    ).toStrictEqual([
+      "bc1qcksx27qlksr2cy3pnwdw0mnm94c5cm0vz3jh6e",
+      "bc1qw0c77zue3xduyh4jef3r3jhfpx30jxc7s5z7lv",
+      "bc1ql4l5m2wnlcwl28rsu0k8k5rx7yjg9fkr2vld8p",
+    ])
   })
 })
