@@ -146,14 +146,51 @@ describe("getXpubType", () => {
 })
 
 describe("addressFromXpub", () => {
-  test("mainnet address generation from testnet key", () => {
-    expect(() => {
+  test("testnet address generation from mainnet key", () => {
+    expect(
       addressFromXpub({
         xpub: VALID_XPUBS[0],
-        addressCount: 3,
+        addressCount: 1,
         network: NETWORKS.TESTNET,
       })
-    }).toThrow()
+    ).toBeFalsy()
+    expect(
+      addressFromXpub({
+        xpub: VALID_YPUBS[0],
+        addressCount: 1,
+        network: NETWORKS.TESTNET,
+      })
+    ).toBeFalsy()
+    expect(
+      addressFromXpub({
+        xpub: VALID_ZPUBS[0],
+        addressCount: 1,
+        network: NETWORKS.TESTNET,
+      })
+    ).toBeFalsy()
+  })
+  test("mainnet address generation from testnet key", () => {
+    expect(
+      addressFromXpub({
+        xpub: VALID_TPUBS[0],
+        addressCount: 1,
+        network: NETWORKS.MAINNET,
+      })
+    ).toBeFalsy()
+    expect(
+      addressFromXpub({
+        xpub: VALID_UPUBS[0],
+        addressCount: 1,
+        network: NETWORKS.MAINNET,
+      })
+    ).toBeFalsy()
+    expect(
+      addressFromXpub({
+        xpub: VALID_VPUBS[0],
+        addressCount: 1,
+        network: NETWORKS.MAINNET,
+      })
+    ).toBeFalsy()
   })
 })
 

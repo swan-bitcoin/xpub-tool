@@ -136,7 +136,7 @@ function deriveAddress({ purpose, pubkey, network }) {
 
 function addressFromXpub({ xpub, accountNumber, keyIndex, purpose, network }) {
   if (!isValidXpub(xpub, network)) {
-    throw TypeError("Invalid extended public key")
+    return undefined
   }
   const partialPath = partialKeyDerivationPath({ accountNumber, keyIndex })
   const fullPath = fullDerivationPath({
