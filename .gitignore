@@ -68,3 +68,5 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 
+# xpub-lib compiled output
+packages/xpub-lib/lib

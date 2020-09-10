@@ -26,14 +26,9 @@ function maskKey(key, pre = 15, post = 15, placeholder = "[...]") {
   return beginning + placeholder + ending
 }
 
-function isValidXpub(xpub, network) {
-  try {
-    const convertedXpub = convertToBIP32(xpub, network)
-    // validateExtendedPublicKey expects "xpub..." or "tpub..."
-    return validateExtendedPublicKey(convertedXpub, network) === ""
-  } catch (error) {
-    return false
-  }
+function convertToBIP32(xpub, network) {
+  const targetPrefix = network === NETWORKS.MAINNET ? XPUB : TPUB
+  return convertExtendedPublicKey(xpub, targetPrefix)
 }
 
 function getNetworkFromXpub(xpub) {
@@ -49,6 +44,23 @@ function getNetworkFromXpub(xpub) {
       return NETWORKS.TESTNET
     default:
       return undefined
+  }
+}
+
+function isNetworkMatch(xpub, network) {
+  return getNetworkFromXpub(xpub) === network
+}
+
+function isValidXpub(xpub, network) {
+  if (!isNetworkMatch(xpub, network)) {
+    return false
+  }
+  try {
+    const convertedXpub = convertToBIP32(xpub, network)
+    // validateExtendedPublicKey expects "xpub..." or "tpub..."
+    return validateExtendedPublicKey(convertedXpub, network) === ""
+  } catch (error) {
+    return false
   }
 }
 
@@ -93,11 +105,6 @@ function getXpubMetadata(xpub) {
   }
 }
 
-function convertToBIP32(xpub, network) {
-  const targetPrefix = network === NETWORKS.MAINNET ? XPUB : TPUB
-  return convertExtendedPublicKey(xpub, targetPrefix)
-}
-
 function deriveAddress({ purpose, pubkey, network }) {
   switch (purpose) {
     case Purpose.P2PKH: {
@@ -127,7 +134,16 @@ function deriveAddress({ purpose, pubkey, network }) {
   }
 }
 
-function addressFromXpub({ xpub, accountNumber, keyIndex, purpose, network }) {
+function addressFromXpub({
+  xpub,
+  accountNumber = 0,
+  keyIndex = 0,
+  purpose = DEFAULT_NETWORK,
+  network = DEFAULT_NETWORK,
+}) {
+  if (!isValidXpub(xpub, network)) {
+    return undefined
+  }
   const partialPath = partialKeyDerivationPath({ accountNumber, keyIndex })
   const fullPath = fullDerivationPath({
     purpose,
@@ -135,7 +151,8 @@ function addressFromXpub({ xpub, accountNumber, keyIndex, purpose, network }) {
     keyIndex,
     network,
   })
-  const childPubKey = deriveChildPublicKey(xpub, partialPath, network)
+  const convertedXpub = convertToBIP32(xpub, network)
+  const childPubKey = deriveChildPublicKey(convertedXpub, partialPath, network)
   const keyPair = bitcoin.ECPair.fromPublicKey(Buffer.from(childPubKey, "hex"))
   const pubkey = keyPair.publicKey
   return {
@@ -151,13 +168,11 @@ function addressesFromXpub({
   purpose = DEFAULT_PURPOSE,
   network = DEFAULT_NETWORK,
 }) {
-  const convertedXpub = convertToBIP32(xpub, network)
-
   const addresses = []
 
   for (let keyIndex = 0; keyIndex < addressCount; keyIndex += 1) {
     const { path, address } = addressFromXpub({
-      xpub: convertedXpub,
+      xpub,
       accountNumber,
       keyIndex,
       purpose,
@@ -171,10 +186,10 @@ function addressesFromXpub({
 }
 
 export {
-  Purpose,
   maskKey,
   isValidXpub,
   getXpubType,
+  addressFromXpub,
   addressesFromXpub,
   getXpubMetadata,
 }
