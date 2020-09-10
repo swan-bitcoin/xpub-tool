@@ -1,6 +1,6 @@
 import { NETWORKS, ExtendedPublicKey } from "unchained-bitcoin"
 import { Purpose } from "./purpose"
-import TYPE from "./types"
+import { TYPE } from "./types"
 
 function getNetworkFromXpub(xpub) {
   const prefix = xpub.slice(0, 4)

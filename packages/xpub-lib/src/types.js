@@ -7,4 +7,4 @@ const TYPE = {
   VPUB: "vpub",
 }
 
-export default TYPE
+export { TYPE }
