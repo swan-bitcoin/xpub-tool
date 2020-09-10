@@ -134,7 +134,13 @@ function deriveAddress({ purpose, pubkey, network }) {
   }
 }
 
-function addressFromXpub({ xpub, accountNumber, keyIndex, purpose, network }) {
+function addressFromXpub({
+  xpub,
+  accountNumber = 0,
+  keyIndex = 0,
+  purpose = DEFAULT_NETWORK,
+  network = DEFAULT_NETWORK,
+}) {
   if (!isValidXpub(xpub, network)) {
     return undefined
   }

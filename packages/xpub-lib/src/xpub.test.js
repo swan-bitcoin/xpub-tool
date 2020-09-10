@@ -1,5 +1,5 @@
 import { NETWORKS } from "unchained-bitcoin"
-import { KEY, KEYS } from "../test/fixtures.js"
+import { KEY, KEYS, WASABI, SAMOURAI } from "../test/fixtures.js"
 import Purpose from "./purpose"
 
 import {
@@ -8,26 +8,6 @@ import {
   getXpubType,
   isValidXpub,
 } from "./xpub"
-
-const WASABI_XPUB =
-  "xpub6CQtk4bkfG1d4UTWNBwmWGP95gjvTvEKZhm74CxLfbd4XqXY5wkyaUvLoWyy6Le24VxCqg2nASLu2xhNaDh5FhFDf8ndUUgbm8q1VDqCipy"
-const WASABI_YPUB =
-  "ypub6XFA3jGfowZ6umedCYjPiMUeFetNQYDpUpHKqbrE3bzwawLmLbvYCYaUpiwZ6FHwU951b9dLd6hSvFJwHv763vvpXUV44PW62rtesm5g4wa"
-const WASABI_ZPUB =
-  "zpub6r5RMPwaxd6am4qk2uX1vSa9Rd2pMADKPvoYczk7RcNpe39zbG66pcEcqvu969wrsnBpLdDu5m3zoXvW1cX6rAcRPpBUeJKaJaxJGLBWaLe"
-const WASABI_ADDRESSES = [
-  "bc1qcksx27qlksr2cy3pnwdw0mnm94c5cm0vz3jh6e",
-  "bc1qw0c77zue3xduyh4jef3r3jhfpx30jxc7s5z7lv",
-  "bc1ql4l5m2wnlcwl28rsu0k8k5rx7yjg9fkr2vld8p",
-]
-
-const SAMOURAI_ZPUB =
-  "zpub6rk5rRte9pPyKTNuP2iKak9ZSEqvsXMP48TQoP23vjVDLeywBwJKcCzj1avQEybYVD1A9uTDmou8F5hcL6KFataVGjyzZxwYyDLqBEv9H8R"
-const SAMOURAI_ADDRESSES = [
-  "bc1qg7v2efej3lqmj828lcgfnedptrdncjv4mgpyfd",
-  "bc1qjvpph2k4h3rvfdwrlczgsrs0ku6ymzq9z5ct2v",
-  "bc1qtnew2mxs90w53qwta7wqhk89hruka6mqsrnkr8",
-]
 
 describe("isValidXpub", () => {
   test("invalid keys are invalid on mainnet", () => {
@@ -268,39 +248,39 @@ describe("addressesFromXpub", () => {
   test("default address generation from xpub on mainnet", () => {
     expect(
       addressesFromXpub({
-        xpub: WASABI_XPUB,
+        xpub: WASABI.XPUB,
         addressCount: 3,
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)
-    ).toStrictEqual(WASABI_ADDRESSES)
+    ).toStrictEqual(WASABI.ADDRESSES)
   })
   test("default address generation from ypub on mainnet", () => {
     expect(
       addressesFromXpub({
-        xpub: WASABI_YPUB,
+        xpub: WASABI.YPUB,
         addressCount: 3,
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)
-    ).toStrictEqual(WASABI_ADDRESSES)
+    ).toStrictEqual(WASABI.ADDRESSES)
   })
   test("default address generation from zpub on mainnet", () => {
     expect(
       addressesFromXpub({
-        xpub: WASABI_ZPUB,
+        xpub: WASABI.ZPUB,
         addressCount: 3,
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)
-    ).toStrictEqual(WASABI_ADDRESSES)
+    ).toStrictEqual(WASABI.ADDRESSES)
     expect(
       addressesFromXpub({
-        xpub: SAMOURAI_ZPUB,
+        xpub: SAMOURAI.ZPUB,
         addressCount: 3,
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)
-    ).toStrictEqual(SAMOURAI_ADDRESSES)
+    ).toStrictEqual(SAMOURAI.ADDRESSES)
     expect(
       addressesFromXpub({
-        xpub: SAMOURAI_ZPUB,
+        xpub: SAMOURAI.ZPUB,
         addressCount: 20, // generate 20 addresses
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)[19] // pick nr. 20 and compare
