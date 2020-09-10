@@ -3,7 +3,7 @@ import { deriveChildPublicKey, networkData, NETWORKS } from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
 import { isValidXpub } from "./validation"
 import { convertToBIP32 } from "./conversion"
-import Purpose from "./purpose"
+import { Purpose } from "./purpose"
 
 const DEFAULT_NETWORK = NETWORKS.TESTNET
 const DEFAULT_PURPOSE = Purpose.P2WPKH

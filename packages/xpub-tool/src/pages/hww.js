@@ -1,8 +1,7 @@
 import React, { useState } from "react"
 import { Form, Row, Col, Container } from "react-bootstrap"
-import { MAINNET } from "unchained-bitcoin"
 
-import { Purpose } from "@swan/xpub-lib"
+import { Purpose, NETWORKS } from "@swan/xpub-lib"
 import {
   NetworkSwitcher,
   AddressDerivationInput,
@@ -11,11 +10,11 @@ import {
 
 import Layout from "../components/layout"
 
-const DEFAULT_NETWORK = MAINNET // or TESTNET
+const DEFAULT_NETWORK = NETWORKS.MAINNET // or TESTNET
 
 const IndexPage = () => {
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
-  const [purpose, setPurpose] = useState(Purpose.P2WPKH) // default to bech32 
+  const [purpose, setPurpose] = useState(Purpose.P2WPKH) // default to bech32
   const [accountNumber, setAccountNumber] = useState(0)
   const [isExpertMode, setExpertMode] = useState(false)
 

@@ -5,7 +5,7 @@ import {
   partialKeyDerivationPath,
   humanReadableDerivationPath,
 } from "./paths"
-import Purpose from "./purpose"
+import { Purpose } from "./purpose"
 
 describe("humanReadableDerivationPath", () => {
   test("Legacy", () => {

@@ -1,5 +1,5 @@
 import { NETWORKS, ExtendedPublicKey } from "unchained-bitcoin"
-import Purpose from "./purpose"
+import { Purpose } from "./purpose"
 import TYPE from "./types"
 
 function getNetworkFromXpub(xpub) {

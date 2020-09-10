@@ -1,6 +1,6 @@
 import { NETWORKS } from "unchained-bitcoin"
 import { KEY, KEYS, WASABI, SAMOURAI } from "../test/fixtures"
-import Purpose from "./purpose"
+import { Purpose } from "./purpose"
 
 import { addressFromXpub, addressesFromXpub } from "./derivation"
 
