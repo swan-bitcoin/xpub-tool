@@ -1,5 +1,4 @@
 import { NETWORKS, ExtendedPublicKey } from "unchained-bitcoin"
-import { isValidXpub } from "./validation"
 import Purpose from "./purpose"
 import TYPE from "./types"
 
@@ -26,11 +25,6 @@ function getNetworkFromXpub(xpub) {
 }
 
 function getXpubType(xpub) {
-  const network = getNetworkFromXpub(xpub)
-  if (!isValidXpub(xpub, network)) {
-    return undefined
-  }
-
   const prefix = xpub.slice(0, 4)
   switch (prefix) {
     case TYPE.XPUB:

@@ -1,7 +1,8 @@
 import * as bitcoin from "bitcoinjs-lib"
 import { deriveChildPublicKey, networkData, NETWORKS } from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
-import { isValidXpub, convertToBIP32 } from "./validation"
+import { isValidXpub } from "./validation"
+import { convertToBIP32 } from "./conversion"
 import Purpose from "./purpose"
 
 const DEFAULT_NETWORK = NETWORKS.TESTNET
