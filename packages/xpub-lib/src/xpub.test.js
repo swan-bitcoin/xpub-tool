@@ -1,10 +1,29 @@
 import { NETWORKS } from "unchained-bitcoin"
+import Purpose from "./purpose"
 import {
   addressFromXpub,
   addressesFromXpub,
   getXpubType,
   isValidXpub,
 } from "./xpub"
+
+// Same key, different formats
+const KEY_MAINNET = {
+  XPUB:
+    "xpub6EuV33a2DXxAhoJTRTnr8qnysu81AA4YHpLY6o8NiGkEJ8KADJ35T64eJsStWsmRf1xXkEANVjXFXnaUKbRtFwuSPCLfDdZwYNZToh4LBCd",
+  YPUB:
+    "ypub6ZjkLiEwNDVeZ6VaFpaULvtV3sGT6n43CvrktC2G6H87ME8PTxCe59inL5QUWnRM4f5LVhkvxPsoR5C33Hqu4Bb3FY35oYPRp6d7CCfcqmo",
+  ZPUB:
+    "zpub6ta1eNurWu38QPgh6BN6Z1yzDqQu3Q3Y83Nyfav9UHVzQKwcicNChDNvMHN4Wh5GUJC9FBMVR4EMJMobkzFurRGe7sjWPTCv5pgkaqEA6or",
+}
+const KEY_TESTNET = {
+  TPUB:
+    "tpubDFH7ZHPhvoucybVJsemwLm8MD2Df9YZbqSvqTMBX4BW83QysHWtAbXjUYuXg3NifSvVSMogF2qMJDy55iTH89PMjSo5xuAEB8L9sZdEkW4B",
+  UPUB:
+    "upub5GQh83ZGmVKj9uj6vPRyWaWUMzgfLJ63YUmskcSiaFcb8psUTKYPau6EFFa8X9ofS6c7VoNh7kTbsvjnAWBqsErdnBFPTu7UjCNXdwwAxf1",
+  VPUB:
+    "vpub5bExRiEBvAsD1CvDkkDbifbyXxq7Gv5YTbJ6Y1LbxFzUBvghhyhxCxkNGTXiX4TaqjivFGyFaQp9mDMLtCbrfUYEeWwp3ovxzvSB2XY87ph",
+}
 
 const VALID_XPUBS = [
   "xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab",
@@ -146,48 +165,146 @@ describe("getXpubType", () => {
 })
 
 describe("addressFromXpub", () => {
-  test("testnet address generation from mainnet key", () => {
+  test("P2PKH address generation from xpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY_MAINNET.XPUB,
+        accountNumber: 0,
+        keyIndex: 0,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe("1AdTLNfqiQtQ7yRNoZDEFTE9kSri2jrRVD")
+  })
+  test("P2PKH address generation from ypub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY_MAINNET.YPUB,
+        accountNumber: 0,
+        keyIndex: 0,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe("1AdTLNfqiQtQ7yRNoZDEFTE9kSri2jrRVD")
+  })
+  test("P2PKH address generation from zpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY_MAINNET.ZPUB,
+        accountNumber: 0,
+        keyIndex: 0,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe("1AdTLNfqiQtQ7yRNoZDEFTE9kSri2jrRVD")
+  })
+
+  // 3JDVonJcuQ7yQQQJh1tFLV74uRZUP6LgvF
+  test("P2SH address generation from xpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY_MAINNET.XPUB,
+        accountNumber: 0,
+        keyIndex: 0,
+        purpose: Purpose.P2SH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe("3JDVonJcuQ7yQQQJh1tFLV74uRZUP6LgvF")
+  })
+  test("P2SH address generation from ypub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY_MAINNET.YPUB,
+        accountNumber: 0,
+        keyIndex: 0,
+        purpose: Purpose.P2SH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe("3JDVonJcuQ7yQQQJh1tFLV74uRZUP6LgvF")
+  })
+  test("P2SH address generation from zpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY_MAINNET.ZPUB,
+        accountNumber: 0,
+        keyIndex: 0,
+        purpose: Purpose.P2SH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe("3JDVonJcuQ7yQQQJh1tFLV74uRZUP6LgvF")
+  })
+
+  // bc1qdx0pd4h65d7mekkhk7n6jwzfwgqath7s0e368g
+  test("P2WPKH address generation from xpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY_MAINNET.XPUB,
+        accountNumber: 0,
+        keyIndex: 0,
+        purpose: Purpose.P2WPKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe("bc1qdx0pd4h65d7mekkhk7n6jwzfwgqath7s0e368g")
+  })
+  test("P2WPKH address generation from ypub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY_MAINNET.YPUB,
+        accountNumber: 0,
+        keyIndex: 0,
+        purpose: Purpose.P2WPKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe("bc1qdx0pd4h65d7mekkhk7n6jwzfwgqath7s0e368g")
+  })
+  test("P2WPKH address generation from zpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY_MAINNET.ZPUB,
+        accountNumber: 0,
+        keyIndex: 0,
+        purpose: Purpose.P2WPKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe("bc1qdx0pd4h65d7mekkhk7n6jwzfwgqath7s0e368g")
+  })
+
+  test("forbid testnet address generation from mainnet key", () => {
     expect(
       addressFromXpub({
         xpub: VALID_XPUBS[0],
-        addressCount: 1,
         network: NETWORKS.TESTNET,
       })
     ).toBeFalsy()
     expect(
       addressFromXpub({
         xpub: VALID_YPUBS[0],
-        addressCount: 1,
         network: NETWORKS.TESTNET,
       })
     ).toBeFalsy()
     expect(
       addressFromXpub({
         xpub: VALID_ZPUBS[0],
-        addressCount: 1,
         network: NETWORKS.TESTNET,
       })
     ).toBeFalsy()
   })
-  test("mainnet address generation from testnet key", () => {
+  test("forbid mainnet address generation from testnet key", () => {
     expect(
       addressFromXpub({
         xpub: VALID_TPUBS[0],
-        addressCount: 1,
         network: NETWORKS.MAINNET,
       })
     ).toBeFalsy()
     expect(
       addressFromXpub({
         xpub: VALID_UPUBS[0],
-        addressCount: 1,
         network: NETWORKS.MAINNET,
       })
     ).toBeFalsy()
     expect(
       addressFromXpub({
         xpub: VALID_VPUBS[0],
-        addressCount: 1,
         network: NETWORKS.MAINNET,
       })
     ).toBeFalsy()
