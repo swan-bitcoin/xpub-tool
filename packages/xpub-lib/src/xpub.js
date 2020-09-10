@@ -1,9 +1,9 @@
 import {
   NETWORKS,
   ExtendedPublicKey,
-  validateExtendedPublicKey,
   convertExtendedPublicKey,
 } from "unchained-bitcoin"
+import { isValidXpub } from "./validation"
 import Purpose from "./purpose"
 
 const XPUB = "xpub"
@@ -37,23 +37,6 @@ function getNetworkFromXpub(xpub) {
       return NETWORKS.TESTNET
     default:
       return undefined
-  }
-}
-
-function isNetworkMatch(xpub, network) {
-  return getNetworkFromXpub(xpub) === network
-}
-
-function isValidXpub(xpub, network) {
-  if (!isNetworkMatch(xpub, network)) {
-    return false
-  }
-  try {
-    const convertedXpub = convertToBIP32(xpub, network)
-    // validateExtendedPublicKey expects "xpub..." or "tpub..."
-    return validateExtendedPublicKey(convertedXpub, network) === ""
-  } catch (error) {
-    return false
   }
 }
 
@@ -98,4 +81,10 @@ function getXpubMetadata(xpub) {
   }
 }
 
-export { maskKey, isValidXpub, getXpubType, getXpubMetadata, convertToBIP32 }
+export {
+  maskKey,
+  getXpubType,
+  getXpubMetadata,
+  convertToBIP32,
+  getNetworkFromXpub,
+}
