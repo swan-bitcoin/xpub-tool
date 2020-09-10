@@ -8,6 +8,7 @@ export {
   TREZOR,
 } from "unchained-wallets"
 
+export * from "./src/derivation"
 export * from "./src/paths"
 export * from "./src/purpose"
 export * from "./src/xpub"
