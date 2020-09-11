@@ -123,4 +123,45 @@ describe("partialKeyDerivationPath", () => {
       })
     ).toBe("0/0")
   })
+  test("valid account number", () => {
+    expect(
+      partialKeyDerivationPath({
+        accountNumber: 0,
+      })
+    ).toBeTruthy()
+    expect(
+      partialKeyDerivationPath({
+        accountNumber: 21,
+      })
+    ).toBeTruthy()
+    expect(
+      partialKeyDerivationPath({
+        accountNumber: 1337,
+      })
+    ).toBeTruthy()
+    expect(
+      partialKeyDerivationPath({
+        accountNumber: 2147483647,
+      })
+    ).toBeTruthy()
+  })
+  test("invalid account number", () => {
+    expect(
+      partialKeyDerivationPath({
+        accountNumber: -1,
+      })
+    ).toBeFalsy()
+    expect(
+      partialKeyDerivationPath({
+        accountNumber: 2147483648,
+      })
+    ).toBeFalsy()
+  })
+  test("invalid key index", () => {
+    expect(
+      partialKeyDerivationPath({
+        keyIndex: -1,
+      })
+    ).toBeFalsy()
+  })
 })

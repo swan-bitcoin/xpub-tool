@@ -5,9 +5,20 @@ import { AccountTypeName } from "./purpose"
 const SEPARATOR = "/"
 const APOSTROPHE = "'"
 const COIN_PREFIX = "m"
+const MAX_INDEX = 2147483648
 
-function partialKeyDerivationPath({ accountNumber, keyIndex }) {
-  return [accountNumber, keyIndex].join(SEPARATOR)
+function isValidIndex(index) {
+  if (!Number.isInteger(index)) {
+    return false
+  }
+  return Number(index) < MAX_INDEX && Number(index) >= 0
+}
+
+function partialKeyDerivationPath({ accountNumber = 0, keyIndex = 0 }) {
+  if (isValidIndex(accountNumber) && isValidIndex(keyIndex)) {
+    return [accountNumber, keyIndex].join(SEPARATOR)
+  }
+  return undefined
 }
 
 function harden(string) {
