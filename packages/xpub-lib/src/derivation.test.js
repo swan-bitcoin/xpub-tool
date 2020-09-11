@@ -189,7 +189,7 @@ describe("addressFromXpub(TESTNET)", () => {
       }).address
     ).toBe(KEY.TEST.BECH32)
   })
-  test("P2WPKH address weneration from vpub", () => {
+  test("P2WPKH address generation from vpub", () => {
     expect(
       addressFromXpub({
         xpub: KEY.TEST.VPUB,
