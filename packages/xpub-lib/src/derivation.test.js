@@ -113,7 +113,7 @@ describe("addressFromXpub(MAINNET)", () => {
 
 describe("addressFromXpub(TESTNET)", () => {
   // BIP 44
-  test("P2PKH address generation from xpub", () => {
+  test("P2PKH address generation from tpub", () => {
     expect(
       addressFromXpub({
         xpub: KEY.TEST.TPUB,
@@ -124,7 +124,7 @@ describe("addressFromXpub(TESTNET)", () => {
   })
 
   // BIP 49
-  test("P2SH address generation from xpub", () => {
+  test("P2SH address generation from tpub", () => {
     expect(
       addressFromXpub({
         xpub: KEY.TEST.TPUB,
@@ -135,7 +135,7 @@ describe("addressFromXpub(TESTNET)", () => {
   })
 
   // BIP 84
-  test("P2WPKH address generation from xpub", () => {
+  test("P2WPKH address generation from tpub", () => {
     expect(
       addressFromXpub({
         xpub: KEY.TEST.TPUB,
