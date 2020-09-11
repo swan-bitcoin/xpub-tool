@@ -16,4 +16,14 @@ describe("convertToBIP32", () => {
     expect(convertToBIP32(KEY.TEST.UPUB, NETWORKS.TESTNET)).toBe(KEY.TEST.TPUB)
     expect(convertToBIP32(KEY.TEST.VPUB, NETWORKS.TESTNET)).toBe(KEY.TEST.TPUB)
   })
+  test("conversion of mainnet keys to testnet keys", () => {
+    expect(convertToBIP32(KEY.MAIN.XPUB, NETWORKS.TESTNET)).toBe(KEY.TEST.TPUB)
+    expect(convertToBIP32(KEY.MAIN.YPUB, NETWORKS.TESTNET)).toBe(KEY.TEST.TPUB)
+    expect(convertToBIP32(KEY.MAIN.ZPUB, NETWORKS.TESTNET)).toBe(KEY.TEST.TPUB)
+  })
+  test("conversion of testnet keys to mainnet keys", () => {
+    expect(convertToBIP32(KEY.TEST.TPUB, NETWORKS.MAINNET)).toBe(KEY.MAIN.XPUB)
+    expect(convertToBIP32(KEY.TEST.UPUB, NETWORKS.MAINNET)).toBe(KEY.MAIN.XPUB)
+    expect(convertToBIP32(KEY.TEST.VPUB, NETWORKS.MAINNET)).toBe(KEY.MAIN.XPUB)
+  })
 })
