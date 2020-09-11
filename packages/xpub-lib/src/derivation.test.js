@@ -111,6 +111,41 @@ describe("addressFromXpub(MAINNET)", () => {
   })
 })
 
+describe("addressFromXpub(TESTNET)", () => {
+  // BIP 44
+  test("P2PKH address generation from xpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY.TEST.TPUB,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.LEGACY)
+  })
+
+  // BIP 49
+  test("P2SH address generation from xpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY.TEST.TPUB,
+        purpose: Purpose.P2SH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.SEGWIT)
+  })
+
+  // BIP 84
+  test("P2WPKH address generation from xpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY.TEST.TPUB,
+        purpose: Purpose.P2WPKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.BECH32)
+  })
+})
+
 describe("addressFromXpub", () => {
   test("forbid testnet address generation from mainnet key", () => {
     expect(
