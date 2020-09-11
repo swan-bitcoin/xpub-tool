@@ -25,6 +25,17 @@ function isValidXpub(xpub, network) {
   }
 }
 
+function isValidPurpose(purpose) {
+  switch (purpose) {
+    case Purpose.P2PKH:
+    case Purpose.P2SH:
+    case Purpose.P2WPKH:
+      return true
+    default:
+      return false
+  }
+}
+
 function isValidIndex(index) {
   const indexString = harden(String(index))
   try {
@@ -56,4 +67,10 @@ function isValidPathSegment(segment) {
   }
 }
 
-export { isNetworkMatch, isValidXpub, isValidIndex, isValidPathSegment }
+export {
+  isNetworkMatch,
+  isValidXpub,
+  isValidPurpose,
+  isValidIndex,
+  isValidPathSegment,
+}

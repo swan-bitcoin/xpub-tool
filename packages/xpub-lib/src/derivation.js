@@ -1,7 +1,7 @@
 import * as bitcoin from "bitcoinjs-lib"
 import { deriveChildPublicKey, networkData, NETWORKS } from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
-import { isValidXpub } from "./validation"
+import { isValidXpub, isValidIndex, isValidPurpose } from "./validation"
 import { convertToBIP32 } from "./conversion"
 import { Purpose } from "./purpose"
 
@@ -26,7 +26,6 @@ function deriveAddress({ purpose, pubkey, network }) {
       })
       return threeAddress
     }
-    default:
     case Purpose.P2WPKH: {
       const { address: bc1Address } = bitcoin.payments.p2wpkh({
         pubkey,
@@ -34,6 +33,8 @@ function deriveAddress({ purpose, pubkey, network }) {
       })
       return bc1Address
     }
+    default:
+      return undefined
   }
 }
 
@@ -41,10 +42,15 @@ function addressFromXpub({
   xpub,
   accountNumber = 0,
   keyIndex = 0,
-  purpose = DEFAULT_NETWORK,
+  purpose = DEFAULT_PURPOSE,
   network = DEFAULT_NETWORK,
 }) {
-  if (!isValidXpub(xpub, network)) {
+  if (
+    !isValidIndex(accountNumber) ||
+    !isValidIndex(keyIndex) ||
+    !isValidPurpose(purpose) ||
+    !isValidXpub(xpub, network)
+  ) {
     return undefined
   }
   const partialPath = partialKeyDerivationPath({ accountNumber, keyIndex })

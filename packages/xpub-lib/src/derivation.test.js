@@ -1,8 +1,23 @@
 import { NETWORKS } from "unchained-bitcoin"
 import { KEY, KEYS, WASABI, SAMOURAI } from "../test/fixtures"
 import { Purpose } from "./purpose"
-
 import { addressFromXpub, addressesFromXpub } from "./derivation"
+
+describe("addressFromXpub() with invalid xpubs", () => {
+  test("address generation from invalid xpub fails", () => {
+    expect(addressFromXpub({ xpub: "" })).toBeFalsy()
+    expect(addressFromXpub({ xpub: "xpub123" })).toBeFalsy()
+  })
+  test("address generation with invalid parameters fails", () => {
+    expect(
+      addressFromXpub({ xpub: KEY.TEST.TPUB, accountNumber: -1 })
+    ).toBeFalsy()
+    expect(
+      addressFromXpub({ xpub: KEY.TEST.TPUB, network: NETWORKS.MAINNET })
+    ).toBeFalsy()
+    expect(addressFromXpub({ xpub: KEY.TEST.TPUB, purpose: "99" })).toBeFalsy()
+  })
+})
 
 describe("addressFromXpub(MAINNET)", () => {
   // BIP 44
