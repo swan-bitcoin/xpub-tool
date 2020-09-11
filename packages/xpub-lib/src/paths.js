@@ -1,4 +1,5 @@
 import { NETWORKS } from "unchained-bitcoin"
+import { harden } from "./utils"
 import { isValidIndex } from "./validation"
 import { AccountTypeName } from "./purpose"
 import { SEPARATOR, APOSTROPHE, COIN_PREFIX } from "./constants"
@@ -8,10 +9,6 @@ function partialKeyDerivationPath({ accountNumber = 0, keyIndex = 0 }) {
     return [accountNumber, keyIndex].join(SEPARATOR)
   }
   return undefined
-}
-
-function harden(string) {
-  return string + APOSTROPHE
 }
 
 function accountDerivationPath({

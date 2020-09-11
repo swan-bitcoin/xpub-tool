@@ -5,8 +5,8 @@ import {
 import { getNetworkFromXpub } from "./metadata"
 import { convertToBIP32 } from "./conversion"
 import { Purpose } from "./purpose"
+import { harden } from "./utils"
 import { APOSTROPHE, COIN_PREFIX } from "./constants"
-import { harden } from "./paths"
 
 function isNetworkMatch(xpub, network) {
   return getNetworkFromXpub(xpub) === network
