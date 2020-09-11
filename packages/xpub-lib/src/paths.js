@@ -1,6 +1,6 @@
 import { NETWORKS } from "unchained-bitcoin"
 
-import { AccountTypeName } from "./purpose"
+import { Purpose, AccountTypeName } from "./purpose"
 
 const SEPARATOR = "/"
 const APOSTROPHE = "'"
@@ -8,10 +8,34 @@ const COIN_PREFIX = "m"
 const MAX_INDEX = 2147483648
 
 function isValidIndex(index) {
-  if (!Number.isInteger(index)) {
+  try {
+    const idx = Number(index)
+    return idx >= 0 && idx < MAX_INDEX
+  } catch {
     return false
   }
-  return Number(index) < MAX_INDEX && Number(index) >= 0
+}
+
+function isHardened(segment) {
+  return segment.includes(APOSTROPHE)
+}
+
+function isValidPathSegment(segment) {
+  let unhardened = segment
+  if (isHardened(segment)) {
+    unhardened = segment.slice(0, -1)
+  }
+
+  switch (unhardened) {
+    case COIN_PREFIX:
+      return true
+    case Purpose.P2PKH:
+    case Purpose.P2SH:
+    case Purpose.P2WPKH:
+      return true
+    default:
+      return isValidIndex(unhardened)
+  }
 }
 
 function partialKeyDerivationPath({ accountNumber = 0, keyIndex = 0 }) {
@@ -69,4 +93,6 @@ export {
   fullDerivationPath,
   partialKeyDerivationPath,
   humanReadableDerivationPath,
+  isValidPathSegment,
+  isValidIndex,
 }
