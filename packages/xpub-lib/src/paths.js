@@ -1,17 +1,14 @@
 import { NETWORKS } from "unchained-bitcoin"
-
+import { harden } from "./utils"
+import { isValidIndex } from "./validation"
 import { AccountTypeName } from "./purpose"
+import { SEPARATOR, APOSTROPHE, COIN_PREFIX } from "./constants"
 
-const SEPARATOR = "/"
-const APOSTROPHE = "'"
-const COIN_PREFIX = "m"
-
-function partialKeyDerivationPath({ accountNumber, keyIndex }) {
-  return [accountNumber, keyIndex].join(SEPARATOR)
-}
-
-function harden(string) {
-  return string + APOSTROPHE
+function partialKeyDerivationPath({ accountNumber = 0, keyIndex = 0 }) {
+  if (isValidIndex(accountNumber) && isValidIndex(keyIndex)) {
+    return [accountNumber, keyIndex].join(SEPARATOR)
+  }
+  return undefined
 }
 
 function accountDerivationPath({
@@ -54,8 +51,10 @@ function humanReadableDerivationPath({ bip32Path, accountString = "Account" }) {
 }
 
 export {
+  APOSTROPHE,
   accountDerivationPath,
   fullDerivationPath,
   partialKeyDerivationPath,
   humanReadableDerivationPath,
+  harden,
 }

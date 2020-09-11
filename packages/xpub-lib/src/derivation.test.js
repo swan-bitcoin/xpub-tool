@@ -1,8 +1,23 @@
 import { NETWORKS } from "unchained-bitcoin"
 import { KEY, KEYS, WASABI, SAMOURAI } from "../test/fixtures"
 import { Purpose } from "./purpose"
-
 import { addressFromXpub, addressesFromXpub } from "./derivation"
+
+describe("addressFromXpub() with invalid xpubs", () => {
+  test("address generation from invalid xpub fails", () => {
+    expect(addressFromXpub({ xpub: "" })).toBeFalsy()
+    expect(addressFromXpub({ xpub: "xpub123" })).toBeFalsy()
+  })
+  test("address generation with invalid parameters fails", () => {
+    expect(
+      addressFromXpub({ xpub: KEY.TEST.TPUB, accountNumber: -1 })
+    ).toBeFalsy()
+    expect(
+      addressFromXpub({ xpub: KEY.TEST.TPUB, network: NETWORKS.MAINNET })
+    ).toBeFalsy()
+    expect(addressFromXpub({ xpub: KEY.TEST.TPUB, purpose: "99" })).toBeFalsy()
+  })
+})
 
 describe("addressFromXpub(MAINNET)", () => {
   // BIP 44
@@ -108,6 +123,95 @@ describe("addressFromXpub(MAINNET)", () => {
         network: NETWORKS.MAINNET,
       }).address
     ).toBe(KEY.MAIN.BECH32)
+  })
+})
+
+describe("addressFromXpub(TESTNET)", () => {
+  // BIP 44
+  test("P2PKH address generation from tpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY.TEST.TPUB,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.LEGACY)
+  })
+  test("P2PKH address generation from upub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY.TEST.UPUB,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.LEGACY)
+  })
+  test("P2PKH address generation from vpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY.TEST.VPUB,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.LEGACY)
+  })
+
+  // BIP 49
+  test("P2SH address generation from tpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY.TEST.TPUB,
+        purpose: Purpose.P2SH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.SEGWIT)
+  })
+  test("P2SH address generation from upub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY.TEST.UPUB,
+        purpose: Purpose.P2SH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.SEGWIT)
+  })
+  test("P2SH address generation from vpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY.TEST.VPUB,
+        purpose: Purpose.P2SH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.SEGWIT)
+  })
+
+  // BIP 84
+  test("P2WPKH address generation from tpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY.TEST.TPUB,
+        purpose: Purpose.P2WPKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.BECH32)
+  })
+  test("P2WPKH address generation from upub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY.TEST.UPUB,
+        purpose: Purpose.P2WPKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.BECH32)
+  })
+  test("P2WPKH address generation from vpub", () => {
+    expect(
+      addressFromXpub({
+        xpub: KEY.TEST.VPUB,
+        purpose: Purpose.P2WPKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.BECH32)
   })
 })
 

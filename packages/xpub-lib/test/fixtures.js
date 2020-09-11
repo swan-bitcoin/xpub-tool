@@ -19,9 +19,9 @@ const KEY = {
       "upub5GQh83ZGmVKj9uj6vPRyWaWUMzgfLJ63YUmskcSiaFcb8psUTKYPau6EFFa8X9ofS6c7VoNh7kTbsvjnAWBqsErdnBFPTu7UjCNXdwwAxf1",
     VPUB:
       "vpub5bExRiEBvAsD1CvDkkDbifbyXxq7Gv5YTbJ6Y1LbxFzUBvghhyhxCxkNGTXiX4TaqjivFGyFaQp9mDMLtCbrfUYEeWwp3ovxzvSB2XY87ph",
-    LEGACY: "muvKiYeij3wEujshbBjFU7kupyLHsFWgxE",
-    SEGWIT: "TODO", // FIXME
-    BECH32: "TODO", // FIXME
+    LEGACY: "mq9QdRkpXSKeu5tzX8Bc5NSUcSTQxzpa8G",
+    SEGWIT: "2N9mhsXEeWrdKcC2rN9W7xS6L7mme9kJrVe",
+    BECH32: "tb1qdx0pd4h65d7mekkhk7n6jwzfwgqath7s9l2fum",
   },
 }
 
