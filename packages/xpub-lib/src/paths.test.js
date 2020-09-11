@@ -4,55 +4,8 @@ import {
   fullDerivationPath,
   partialKeyDerivationPath,
   humanReadableDerivationPath,
-  isValidPathSegment,
-  isValidIndex,
 } from "./paths"
 import { Purpose } from "./purpose"
-
-describe("isValidIndex", () => {
-  test("valid indices", () => {
-    expect(isValidIndex("0")).toBeTruthy()
-    expect(isValidIndex("1")).toBeTruthy()
-    expect(isValidIndex("21")).toBeTruthy()
-    expect(isValidIndex("1337")).toBeTruthy()
-    expect(isValidIndex("2147483647")).toBeTruthy()
-
-    expect(isValidIndex(0)).toBeTruthy()
-    expect(isValidIndex(1)).toBeTruthy()
-    expect(isValidIndex(21)).toBeTruthy()
-    expect(isValidIndex(1337)).toBeTruthy()
-    expect(isValidIndex(2147483647)).toBeTruthy()
-  })
-  test("invalid indices", () => {
-    expect(isValidIndex("-1")).toBeFalsy()
-    expect(isValidIndex("2147483648")).toBeFalsy()
-    expect(isValidIndex("a")).toBeFalsy()
-    expect(isValidIndex("/")).toBeFalsy()
-
-    expect(isValidIndex(-1)).toBeFalsy()
-    expect(isValidIndex(2147483648)).toBeFalsy()
-  })
-})
-
-describe("isValidPathSegment", () => {
-  test("valid path segments", () => {
-    // hardened
-    expect(isValidPathSegment("m'")).toBeTruthy()
-    expect(isValidPathSegment("0'")).toBeTruthy()
-    expect(isValidPathSegment("1'")).toBeTruthy()
-    expect(isValidPathSegment("44'")).toBeTruthy()
-    expect(isValidPathSegment("49'")).toBeTruthy()
-    expect(isValidPathSegment("84'")).toBeTruthy()
-
-    // not hardened
-    expect(isValidPathSegment("m")).toBeTruthy()
-    expect(isValidPathSegment("0")).toBeTruthy()
-    expect(isValidPathSegment("1")).toBeTruthy()
-    expect(isValidPathSegment("44")).toBeTruthy()
-    expect(isValidPathSegment("49")).toBeTruthy()
-    expect(isValidPathSegment("84")).toBeTruthy()
-  })
-})
 
 describe("humanReadableDerivationPath", () => {
   test("Legacy", () => {
