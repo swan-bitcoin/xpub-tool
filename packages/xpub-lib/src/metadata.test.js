@@ -1,5 +1,5 @@
 import { NETWORKS } from "unchained-bitcoin"
-import { KEY, KEYS } from "../test/fixtures"
+import { KEY } from "../test/fixtures"
 import { getXpubType, getNetworkFromXpub, getXpubMetadata } from "./metadata"
 
 describe("getNetworkFromXpub", () => {
@@ -8,7 +8,7 @@ describe("getNetworkFromXpub", () => {
     expect(getNetworkFromXpub(KEY.MAIN.YPUB)).toBe(NETWORKS.MAINNET)
     expect(getNetworkFromXpub(KEY.MAIN.ZPUB)).toBe(NETWORKS.MAINNET)
   })
-  test("tpu/upub/vpuhould be mainnet", () => {
+  test("tpu/upub/vpub should be mainnet", () => {
     expect(getNetworkFromXpub(KEY.TEST.TPUB)).toBe(NETWORKS.TESTNET)
     expect(getNetworkFromXpub(KEY.TEST.UPUB)).toBe(NETWORKS.TESTNET)
     expect(getNetworkFromXpub(KEY.TEST.VPUB)).toBe(NETWORKS.TESTNET)
