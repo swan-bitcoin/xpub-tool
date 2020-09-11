@@ -1,10 +1,12 @@
-import { validateExtendedPublicKey } from "unchained-bitcoin"
+import {
+  validateExtendedPublicKey,
+  validateBIP32Index,
+} from "unchained-bitcoin"
 import { getNetworkFromXpub } from "./metadata"
 import { convertToBIP32 } from "./conversion"
 import { Purpose } from "./purpose"
 import { APOSTROPHE, COIN_PREFIX } from "./constants"
-
-const MAX_INDEX = 2147483648
+import { harden } from "./paths"
 
 function isNetworkMatch(xpub, network) {
   return getNetworkFromXpub(xpub) === network
@@ -24,10 +26,10 @@ function isValidXpub(xpub, network) {
 }
 
 function isValidIndex(index) {
+  const indexString = harden(String(index))
   try {
-    const idx = Number(index)
-    return idx >= 0 && idx < MAX_INDEX
-  } catch {
+    return validateBIP32Index(indexString, { mode: "hardened" }) === ""
+  } catch (error) {
     return false
   }
 }
