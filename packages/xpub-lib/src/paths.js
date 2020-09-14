@@ -56,5 +56,4 @@ export {
   fullDerivationPath,
   partialKeyDerivationPath,
   humanReadableDerivationPath,
-  harden,
 }
