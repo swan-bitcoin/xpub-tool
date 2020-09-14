@@ -4,7 +4,7 @@ import { Row, Col, Container, Form } from "react-bootstrap"
 import {
   NETWORKS,
   Purpose,
-  addressesFromXpub,
+  addressesFromExtPubKey,
   isValidXpub,
 } from "@swan/xpub-lib"
 
@@ -42,7 +42,7 @@ const IndexPage = () => {
   ])
 
   const addressList = isValid
-    ? addressesFromXpub({
+    ? addressesFromExtPubKey({
         extPubKey,
         addressCount: NUMBER_OF_ADDRESSES,
         accountNumber,

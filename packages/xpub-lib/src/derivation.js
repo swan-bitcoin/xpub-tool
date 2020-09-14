@@ -38,7 +38,7 @@ function deriveAddress({ purpose, pubkey, network }) {
   }
 }
 
-function addressFromXpub({
+function addressFromExtPubKey({
   extPubKey,
   accountNumber = 0,
   keyIndex = 0,
@@ -70,7 +70,7 @@ function addressFromXpub({
   }
 }
 
-function addressesFromXpub({
+function addressesFromExtPubKey({
   extPubKey,
   addressCount,
   accountNumber = 0,
@@ -80,7 +80,7 @@ function addressesFromXpub({
   const addresses = []
 
   for (let keyIndex = 0; keyIndex < addressCount; keyIndex += 1) {
-    const { path, address } = addressFromXpub({
+    const { path, address } = addressFromExtPubKey({
       extPubKey,
       accountNumber,
       keyIndex,
@@ -94,4 +94,4 @@ function addressesFromXpub({
   return addresses
 }
 
-export { addressFromXpub, addressesFromXpub }
+export { addressFromExtPubKey, addressesFromExtPubKey }
