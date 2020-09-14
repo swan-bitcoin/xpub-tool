@@ -1,20 +1,24 @@
 import { NETWORKS } from "unchained-bitcoin"
 import { KEY } from "../test/fixtures"
-import { getXpubType, getNetworkFromXpub, getXpubMetadata } from "./metadata"
+import {
+  getXpubType,
+  getNetworkFromExtPubKey,
+  getXpubMetadata,
+} from "./metadata"
 
-describe("getNetworkFromXpub", () => {
+describe("getNetworkFromExtPubKey", () => {
   test("xpub/ypub/zpub should be mainnet", () => {
-    expect(getNetworkFromXpub(KEY.MAIN.XPUB)).toBe(NETWORKS.MAINNET)
-    expect(getNetworkFromXpub(KEY.MAIN.YPUB)).toBe(NETWORKS.MAINNET)
-    expect(getNetworkFromXpub(KEY.MAIN.ZPUB)).toBe(NETWORKS.MAINNET)
+    expect(getNetworkFromExtPubKey(KEY.MAIN.XPUB)).toBe(NETWORKS.MAINNET)
+    expect(getNetworkFromExtPubKey(KEY.MAIN.YPUB)).toBe(NETWORKS.MAINNET)
+    expect(getNetworkFromExtPubKey(KEY.MAIN.ZPUB)).toBe(NETWORKS.MAINNET)
   })
   test("tpu/upub/vpub should be mainnet", () => {
-    expect(getNetworkFromXpub(KEY.TEST.TPUB)).toBe(NETWORKS.TESTNET)
-    expect(getNetworkFromXpub(KEY.TEST.UPUB)).toBe(NETWORKS.TESTNET)
-    expect(getNetworkFromXpub(KEY.TEST.VPUB)).toBe(NETWORKS.TESTNET)
+    expect(getNetworkFromExtPubKey(KEY.TEST.TPUB)).toBe(NETWORKS.TESTNET)
+    expect(getNetworkFromExtPubKey(KEY.TEST.UPUB)).toBe(NETWORKS.TESTNET)
+    expect(getNetworkFromExtPubKey(KEY.TEST.VPUB)).toBe(NETWORKS.TESTNET)
   })
   test("invalid key should be undefined", () => {
-    expect(getNetworkFromXpub("abc")).toBeFalsy()
+    expect(getNetworkFromExtPubKey("abc")).toBeFalsy()
   })
 })
 

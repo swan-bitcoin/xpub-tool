@@ -39,7 +39,7 @@ function deriveAddress({ purpose, pubkey, network }) {
 }
 
 function addressFromXpub({
-  xpub,
+  extPubKey,
   accountNumber = 0,
   keyIndex = 0,
   purpose = DEFAULT_PURPOSE,
@@ -49,7 +49,7 @@ function addressFromXpub({
     !isValidIndex(accountNumber) ||
     !isValidIndex(keyIndex) ||
     !isValidPurpose(purpose) ||
-    !isValidXpub(xpub, network)
+    !isValidXpub(extPubKey, network)
   ) {
     return undefined
   }
@@ -60,7 +60,7 @@ function addressFromXpub({
     keyIndex,
     network,
   })
-  const convertedXpub = convertToBIP32(xpub, network)
+  const convertedXpub = convertToBIP32(extPubKey, network)
   const childPubKey = deriveChildPublicKey(convertedXpub, partialPath, network)
   const keyPair = bitcoin.ECPair.fromPublicKey(Buffer.from(childPubKey, "hex"))
   const pubkey = keyPair.publicKey
@@ -71,7 +71,7 @@ function addressFromXpub({
 }
 
 function addressesFromXpub({
-  xpub,
+  extPubKey,
   addressCount,
   accountNumber = 0,
   purpose = DEFAULT_PURPOSE,
@@ -81,7 +81,7 @@ function addressesFromXpub({
 
   for (let keyIndex = 0; keyIndex < addressCount; keyIndex += 1) {
     const { path, address } = addressFromXpub({
-      xpub,
+      extPubKey,
       accountNumber,
       keyIndex,
       purpose,

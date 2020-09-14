@@ -17,7 +17,7 @@ class XpubImporter extends React.Component {
     super(props)
     this.state = {
       keystoreState: this.interaction().isSupported() ? PENDING : UNSUPPORTED,
-      xpub: "",
+      extPubKey: "",
       error: "",
     }
     this.importXpub = this.importXpub.bind(this)
@@ -32,10 +32,10 @@ class XpubImporter extends React.Component {
     this.setState({ keystoreState: ACTIVE })
     try {
       // This is where we actually talk to the hardware wallet.
-      const xpub = await this.interaction().run()
+      const extPubKey = await this.interaction().run()
       // If we succeed, reset the keystore state
       // and store the imported public key.
-      this.setState({ keystoreState: PENDING, xpub })
+      this.setState({ keystoreState: PENDING, extPubKey })
     } catch (e) {
       // Something went wrong; revert the keystore
       // state and track the error message.
@@ -62,25 +62,25 @@ class XpubImporter extends React.Component {
   }
 
   render() {
-    const { keystoreState, xpub, error } = this.state
+    const { keystoreState, extPubKey, error } = this.state
     const { bip32Path } = this.props
     return (
       <div>
         <h3>
           {humanReadableDerivationPath({ bip32Path })} <code>{bip32Path}</code>
         </h3>
-        {xpub ? (
+        {extPubKey ? (
           <div>
             <Alert key={bip32Path} variant="success" dismissible>
               Imported {humanReadableDerivationPath({ bip32Path })}
             </Alert>
             <p>
-              <code>{maskKey(xpub)}</code>
+              <code>{maskKey(extPubKey)}</code>
               <Button
                 variant="light"
                 title="Copy to clipboard"
                 onClick={() => {
-                  navigator.clipboard.writeText(xpub)
+                  navigator.clipboard.writeText(extPubKey)
                 }}
               >
                 <span role="img" aria-label="Copy to clipboard">

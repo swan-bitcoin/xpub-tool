@@ -24,23 +24,26 @@ const NUMBER_OF_ADDRESSES = 100 // however many we need
 
 const IndexPage = () => {
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
-  const [xpub, setXpub] = useState("")
+  const [extPubKey, setExtPubKey] = useState("")
   const [isExpertMode, setExpertMode] = useState(false)
   const [purpose, setPurpose] = useState(Purpose.P2WPKH) // default to bech32
   const [accountNumber, setAccountNumber] = useState(0)
 
   const handleNetworkChange = event => setNetwork(event.target.value)
-  const handleXpubChange = event => setXpub(event.target.value)
+  const handleXpubChange = event => setExtPubKey(event.target.value)
   const handlePurposeChange = event => setPurpose(event.target.value)
   const handleAccountNumberChange = event =>
     setAccountNumber(event.target.value)
   const handleExpertModeChange = event => setExpertMode(event.target.checked)
 
-  const isValid = useMemo(() => isValidXpub(xpub, network), [xpub, network])
+  const isValid = useMemo(() => isValidXpub(extPubKey, network), [
+    extPubKey,
+    network,
+  ])
 
   const addressList = isValid
     ? addressesFromXpub({
-        xpub,
+        extPubKey,
         addressCount: NUMBER_OF_ADDRESSES,
         accountNumber,
         purpose,
@@ -54,7 +57,7 @@ const IndexPage = () => {
         <Row>
           <Col>
             <XpubInput
-              xpub={xpub}
+              xpub={extPubKey}
               network={network}
               onChange={handleXpubChange}
             />
@@ -79,7 +82,7 @@ const IndexPage = () => {
             <Col>
               <DerivedAddressesTable
                 network={network}
-                xpub={xpub}
+                xpub={extPubKey}
                 addressList={addressList}
                 showCount="5"
               />
@@ -107,7 +110,7 @@ const IndexPage = () => {
         {isExpertMode && isValid && (
           <Row>
             <Col>
-              <XpubMetadata xpub={xpub} />
+              <XpubMetadata xpub={extPubKey} />
             </Col>
           </Row>
         )}

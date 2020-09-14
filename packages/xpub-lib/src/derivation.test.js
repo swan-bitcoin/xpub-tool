@@ -5,17 +5,19 @@ import { addressFromXpub, addressesFromXpub } from "./derivation"
 
 describe("addressFromXpub() with invalid xpubs", () => {
   test("address generation from invalid xpub fails", () => {
-    expect(addressFromXpub({ xpub: "" })).toBeFalsy()
-    expect(addressFromXpub({ xpub: "xpub123" })).toBeFalsy()
+    expect(addressFromXpub({ extPubKey: "" })).toBeFalsy()
+    expect(addressFromXpub({ extPubKey: "xpub123" })).toBeFalsy()
   })
   test("address generation with invalid parameters fails", () => {
     expect(
-      addressFromXpub({ xpub: KEY.TEST.TPUB, accountNumber: -1 })
+      addressFromXpub({ extPubKey: KEY.TEST.TPUB, accountNumber: -1 })
     ).toBeFalsy()
     expect(
-      addressFromXpub({ xpub: KEY.TEST.TPUB, network: NETWORKS.MAINNET })
+      addressFromXpub({ extPubKey: KEY.TEST.TPUB, network: NETWORKS.MAINNET })
     ).toBeFalsy()
-    expect(addressFromXpub({ xpub: KEY.TEST.TPUB, purpose: "99" })).toBeFalsy()
+    expect(
+      addressFromXpub({ extPubKey: KEY.TEST.TPUB, purpose: "99" })
+    ).toBeFalsy()
   })
 })
 
@@ -24,7 +26,7 @@ describe("addressFromXpub(MAINNET)", () => {
   test("P2PKH address generation from xpub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.MAIN.XPUB,
+        extPubKey: KEY.MAIN.XPUB,
         accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2PKH,
@@ -35,7 +37,7 @@ describe("addressFromXpub(MAINNET)", () => {
   test("P2PKH address generation from ypub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.MAIN.YPUB,
+        extPubKey: KEY.MAIN.YPUB,
         accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2PKH,
@@ -46,7 +48,7 @@ describe("addressFromXpub(MAINNET)", () => {
   test("P2PKH address generation from zpub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.MAIN.ZPUB,
+        extPubKey: KEY.MAIN.ZPUB,
         accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2PKH,
@@ -59,7 +61,7 @@ describe("addressFromXpub(MAINNET)", () => {
   test("P2SH address generation from xpub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.MAIN.XPUB,
+        extPubKey: KEY.MAIN.XPUB,
         accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2SH,
@@ -70,7 +72,7 @@ describe("addressFromXpub(MAINNET)", () => {
   test("P2SH address generation from ypub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.MAIN.YPUB,
+        extPubKey: KEY.MAIN.YPUB,
         accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2SH,
@@ -81,7 +83,7 @@ describe("addressFromXpub(MAINNET)", () => {
   test("P2SH address generation from zpub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.MAIN.ZPUB,
+        extPubKey: KEY.MAIN.ZPUB,
         accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2SH,
@@ -94,7 +96,7 @@ describe("addressFromXpub(MAINNET)", () => {
   test("P2WPKH address generation from xpub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.MAIN.XPUB,
+        extPubKey: KEY.MAIN.XPUB,
         accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2WPKH,
@@ -105,7 +107,7 @@ describe("addressFromXpub(MAINNET)", () => {
   test("P2WPKH address generation from ypub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.MAIN.YPUB,
+        extPubKey: KEY.MAIN.YPUB,
         accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2WPKH,
@@ -116,7 +118,7 @@ describe("addressFromXpub(MAINNET)", () => {
   test("P2WPKH address generation from zpub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.MAIN.ZPUB,
+        extPubKey: KEY.MAIN.ZPUB,
         accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2WPKH,
@@ -131,7 +133,7 @@ describe("addressFromXpub(TESTNET)", () => {
   test("P2PKH address generation from tpub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.TEST.TPUB,
+        extPubKey: KEY.TEST.TPUB,
         purpose: Purpose.P2PKH,
         network: NETWORKS.TESTNET,
       }).address
@@ -140,7 +142,7 @@ describe("addressFromXpub(TESTNET)", () => {
   test("P2PKH address generation from upub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.TEST.UPUB,
+        extPubKey: KEY.TEST.UPUB,
         purpose: Purpose.P2PKH,
         network: NETWORKS.TESTNET,
       }).address
@@ -149,7 +151,7 @@ describe("addressFromXpub(TESTNET)", () => {
   test("P2PKH address generation from vpub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.TEST.VPUB,
+        extPubKey: KEY.TEST.VPUB,
         purpose: Purpose.P2PKH,
         network: NETWORKS.TESTNET,
       }).address
@@ -160,7 +162,7 @@ describe("addressFromXpub(TESTNET)", () => {
   test("P2SH address generation from tpub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.TEST.TPUB,
+        extPubKey: KEY.TEST.TPUB,
         purpose: Purpose.P2SH,
         network: NETWORKS.TESTNET,
       }).address
@@ -169,7 +171,7 @@ describe("addressFromXpub(TESTNET)", () => {
   test("P2SH address generation from upub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.TEST.UPUB,
+        extPubKey: KEY.TEST.UPUB,
         purpose: Purpose.P2SH,
         network: NETWORKS.TESTNET,
       }).address
@@ -178,7 +180,7 @@ describe("addressFromXpub(TESTNET)", () => {
   test("P2SH address generation from vpub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.TEST.VPUB,
+        extPubKey: KEY.TEST.VPUB,
         purpose: Purpose.P2SH,
         network: NETWORKS.TESTNET,
       }).address
@@ -189,7 +191,7 @@ describe("addressFromXpub(TESTNET)", () => {
   test("P2WPKH address generation from tpub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.TEST.TPUB,
+        extPubKey: KEY.TEST.TPUB,
         purpose: Purpose.P2WPKH,
         network: NETWORKS.TESTNET,
       }).address
@@ -198,7 +200,7 @@ describe("addressFromXpub(TESTNET)", () => {
   test("P2WPKH address generation from upub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.TEST.UPUB,
+        extPubKey: KEY.TEST.UPUB,
         purpose: Purpose.P2WPKH,
         network: NETWORKS.TESTNET,
       }).address
@@ -207,7 +209,7 @@ describe("addressFromXpub(TESTNET)", () => {
   test("P2WPKH address generation from vpub", () => {
     expect(
       addressFromXpub({
-        xpub: KEY.TEST.VPUB,
+        extPubKey: KEY.TEST.VPUB,
         purpose: Purpose.P2WPKH,
         network: NETWORKS.TESTNET,
       }).address
@@ -219,19 +221,19 @@ describe("addressFromXpub", () => {
   test("forbid testnet address generation from mainnet key", () => {
     expect(
       addressFromXpub({
-        xpub: KEYS.MAIN.XPUB[0],
+        extPubKey: KEYS.MAIN.XPUB[0],
         network: NETWORKS.TESTNET,
       })
     ).toBeFalsy()
     expect(
       addressFromXpub({
-        xpub: KEYS.MAIN.YPUB[0],
+        extPubKey: KEYS.MAIN.YPUB[0],
         network: NETWORKS.TESTNET,
       })
     ).toBeFalsy()
     expect(
       addressFromXpub({
-        xpub: KEYS.MAIN.ZPUB[0],
+        extPubKey: KEYS.MAIN.ZPUB[0],
         network: NETWORKS.TESTNET,
       })
     ).toBeFalsy()
@@ -239,19 +241,19 @@ describe("addressFromXpub", () => {
   test("forbid mainnet address generation from testnet key", () => {
     expect(
       addressFromXpub({
-        xpub: KEYS.TEST.TPUB[0],
+        extPubKey: KEYS.TEST.TPUB[0],
         network: NETWORKS.MAINNET,
       })
     ).toBeFalsy()
     expect(
       addressFromXpub({
-        xpub: KEYS.TEST.UPUB[0],
+        extPubKey: KEYS.TEST.UPUB[0],
         network: NETWORKS.MAINNET,
       })
     ).toBeFalsy()
     expect(
       addressFromXpub({
-        xpub: KEYS.TEST.VPUB[0],
+        extPubKey: KEYS.TEST.VPUB[0],
         network: NETWORKS.MAINNET,
       })
     ).toBeFalsy()
@@ -262,7 +264,7 @@ describe("addressesFromXpub", () => {
   test("default address generation from xpub on mainnet", () => {
     expect(
       addressesFromXpub({
-        xpub: WASABI.XPUB,
+        extPubKey: WASABI.XPUB,
         addressCount: 3,
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)
@@ -271,7 +273,7 @@ describe("addressesFromXpub", () => {
   test("default address generation from ypub on mainnet", () => {
     expect(
       addressesFromXpub({
-        xpub: WASABI.YPUB,
+        extPubKey: WASABI.YPUB,
         addressCount: 3,
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)
@@ -280,21 +282,21 @@ describe("addressesFromXpub", () => {
   test("default address generation from zpub on mainnet", () => {
     expect(
       addressesFromXpub({
-        xpub: WASABI.ZPUB,
+        extPubKey: WASABI.ZPUB,
         addressCount: 3,
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)
     ).toStrictEqual(WASABI.ADDRESSES)
     expect(
       addressesFromXpub({
-        xpub: SAMOURAI.ZPUB,
+        extPubKey: SAMOURAI.ZPUB,
         addressCount: 3,
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)
     ).toStrictEqual(SAMOURAI.ADDRESSES)
     expect(
       addressesFromXpub({
-        xpub: SAMOURAI.ZPUB,
+        extPubKey: SAMOURAI.ZPUB,
         addressCount: 20, // generate 20 addresses
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)[19] // pick nr. 20 and compare
