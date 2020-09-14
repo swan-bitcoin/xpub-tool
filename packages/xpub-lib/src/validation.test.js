@@ -73,7 +73,7 @@ describe("isValidExtPubKey", () => {
       )
     ).toBeFalsy()
   })
-  test("mainnet keys (xpub/ypub/zpub) are invalid on testnet", () => {
+  test("mainnet keys (extPubKey/ypub/zpub) are invalid on testnet", () => {
     expect(isValidExtPubKey(KEYS.MAIN.XPUB[0], NETWORKS.TESTNET)).toBeFalsy()
     expect(isValidExtPubKey(KEYS.MAIN.YPUB[0], NETWORKS.TESTNET)).toBeFalsy()
     expect(isValidExtPubKey(KEYS.MAIN.ZPUB[0], NETWORKS.TESTNET)).toBeFalsy()

@@ -35,18 +35,18 @@ function getExtPubKeyType(extPubKey) {
   }
 }
 
-function getExtPubKeyMetadata(xpub) {
+function getExtPubKeyMetadata(extPubKey) {
   try {
-    const xpubObj = ExtendedPublicKey.fromBase58(xpub)
+    const xpubObj = ExtendedPublicKey.fromBase58(extPubKey)
 
     return {
-      type: getExtPubKeyType(xpub),
+      type: getExtPubKeyType(extPubKey),
       index: xpubObj.index,
       depth: xpubObj.depth,
       pubkey: xpubObj.pubkey,
       chaincode: xpubObj.chaincode,
       parentFingerprint: xpubObj.parentFingerprint,
-      network: getNetworkFromExtPubKey(xpub),
+      network: getNetworkFromExtPubKey(extPubKey),
       version: xpubObj.version,
     }
   } catch (error) {

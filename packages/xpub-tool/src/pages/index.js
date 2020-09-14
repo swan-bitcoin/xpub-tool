@@ -57,7 +57,7 @@ const IndexPage = () => {
         <Row>
           <Col>
             <ExtPubKeyInput
-              xpub={extPubKey}
+              extPubKey={extPubKey}
               network={network}
               onChange={handleExtPubKeyChange}
             />
@@ -82,7 +82,7 @@ const IndexPage = () => {
             <Col>
               <DerivedAddressesTable
                 network={network}
-                xpub={extPubKey}
+                extPubKey={extPubKey}
                 addressList={addressList}
                 showCount="5"
               />
@@ -110,7 +110,7 @@ const IndexPage = () => {
         {isExpertMode && isValid && (
           <Row>
             <Col>
-              <ExtPubKeyMetadata xpub={extPubKey} />
+              <ExtPubKeyMetadata extPubKey={extPubKey} />
             </Col>
           </Row>
         )}

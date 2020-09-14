@@ -2,8 +2,8 @@ import React from "react"
 import { Table } from "react-bootstrap"
 import { getExtPubKeyMetadata } from "@swan/xpub-lib"
 
-const ExtPubKeyMetadata = ({ xpub }) => {
-  const meta = getExtPubKeyMetadata(xpub)
+const ExtPubKeyMetadata = ({ extPubKey }) => {
+  const meta = getExtPubKeyMetadata(extPubKey)
   const tableRows = []
   Object.entries(meta).forEach(([key, value]) => {
     tableRows.push(
@@ -19,7 +19,7 @@ const ExtPubKeyMetadata = ({ xpub }) => {
       <thead>
         <tr>
           <th colSpan="2">
-            <code>{xpub}</code>
+            <code>{extPubKey}</code>
           </th>
         </tr>
       </thead>
