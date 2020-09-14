@@ -12,15 +12,15 @@ import {
   maskKey,
 } from "@swan/xpub-lib"
 
-class XpubImporter extends React.Component {
+class ExtPubKeyImporter extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       keystoreState: this.interaction().isSupported() ? PENDING : UNSUPPORTED,
-      xpub: "",
+      extPubKey: "",
       error: "",
     }
-    this.importXpub = this.importXpub.bind(this)
+    this.importExtPubKey = this.importExtPubKey.bind(this)
   }
 
   interaction() {
@@ -28,14 +28,14 @@ class XpubImporter extends React.Component {
     return ExportExtendedPublicKey({ keystore, network, bip32Path })
   }
 
-  async importXpub() {
+  async importExtPubKey() {
     this.setState({ keystoreState: ACTIVE })
     try {
       // This is where we actually talk to the hardware wallet.
-      const xpub = await this.interaction().run()
+      const extPubKey = await this.interaction().run()
       // If we succeed, reset the keystore state
       // and store the imported public key.
-      this.setState({ keystoreState: PENDING, xpub })
+      this.setState({ keystoreState: PENDING, extPubKey })
     } catch (e) {
       // Something went wrong; revert the keystore
       // state and track the error message.
@@ -48,7 +48,7 @@ class XpubImporter extends React.Component {
     // Here we grab just the messages relevant for the
     // current keystore state, but more complex filtering is possible...
     const messages = this.interaction().messagesFor({ state: keystoreState })
-    return messages.map(XpubImporter.renderMessage)
+    return messages.map(ExtPubKeyImporter.renderMessage)
   }
 
   static renderMessage(message, i) {
@@ -62,25 +62,25 @@ class XpubImporter extends React.Component {
   }
 
   render() {
-    const { keystoreState, xpub, error } = this.state
+    const { keystoreState, extPubKey, error } = this.state
     const { bip32Path } = this.props
     return (
       <div>
         <h3>
           {humanReadableDerivationPath({ bip32Path })} <code>{bip32Path}</code>
         </h3>
-        {xpub ? (
+        {extPubKey ? (
           <div>
             <Alert key={bip32Path} variant="success" dismissible>
               Imported {humanReadableDerivationPath({ bip32Path })}
             </Alert>
             <p>
-              <code>{maskKey(xpub)}</code>
+              <code>{maskKey(extPubKey)}</code>
               <Button
                 variant="light"
                 title="Copy to clipboard"
                 onClick={() => {
-                  navigator.clipboard.writeText(xpub)
+                  navigator.clipboard.writeText(extPubKey)
                 }}
               >
                 <span role="img" aria-label="Copy to clipboard">
@@ -96,7 +96,7 @@ class XpubImporter extends React.Component {
             <Button
               variant="outline-primary"
               disabled={keystoreState !== PENDING}
-              onClick={this.importXpub}
+              onClick={this.importExtPubKey}
               title={humanReadableDerivationPath({ bip32Path })}
             >
               Import {bip32Path}
@@ -109,10 +109,10 @@ class XpubImporter extends React.Component {
   }
 }
 
-XpubImporter.propTypes = {
+ExtPubKeyImporter.propTypes = {
   network: PropTypes.oneOf(Object.values(NETWORKS)).isRequired,
   bip32Path: PropTypes.string.isRequired,
   keystore: PropTypes.string.isRequired,
 }
 
-export { XpubImporter }
+export { ExtPubKeyImporter }

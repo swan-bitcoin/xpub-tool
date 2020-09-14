@@ -2,8 +2,8 @@ import { NETWORKS, ExtendedPublicKey } from "unchained-bitcoin"
 import { Purpose } from "./purpose"
 import { TYPE } from "./types"
 
-function getNetworkFromXpub(xpub) {
-  const prefix = xpub.slice(0, 4)
+function getNetworkFromExtPubKey(extPubKey) {
+  const prefix = extPubKey.slice(0, 4)
   switch (prefix) {
     case TYPE.XPUB:
     case TYPE.YPUB:
@@ -18,8 +18,8 @@ function getNetworkFromXpub(xpub) {
   }
 }
 
-function getXpubType(xpub) {
-  const prefix = xpub.slice(0, 4)
+function getExtPubKeyType(extPubKey) {
+  const prefix = extPubKey.slice(0, 4)
   switch (prefix) {
     case TYPE.XPUB:
     case TYPE.TPUB:
@@ -35,18 +35,18 @@ function getXpubType(xpub) {
   }
 }
 
-function getXpubMetadata(xpub) {
+function getExtPubKeyMetadata(extPubKey) {
   try {
-    const xpubObj = ExtendedPublicKey.fromBase58(xpub)
+    const xpubObj = ExtendedPublicKey.fromBase58(extPubKey)
 
     return {
-      type: getXpubType(xpub),
+      type: getExtPubKeyType(extPubKey),
       index: xpubObj.index,
       depth: xpubObj.depth,
       pubkey: xpubObj.pubkey,
       chaincode: xpubObj.chaincode,
       parentFingerprint: xpubObj.parentFingerprint,
-      network: getNetworkFromXpub(xpub),
+      network: getNetworkFromExtPubKey(extPubKey),
       version: xpubObj.version,
     }
   } catch (error) {
@@ -54,4 +54,4 @@ function getXpubMetadata(xpub) {
   }
 }
 
-export { getXpubType, getXpubMetadata, getNetworkFromXpub }
+export { getExtPubKeyType, getExtPubKeyMetadata, getNetworkFromExtPubKey }

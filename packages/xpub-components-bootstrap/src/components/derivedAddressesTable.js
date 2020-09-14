@@ -2,13 +2,13 @@ import React from "react"
 import { Table } from "react-bootstrap"
 import { maskKey } from "@swan/xpub-lib"
 
-const DerivedAddressesTable = ({ addressList, showCount, xpub }) => {
+const DerivedAddressesTable = ({ addressList, showCount, extPubKey }) => {
   return (
     <Table bordered>
       <thead>
         <tr>
           <th>
-            Addresses for <code>{maskKey(xpub)}</code>
+            Addresses for <code>{maskKey(extPubKey)}</code>
           </th>
         </tr>
       </thead>

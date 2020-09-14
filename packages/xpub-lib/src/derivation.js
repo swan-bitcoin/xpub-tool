@@ -1,7 +1,7 @@
 import * as bitcoin from "bitcoinjs-lib"
 import { deriveChildPublicKey, networkData, NETWORKS } from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
-import { isValidXpub, isValidIndex, isValidPurpose } from "./validation"
+import { isValidExtPubKey, isValidIndex, isValidPurpose } from "./validation"
 import { convertToBIP32 } from "./conversion"
 import { Purpose } from "./purpose"
 
@@ -38,8 +38,8 @@ function deriveAddress({ purpose, pubkey, network }) {
   }
 }
 
-function addressFromXpub({
-  xpub,
+function addressFromExtPubKey({
+  extPubKey,
   accountNumber = 0,
   keyIndex = 0,
   purpose = DEFAULT_PURPOSE,
@@ -49,7 +49,7 @@ function addressFromXpub({
     !isValidIndex(accountNumber) ||
     !isValidIndex(keyIndex) ||
     !isValidPurpose(purpose) ||
-    !isValidXpub(xpub, network)
+    !isValidExtPubKey(extPubKey, network)
   ) {
     return undefined
   }
@@ -60,8 +60,12 @@ function addressFromXpub({
     keyIndex,
     network,
   })
-  const convertedXpub = convertToBIP32(xpub, network)
-  const childPubKey = deriveChildPublicKey(convertedXpub, partialPath, network)
+  const convertedExtPubKey = convertToBIP32(extPubKey, network)
+  const childPubKey = deriveChildPublicKey(
+    convertedExtPubKey,
+    partialPath,
+    network
+  )
   const keyPair = bitcoin.ECPair.fromPublicKey(Buffer.from(childPubKey, "hex"))
   const pubkey = keyPair.publicKey
   return {
@@ -70,8 +74,8 @@ function addressFromXpub({
   }
 }
 
-function addressesFromXpub({
-  xpub,
+function addressesFromExtPubKey({
+  extPubKey,
   addressCount,
   accountNumber = 0,
   purpose = DEFAULT_PURPOSE,
@@ -80,8 +84,8 @@ function addressesFromXpub({
   const addresses = []
 
   for (let keyIndex = 0; keyIndex < addressCount; keyIndex += 1) {
-    const { path, address } = addressFromXpub({
-      xpub,
+    const { path, address } = addressFromExtPubKey({
+      extPubKey,
       accountNumber,
       keyIndex,
       purpose,
@@ -94,4 +98,4 @@ function addressesFromXpub({
   return addresses
 }
 
-export { addressFromXpub, addressesFromXpub }
+export { addressFromExtPubKey, addressesFromExtPubKey }

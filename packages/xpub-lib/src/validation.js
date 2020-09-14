@@ -2,24 +2,24 @@ import {
   validateExtendedPublicKey,
   validateBIP32Index,
 } from "unchained-bitcoin"
-import { getNetworkFromXpub } from "./metadata"
+import { getNetworkFromExtPubKey } from "./metadata"
 import { convertToBIP32 } from "./conversion"
 import { Purpose } from "./purpose"
 import { harden } from "./utils"
 import { APOSTROPHE, COIN_PREFIX } from "./constants"
 
-function isNetworkMatch(xpub, network) {
-  return getNetworkFromXpub(xpub) === network
+function isNetworkMatch(extPubKey, network) {
+  return extPubKey && getNetworkFromExtPubKey(extPubKey) === network
 }
 
-function isValidXpub(xpub, network) {
-  if (!isNetworkMatch(xpub, network)) {
+function isValidExtPubKey(extPubKey, network) {
+  if (!isNetworkMatch(extPubKey, network)) {
     return false
   }
   try {
-    const convertedXpub = convertToBIP32(xpub, network)
+    const convertedExtPubKey = convertToBIP32(extPubKey, network)
     // validateExtendedPublicKey expects "xpub..." or "tpub..."
-    return validateExtendedPublicKey(convertedXpub, network) === ""
+    return validateExtendedPublicKey(convertedExtPubKey, network) === ""
   } catch (error) {
     return false
   }
@@ -69,7 +69,7 @@ function isValidPathSegment(segment) {
 
 export {
   isNetworkMatch,
-  isValidXpub,
+  isValidExtPubKey,
   isValidPurpose,
   isValidIndex,
   isValidPathSegment,

@@ -4,17 +4,17 @@ import { Row, Col, Container, Form } from "react-bootstrap"
 import {
   NETWORKS,
   Purpose,
-  addressesFromXpub,
-  isValidXpub,
+  addressesFromExtPubKey,
+  isValidExtPubKey,
 } from "@swan/xpub-lib"
 
 import {
   DerivedAddressesTable,
   AddressDerivationInput,
-  XpubInput,
+  ExtPubKeyInput,
   NetworkSwitcher,
-  XpubExamples,
-  XpubMetadata,
+  ExtPubKeyExamples,
+  ExtPubKeyMetadata,
 } from "@swan/xpub-components-bootstrap"
 
 import Layout from "../components/layout"
@@ -24,23 +24,26 @@ const NUMBER_OF_ADDRESSES = 100 // however many we need
 
 const IndexPage = () => {
   const [network, setNetwork] = useState(DEFAULT_NETWORK)
-  const [xpub, setXpub] = useState("")
+  const [extPubKey, setExtPubKey] = useState("")
   const [isExpertMode, setExpertMode] = useState(false)
   const [purpose, setPurpose] = useState(Purpose.P2WPKH) // default to bech32
   const [accountNumber, setAccountNumber] = useState(0)
 
   const handleNetworkChange = event => setNetwork(event.target.value)
-  const handleXpubChange = event => setXpub(event.target.value)
+  const handleExtPubKeyChange = event => setExtPubKey(event.target.value)
   const handlePurposeChange = event => setPurpose(event.target.value)
   const handleAccountNumberChange = event =>
     setAccountNumber(event.target.value)
   const handleExpertModeChange = event => setExpertMode(event.target.checked)
 
-  const isValid = useMemo(() => isValidXpub(xpub, network), [xpub, network])
+  const isValid = useMemo(() => isValidExtPubKey(extPubKey, network), [
+    extPubKey,
+    network,
+  ])
 
   const addressList = isValid
-    ? addressesFromXpub({
-        xpub,
+    ? addressesFromExtPubKey({
+        extPubKey,
         addressCount: NUMBER_OF_ADDRESSES,
         accountNumber,
         purpose,
@@ -53,10 +56,10 @@ const IndexPage = () => {
       <Container className="text-center">
         <Row>
           <Col>
-            <XpubInput
-              xpub={xpub}
+            <ExtPubKeyInput
+              extPubKey={extPubKey}
               network={network}
-              onChange={handleXpubChange}
+              onChange={handleExtPubKeyChange}
             />
           </Col>
         </Row>
@@ -79,7 +82,7 @@ const IndexPage = () => {
             <Col>
               <DerivedAddressesTable
                 network={network}
-                xpub={xpub}
+                extPubKey={extPubKey}
                 addressList={addressList}
                 showCount="5"
               />
@@ -100,14 +103,14 @@ const IndexPage = () => {
         {isExpertMode && (
           <Row>
             <Col>
-              <XpubExamples network={network} />
+              <ExtPubKeyExamples network={network} />
             </Col>
           </Row>
         )}
         {isExpertMode && isValid && (
           <Row>
             <Col>
-              <XpubMetadata xpub={xpub} />
+              <ExtPubKeyMetadata extPubKey={extPubKey} />
             </Col>
           </Row>
         )}
