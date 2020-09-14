@@ -1,15 +1,15 @@
 import React, { useMemo } from "react"
 import { Alert, Form } from "react-bootstrap"
-import { isValidXpub } from "@swan/xpub-lib"
+import { isValidExtPubKey } from "@swan/xpub-lib"
 
-const XpubInput = ({ extPubKey, network, onChange }) => {
-  const isValid = useMemo(() => isValidXpub(extPubKey, network), [
+const ExtPubKeyInput = ({ extPubKey, network, onChange }) => {
+  const isValid = useMemo(() => isValidExtPubKey(extPubKey, network), [
     extPubKey,
     network,
   ])
 
-  const isEmptyXpub = extPubKey === ""
-  const isFilled = !isEmptyXpub
+  const isEmptyExtPubKey = extPubKey === ""
+  const isFilled = !isEmptyExtPubKey
 
   return (
     <Form noValidate>
@@ -31,4 +31,4 @@ const XpubInput = ({ extPubKey, network, onChange }) => {
   )
 }
 
-export { XpubInput }
+export { ExtPubKeyInput }

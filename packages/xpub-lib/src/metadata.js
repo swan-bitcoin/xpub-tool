@@ -18,7 +18,7 @@ function getNetworkFromExtPubKey(extPubKey) {
   }
 }
 
-function getXpubType(extPubKey) {
+function getExtPubKeyType(extPubKey) {
   const prefix = extPubKey.slice(0, 4)
   switch (prefix) {
     case TYPE.XPUB:
@@ -35,12 +35,12 @@ function getXpubType(extPubKey) {
   }
 }
 
-function getXpubMetadata(xpub) {
+function getExtPubKeyMetadata(xpub) {
   try {
     const xpubObj = ExtendedPublicKey.fromBase58(xpub)
 
     return {
-      type: getXpubType(xpub),
+      type: getExtPubKeyType(xpub),
       index: xpubObj.index,
       depth: xpubObj.depth,
       pubkey: xpubObj.pubkey,
@@ -54,4 +54,4 @@ function getXpubMetadata(xpub) {
   }
 }
 
-export { getXpubType, getXpubMetadata, getNetworkFromExtPubKey }
+export { getExtPubKeyType, getExtPubKeyMetadata, getNetworkFromExtPubKey }

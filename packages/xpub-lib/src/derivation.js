@@ -1,7 +1,7 @@
 import * as bitcoin from "bitcoinjs-lib"
 import { deriveChildPublicKey, networkData, NETWORKS } from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
-import { isValidXpub, isValidIndex, isValidPurpose } from "./validation"
+import { isValidExtPubKey, isValidIndex, isValidPurpose } from "./validation"
 import { convertToBIP32 } from "./conversion"
 import { Purpose } from "./purpose"
 
@@ -49,7 +49,7 @@ function addressFromExtPubKey({
     !isValidIndex(accountNumber) ||
     !isValidIndex(keyIndex) ||
     !isValidPurpose(purpose) ||
-    !isValidXpub(extPubKey, network)
+    !isValidExtPubKey(extPubKey, network)
   ) {
     return undefined
   }
@@ -60,8 +60,12 @@ function addressFromExtPubKey({
     keyIndex,
     network,
   })
-  const convertedXpub = convertToBIP32(extPubKey, network)
-  const childPubKey = deriveChildPublicKey(convertedXpub, partialPath, network)
+  const convertedExtPubKey = convertToBIP32(extPubKey, network)
+  const childPubKey = deriveChildPublicKey(
+    convertedExtPubKey,
+    partialPath,
+    network
+  )
   const keyPair = bitcoin.ECPair.fromPublicKey(Buffer.from(childPubKey, "hex"))
   const pubkey = keyPair.publicKey
   return {

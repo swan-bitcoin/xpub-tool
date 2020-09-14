@@ -17,9 +17,9 @@ function isValidExtPubKey(extPubKey, network) {
     return false
   }
   try {
-    const convertedXpub = convertToBIP32(extPubKey, network)
+    const convertedExtPubKey = convertToBIP32(extPubKey, network)
     // validateExtendedPublicKey expects "xpub..." or "tpub..."
-    return validateExtendedPublicKey(convertedXpub, network) === ""
+    return validateExtendedPublicKey(convertedExtPubKey, network) === ""
   } catch (error) {
     return false
   }
@@ -69,7 +69,7 @@ function isValidPathSegment(segment) {
 
 export {
   isNetworkMatch,
-  isValidExtPubKey as isValidXpub,
+  isValidExtPubKey,
   isValidPurpose,
   isValidIndex,
   isValidPathSegment,

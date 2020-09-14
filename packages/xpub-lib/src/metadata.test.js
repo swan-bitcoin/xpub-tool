@@ -1,9 +1,9 @@
 import { NETWORKS } from "unchained-bitcoin"
 import { KEY } from "../test/fixtures"
 import {
-  getXpubType,
+  getExtPubKeyType,
   getNetworkFromExtPubKey,
-  getXpubMetadata,
+  getExtPubKeyMetadata,
 } from "./metadata"
 
 describe("getNetworkFromExtPubKey", () => {
@@ -22,24 +22,24 @@ describe("getNetworkFromExtPubKey", () => {
   })
 })
 
-describe("getXpubType", () => {
+describe("getExtPubKeyType", () => {
   test("xpub/tpub should be of type P2PKH (BIP 44)", () => {
-    expect(getXpubType(KEY.MAIN.XPUB)).toBe("44")
-    expect(getXpubType(KEY.TEST.TPUB)).toBe("44")
+    expect(getExtPubKeyType(KEY.MAIN.XPUB)).toBe("44")
+    expect(getExtPubKeyType(KEY.TEST.TPUB)).toBe("44")
   })
   test("ypub/upub should be of type P2SH (BIP 49)", () => {
-    expect(getXpubType(KEY.MAIN.YPUB)).toBe("49")
-    expect(getXpubType(KEY.TEST.UPUB)).toBe("49")
+    expect(getExtPubKeyType(KEY.MAIN.YPUB)).toBe("49")
+    expect(getExtPubKeyType(KEY.TEST.UPUB)).toBe("49")
   })
   test("zpub/vpub should be of type P2WPKH (BIP 84)", () => {
-    expect(getXpubType(KEY.MAIN.ZPUB)).toBe("84")
-    expect(getXpubType(KEY.TEST.VPUB)).toBe("84")
+    expect(getExtPubKeyType(KEY.MAIN.ZPUB)).toBe("84")
+    expect(getExtPubKeyType(KEY.TEST.VPUB)).toBe("84")
   })
 })
 
-describe("getXpubMetadata", () => {
+describe("getExtPubKeyMetadata", () => {
   test("xpub metadata", () => {
-    expect(getXpubMetadata(KEY.MAIN.XPUB)).toStrictEqual({
+    expect(getExtPubKeyMetadata(KEY.MAIN.XPUB)).toStrictEqual({
       chaincode:
         "2d6929b63bd13b5f21af8470535baf7ca10924cf21c88fd96f735d65cd0a6cfc",
       depth: 4,
@@ -51,7 +51,7 @@ describe("getXpubMetadata", () => {
       type: "44",
       version: "0488b21e",
     })
-    expect(getXpubMetadata(KEY.MAIN.YPUB)).toStrictEqual({
+    expect(getExtPubKeyMetadata(KEY.MAIN.YPUB)).toStrictEqual({
       chaincode:
         "2d6929b63bd13b5f21af8470535baf7ca10924cf21c88fd96f735d65cd0a6cfc",
       depth: 4,
@@ -63,7 +63,7 @@ describe("getXpubMetadata", () => {
       type: "49",
       version: "049d7cb2",
     })
-    expect(getXpubMetadata(KEY.MAIN.ZPUB)).toStrictEqual({
+    expect(getExtPubKeyMetadata(KEY.MAIN.ZPUB)).toStrictEqual({
       chaincode:
         "2d6929b63bd13b5f21af8470535baf7ca10924cf21c88fd96f735d65cd0a6cfc",
       depth: 4,

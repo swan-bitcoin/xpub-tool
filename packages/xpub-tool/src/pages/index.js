@@ -5,16 +5,16 @@ import {
   NETWORKS,
   Purpose,
   addressesFromExtPubKey,
-  isValidXpub,
+  isValidExtPubKey,
 } from "@swan/xpub-lib"
 
 import {
   DerivedAddressesTable,
   AddressDerivationInput,
-  XpubInput,
+  ExtPubKeyInput,
   NetworkSwitcher,
-  XpubExamples,
-  XpubMetadata,
+  ExtPubKeyExamples,
+  ExtPubKeyMetadata,
 } from "@swan/xpub-components-bootstrap"
 
 import Layout from "../components/layout"
@@ -30,13 +30,13 @@ const IndexPage = () => {
   const [accountNumber, setAccountNumber] = useState(0)
 
   const handleNetworkChange = event => setNetwork(event.target.value)
-  const handleXpubChange = event => setExtPubKey(event.target.value)
+  const handleExtPubKeyChange = event => setExtPubKey(event.target.value)
   const handlePurposeChange = event => setPurpose(event.target.value)
   const handleAccountNumberChange = event =>
     setAccountNumber(event.target.value)
   const handleExpertModeChange = event => setExpertMode(event.target.checked)
 
-  const isValid = useMemo(() => isValidXpub(extPubKey, network), [
+  const isValid = useMemo(() => isValidExtPubKey(extPubKey, network), [
     extPubKey,
     network,
   ])
@@ -56,10 +56,10 @@ const IndexPage = () => {
       <Container className="text-center">
         <Row>
           <Col>
-            <XpubInput
+            <ExtPubKeyInput
               xpub={extPubKey}
               network={network}
-              onChange={handleXpubChange}
+              onChange={handleExtPubKeyChange}
             />
           </Col>
         </Row>
@@ -103,14 +103,14 @@ const IndexPage = () => {
         {isExpertMode && (
           <Row>
             <Col>
-              <XpubExamples network={network} />
+              <ExtPubKeyExamples network={network} />
             </Col>
           </Row>
         )}
         {isExpertMode && isValid && (
           <Row>
             <Col>
-              <XpubMetadata xpub={extPubKey} />
+              <ExtPubKeyMetadata xpub={extPubKey} />
             </Col>
           </Row>
         )}

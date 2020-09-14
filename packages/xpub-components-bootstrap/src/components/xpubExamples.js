@@ -22,7 +22,7 @@ const EXAMPLE_TPUBS = [
   "vpub5bTmE9K4QmkbLUnWm6pmKgRDLkckrJprBBUx49PwEEAqgb3ehJo45FamVZ481S3dvhaRbDnUrFxqDC61yLTGSEcHyvAA365DmsjpADBAqrB",
 ]
 
-const XpubExamples = ({ network }) => {
+const ExtPubKeyExamples = ({ network }) => {
   const pubs = network === NETWORKS.MAINNET ? EXAMPLE_XPUBS : EXAMPLE_TPUBS
 
   return (
@@ -39,4 +39,4 @@ const XpubExamples = ({ network }) => {
   )
 }
 
-export { XpubExamples }
+export { ExtPubKeyExamples }
