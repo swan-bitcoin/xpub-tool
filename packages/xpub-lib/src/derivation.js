@@ -115,7 +115,8 @@ function addressFromExtPubKey({
 }
 
 /**
- * Derive multiple addresses from a given extended public key. See {@link module:derivation~addressFromExtPubKey}.
+ * Derive multiple addresses from a given extended public key.
+ * See {@link module:derivation~addressFromExtPubKey}.
  *
  * @param  {string} extPubKey the extended public key
  * @param  {number} [accountNumber=0]
