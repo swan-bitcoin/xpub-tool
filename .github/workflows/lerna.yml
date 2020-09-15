@@ -18,6 +18,9 @@ jobs:
           node-version: "${{ steps.nvm.outputs.NVMRC }}"
       - name: Install yarn
         run: npm install -g yarn
-      - run: yarn install
-      - run: yarn run lerna bootstrap
-      - run: yarn run lerna run test
+      - name: Install root dependencies (yarn install)
+        run: yarn install
+      - name: Install dependencies and link packages (lerna bootstrap)
+        run: yarn run lerna bootstrap
+      - name: Run tests (lerna run test)
+        run: yarn run lerna run test
