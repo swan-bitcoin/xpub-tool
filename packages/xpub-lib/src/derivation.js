@@ -6,7 +6,7 @@ import * as bitcoin from "bitcoinjs-lib"
 import { deriveChildPublicKey, networkData, NETWORKS } from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
 import { isValidExtPubKey, isValidIndex, isValidPurpose } from "./validation"
-import { convertToBIP32 } from "./conversion"
+import { convertToXPUB } from "./conversion"
 import { Purpose } from "./purpose"
 
 const DEFAULT_NETWORK = NETWORKS.TESTNET
@@ -71,7 +71,7 @@ function addressFromExtPubKey({
     keyIndex,
     network,
   })
-  const convertedExtPubKey = convertToBIP32(extPubKey, network)
+  const convertedExtPubKey = convertToXPUB(extPubKey, network)
   const childPubKey = deriveChildPublicKey(
     convertedExtPubKey,
     partialPath,

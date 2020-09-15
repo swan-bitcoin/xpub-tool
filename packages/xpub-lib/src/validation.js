@@ -3,7 +3,7 @@ import {
   validateBIP32Index,
 } from "unchained-bitcoin"
 import { getNetworkFromExtPubKey } from "./metadata"
-import { convertToBIP32 } from "./conversion"
+import { convertToXPUB } from "./conversion"
 import { Purpose } from "./purpose"
 import { harden } from "./utils"
 import { APOSTROPHE, COIN_PREFIX } from "./constants"
@@ -17,7 +17,7 @@ function isValidExtPubKey(extPubKey, network) {
     return false
   }
   try {
-    const convertedExtPubKey = convertToBIP32(extPubKey, network)
+    const convertedExtPubKey = convertToXPUB(extPubKey, network)
     // validateExtendedPublicKey expects "xpub..." or "tpub..."
     return validateExtendedPublicKey(convertedExtPubKey, network) === ""
   } catch (error) {

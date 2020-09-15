@@ -12,9 +12,9 @@ import { TYPE } from "./types"
  * @returns {(string|object)} converted extended public key or error object
  * with the failed key and error message
  */
-function convertToBIP32(extPubKey, network) {
+function convertToXPUB(extPubKey, network) {
   const targetPrefix = network === NETWORKS.MAINNET ? TYPE.XPUB : TYPE.TPUB
   return convertExtendedPublicKey(extPubKey, targetPrefix)
 }
 
-export { convertToBIP32 }
+export { convertToXPUB }
