@@ -58,6 +58,25 @@ function getPurposeFromExtPubKey(extPubKey) {
   }
 }
 
+/**
+ * Extended public key metadata.
+ * @typedef {object} metadata
+ * @property {module:type~TYPE} type - the extended public key type (xpub/ypub/zpub/tpub/upub/vpub)
+ * @property {number} index - the key index
+ * @property {number} depth - the depth of the derivation path
+ * @property {string} pubkey - the corresponding (non-extended) public key
+ * @property {string} chaincode - the chaincode
+ * @property {string} parentFingerprint - the fingerprint of the parent key
+ * @property {NETWORK} network - the associated network (TESTNET or MAINNET)
+ */
+
+/**
+ * Retrieves metadata from a given extended public key.
+ *
+ * @param  {string} extPubKey an extended public key
+ *
+ * @returns {Metadata} a {@link module:metadata~metadata} object
+ */
 function getExtPubKeyMetadata(extPubKey) {
   try {
     const xpubObj = ExtendedPublicKey.fromBase58(extPubKey)
