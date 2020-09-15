@@ -13,11 +13,11 @@ const DEFAULT_NETWORK = NETWORKS.TESTNET
 const DEFAULT_PURPOSE = Purpose.P2WPKH
 
 /**
- * Derive a single address from a public key. See {@link module:purpose.Purpose}
+ * Derive a single address from a public key.
  *
- * @param  {module:purpose.Purpose} purpose Purpose dictates the derived address type (P2PKH = 1address, P2SH = 3address, P2WPKH = bc1address).
- * @param  {ECPair.publicKey} pubkey The public key to derive from
- * @param  {module:unchained-bitcoin/networks.NETWORKS} network The network to use (MAINNET or TESTNET)
+ * @param  {module:purpose~Purpose} purpose Purpose dictates the derived address type (P2PKH = 1address, P2SH = 3address, P2WPKH = bc1address).
+ * @param  {object} pubkey The ECPair.publicKey public key to derive from
+ * @param  {NETWORK} network The network to use (MAINNET or TESTNET). See unchained-bitcoin/networks
  */
 function deriveAddress({ purpose, pubkey, network }) {
   switch (purpose) {
