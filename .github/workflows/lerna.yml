@@ -18,13 +18,6 @@ jobs:
           node-version: "${{ steps.nvm.outputs.NVMRC }}"
       - name: Install yarn
         run: npm install -g yarn
-      - name: yarn install
-        run: yarn install
-      - name: lerna bootstrap
-        uses: m19c/action-lerna@1.0.0
-        with:
-          args: "bootstrap"
-      - name: lerna test
-        uses: m19c/action-lerna@1.0.0
-        with:
-          args: "test"
+      - run: yarn install
+      - run: lerna bootstrap
+      - run: lerna run test
