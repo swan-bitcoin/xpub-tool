@@ -1,3 +1,10 @@
+/**
+ * This module contains methods to validate extended public keys and BIP32
+ * derivation path segments.
+ *
+ * @module validation
+ */
+
 import {
   validateExtendedPublicKey,
   validateBIP32Index,
@@ -8,6 +15,14 @@ import { Purpose } from "./purpose"
 import { harden } from "./utils"
 import { APOSTROPHE, COIN_PREFIX } from "./constants"
 
+/**
+ * Returns true if the given `extPubKey` matches the given `network`.
+ *
+ * @param  {string} extPubKey
+ * @param  {NETWORK} network
+ *
+ * @return {boolean}
+ */
 function isNetworkMatch(extPubKey, network) {
   return extPubKey && getNetworkFromExtPubKey(extPubKey) === network
 }

@@ -1,3 +1,9 @@
+/**
+ * This module defines helper functions for extended public key conversion.
+ *
+ * @module derivation
+ */
+
 import { NETWORKS, convertExtendedPublicKey } from "unchained-bitcoin"
 import { TYPE } from "./types"
 
