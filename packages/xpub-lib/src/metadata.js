@@ -1,7 +1,15 @@
 import { NETWORKS, ExtendedPublicKey } from "unchained-bitcoin"
 import { Purpose } from "./purpose"
 import { TYPE } from "./types"
-
+/**
+ * Get network type from extended public key format.
+ * XPUB/YPUB/ZPUB = mainnet,
+ * TPUB/UPUB/VPUB = testnet.
+ *
+ * @param  {string} extPubKey an extended public key
+ *
+ * @returns {NETWORK} the associated network. See unchained-bitcoin/networks
+ */
 function getNetworkFromExtPubKey(extPubKey) {
   const prefix = extPubKey.slice(0, 4)
   switch (prefix) {
