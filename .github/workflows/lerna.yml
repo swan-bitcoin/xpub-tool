@@ -9,20 +9,19 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x] # 12.x, 13.x, 
+        node-version: [14.x] # 12.x, 13.x,
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - uses: Borales/actions-yarn@v2.3.0
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: install
-    - uses: m19c/action-lerna@1.0.0
+      - uses: m19c/action-lerna@1.0.0
         with:
-          args: 'bootstrap'
-    - uses: m19c/action-lerna@1.0.0
+          args: "bootstrap"
+      - uses: m19c/action-lerna@1.0.0
         with:
-          args: 'test'
-
+          args: "test"
