@@ -14,7 +14,11 @@
     "compile:watch": "babel --watch -d lib/ src/",
     "pretest": "yarn run compile",
     "test": "jest lib",
-    "test:watch": "jest --watch src"
+    "test:watch": "jest --watch src",
+    "build:docs": "jsdoc *",
+    "watch:doc-src": "yarn run nodemon --exec 'yarn build:docs' --watch src",
+    "watch:doc-output": "yarn run livereload out",
+    "watch:docs": "yarn watch:doc-output & yarn watch:doc-src"
   },
   "keywords": [],
   "author": "",
