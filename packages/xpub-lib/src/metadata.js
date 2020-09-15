@@ -1,3 +1,9 @@
+/**
+ * This module retrieves metadata from extended public keys.
+ *
+ * @module metadata
+ */
+
 import { NETWORKS, ExtendedPublicKey } from "unchained-bitcoin"
 import { Purpose } from "./purpose"
 import { TYPE } from "./types"
@@ -71,4 +77,8 @@ function getExtPubKeyMetadata(extPubKey) {
   }
 }
 
-export { getPurposeFromExtPubKey, getExtPubKeyMetadata, getNetworkFromExtPubKey }
+export {
+  getPurposeFromExtPubKey,
+  getExtPubKeyMetadata,
+  getNetworkFromExtPubKey,
+}
