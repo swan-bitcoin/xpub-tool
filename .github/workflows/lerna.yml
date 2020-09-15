@@ -21,6 +21,12 @@ jobs:
     - name: yarn install
         with:
           cmd: install
-    - name: lerna bootstrap && lerna test
+    - name: lerna bootstrap
       uses: m19c/action-lerna@1.0.0
+        with:
+          args: 'bootstrap'
+    - name: lerna test
+      uses: m19c/action-lerna@1.0.0
+        with:
+          args: 'test'
 
