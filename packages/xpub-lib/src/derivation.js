@@ -8,6 +8,13 @@ import { Purpose } from "./purpose"
 const DEFAULT_NETWORK = NETWORKS.TESTNET
 const DEFAULT_PURPOSE = Purpose.P2WPKH
 
+/**
+ * Derive a single address from a public key.
+ *
+ * @param  {Purpose} purpose Purpose dictates the derived address type (P2PKH = 1address, P2SH = 3address, P2WPKH = bc1address).
+ * @param  {ECPair.publicKey} pubkey The public key to derive from
+ * @param  {NETWORKS} network The network to use (MAINNET or TESTNET)
+ */
 function deriveAddress({ purpose, pubkey, network }) {
   switch (purpose) {
     case Purpose.P2PKH: {
