@@ -1,0 +1,26 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    name: build & test
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Read .nvmrc
+        run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+        id: nvm
+      - name: Use Node.js (.nvmrc)
+        uses: actions/setup-node@v1
+        with:
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+      - name: Install yarn
+        run: npm install -g yarn
+      - name: Install root dependencies (yarn install)
+        run: yarn install
+      - name: Install dependencies and link packages (lerna bootstrap)
+        run: yarn run lerna bootstrap
+      - name: Run tests (lerna run test)
+        run: yarn run lerna run test
