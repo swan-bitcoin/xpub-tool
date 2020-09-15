@@ -1,10 +1,10 @@
-name: Lerna
+name: Continuous Integration
 
 on: [push]
 
 jobs:
   build:
-    name: Test
+    name: Build and Test
     runs-on: macos-latest
 
     steps:
