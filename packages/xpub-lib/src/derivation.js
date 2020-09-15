@@ -31,9 +31,9 @@ const DEFAULT_PURPOSE = Purpose.P2WPKH
 /**
  * Derive a single address from a public key.
  *
- * @param  {module:purpose~Purpose} purpose Purpose dictates the derived address type (P2PKH = 1address, P2SH = 3address, P2WPKH = bc1address).
- * @param  {object} pubkey The ECPair.publicKey public key to derive from
- * @param  {NETWORK} network The network to use (MAINNET or TESTNET). See unchained-bitcoin/networks
+ * @param  {module:purpose~Purpose} purpose - the purpose dictates the derived address type (P2PKH = 1address, P2SH = 3address, P2WPKH = bc1address)
+ * @param  {object} pubkey - the ECPair.publicKey public key to derive from
+ * @param  {NETWORK} network - the network to use (MAINNET or TESTNET)
  *
  * @returns {object|undefined} derived address
  */
@@ -70,11 +70,11 @@ function deriveAddress({ purpose, pubkey, network }) {
  * Derive a single address from a given extended public key. Address type is
  * defined by the `purpose` parameter.
  *
- * @param  {string} extPubKey the extended public key
- * @param  {number} [accountNumber=0]
- * @param  {number} [keyIndex=0]
- * @param  {module:purpose~Purpose} [purpose=DEFAULT_PURPOSE]
- * @param  {NETWORK} [network=DEFAULT_NETWORK]
+ * @param  {string} extPubKey - the extended public key
+ * @param  {number} accountNumber - the account number, starting with 0
+ * @param  {number} [keyIndex=0] - the unhardened key index
+ * @param  {module:purpose~Purpose} [purpose=DEFAULT_PURPOSE] - the derivation purpose
+ * @param  {NETWORK} [network=DEFAULT_NETWORK] - the target network (TESTNET or MAINNET)
  *
  * @returns {object|undefined} derived address
  */
@@ -118,13 +118,13 @@ function addressFromExtPubKey({
  * Derive multiple addresses from a given extended public key.
  * See {@link module:derivation~addressFromExtPubKey}.
  *
- * @param  {string} extPubKey the extended public key
- * @param  {number} [accountNumber=0]
- * @param  {number} [keyIndex=0]
- * @param  {module:purpose~Purpose} [purpose=DEFAULT_PURPOSE]
- * @param  {NETWORK} [network=DEFAULT_NETWORK]
+ * @param  {string} extPubKey - the extended public key
+ * @param  {number} accountNumber - the account number, starting with 0
+ * @param  {number} [keyIndex=0] - the unhardened key index
+ * @param  {module:purpose~Purpose} [purpose=DEFAULT_PURPOSE] - the derivation purpose
+ * @param  {NETWORK} [network=DEFAULT_NETWORK] - the target network (TESTNET or MAINNET)
  *
- * @returns {object[]} derived addresses
+ * @returns {object[]} array of derived addresses
  */
 function addressesFromExtPubKey({
   extPubKey,

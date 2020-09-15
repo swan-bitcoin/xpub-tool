@@ -13,8 +13,8 @@ import { SEPARATOR, APOSTROPHE, COIN_PREFIX } from "./constants"
 /**
  * Construct a partial key derivation path from a given `accountNumber` and `keyIndex`.
  *
- * @param  {number} [accountNumber=0] unhardened account number
- * @param  {number} [keyIndex=0] unhardened key index
+ * @param  {number} [accountNumber=0] - the unhardened account number
+ * @param  {number} [keyIndex=0] - the unhardened key index
  *
  * @returns {string} a partial derivation path
  */
@@ -29,8 +29,8 @@ function partialKeyDerivationPath({ accountNumber = 0, keyIndex = 0 }) {
  * Construct an account derivation path given a `purpose` and an `accountNumber`.
  *
  * @param  {string} [coinPrefix=COIN_PREFIX] - the coin prefix, defaulting to "m" for bitcoin
- * @param  {module:purpose~Purpose} purpose - derivation purpose
- * @param  {NETWORK} [network=NETWORKS.TESTNET] - target network (TESTNET or MAINNET)
+ * @param  {module:purpose~Purpose} purpose - the derivation purpose
+ * @param  {NETWORK} [network=NETWORKS.TESTNET] - the target network (TESTNET or MAINNET)
  * @param  {number} accountNumber - the account number, starting with 0
  *
  * @returns {string} the account derivation path, e.g. "m/44'/0'/3'"
