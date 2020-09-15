@@ -35,7 +35,7 @@ function getNetworkFromExtPubKey(extPubKey) {
  *
  * @returns {module:purpose~Purpose} the purpose (address type) of the key
  */
-function getExtPubKeyType(extPubKey) {
+function getPurposeFromExtPubKey(extPubKey) {
   const prefix = extPubKey.slice(0, 4)
   switch (prefix) {
     case TYPE.XPUB:
@@ -57,7 +57,7 @@ function getExtPubKeyMetadata(extPubKey) {
     const xpubObj = ExtendedPublicKey.fromBase58(extPubKey)
 
     return {
-      type: getExtPubKeyType(extPubKey),
+      type: getPurposeFromExtPubKey(extPubKey),
       index: xpubObj.index,
       depth: xpubObj.depth,
       pubkey: xpubObj.pubkey,
@@ -71,4 +71,4 @@ function getExtPubKeyMetadata(extPubKey) {
   }
 }
 
-export { getExtPubKeyType, getExtPubKeyMetadata, getNetworkFromExtPubKey }
+export { getPurposeFromExtPubKey, getExtPubKeyMetadata, getNetworkFromExtPubKey }
