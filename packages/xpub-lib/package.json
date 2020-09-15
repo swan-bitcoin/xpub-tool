@@ -24,6 +24,8 @@
     "@babel/preset-env": "^7.11.5",
     "babel-cli": "^6.26.0",
     "babel-jest": "^26.3.0",
-    "jest": "^26.4.2"
+    "jest": "^26.4.2",
+    "livereload": "^0.9.1",
+    "nodemon": "^2.0.4"
   }
 }
