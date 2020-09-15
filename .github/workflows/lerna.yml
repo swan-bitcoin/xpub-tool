@@ -19,5 +19,5 @@ jobs:
       - name: Install yarn
         run: npm install -g yarn
       - run: yarn install
-      - run: lerna bootstrap
-      - run: lerna run test
+      - run: yarn run lerna bootstrap
+      - run: yarn run lerna run test
