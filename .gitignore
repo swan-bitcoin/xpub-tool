@@ -70,3 +70,6 @@ yarn-error.log
 
 # xpub-lib compiled output
 packages/xpub-lib/lib
+
+# jsdoc output
+out

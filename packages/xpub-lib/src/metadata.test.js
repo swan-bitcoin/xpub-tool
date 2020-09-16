@@ -1,7 +1,7 @@
 import { NETWORKS } from "unchained-bitcoin"
 import { KEY } from "../test/fixtures"
 import {
-  getExtPubKeyType,
+  getPurposeFromExtPubKey,
   getNetworkFromExtPubKey,
   getExtPubKeyMetadata,
 } from "./metadata"
@@ -22,18 +22,18 @@ describe("getNetworkFromExtPubKey", () => {
   })
 })
 
-describe("getExtPubKeyType", () => {
+describe("getPurposeFromExtPubKey", () => {
   test("xpub/tpub should be of type P2PKH (BIP 44)", () => {
-    expect(getExtPubKeyType(KEY.MAIN.XPUB)).toBe("44")
-    expect(getExtPubKeyType(KEY.TEST.TPUB)).toBe("44")
+    expect(getPurposeFromExtPubKey(KEY.MAIN.XPUB)).toBe("44")
+    expect(getPurposeFromExtPubKey(KEY.TEST.TPUB)).toBe("44")
   })
   test("ypub/upub should be of type P2SH (BIP 49)", () => {
-    expect(getExtPubKeyType(KEY.MAIN.YPUB)).toBe("49")
-    expect(getExtPubKeyType(KEY.TEST.UPUB)).toBe("49")
+    expect(getPurposeFromExtPubKey(KEY.MAIN.YPUB)).toBe("49")
+    expect(getPurposeFromExtPubKey(KEY.TEST.UPUB)).toBe("49")
   })
   test("zpub/vpub should be of type P2WPKH (BIP 84)", () => {
-    expect(getExtPubKeyType(KEY.MAIN.ZPUB)).toBe("84")
-    expect(getExtPubKeyType(KEY.TEST.VPUB)).toBe("84")
+    expect(getPurposeFromExtPubKey(KEY.MAIN.ZPUB)).toBe("84")
+    expect(getPurposeFromExtPubKey(KEY.TEST.VPUB)).toBe("84")
   })
 })
 

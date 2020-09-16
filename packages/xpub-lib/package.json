@@ -14,16 +14,22 @@
     "compile:watch": "babel --watch -d lib/ src/",
     "pretest": "yarn run compile",
     "test": "jest lib",
-    "test:watch": "jest --watch src"
+    "test:watch": "jest --watch src",
+    "build:docs": "jsdoc *",
+    "watch:doc-src": "yarn run nodemon --exec 'yarn build:docs' --watch src",
+    "watch:doc-output": "yarn run livereload out",
+    "watch:docs": "yarn watch:doc-output & yarn watch:doc-src"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gigi <gigi@swanbitcoin.com>",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@babel/preset-env": "^7.11.5",
     "babel-cli": "^6.26.0",
     "babel-jest": "^26.3.0",
-    "jest": "^26.4.2"
+    "jest": "^26.4.2",
+    "livereload": "^0.9.1",
+    "nodemon": "^2.0.4"
   }
 }

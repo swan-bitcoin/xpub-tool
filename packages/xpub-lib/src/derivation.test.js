@@ -13,7 +13,10 @@ describe("addressFromExtPubKey() with invalid xpubs", () => {
       addressFromExtPubKey({ extPubKey: KEY.TEST.TPUB, accountNumber: -1 })
     ).toBeFalsy()
     expect(
-      addressFromExtPubKey({ extPubKey: KEY.TEST.TPUB, network: NETWORKS.MAINNET })
+      addressFromExtPubKey({
+        extPubKey: KEY.TEST.TPUB,
+        network: NETWORKS.MAINNET,
+      })
     ).toBeFalsy()
     expect(
       addressFromExtPubKey({ extPubKey: KEY.TEST.TPUB, purpose: "99" })
