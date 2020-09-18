@@ -2,7 +2,7 @@
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-A small JavaScript tool that derives bitcoin addresses from extended public keys. Built upon
+A small JavaScript library and accompanying tool that derives bitcoin addresses from extended public keys. Built upon
 [unchained-bitcoin](https://github.com/unchained-capital/unchained-bitcoin)
 and [bitcoinjs-lib](https://github.com/bitcoinjs/bitcoinjs-lib).
 
