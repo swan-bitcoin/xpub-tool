@@ -158,4 +158,44 @@ describe("isValidAddress", () => {
     expect(isValidAddress(KEY.TEST.BECH32, NETWORKS.MAINNET)).toBeFalsy()
     expect(isValidAddress(KEY.MAIN.BECH32, NETWORKS.TESTNET)).toBeFalsy()
   })
+
+  // INVALID: BAD ADDRESS
+  test("invalid addresses on mainnet", () => {
+    expect(isValidAddress("", NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress(" ", NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress("1AdT...", NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress("3JDv...", NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress("bc1q...", NETWORKS.MAINNET)).toBeFalsy()
+    expect(
+      isValidAddress("1AdTLNfqiQtQ7yRNoZDEFTE9kSri2jrRVd", NETWORKS.MAINNET)
+    ).toBeFalsy()
+    expect(
+      isValidAddress("3JDvonJcuQ7yQQQJh1tFLV74uRZUP6LgvF", NETWORKS.MAINNET)
+    ).toBeFalsy()
+    expect(
+      isValidAddress(
+        "bc1qdX0pd4h65d7mekkhk7n6jwzfwgqath7s0e368g",
+        NETWORKS.MAINNET
+      )
+    ).toBeFalsy()
+  })
+  test("invalid addresses on TESTNET", () => {
+    expect(isValidAddress("", NETWORKS.TESTNET)).toBeFalsy()
+    expect(isValidAddress(" ", NETWORKS.TESTNET)).toBeFalsy()
+    expect(isValidAddress("1AdT...", NETWORKS.TESTNET)).toBeFalsy()
+    expect(isValidAddress("3JDv...", NETWORKS.TESTNET)).toBeFalsy()
+    expect(isValidAddress("bc1q...", NETWORKS.TESTNET)).toBeFalsy()
+    expect(
+      isValidAddress("mq9QdRkpXSKeu5tzX8Bc5NSucSTQxzpa8G", NETWORKS.TESTNET)
+    ).toBeFalsy()
+    expect(
+      isValidAddress("2N9mhsXEeWrdKcC3rN9W7xS6L7mme9kJrVe", NETWORKS.TESTNET)
+    ).toBeFalsy()
+    expect(
+      isValidAddress(
+        "tb1qdx0pd4h65d7mekkhk7n6Jwzfwgqath7s9l2fum",
+        NETWORKS.TESTNET
+      )
+    ).toBeFalsy()
+  })
 })
