@@ -1,7 +1,8 @@
 import { NETWORKS } from "unchained-bitcoin"
-import { KEYS } from "../test/fixtures"
+import { KEY, KEYS } from "../test/fixtures"
 import {
   isValidExtPubKey,
+  isValidAddress,
   isValidIndex,
   isValidPathSegment,
 } from "./validation"
@@ -118,5 +119,83 @@ describe("isValidExtPubKey", () => {
     expect(isValidExtPubKey(KEYS.TEST.VPUB[0], NETWORKS.TESTNET)).toBeTruthy()
     expect(isValidExtPubKey(KEYS.TEST.VPUB[1], NETWORKS.TESTNET)).toBeTruthy()
     expect(isValidExtPubKey(KEYS.TEST.VPUB[2], NETWORKS.TESTNET)).toBeTruthy()
+  })
+})
+
+describe("isValidAddress", () => {
+  // MAINNET
+  test("valid legacy (P2PKH) address on mainnet", () => {
+    expect(isValidAddress(KEY.MAIN.LEGACY, NETWORKS.MAINNET)).toBeTruthy()
+  })
+  test("valid segwit (P2SH) address on mainnet", () => {
+    expect(isValidAddress(KEY.MAIN.SEGWIT, NETWORKS.MAINNET)).toBeTruthy()
+  })
+  test("valid bech32 (P2WPKH) address on mainnet", () => {
+    expect(isValidAddress(KEY.MAIN.BECH32, NETWORKS.MAINNET)).toBeTruthy()
+  })
+
+  // TESTNET
+  test("valid legacy (P2PKH) address on testnet", () => {
+    expect(isValidAddress(KEY.TEST.LEGACY, NETWORKS.TESTNET)).toBeTruthy()
+  })
+  test("valid segwit (P2SH) address on testnet", () => {
+    expect(isValidAddress(KEY.TEST.SEGWIT, NETWORKS.TESTNET)).toBeTruthy()
+  })
+  test("valid bech32 (P2WPKH) address on testnet", () => {
+    expect(isValidAddress(KEY.TEST.BECH32, NETWORKS.TESTNET)).toBeTruthy()
+  })
+
+  // INVALID: NETWORK MISMATCH
+  test("invalid legacy (P2PKH) address (wrong network)", () => {
+    expect(isValidAddress(KEY.TEST.LEGACY, NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress(KEY.MAIN.LEGACY, NETWORKS.TESTNET)).toBeFalsy()
+  })
+  test("invalid segwit (P2SH) address (wrong network)", () => {
+    expect(isValidAddress(KEY.TEST.SEGWIT, NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress(KEY.MAIN.SEGWIT, NETWORKS.TESTNET)).toBeFalsy()
+  })
+  test("invalid bech32 (P2WPKH) address (wrong network)", () => {
+    expect(isValidAddress(KEY.TEST.BECH32, NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress(KEY.MAIN.BECH32, NETWORKS.TESTNET)).toBeFalsy()
+  })
+
+  // INVALID: BAD ADDRESS
+  test("invalid addresses on mainnet", () => {
+    expect(isValidAddress("", NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress(" ", NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress("1AdT...", NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress("3JDv...", NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress("bc1q...", NETWORKS.MAINNET)).toBeFalsy()
+    expect(
+      isValidAddress("1AdTLNfqiQtQ7yRNoZDEFTE9kSri2jrRVd", NETWORKS.MAINNET)
+    ).toBeFalsy()
+    expect(
+      isValidAddress("3JDvonJcuQ7yQQQJh1tFLV74uRZUP6LgvF", NETWORKS.MAINNET)
+    ).toBeFalsy()
+    expect(
+      isValidAddress(
+        "bc1qdX0pd4h65d7mekkhk7n6jwzfwgqath7s0e368g",
+        NETWORKS.MAINNET
+      )
+    ).toBeFalsy()
+  })
+  test("invalid addresses on TESTNET", () => {
+    expect(isValidAddress("", NETWORKS.TESTNET)).toBeFalsy()
+    expect(isValidAddress(" ", NETWORKS.TESTNET)).toBeFalsy()
+    expect(isValidAddress("1AdT...", NETWORKS.TESTNET)).toBeFalsy()
+    expect(isValidAddress("3JDv...", NETWORKS.TESTNET)).toBeFalsy()
+    expect(isValidAddress("bc1q...", NETWORKS.TESTNET)).toBeFalsy()
+    expect(
+      isValidAddress("mq9QdRkpXSKeu5tzX8Bc5NSucSTQxzpa8G", NETWORKS.TESTNET)
+    ).toBeFalsy()
+    expect(
+      isValidAddress("2N9mhsXEeWrdKcC3rN9W7xS6L7mme9kJrVe", NETWORKS.TESTNET)
+    ).toBeFalsy()
+    expect(
+      isValidAddress(
+        "tb1qdx0pd4h65d7mekkhk7n6Jwzfwgqath7s9l2fum",
+        NETWORKS.TESTNET
+      )
+    ).toBeFalsy()
   })
 })
