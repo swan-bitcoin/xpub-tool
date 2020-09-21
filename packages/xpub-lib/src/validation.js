@@ -29,7 +29,8 @@ function isNetworkMatch(extPubKey, network) {
 }
 
 /**
- * Returns true if the given `extPubKey` is valid for the given `network`, false otherwise.
+ * Returns true if the given `extPubKey` is valid for the given `network`,
+ * false otherwise.
  *
  * @param  {string} extPubKey the extended public key
  * @param  {NETWORK} network the network to check against
@@ -49,6 +50,15 @@ function isValidExtPubKey(extPubKey, network) {
   }
 }
 
+/**
+ * Returns true if the given bitcoin `address` is valid for the given
+ * `network`, false otherwise.
+ *
+ * @param  {string} address - the given bitcoin address
+ * @param  {NETWORK} network - the network to check against
+ *
+ * @returns {boolean}
+ */
 function isValidAddress(address, network) {
   return validateAddress(address, network) === ""
 }
