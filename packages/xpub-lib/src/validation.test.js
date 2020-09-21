@@ -123,13 +123,25 @@ describe("isValidExtPubKey", () => {
 })
 
 describe("isValidAddress", () => {
-  test("valid legacy (P2PKH) address", () => {
+  // MAINNET
+  test("valid legacy (P2PKH) address on mainnet", () => {
     expect(isValidAddress(KEY.MAIN.LEGACY, NETWORKS.MAINNET)).toBeTruthy()
   })
-  test("valid segwit (P2SH) address", () => {
+  test("valid segwit (P2SH) address on mainnet", () => {
     expect(isValidAddress(KEY.MAIN.SEGWIT, NETWORKS.MAINNET)).toBeTruthy()
   })
-  test("valid bech32 (P2WPKH) address", () => {
+  test("valid bech32 (P2WPKH) address on mainnet", () => {
     expect(isValidAddress(KEY.MAIN.BECH32, NETWORKS.MAINNET)).toBeTruthy()
+  })
+
+  // TESTNET
+  test("valid legacy (P2PKH) address on testnet", () => {
+    expect(isValidAddress(KEY.TEST.LEGACY, NETWORKS.TESTNET)).toBeTruthy()
+  })
+  test("valid segwit (P2SH) address on testnet", () => {
+    expect(isValidAddress(KEY.TEST.SEGWIT, NETWORKS.TESTNET)).toBeTruthy()
+  })
+  test("valid bech32 (P2WPKH) address on testnet", () => {
+    expect(isValidAddress(KEY.TEST.BECH32, NETWORKS.TESTNET)).toBeTruthy()
   })
 })
