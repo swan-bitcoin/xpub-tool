@@ -1,7 +1,8 @@
 import { NETWORKS } from "unchained-bitcoin"
-import { KEYS } from "../test/fixtures"
+import { KEY, KEYS } from "../test/fixtures"
 import {
   isValidExtPubKey,
+  isValidAddress,
   isValidIndex,
   isValidPathSegment,
 } from "./validation"
@@ -118,5 +119,17 @@ describe("isValidExtPubKey", () => {
     expect(isValidExtPubKey(KEYS.TEST.VPUB[0], NETWORKS.TESTNET)).toBeTruthy()
     expect(isValidExtPubKey(KEYS.TEST.VPUB[1], NETWORKS.TESTNET)).toBeTruthy()
     expect(isValidExtPubKey(KEYS.TEST.VPUB[2], NETWORKS.TESTNET)).toBeTruthy()
+  })
+})
+
+describe("isValidAddress", () => {
+  test("valid legacy (P2PKH) address", () => {
+    expect(isValidAddress(KEY.MAIN.LEGACY, NETWORKS.MAINNET)).toBeTruthy()
+  })
+  test("valid segwit (P2SH) address", () => {
+    expect(isValidAddress(KEY.MAIN.SEGWIT, NETWORKS.MAINNET)).toBeTruthy()
+  })
+  test("valid bech32 (P2WPKH) address", () => {
+    expect(isValidAddress(KEY.MAIN.BECH32, NETWORKS.MAINNET)).toBeTruthy()
   })
 })

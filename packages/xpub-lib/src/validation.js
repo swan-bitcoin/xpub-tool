@@ -7,6 +7,7 @@
 
 import {
   validateExtendedPublicKey,
+  validateAddress,
   validateBIP32Index,
 } from "unchained-bitcoin"
 import { getNetworkFromExtPubKey } from "./metadata"
@@ -46,6 +47,10 @@ function isValidExtPubKey(extPubKey, network) {
   } catch (error) {
     return false
   }
+}
+
+function isValidAddress(address, network) {
+  return validateAddress(address, network) === ""
 }
 
 /**
@@ -121,6 +126,7 @@ function isValidPathSegment(segment) {
 export {
   isNetworkMatch,
   isValidExtPubKey,
+  isValidAddress,
   isValidPurpose,
   isValidIndex,
   isValidPathSegment,
