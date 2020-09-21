@@ -144,4 +144,18 @@ describe("isValidAddress", () => {
   test("valid bech32 (P2WPKH) address on testnet", () => {
     expect(isValidAddress(KEY.TEST.BECH32, NETWORKS.TESTNET)).toBeTruthy()
   })
+
+  // INVALID: NETWORK MISMATCH
+  test("invalid legacy (P2PKH) address (wrong network)", () => {
+    expect(isValidAddress(KEY.TEST.LEGACY, NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress(KEY.MAIN.LEGACY, NETWORKS.TESTNET)).toBeFalsy()
+  })
+  test("invalid segwit (P2SH) address (wrong network)", () => {
+    expect(isValidAddress(KEY.TEST.SEGWIT, NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress(KEY.MAIN.SEGWIT, NETWORKS.TESTNET)).toBeFalsy()
+  })
+  test("invalid bech32 (P2WPKH) address (wrong network)", () => {
+    expect(isValidAddress(KEY.TEST.BECH32, NETWORKS.MAINNET)).toBeFalsy()
+    expect(isValidAddress(KEY.MAIN.BECH32, NETWORKS.TESTNET)).toBeFalsy()
+  })
 })
