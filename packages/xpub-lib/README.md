@@ -31,6 +31,7 @@ derives the first address of the first account from an `xpub` on mainnet.
 
 ```
 const key = "xpub6EuV33a2DXxAhoJTRTnr8qnysu81AA4YHpLY6o8NiGkEJ8KADJ35T64eJsStWsmRf1xXkEANVjXFXnaUKbRtFwuSPCLfDdZwYNZToh4LBCd"
+
 addressFromExtPubKey({ extPubKey: key, network: "mainnet" })
 
 // {
@@ -45,6 +46,7 @@ extended public key on testnet.
 
 ```
 const key = "vpub5bExRiEBvAsD1CvDkkDbifbyXxq7Gv5YTbJ6Y1LbxFzUBvghhyhxCxkNGTXiX4TaqjivFGyFaQp9mDMLtCbrfUYEeWwp3ovxzvSB2XY87ph"
+
 addressesFromExtPubKey({
     extPubKey: key,
     addressCount: 3,
