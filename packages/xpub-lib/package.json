@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "bitcoinjs-lib": "^5.1.10",
+    "bitcoinjs-lib": "^5.2.0",
     "unchained-bitcoin": "0.0.15",
     "unchained-wallets": "^0.1.10"
   },
