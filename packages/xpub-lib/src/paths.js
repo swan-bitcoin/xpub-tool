@@ -81,8 +81,9 @@ function fullDerivationPath({
 /**
  * Return a human-readable string for a BIP32 derivation path.
  *
- * @param  {string} bip32Path a BIP32 derivation path
- * @param  {string} [accountString="Account"]
+ * @param  {string} bip32Path - a BIP32 derivation path
+ * @param {string} [accountString="Account"] - the string to display before the
+ * account number
  *
  * @example
  * humanReadableDerivationPath("m/49'/0'/2'/0/1")

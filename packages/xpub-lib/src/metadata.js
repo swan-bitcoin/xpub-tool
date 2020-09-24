@@ -13,7 +13,7 @@ import { TYPE } from "./types"
  * XPUB/YPUB/ZPUB = mainnet,
  * TPUB/UPUB/VPUB = testnet.
  *
- * @param  {string} extPubKey an extended public key
+ * @param  {string} extPubKey - an extended public key
  *
  * @returns {NETWORK} the associated network. See unchained-bitcoin/networks
  */
@@ -37,7 +37,7 @@ function getNetworkFromExtPubKey(extPubKey) {
  * Get purpose from an extended public key, dependent on key type
  * (xpub/ypub/zpub, or tpub/upub/vpub).
  *
- * @param  {string} extPubKey an extended public key
+ * @param  {string} extPubKey - an extended public key
  *
  * @returns {module:purpose~Purpose} the purpose (address type) of the key
  */
@@ -60,6 +60,7 @@ function getPurposeFromExtPubKey(extPubKey) {
 
 /**
  * Extended public key metadata.
+ *
  * @typedef {object} metadata
  * @property {module:type~TYPE} type - the extended public key type (xpub/ypub/zpub/tpub/upub/vpub)
  * @property {number} index - the key index
@@ -73,7 +74,7 @@ function getPurposeFromExtPubKey(extPubKey) {
 /**
  * Retrieves metadata from a given extended public key.
  *
- * @param  {string} extPubKey an extended public key
+ * @param  {string} extPubKey - an extended public key
  *
  * @returns {Metadata} a {@link module:metadata~metadata} object
  */
