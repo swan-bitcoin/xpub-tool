@@ -221,6 +221,22 @@ describe("addressFromExtPubKey(TESTNET)", () => {
 })
 
 describe("addressFromExtPubKey", () => {
+  test("default address generation from tpub (default = testnet)", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.TEST.TPUB,
+      }).address
+    ).toBe(KEY.TEST.BECH32)
+  })
+  test("default address generation from xpub on mainnet", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.MAIN.XPUB,
+        network: NETWORKS.MAINNET, // or "mainnet"
+      }).address
+    ).toBe(KEY.MAIN.BECH32)
+  })
+
   test("forbid testnet address generation from mainnet key", () => {
     expect(
       addressFromExtPubKey({
