@@ -1,5 +1,6 @@
 {
   "name": "@swan/xpub-components-bootstrap",
+  "private": true,
   "version": "0.0.1",
   "description": "React components for Swan's address derivation tool.",
   "author": "Gigi <gigi@swanbitcoin.com>",
