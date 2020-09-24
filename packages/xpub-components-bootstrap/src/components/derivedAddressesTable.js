@@ -1,6 +1,6 @@
 import React from "react"
 import { Table } from "react-bootstrap"
-import { maskKey } from "@swan/xpub-lib"
+import { maskKey } from "@swan-bitcoin/xpub-lib"
 
 const DerivedAddressesTable = ({ addressList, showCount, extPubKey }) => {
   return (

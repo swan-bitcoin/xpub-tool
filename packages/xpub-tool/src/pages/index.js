@@ -6,7 +6,7 @@ import {
   Purpose,
   addressesFromExtPubKey,
   isValidExtPubKey,
-} from "@swan/xpub-lib"
+} from "@swan-bitcoin/xpub-lib"
 
 import {
   DerivedAddressesTable,
@@ -15,7 +15,7 @@ import {
   NetworkSwitcher,
   ExtPubKeyExamples,
   ExtPubKeyMetadata,
-} from "@swan/xpub-components-bootstrap"
+} from "@swan-bitcoin/xpub-components-bootstrap"
 
 import Layout from "../components/layout"
 

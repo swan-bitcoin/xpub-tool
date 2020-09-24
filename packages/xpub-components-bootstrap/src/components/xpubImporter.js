@@ -10,7 +10,7 @@ import {
   UNSUPPORTED,
   humanReadableDerivationPath,
   maskKey,
-} from "@swan/xpub-lib"
+} from "@swan-bitcoin/xpub-lib"
 
 class ExtPubKeyImporter extends React.Component {
   constructor(props) {
