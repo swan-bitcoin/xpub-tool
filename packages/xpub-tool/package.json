@@ -69,7 +69,7 @@
     "format": "prettier --write src/**/*.{js,jsx}",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
+    "test": "echo \"Warning: no test specified\"",
     "deploy": "gatsby build --prefix-paths && gh-pages -d public",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
