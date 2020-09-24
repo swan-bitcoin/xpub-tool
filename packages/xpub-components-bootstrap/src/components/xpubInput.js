@@ -1,6 +1,6 @@
 import React, { useMemo } from "react"
 import { Alert, Form } from "react-bootstrap"
-import { isValidExtPubKey } from "@swan/xpub-lib"
+import { isValidExtPubKey } from "@swan-bitcoin/xpub-lib"
 
 const ExtPubKeyInput = ({ extPubKey, network, onChange }) => {
   const isValid = useMemo(() => isValidExtPubKey(extPubKey, network), [

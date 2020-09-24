@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import { Form, Row, Col, Container } from "react-bootstrap"
 
-import { Purpose, NETWORKS } from "@swan/xpub-lib"
+import { Purpose, NETWORKS } from "@swan-bitcoin/xpub-lib"
 import {
   NetworkSwitcher,
   AddressDerivationInput,
   HardwareWallets,
-} from "@swan/xpub-components-bootstrap"
+} from "@swan-bitcoin/xpub-components-bootstrap"
 
 import Layout from "../components/layout"
 

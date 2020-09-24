@@ -1,6 +1,6 @@
 import React from "react"
 import { Button, ButtonGroup } from "react-bootstrap"
-import { NETWORKS } from "@swan/xpub-lib"
+import { NETWORKS } from "@swan-bitcoin/xpub-lib"
 
 const SUPPORTED_NETWORKS = [NETWORKS.MAINNET, NETWORKS.TESTNET]
 

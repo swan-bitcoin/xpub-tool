@@ -1,6 +1,6 @@
 import React from "react"
 import { Table } from "react-bootstrap"
-import { getExtPubKeyMetadata } from "@swan/xpub-lib"
+import { getExtPubKeyMetadata } from "@swan-bitcoin/xpub-lib"
 
 const ExtPubKeyMetadata = ({ extPubKey }) => {
   const meta = getExtPubKeyMetadata(extPubKey)
