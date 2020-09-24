@@ -11,9 +11,9 @@ import { APOSTROPHE } from "./constants"
  * characters.
  *
  * @param  {string} key - the (extended public) key to mask
- * @param  {number} [pre=15]
- * @param  {number} [post=15]
- * @param  {string} [placeholder="[...]"]
+ * @param  {number} [pre=15] - number of characters to show in the beginning
+ * @param  {number} [post=15] - number of characters to show in the end
+ * @param  {string} [placeholder="[...]"] - string used for masking
  */
 function maskKey(key, pre = 15, post = 15, placeholder = "[...]") {
   const beginning = key.substr(0, pre)

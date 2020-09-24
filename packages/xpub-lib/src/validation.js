@@ -19,8 +19,8 @@ import { APOSTROPHE, COIN_PREFIX } from "./constants"
 /**
  * Returns true if the given `extPubKey` matches the given `network`, false otherwise.
  *
- * @param  {string} extPubKey the extended public key
- * @param  {NETWORK} network the network to check against
+ * @param  {string} extPubKey - the extended public key
+ * @param  {NETWORK} network - the network to check against
  *
  * @returns {boolean}
  */
@@ -32,8 +32,8 @@ function isNetworkMatch(extPubKey, network) {
  * Returns true if the given `extPubKey` is valid for the given `network`,
  * false otherwise.
  *
- * @param  {string} extPubKey the extended public key
- * @param  {NETWORK} network the network to check against
+ * @param  {string} extPubKey - the extended public key
+ * @param  {NETWORK} network - the network to check against
  *
  * @returns {boolean}
  */
