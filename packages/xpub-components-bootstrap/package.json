@@ -1,8 +1,26 @@
 {
   "name": "@swan/xpub-components-bootstrap",
   "version": "0.0.1",
-  "description": "",
+  "description": "React components for Swan's address derivation tool.",
+  "author": "Gigi <gigi@swanbitcoin.com>",
+  "license": "MIT",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swan-bitcoin/xpub-tool.git"
+  },
+  "homepage": "https://github.com/swan-bitcoin/xpub-tool",
+  "bugs": {
+    "url": "https://github.com/swan-bitcoin/xpub-tool/issues"
+  },
+  "keywords": [
+    "bitcoin",
+    "xpub",
+    "address",
+    "derivation",
+    "react",
+    "components"
+  ],
   "dependencies": {
     "@swan/xpub-lib": "^0.0.1",
     "prop-types": "^15.7.2",
@@ -11,8 +29,5 @@
   },
   "scripts": {
     "test": "echo \"Warning: no test specified\""
-  },
-  "keywords": [],
-  "author": "Gigi <gigi@swanbitcoin.com>",
-  "license": "MIT"
+  }
 }
