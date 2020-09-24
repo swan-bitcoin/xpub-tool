@@ -20,7 +20,20 @@
     "watch:doc-output": "yarn run livereload out",
     "watch:docs": "yarn watch:doc-output & yarn watch:doc-src"
   },
-  "keywords": [],
+  "keywords": [
+    "bitcoin",
+    "xpub",
+    "address",
+    "derivation",
+    "bip32",
+    "bip44",
+    "bip49",
+    "bip84",
+    "p2pkh",
+    "p2sh",
+    "p2wpkh",
+    "bech32"
+  ],
   "author": "Gigi <gigi@swanbitcoin.com>",
   "license": "MIT",
   "devDependencies": {
