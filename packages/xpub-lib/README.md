@@ -6,13 +6,10 @@ A small JavaScript library that derives bitcoin addresses from extended public k
 [unchained-bitcoin](https://github.com/unchained-capital/unchained-bitcoin)
 and [bitcoinjs-lib](https://github.com/bitcoinjs/bitcoinjs-lib).
 
-```
-
-```
-
 The library supports derivation from `xpub`s, `zpub`s, and `ypub`s, as well as
 legacy, SegWit, and native SegWit (bech32) address formats. Both Bitcoin
-mainnet and testnet are supported.
+mainnet and testnet are supported. If no network is specified the library
+defaults to testnet.
 
 | BIP | Extended Public Key | Address Type | Address Format | Address Name           |
 | --- | ------------------- | ------------ | -------------- | ---------------------- |
@@ -26,6 +23,54 @@ extended public key. The use of [output descriptors](https://bitcoin.stackexchan
 should make this less confusing in the future.
 
 The testnet equivalents are extended public keys starting with `tpub`, `upub`, and `vpub`.
+
+## Example Usage
+
+Use `addressFromExtPubKey` to derive single addresses. The following example
+derives the first address of the first account from an `xpub` on mainnet.
+
+```
+const key = "xpub6EuV33a2DXxAhoJTRTnr8qnysu81AA4YHpLY6o8NiGkEJ8KADJ35T64eJsStWsmRf1xXkEANVjXFXnaUKbRtFwuSPCLfDdZwYNZToh4LBCd"
+addressFromExtPubKey({ extPubKey: key, network: "mainnet" })
+
+// {
+//     path: "m/84'/0'/0'/0/0",
+//     address: 'bc1qdx0pd4h65d7mekkhk7n6jwzfwgqath7s0e368g'
+// }
+```
+
+Use `addressesFromExtPubKey` to derive multiple addresses. The following
+example derives the first three addresses of the first account from a `vpub`
+extended public key on testnet.
+
+```
+const key = "vpub5bExRiEBvAsD1CvDkkDbifbyXxq7Gv5YTbJ6Y1LbxFzUBvghhyhxCxkNGTXiX4TaqjivFGyFaQp9mDMLtCbrfUYEeWwp3ovxzvSB2XY87ph"
+addressesFromExtPubKey({
+    extPubKey: key,
+    addressCount: 3,
+})
+
+// [
+//     {
+//         path: "m/84'/1'/0'/0/0",
+//         address: 'tb1qdx0pd4h65d7mekkhk7n6jwzfwgqath7s9l2fum'
+//     },
+//     {
+//         path: "m/84'/1'/0'/0/1",
+//         address: 'tb1q5tc3z8c4hs4x0p3vu88zk26anecge77g33ggk6'
+//     },
+//     {
+//         path: "m/84'/1'/0'/0/2",
+//         address: 'tb1q3qu2fng7zw36cvzyaqec5nptp6cmnep0lf3323'
+//     }
+// ]
+```
+
+Address derivation will default to bech32 (native SegWit) unless a different
+`purpose` is specified. For example: to derive wrapped SegWit addresses
+(starting with `3...`) specify the appropriate purpose with `purpose: Purpose.P2SH`.
+
+For more examples refer to the tests of this library.
 
 ## Relevant BIPs and Educational Resources
 
