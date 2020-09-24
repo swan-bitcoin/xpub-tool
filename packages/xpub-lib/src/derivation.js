@@ -31,7 +31,8 @@ const DEFAULT_PURPOSE = Purpose.P2WPKH
 /**
  * Derive a single address from a public key.
  *
- * @param  {module:purpose~Purpose} purpose - the purpose dictates the derived address type (P2PKH = 1address, P2SH = 3address, P2WPKH = bc1address)
+ * @param {module:purpose~Purpose} purpose - the purpose dictates the derived
+ * address type (P2PKH = 1address, P2SH = 3address, P2WPKH = bc1address)
  * @param  {object} pubkey - the ECPair.publicKey public key to derive from
  * @param  {NETWORK} network - the network to use (MAINNET or TESTNET)
  *
