@@ -221,6 +221,20 @@ describe("addressFromExtPubKey(TESTNET)", () => {
 })
 
 describe("addressFromExtPubKey", () => {
+  test("default address generation from tpub (default = testnet)", () => {
+    expect(addressFromExtPubKey({ extPubKey: KEY.TEST.TPUB }).address).toBe(
+      KEY.TEST.BECH32
+    )
+  })
+  test("default address generation from xpub on mainnet", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.MAIN.XPUB,
+        network: NETWORKS.MAINNET, // or "mainnet"
+      }).address
+    ).toBe(KEY.MAIN.BECH32)
+  })
+
   test("forbid testnet address generation from mainnet key", () => {
     expect(
       addressFromExtPubKey({
@@ -264,6 +278,19 @@ describe("addressFromExtPubKey", () => {
 })
 
 describe("addressesFromExtPubKey", () => {
+  test("default address generation from vpub on testnet", () => {
+    const result = addressesFromExtPubKey({
+      extPubKey: KEY.TEST.VPUB,
+      addressCount: 3,
+    })
+    console.log(KEY.TEST.VPUB, result)
+    expect(
+      addressesFromExtPubKey({
+        extPubKey: KEY.TEST.VPUB,
+        addressCount: 3,
+      }).length
+    ).toEqual(3)
+  })
   test("default address generation from xpub on mainnet", () => {
     expect(
       addressesFromExtPubKey({
