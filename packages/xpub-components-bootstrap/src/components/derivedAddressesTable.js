@@ -1,6 +1,6 @@
 import React from "react"
 import { Table } from "react-bootstrap"
-import { maskKey } from "@swan-bitcoin/xpub-lib"
+import { maskKey, segment } from "@swan-bitcoin/xpub-lib"
 
 const DerivedAddressesTable = ({ addressList, showCount, extPubKey }) => {
   return (
@@ -26,12 +26,18 @@ const DerivedAddressesTable = ({ addressList, showCount, extPubKey }) => {
   )
 }
 
-const PathAddressRow = ({ path, address }) => (
-  <tr>
-    <td>
-      <span title={path}>{address}</span>
-    </td>
-  </tr>
-)
+const PathAddressRow = ({ path, address }) => {
+  const segments = segment(address)
+  return (
+    <tr>
+      <td>
+        <span title={path}>
+          <strong>{segments[0]}</strong> {segments[1]}{" "}
+          <strong>{segments[2]}</strong>
+        </span>
+      </td>
+    </tr>
+  )
+}
 
 export { DerivedAddressesTable }
