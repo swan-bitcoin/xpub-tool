@@ -279,11 +279,6 @@ describe("addressFromExtPubKey", () => {
 
 describe("addressesFromExtPubKey", () => {
   test("default address generation from vpub on testnet", () => {
-    const result = addressesFromExtPubKey({
-      extPubKey: KEY.TEST.VPUB,
-      addressCount: 3,
-    })
-    console.log(KEY.TEST.VPUB, result)
     expect(
       addressesFromExtPubKey({
         extPubKey: KEY.TEST.VPUB,
