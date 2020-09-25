@@ -30,7 +30,16 @@ function harden(pathSegment) {
   return pathSegment + APOSTROPHE
 }
 
-// TODO: docs, remove console.log
+/**
+ * Splits a given bitcoin address into three segments for easier readability.
+ * Per default, the first and last segment is 6 characters long.
+ *
+ * @param  {string} address - the given bitcoin address
+ * @param  {number} [pre=6] - length of the first segment
+ * @param  {number} [post=6] - length of the last segment
+ *
+ * @returns {string[]} array of address segments
+ */
 function segment(address, pre = 6, post = 6) {
   const beginning = address.substr(0, pre)
   const middle = address.substr(pre, address.length - (pre + post))
