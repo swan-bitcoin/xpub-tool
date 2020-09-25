@@ -14,6 +14,8 @@ import { APOSTROPHE } from "./constants"
  * @param  {number} [pre=15] - number of characters to show in the beginning
  * @param  {number} [post=15] - number of characters to show in the end
  * @param  {string} [placeholder="[...]"] - string used for masking
+ *
+ * @returns {string} the masked address
  */
 function maskKey(key, pre = 15, post = 15, placeholder = "[...]") {
   const beginning = key.substr(0, pre)
@@ -30,4 +32,21 @@ function harden(pathSegment) {
   return pathSegment + APOSTROPHE
 }
 
-export { maskKey, harden }
+/**
+ * Splits a given bitcoin address into three segments for easier readability.
+ * Per default, the first and last segment is 6 characters long.
+ *
+ * @param  {string} address - the given bitcoin address
+ * @param  {number} [pre=6] - length of the first segment
+ * @param  {number} [post=6] - length of the last segment
+ *
+ * @returns {string[]} array of address segments
+ */
+function segment(address, pre = 6, post = 6) {
+  const beginning = address.substr(0, pre)
+  const middle = address.substr(pre, address.length - (pre + post))
+  const end = address.substr(address.length - post, address.length)
+  return [beginning, middle, end]
+}
+
+export { maskKey, harden, segment }
