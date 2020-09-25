@@ -30,4 +30,12 @@ function harden(pathSegment) {
   return pathSegment + APOSTROPHE
 }
 
-export { maskKey, harden }
+// TODO: docs, remove console.log
+function segment(address, pre = 6, post = 6) {
+  const beginning = address.substr(0, pre)
+  const middle = address.substr(pre, address.length - (pre + post))
+  const end = address.substr(address.length - post, address.length)
+  return [beginning, middle, end]
+}
+
+export { maskKey, harden, segment }
