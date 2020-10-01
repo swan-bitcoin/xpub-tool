@@ -27,9 +27,9 @@
     "p2wpkh",
     "bech32"
   ],
-  "directories": {
-    "lib": "lib"
-  },
+  "files": [
+    "lib/**"
+  ],
   "dependencies": {
     "bitcoinjs-lib": "^5.2.0",
     "unchained-bitcoin": "0.0.15",
