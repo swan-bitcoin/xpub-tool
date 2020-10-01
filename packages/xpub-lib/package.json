@@ -4,7 +4,7 @@
   "description": "A JavaScript library for bitcoin address derivation from extended public keys, built upon bitcoinjs-lib and Unchained's bitcoin utilities. Supports P2PKH, P2SH, and P2WPKH (bech32) addresses as defined in BIP44, BIP49, and BIP84.",
   "author": "Gigi <gigi@swanbitcoin.com>",
   "license": "MIT",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/swan-bitcoin/xpub-tool.git"
@@ -27,6 +27,9 @@
     "p2wpkh",
     "bech32"
   ],
+  "files": [
+    "lib/**"
+  ],
   "dependencies": {
     "bitcoinjs-lib": "^5.2.0",
     "unchained-bitcoin": "0.0.15",
@@ -37,6 +40,7 @@
     "compile": "babel -d lib/ src/",
     "compile:watch": "babel --watch -d lib/ src/",
     "pretest": "yarn run compile",
+    "prepublish": "yarn run compile",
     "test": "jest lib",
     "test:watch": "jest --watch src",
     "build:docs": "jsdoc *",
@@ -45,9 +49,10 @@
     "watch:docs": "yarn watch:doc-output & yarn watch:doc-src"
   },
   "devDependencies": {
+    "@babel/cli": "^7.11.6",
     "@babel/core": "^7.11.6",
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@babel/preset-env": "^7.11.5",
-    "babel-cli": "^6.26.0",
     "babel-jest": "^26.3.0",
     "jest": "^26.4.2",
     "livereload": "^0.9.1",
