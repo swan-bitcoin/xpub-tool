@@ -4,7 +4,7 @@
   "description": "A JavaScript library for bitcoin address derivation from extended public keys, built upon bitcoinjs-lib and Unchained's bitcoin utilities. Supports P2PKH, P2SH, and P2WPKH (bech32) addresses as defined in BIP44, BIP49, and BIP84.",
   "author": "Gigi <gigi@swanbitcoin.com>",
   "license": "MIT",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/swan-bitcoin/xpub-tool.git"
@@ -26,6 +26,9 @@
     "p2sh",
     "p2wpkh",
     "bech32"
+  ],
+  "files": [
+    "lib/**"
   ],
   "dependencies": {
     "bitcoinjs-lib": "^5.2.0",
