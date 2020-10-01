@@ -37,7 +37,7 @@
   },
   "scripts": {
     "babel-version": "babel --version",
-    "compile": "babel --plugins @babel/plugin-transform-modules-commonjs -d lib/ src/",
+    "compile": "babel -d lib/ src/",
     "compile:watch": "babel --watch -d lib/ src/",
     "pretest": "yarn run compile",
     "prepublish": "yarn run compile",
