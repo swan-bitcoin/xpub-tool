@@ -37,6 +37,7 @@
     "compile": "babel -d lib/ src/",
     "compile:watch": "babel --watch -d lib/ src/",
     "pretest": "yarn run compile",
+    "prepublish": "yarn run compile",
     "test": "jest lib",
     "test:watch": "jest --watch src",
     "build:docs": "jsdoc *",
