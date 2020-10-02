@@ -30,8 +30,8 @@
     "wallets"
   ],
   "dependencies": {
-    "@swan-bitcoin/xpub-lib": "0.0.1",
     "@swan-bitcoin/xpub-components-bootstrap": "0.0.1",
+    "@swan-bitcoin/xpub-lib": "0.0.1",
     "bootstrap": "^4.3.1",
     "gatsby": "^2.3.34",
     "gatsby-image": "^2.0.41",
@@ -48,7 +48,8 @@
     "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
-    "react-icons": "^3.6.1"
+    "react-icons": "^3.6.1",
+    "unchained-wallets": "^0.1.11"
   },
   "devDependencies": {
     "eslint-config-airbnb": "^18.2.0",
