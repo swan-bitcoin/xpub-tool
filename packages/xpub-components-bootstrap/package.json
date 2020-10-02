@@ -26,7 +26,8 @@
     "@swan-bitcoin/xpub-lib": "^0.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
-    "react-bootstrap": "^1.3.0"
+    "react-bootstrap": "^1.3.0",
+    "unchained-wallets": "^0.1.11"
   },
   "scripts": {
     "test": "echo \"Warning: no test specified\""
