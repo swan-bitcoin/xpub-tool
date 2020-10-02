@@ -1,12 +1,4 @@
 export { NETWORKS, networkLabel } from "unchained-bitcoin"
-export {
-  ExportExtendedPublicKey,
-  PENDING,
-  ACTIVE,
-  UNSUPPORTED,
-  LEDGER,
-  TREZOR,
-} from "unchained-wallets"
 
 export * from "./conversion"
 export * from "./derivation"
