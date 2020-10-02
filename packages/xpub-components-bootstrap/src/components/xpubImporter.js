@@ -4,13 +4,16 @@ import { Alert, Button } from "react-bootstrap"
 
 import {
   NETWORKS,
+  humanReadableDerivationPath,
+  maskKey,
+} from "@swan-bitcoin/xpub-lib"
+
+import {
   ExportExtendedPublicKey,
   PENDING,
   ACTIVE,
   UNSUPPORTED,
-  humanReadableDerivationPath,
-  maskKey,
-} from "@swan-bitcoin/xpub-lib"
+} from "unchained-wallets"
 
 class ExtPubKeyImporter extends React.Component {
   constructor(props) {
