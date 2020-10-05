@@ -5,6 +5,7 @@ import {
   isValidAddress,
   isValidExtPubKey,
   addressFromExtPubKey,
+  addressesFromExtPubKey,
   Purpose,
 } from "@swan-bitcoin/xpub-lib"
 
@@ -16,21 +17,49 @@ program
   .description("derive address(es) from an extended public key")
   .option(
     "-p, --purpose <purpose>",
-    "derivation purpose which dictates the address type ['p2pkh', 'p2sh', 'p2wpkh']"
+    "derivation purpose which dictates the address type ['p2pkh', 'p2sh', 'p2wpkh']",
+    "p2wpkh"
   ) // use `choices` once this feature is released: https://github.com/tj/commander.js/issues/518
+  .option(
+    "-n, --addressCount <addressCount>",
+    "number of addresses to generate",
+    1
+  )
+  .option(
+    "-i, --keyIndex <keyIndex>",
+    "index of the key to generate (ignored if `addressCount` is set)",
+    0
+  )
   .option("-t, --testnet", "use TESTNET")
   .option("-v, --verbose", "verbose output")
   .action((extPubKey, cmdObj) => {
-    let network = program.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
+    let network = cmdObj.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
     const purpose = cmdObj.purpose
       ? parsePurpose(cmdObj.purpose)
       : Purpose.P2WPKH // default to P2WPKH
-    const address = addressFromExtPubKey({ extPubKey, network, purpose })
+    const keyIndex = cmdObj.keyIndex ? cmdObj.keyIndex : 0 // default to P2WPKH
 
-    if (program.verbose) {
-      console.log(address)
+    if (cmdObj.addressCount > 1) {
+      // Multiple addresses
+      const addressCount = cmdObj.addressCount
+      const addresses = addressesFromExtPubKey({
+        extPubKey,
+        addressCount,
+        network,
+        purpose,
+      })
+      console.log(addresses)
+    } else {
+      // Single address
+      const address = addressFromExtPubKey({
+        extPubKey,
+        keyIndex,
+        network,
+        purpose,
+      })
+      cmdObj.verbose ? console.log(address) : {}
+      console.log(address.address)
     }
-    console.log(address.address)
   })
 
 program
