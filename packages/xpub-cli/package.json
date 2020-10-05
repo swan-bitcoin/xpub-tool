@@ -37,7 +37,7 @@
     "compile:watch": "babel --watch -d lib/ src/",
     "pretest": "yarn run compile",
     "prepublish": "yarn run compile",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Warning: no test specified\""
   },
   "dependencies": {
     "@swan-bitcoin/xpub-lib": "^0.0.1",
