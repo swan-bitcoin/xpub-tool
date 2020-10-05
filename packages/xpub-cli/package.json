@@ -26,7 +26,7 @@
     "lib"
   ],
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "scripts": {
     "babel-version": "babel --version",
