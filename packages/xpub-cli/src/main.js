@@ -12,13 +12,26 @@ const { program } = require("commander")
 program.version("0.0.1")
 
 program
-  .command("derive <xpub>", "derive address(es) from an extended public key")
+  .command("derive [extPubKey]")
+  .description("derive address(es) from an extended public key")
   .option(
     "-p, --purpose <purpose>",
     "derivation purpose which dictates the address type ['p2pkh', 'p2sh', 'p2wpkh']"
   ) // use `choices` once this feature is released: https://github.com/tj/commander.js/issues/518
   .option("-t, --testnet", "use TESTNET")
   .option("-v, --verbose", "verbose output")
+  .action((extPubKey, cmdObj) => {
+    let network = program.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
+    const purpose = cmdObj.purpose
+      ? parsePurpose(cmdObj.purpose)
+      : Purpose.P2WPKH // default to P2WPKH
+    const address = addressFromExtPubKey({ extPubKey, network, purpose })
+
+    if (program.verbose) {
+      console.log(address)
+    }
+    console.log(address.address)
+  })
 
 program
   .command("validate [encoded]")
@@ -26,7 +39,8 @@ program
     "check an encoded bitcoin address or extended public key for validity"
   )
   .option("-a, --check-address", "check bitcoin address for validity")
-  .option("-x, --check-xpub", "check extended public key for validity")
+  .option("-x, --check-ext", "check extended public key for validity")
+  .option("-t, --testnet", "use TESTNET")
   .action((encoded, cmdObj) => {
     let network = program.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
     if (cmdObj.checkAddress) {
@@ -34,8 +48,7 @@ program
       console.log(isValid)
       return
     }
-    if (cmdObj.checkXpub) {
-      console.log("XPUB")
+    if (cmdObj.checkExt) {
       const isValid = isValidExtPubKey(encoded, network)
       console.log(isValid)
       return
@@ -47,21 +60,6 @@ program
   })
 
 program.parse(process.argv)
-
-if (program.derive) {
-  const extPubKey = program.derive
-  console.log(program.purpose)
-  const purpose = program.purpose
-    ? parsePurpose(program.purpose)
-    : Purpose.P2WPKH // default to P2WPKH
-  const address = addressFromExtPubKey({ extPubKey, network, purpose })
-
-  if (program.verbose) {
-    console.log(address)
-  } else {
-    console.log(address.address)
-  }
-}
 
 function parsePurpose(purpose) {
   switch (purpose.toLowerCase()) {
