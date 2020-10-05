@@ -1,15 +1,22 @@
 {
   "name": "@swan-bitcoin/xpub-cli",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Command-line wrapper around @swan-bitcoin/xpub-lib",
   "keywords": [
     "xpub",
     "ypub",
     "zpub"
   ],
-  "author": "Gigi <dergigi@pm.me>",
-  "homepage": "http://TODO",
+  "author": "Gigi <gigi@swanbitcoin.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swan-bitcoin/xpub-tool.git"
+  },
+  "homepage": "https://github.com/swan-bitcoin/xpub-tool",
+  "bugs": {
+    "url": "https://github.com/swan-bitcoin/xpub-tool/issues"
+  },
   "main": "lib/xpub-cli.js",
   "directories": {
     "lib": "lib",
@@ -19,16 +26,9 @@
     "lib"
   ],
   "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/give-bitcoin/xpub-tool.git"
+    "access": "restricted"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
-  },
-  "bugs": {
-    "url": "https://github.com/give-bitcoin/xpub-tool/issues"
   }
 }
