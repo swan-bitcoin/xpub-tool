@@ -18,6 +18,9 @@
     "url": "https://github.com/swan-bitcoin/xpub-tool/issues"
   },
   "main": "lib/xpub.js",
+  "bin": {
+    "xpub": "lib/xpub.js"
+  },
   "directories": {
     "lib": "lib",
     "test": "__tests__"
