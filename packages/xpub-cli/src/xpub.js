@@ -26,8 +26,13 @@ program
     1
   )
   .option(
+    "-c, --accountNumber <accountNumber>",
+    "the account number as defined in BIP 44",
+    0
+  )
+  .option(
     "-i, --keyIndex <keyIndex>",
-    "index of the key to generate (ignored if `addressCount` is set)",
+    "index of the address to generate (ignored if `addressCount` is set)",
     0
   )
   .option("-t, --testnet", "use TESTNET")
@@ -38,6 +43,7 @@ program
       ? parsePurpose(cmdObj.purpose)
       : Purpose.P2WPKH // default to P2WPKH
     const keyIndex = cmdObj.keyIndex ? cmdObj.keyIndex : 0 // default to P2WPKH
+    const accountNumber = cmdObj.accountNumber ? cmdObj.accountNumber : 0 // default to P2WPKH
 
     if (cmdObj.addressCount > 1) {
       // Multiple addresses
@@ -45,17 +51,19 @@ program
       const addresses = addressesFromExtPubKey({
         extPubKey,
         addressCount,
-        network,
+        accountNumber,
         purpose,
+        network,
       })
       console.log(addresses)
     } else {
       // Single address
       const address = addressFromExtPubKey({
         extPubKey,
+        accountNumber,
         keyIndex,
-        network,
         purpose,
+        network,
       })
       cmdObj.verbose ? console.log(address) : {}
       console.log(address.address)
