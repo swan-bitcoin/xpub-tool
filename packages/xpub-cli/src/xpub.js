@@ -79,7 +79,7 @@ program
   .option("-x, --check-ext", "check extended public key for validity")
   .option("-t, --testnet", "use TESTNET")
   .action((encoded, cmdObj) => {
-    let network = program.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
+    let network = cmdObj.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
     if (cmdObj.checkAddress) {
       const isValid = isValidAddress(encoded, network)
       console.log(isValid)
