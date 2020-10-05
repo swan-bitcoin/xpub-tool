@@ -30,5 +30,8 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@swan-bitcoin/xpub-lib": "^0.0.1"
   }
 }
