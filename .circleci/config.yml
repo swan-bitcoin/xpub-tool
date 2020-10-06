@@ -28,6 +28,7 @@ workflows:
   version: 2.1
   build-and-test:
     jobs:
+      - bootstrap
       - test-all:
           requires:
             - bootstrap
