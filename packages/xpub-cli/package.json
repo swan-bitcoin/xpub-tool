@@ -3,9 +3,22 @@
   "version": "0.0.1",
   "description": "Command-line wrapper around @swan-bitcoin/xpub-lib",
   "keywords": [
+    "bitcoin",
+    "cli",
     "xpub",
     "ypub",
-    "zpub"
+    "zpub",
+    "address",
+    "derivation",
+    "bip32",
+    "bip44",
+    "bip49",
+    "bip84",
+    "p2pkh",
+    "p2sh",
+    "p2wpkh",
+    "bech32",
+    "segwit"
   ],
   "author": "Gigi <gigi@swanbitcoin.com>",
   "license": "MIT",
