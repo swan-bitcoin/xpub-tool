@@ -68,8 +68,9 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 
-# xpub-lib compiled output
+# compiled output
 packages/xpub-lib/lib
+packages/xpub-cli/lib
 
 # jsdoc output
 out
