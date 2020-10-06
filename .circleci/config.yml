@@ -1,0 +1,33 @@
+version: 2.1
+orbs:
+  aws-s3: circleci/aws-s3@1.0.11
+  aws-cli: circleci/aws-cli@0.1.16
+jobs:
+  bootstrap:
+    docker:
+      - image: circleci/node:10.16
+    steps:
+      - checkout
+      - run:
+          name: Install root dependencies
+          command: yarn install
+      - run:
+          name: lerna bootstrap
+          command: |
+            yarn run lerna bootstrap
+  test-all:
+    docker:
+      - image: circleci/node:10.16
+    steps:
+      - run:
+          name: lerna test
+          command: |
+            yarn run lerna run test
+
+workflows:
+  version: 2.1
+  build-and-test:
+    jobs:
+      - test-all:
+          requires:
+            - bootstrap
