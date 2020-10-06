@@ -3,7 +3,7 @@ orbs:
   aws-s3: circleci/aws-s3@1.0.11
   aws-cli: circleci/aws-cli@0.1.16
 jobs:
-  bootstrap:
+  build-and-test:
     docker:
       - image: circleci/node:14.7
     steps:
@@ -16,10 +16,6 @@ jobs:
           name: lerna bootstrap
           command: |
             yarn run lerna bootstrap
-  test-all:
-    docker:
-      - image: circleci/node:14.7
-    steps:
       - run:
           name: lerna test
           command: |
@@ -29,7 +25,4 @@ workflows:
   version: 2.1
   build-and-test:
     jobs:
-      - bootstrap
-      - test-all:
-          requires:
-            - bootstrap
+      - build-and-test
