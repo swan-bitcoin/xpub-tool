@@ -9,7 +9,25 @@ import {
   Purpose,
 } from "@swan-bitcoin/xpub-lib"
 
+function parsePurpose(purpose) {
+  switch (purpose.toLowerCase()) {
+    case "p2pkh": {
+      return Purpose.P2PKH
+    }
+    case "p2sh": {
+      return Purpose.P2SH
+    }
+    case "p2wpkh": {
+      return Purpose.P2WPKH
+    }
+    default: {
+      return undefined
+    }
+  }
+}
+
 const { program } = require("commander")
+
 program.version("0.0.1")
 
 program
@@ -38,7 +56,7 @@ program
   .option("-t, --testnet", "use TESTNET")
   .option("-v, --verbose", "verbose output")
   .action((extPubKey, cmdObj) => {
-    let network = cmdObj.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
+    const network = cmdObj.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
     const purpose = cmdObj.purpose
       ? parsePurpose(cmdObj.purpose)
       : Purpose.P2WPKH // default to P2WPKH
@@ -47,7 +65,7 @@ program
 
     if (cmdObj.addressCount > 1) {
       // Multiple addresses
-      const addressCount = cmdObj.addressCount
+      const { addressCount } = cmdObj
       const addresses = addressesFromExtPubKey({
         extPubKey,
         addressCount,
@@ -65,7 +83,7 @@ program
         purpose,
         network,
       })
-      cmdObj.verbose ? console.log(address) : {}
+      if (cmdObj.verbose) console.log(address)
       console.log(address.address)
     }
   })
@@ -79,7 +97,7 @@ program
   .option("-x, --check-ext", "check extended public key for validity")
   .option("-t, --testnet", "use TESTNET")
   .action((encoded, cmdObj) => {
-    let network = cmdObj.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
+    const network = cmdObj.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
     if (cmdObj.checkAddress) {
       const isValid = isValidAddress(encoded, network)
       console.log(isValid)
@@ -97,17 +115,3 @@ program
   })
 
 program.parse(process.argv)
-
-function parsePurpose(purpose) {
-  switch (purpose.toLowerCase()) {
-    case "p2pkh": {
-      return Purpose.P2PKH
-    }
-    case "p2sh": {
-      return Purpose.P2SH
-    }
-    case "p2wpkh": {
-      return Purpose.P2WPKH
-    }
-  }
-}
