@@ -6,6 +6,11 @@ A small JavaScript library and accompanying tool that derives bitcoin addresses 
 [unchained-bitcoin](https://github.com/unchained-capital/unchained-bitcoin)
 and [bitcoinjs-lib](https://github.com/bitcoinjs/bitcoinjs-lib).
 
+For more details refer to the individual packages:
+
+- [`xpub-lib`](https://github.com/swan-bitcoin/xpub-tool/tree/master/packages/xpub-lib) - address derivation and validation library
+- [`xpub-cli`](https://github.com/swan-bitcoin/xpub-tool/tree/master/packages/xpub-cli) - command-line interface
+
 ## Relevant BIPs and Educational Resources
 
 - [BIP 32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki) - Hierarchical Deterministic Wallets
