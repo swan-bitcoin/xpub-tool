@@ -1,7 +1,7 @@
 {
   "name": "@swan-bitcoin/xpub-components-bootstrap",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React components for Swan's address derivation tool.",
   "author": "Gigi <gigi@swanbitcoin.com>",
   "license": "MIT",
@@ -23,7 +23,7 @@
     "components"
   ],
   "dependencies": {
-    "@swan-bitcoin/xpub-lib": "^0.0.1",
+    "@swan-bitcoin/xpub-lib": "^0.0.2",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-bootstrap": "^1.3.0",
