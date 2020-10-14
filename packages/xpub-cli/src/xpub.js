@@ -63,6 +63,10 @@ program
     const keyIndex = cmdObj.keyIndex ? cmdObj.keyIndex : 0 // default to P2WPKH
     const accountNumber = cmdObj.accountNumber ? cmdObj.accountNumber : 0 // default to P2WPKH
 
+    if (!extPubKey) {
+      cmdObj.help()
+    }
+
     if (cmdObj.addressCount > 1) {
       // Multiple addresses
       const { addressCount } = cmdObj
