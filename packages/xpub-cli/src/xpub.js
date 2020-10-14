@@ -106,26 +106,29 @@ program
   .option("-a, --check-address", "check bitcoin address for validity")
   .option("-x, --check-ext", "check extended public key for validity")
   .option("-t, --testnet", "use TESTNET")
+  .option("-v, --verbose", "verbose output")
   .action((encoded, cmdObj) => {
     if (!encoded) {
       cmdObj.help()
     }
 
     const network = cmdObj.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
+    let isValid = false
+    let type = ""
     if (cmdObj.checkAddress) {
-      const isValid = isValidAddress(encoded, network)
-      console.log(isValid)
-      return
-    }
-    if (cmdObj.checkExt) {
-      const isValid = isValidExtPubKey(encoded, network)
-      console.log(isValid)
-      return
+      isValid = isValidAddress(encoded, network)
+      type = "address"
+    } else if (cmdObj.checkExt) {
+      isValid = isValidExtPubKey(encoded, network)
+      type = "extPubKey"
+    } else {
+      isValid =
+        isValidExtPubKey(encoded, network) || isValidAddress(encoded, network)
     }
 
-    const isValid =
-      isValidExtPubKey(encoded, network) || isValidAddress(encoded, network)
-    console.log(isValid)
+    if (cmdObj.verbose) {
+      console.log(`${isValid ? "valid" : "invalid"} ${type} ${encoded}`)
+    }
     process.exitCode = isValid ? 0 : 1
   })
 
