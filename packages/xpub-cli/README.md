@@ -77,20 +77,27 @@ Usage: xpub validate [options] [encoded]
 ```
 
 ```
-$ validate xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab
-
-true
+$ xpub validate xpub6CCHViYn5VzKSmKD9cK9LBDPz9wBLV7owXJcNDioETNvhqhVtj3ABnVUERN9aV1RGTX9YpyPHnC4Ekzjnr7TZthsJRBiXA4QCeXNHEwxLab
 ```
 
-Use `--testnet` to validate testnet keys and addresses.
+`validate` will terminate without error if the extended public key or address is
+valid. If invalid, `validate` will fail with exit code 1. 
+
+Use `--verbose` to generate output and `--testnet` to validate testnet keys and addresses.
 
 ```
-$ validate --testnet tb1qynjqnqvuwqys8l0jkuzmjuntj6ar4cyaeqwwk3
+$ xpub validate --testnet tb1qynjqnqvuwqys8l0jkuzmjuntj6ar4cyaeqwwk3 --verbose
 
-true
+valid tb1qynjqnqvuwqys8l0jkuzmjuntj6ar4cyaeqwwk3
 ```
 
 The `validate` command doesn't discriminate between extended public keys and addresses. You need to pass `--check-address` or `--check-ext` to do a validation that is exclusive.
+
+```
+$ xpub validate --check-ext --testnet tb1qynjqnqvuwqys8l0jkuzmjuntj6ar4cyaeqwwk3 --verbose
+
+invalid extPubKey tb1qynjqnqvuwqys8l0jkuzmjuntj6ar4cyaeqwwk3
+```
 
 ### Options
 
@@ -99,5 +106,6 @@ Run `xpub validate --help` to see all options.
 - `-a, --check-address` - check bitcoin address for validity
 - `-x, --check-ext` - check extended public key for validity
 - `-t, --testnet` - use testnet
+- `-v, --verbose` - verbose output
 
 ## License: [MIT](./LICENSE.md)
