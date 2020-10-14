@@ -106,5 +106,6 @@ Run `xpub validate --help` to see all options.
 - `-a, --check-address` - check bitcoin address for validity
 - `-x, --check-ext` - check extended public key for validity
 - `-t, --testnet` - use testnet
+- `-v, --verbose` - verbose output
 
 ## License: [MIT](./LICENSE.md)
