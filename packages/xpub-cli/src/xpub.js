@@ -9,6 +9,8 @@ import {
   Purpose,
 } from "@swan-bitcoin/xpub-lib"
 
+import { version } from "../package.json"
+
 function parsePurpose(purpose) {
   switch (purpose.toLowerCase()) {
     case "p2pkh": {
@@ -28,7 +30,7 @@ function parsePurpose(purpose) {
 
 const { program } = require("commander")
 
-program.version("0.0.1")
+program.version(`${version}`)
 
 program
   .command("derive [extPubKey]")
