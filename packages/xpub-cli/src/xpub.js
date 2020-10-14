@@ -56,16 +56,16 @@ program
   .option("-t, --testnet", "use TESTNET")
   .option("-v, --verbose", "verbose output")
   .action((extPubKey, cmdObj) => {
+    if (!extPubKey) {
+      cmdObj.help()
+    }
+
     const network = cmdObj.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
     const purpose = cmdObj.purpose
       ? parsePurpose(cmdObj.purpose)
       : Purpose.P2WPKH // default to P2WPKH
     const keyIndex = cmdObj.keyIndex ? cmdObj.keyIndex : 0 // default to P2WPKH
     const accountNumber = cmdObj.accountNumber ? cmdObj.accountNumber : 0 // default to P2WPKH
-
-    if (!extPubKey) {
-      cmdObj.help()
-    }
 
     if (cmdObj.addressCount > 1) {
       // Multiple addresses
@@ -101,6 +101,10 @@ program
   .option("-x, --check-ext", "check extended public key for validity")
   .option("-t, --testnet", "use TESTNET")
   .action((encoded, cmdObj) => {
+    if (!encoded) {
+      cmdObj.help()
+    }
+
     const network = cmdObj.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
     if (cmdObj.checkAddress) {
       const isValid = isValidAddress(encoded, network)
