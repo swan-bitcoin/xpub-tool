@@ -126,6 +126,7 @@ program
     const isValid =
       isValidExtPubKey(encoded, network) || isValidAddress(encoded, network)
     console.log(isValid)
+    process.exitCode = isValid ? 0 : 1
   })
 
 program.parse(process.argv)
