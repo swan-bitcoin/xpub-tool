@@ -93,6 +93,12 @@ valid tb1qynjqnqvuwqys8l0jkuzmjuntj6ar4cyaeqwwk3
 
 The `validate` command doesn't discriminate between extended public keys and addresses. You need to pass `--check-address` or `--check-ext` to do a validation that is exclusive.
 
+```
+$ xpub validate --check-ext --testnet tb1qynjqnqvuwqys8l0jkuzmjuntj6ar4cyaeqwwk3 --verbose
+
+invalid extPubKey tb1qynjqnqvuwqys8l0jkuzmjuntj6ar4cyaeqwwk3
+```
+
 ### Options
 
 Run `xpub validate --help` to see all options.
