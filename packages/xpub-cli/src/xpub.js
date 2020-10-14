@@ -61,6 +61,12 @@ program
     }
 
     const network = cmdObj.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
+    if (!isValidExtPubKey(extPubKey, network)) {
+      console.error(`error: invalid extended public key '${extPubKey}'`)
+      process.exitCode = 1
+      return
+    }
+
     const purpose = cmdObj.purpose
       ? parsePurpose(cmdObj.purpose)
       : Purpose.P2WPKH // default to P2WPKH
