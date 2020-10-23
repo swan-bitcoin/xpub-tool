@@ -28,6 +28,14 @@ function parsePurpose(purpose) {
   }
 }
 
+function printAddress(address, verbose = false) {
+  if (verbose) {
+    console.log(address)
+  } else {
+    console.log(address.address)
+  }
+}
+
 const { program } = require("commander")
 
 program.version(`${version}`)
@@ -85,7 +93,9 @@ program
         purpose,
         network,
       })
-      console.log(addresses)
+      addresses.forEach(address => {
+        printAddress(address, cmdObj.verbose)
+      })
     } else {
       // Single address
       const address = addressFromExtPubKey({
@@ -95,8 +105,7 @@ program
         purpose,
         network,
       })
-      if (cmdObj.verbose) console.log(address)
-      console.log(address.address)
+      printAddress(address, cmdObj.verbose)
     }
   })
 
