@@ -85,7 +85,7 @@ program
         purpose,
         network,
       })
-      console.log(addresses)
+      cmdObj.verbose ? console.log(addresses) : console.log(addresses.map(({ address }) => (address)))
     } else {
       // Single address
       const address = addressFromExtPubKey({
@@ -95,8 +95,7 @@ program
         purpose,
         network,
       })
-      if (cmdObj.verbose) console.log(address)
-      console.log(address.address)
+      cmdObj.verbose ? console.log(address) : console.log(address.address)
     }
   })
 
