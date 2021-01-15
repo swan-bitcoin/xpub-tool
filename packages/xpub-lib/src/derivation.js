@@ -143,7 +143,11 @@ function addressesFromExtPubKey({
 }) {
   const addresses = []
 
-  for (let keyIndex = addressStartIndex; keyIndex < addressStartIndex + addressCount; keyIndex += 1) {
+  for (
+    let keyIndex = addressStartIndex;
+    keyIndex < addressStartIndex + addressCount;
+    keyIndex += 1
+  ) {
     const { path, address } = addressFromExtPubKey({
       extPubKey,
       accountNumber,
