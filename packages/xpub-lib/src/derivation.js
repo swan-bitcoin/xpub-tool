@@ -73,6 +73,7 @@ function deriveAddress({ purpose, pubkey, network }) {
  *
  * @param  {string} extPubKey - the extended public key
  * @param  {number} accountNumber - the account number, starting with 0
+ * @param  {number} [change=0] - change (0 = external chain, 1 = internal chain / change)
  * @param  {number} [keyIndex=0] - the unhardened key index
  * @param  {module:purpose~Purpose} [purpose=DEFAULT_PURPOSE] - the derivation purpose
  * @param  {NETWORK} [network=DEFAULT_NETWORK] - the target network (TESTNET or MAINNET)
@@ -82,6 +83,7 @@ function deriveAddress({ purpose, pubkey, network }) {
 function addressFromExtPubKey({
   extPubKey,
   accountNumber = 0,
+  change = 0,
   keyIndex = 0,
   purpose = DEFAULT_PURPOSE,
   network = DEFAULT_NETWORK,
@@ -98,6 +100,7 @@ function addressFromExtPubKey({
   const fullPath = fullDerivationPath({
     purpose,
     accountNumber,
+    change,
     keyIndex,
     network,
   })
@@ -120,8 +123,10 @@ function addressFromExtPubKey({
  * See {@link module:derivation~addressFromExtPubKey}.
  *
  * @param  {string} extPubKey - the extended public key
- * @param  {number} accountNumber - the account number, starting with 0
- * @param  {number} [keyIndex=0] - the unhardened key index
+ * @param  {string} addressCount - number of key indices to derive
+ * @param  {number} [addressStartIndex=0] - start key index to derive from
+ * @param  {number} [accountNumber=0] - the account number, starting with 0
+ * @param  {number} [change=0] - change (0 = external chain, 1 = internal chain / change)
  * @param  {module:purpose~Purpose} [purpose=DEFAULT_PURPOSE] - the derivation purpose
  * @param  {NETWORK} [network=DEFAULT_NETWORK] - the target network (TESTNET or MAINNET)
  *
@@ -130,16 +135,19 @@ function addressFromExtPubKey({
 function addressesFromExtPubKey({
   extPubKey,
   addressCount,
+  addressStartIndex = 0,
   accountNumber = 0,
+  change = 0,
   purpose = DEFAULT_PURPOSE,
   network = DEFAULT_NETWORK,
 }) {
   const addresses = []
 
-  for (let keyIndex = 0; keyIndex < addressCount; keyIndex += 1) {
+  for (let keyIndex = addressStartIndex; keyIndex < addressStartIndex + addressCount; keyIndex += 1) {
     const { path, address } = addressFromExtPubKey({
       extPubKey,
       accountNumber,
+      change,
       keyIndex,
       purpose,
       network,
