@@ -120,7 +120,9 @@ function addressFromExtPubKey({
  * See {@link module:derivation~addressFromExtPubKey}.
  *
  * @param  {string} extPubKey - the extended public key
- * @param  {number} accountNumber - the account number, starting with 0
+ * @param  {string} addressCount - number of key indices to derive
+ * @param  {number} [addressStartIndex=0] - start key index to derive from
+ * @param  {number} [accountNumber=0] - the account number, starting with 0
  * @param  {number} [keyIndex=0] - the unhardened key index
  * @param  {module:purpose~Purpose} [purpose=DEFAULT_PURPOSE] - the derivation purpose
  * @param  {NETWORK} [network=DEFAULT_NETWORK] - the target network (TESTNET or MAINNET)
