@@ -286,6 +286,15 @@ describe("addressesFromExtPubKey", () => {
       }).length
     ).toEqual(3)
   })
+  test("offset address generation from vpub on testnet", () => {
+    const expected = [KEYS.TEST.VPUB[1], KEYS.TEST.VPUB[2]]
+    const addresses = addressesFromExtPubKey({
+      extPubKey: KEY.TEST.VPUB,
+      addressCount: 2,
+      addressStartIndex: 1,
+    })
+    expect(addresses.length).toBe(expected.length)
+  })
   test("default address generation from xpub on mainnet", () => {
     expect(
       addressesFromExtPubKey({
