@@ -286,6 +286,15 @@ describe("addressesFromExtPubKey", () => {
       }).length
     ).toEqual(3)
   })
+  test("offset address generation from vpub on testnet", () => {
+    const expected = [KEYS.TEST.VPUB[1], KEYS.TEST.VPUB[2]]
+    const addresses = addressesFromExtPubKey({
+      extPubKey: KEY.TEST.VPUB,
+      addressCount: 2,
+      addressStartIndex: 1,
+    })
+    expect(addresses.length).toBe(expected.length)
+  })
   test("default address generation from xpub on mainnet", () => {
     expect(
       addressesFromExtPubKey({
@@ -326,5 +335,32 @@ describe("addressesFromExtPubKey", () => {
         network: NETWORKS.MAINNET,
       }).map(obj => obj.address)[19] // pick nr. 20 and compare
     ).toEqual("bc1qrkv7s6enp5n7nnz97g2em2q4jefcmt9208syg0")
+  })
+  test("offset address generation from zpub on mainnet", () => {
+    // Wasabi
+    const expectedWasabi = [WASABI.ADDRESSES[1], WASABI.ADDRESSES[2]]
+    const addressesWasabi = addressesFromExtPubKey({
+      extPubKey: WASABI.ZPUB,
+      addressStartIndex: 1,
+      addressCount: 2,
+      network: NETWORKS.MAINNET,
+    })
+    expect(addressesWasabi.length).toBe(expectedWasabi.length)
+    expect(addressesWasabi.map(obj => obj.address)).toEqual(expectedWasabi)
+
+    // Samourai
+    const expectedSamourai = [
+      "bc1qmderpmzcft4csyq0dnned2sw69np6nljes4we3",
+      "bc1q0lw3ae3uujqcyk3wd40acf0q0wyzza9tysucwg",
+      "bc1qqnmqt9zkawf8x9j3dl9pqlhlw5gzcuj04ujjw3",
+    ]
+    const addressesSamourai = addressesFromExtPubKey({
+      extPubKey: SAMOURAI.ZPUB,
+      addressStartIndex: 16,
+      addressCount: 3,
+      network: NETWORKS.MAINNET,
+    })
+    expect(addressesSamourai.length).toBe(expectedSamourai.length)
+    expect(addressesSamourai.map(obj => obj.address)).toEqual(expectedSamourai)
   })
 })
