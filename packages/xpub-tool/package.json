@@ -1,7 +1,7 @@
 {
   "name": "@swan-bitcoin/xpub-tool",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "A JavaScript tool that derives bitcoin addresses from extended public keys, with support for various hardware wallets.",
   "author": "Gigi <gigi@swanbitcoin.com>",
   "license": "MIT",
@@ -30,8 +30,8 @@
     "wallets"
   ],
   "dependencies": {
-    "@swan-bitcoin/xpub-components-bootstrap": "^0.1.0",
-    "@swan-bitcoin/xpub-lib": "^0.1.0",
+    "@swan-bitcoin/xpub-components-bootstrap": "^0.1.4",
+    "@swan-bitcoin/xpub-lib": "^0.1.4",
     "bootstrap": "^4.3.1",
     "gatsby": "^2.3.34",
     "gatsby-image": "^2.0.41",
