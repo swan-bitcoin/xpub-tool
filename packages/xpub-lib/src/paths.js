@@ -68,7 +68,7 @@ function fullDerivationPath({
   purpose,
   network = NETWORKS.TESTNET,
   accountNumber,
-  change,
+  change = 0,
   keyIndex,
 }) {
   return [

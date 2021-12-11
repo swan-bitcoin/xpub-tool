@@ -118,7 +118,7 @@ describe("partialKeyDerivationPath", () => {
   test("partial key derivation paths", () => {
     expect(
       partialKeyDerivationPath({
-        accountNumber: 0,
+        change: 0,
         keyIndex: 0,
       })
     ).toBe("0/0")
@@ -126,34 +126,34 @@ describe("partialKeyDerivationPath", () => {
   test("valid account number", () => {
     expect(
       partialKeyDerivationPath({
-        accountNumber: 0,
+        change: 0,
       })
     ).toBeTruthy()
     expect(
       partialKeyDerivationPath({
-        accountNumber: 21,
+        change: 21,
       })
     ).toBeTruthy()
     expect(
       partialKeyDerivationPath({
-        accountNumber: 1337,
+        change: 1337,
       })
     ).toBeTruthy()
     expect(
       partialKeyDerivationPath({
-        accountNumber: 2147483647,
+        change: 2147483647,
       })
     ).toBeTruthy()
   })
   test("invalid account number", () => {
     expect(
       partialKeyDerivationPath({
-        accountNumber: -1,
+        change: -1,
       })
     ).toBeFalsy()
     expect(
       partialKeyDerivationPath({
-        accountNumber: 2147483648,
+        change: 2147483648,
       })
     ).toBeFalsy()
   })
