@@ -13,14 +13,14 @@ import { SEPARATOR, APOSTROPHE, COIN_PREFIX } from "./constants"
 /**
  * Construct a partial key derivation path from a given `accountNumber` and `keyIndex`.
  *
- * @param  {number} [accountNumber=0] - the unhardened account number
+ * @param  {number} [change=0] - the unhardened account number
  * @param  {number} [keyIndex=0] - the unhardened key index
  *
  * @returns {string} a partial derivation path
  */
-function partialKeyDerivationPath({ accountNumber = 0, keyIndex = 0 }) {
-  if (isValidIndex(accountNumber) && isValidIndex(keyIndex)) {
-    return [accountNumber, keyIndex].join(SEPARATOR)
+function partialKeyDerivationPath({ change = 0, keyIndex = 0 }) {
+  if (isValidIndex(change) && isValidIndex(keyIndex)) {
+    return [change, keyIndex].join(SEPARATOR)
   }
   return undefined
 }
@@ -68,7 +68,7 @@ function fullDerivationPath({
   purpose,
   network = NETWORKS.TESTNET,
   accountNumber,
-  change = 0,
+  change,
   keyIndex,
 }) {
   return [
