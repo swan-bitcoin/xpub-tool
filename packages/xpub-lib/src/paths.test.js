@@ -111,6 +111,14 @@ describe("fullDerivationPath", () => {
         keyIndex: 1337,
       })
     ).toBe("m/44'/1'/21'/0/1337")
+    expect(
+      fullDerivationPath({
+        purpose: Purpose.P2PKH,
+        accountNumber: 0,
+        change: 1,
+        keyIndex: 0,
+      })
+    ).toBe("m/44'/1'/0'/1/0")
   })
 })
 
@@ -122,8 +130,14 @@ describe("partialKeyDerivationPath", () => {
         keyIndex: 0,
       })
     ).toBe("0/0")
+    expect(
+      partialKeyDerivationPath({
+        change: 1,
+        keyIndex: 0,
+      })
+    ).toBe("1/0")
   })
-  test("valid account number", () => {
+  test("valid change index", () => {
     expect(
       partialKeyDerivationPath({
         change: 0,
@@ -145,7 +159,7 @@ describe("partialKeyDerivationPath", () => {
       })
     ).toBeTruthy()
   })
-  test("invalid account number", () => {
+  test("invalid change index", () => {
     expect(
       partialKeyDerivationPath({
         change: -1,

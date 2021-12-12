@@ -59,6 +59,42 @@ describe("addressFromExtPubKey(MAINNET)", () => {
       }).address
     ).toBe(KEY.MAIN.LEGACY)
   })
+  test("P2PKH change address generation from xpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.MAIN.XPUB,
+        accountNumber: 0,
+        change: 1,
+        keyIndex: 0,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe(KEY.MAIN.CHANGE.LEGACY)
+  })
+  test("P2PKH change address generation from ypub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.MAIN.YPUB,
+        accountNumber: 0,
+        change: 1,
+        keyIndex: 0,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe(KEY.MAIN.CHANGE.LEGACY)
+  })
+  test("P2PKH change address generation from zpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.MAIN.ZPUB,
+        accountNumber: 0,
+        change: 1,
+        keyIndex: 0,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe(KEY.MAIN.CHANGE.LEGACY)
+  })
 
   // BIP 49
   test("P2SH address generation from xpub", () => {
@@ -93,6 +129,42 @@ describe("addressFromExtPubKey(MAINNET)", () => {
         network: NETWORKS.MAINNET,
       }).address
     ).toBe(KEY.MAIN.SEGWIT)
+  })
+  test("P2SH change address generation from xpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.MAIN.XPUB,
+        accountNumber: 0,
+        change: 1,
+        keyIndex: 0,
+        purpose: Purpose.P2SH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe(KEY.MAIN.CHANGE.SEGWIT)
+  })
+  test("P2SH change address generation from ypub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.MAIN.YPUB,
+        accountNumber: 0,
+        change: 1,
+        keyIndex: 0,
+        purpose: Purpose.P2SH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe(KEY.MAIN.CHANGE.SEGWIT)
+  })
+  test("P2SH change address generation from zpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.MAIN.ZPUB,
+        accountNumber: 0,
+        change: 1,
+        keyIndex: 0,
+        purpose: Purpose.P2SH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe(KEY.MAIN.CHANGE.SEGWIT)
   })
 
   // BIP 84
@@ -129,6 +201,42 @@ describe("addressFromExtPubKey(MAINNET)", () => {
       }).address
     ).toBe(KEY.MAIN.BECH32)
   })
+  test("P2WPKH change address generation from xpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.MAIN.XPUB,
+        accountNumber: 0,
+        change: 1,
+        keyIndex: 0,
+        purpose: Purpose.P2WPKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe(KEY.MAIN.CHANGE.BECH32)
+  })
+  test("P2WPKH change address generation from ypub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.MAIN.YPUB,
+        accountNumber: 0,
+        change: 1,
+        keyIndex: 0,
+        purpose: Purpose.P2WPKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe(KEY.MAIN.CHANGE.BECH32)
+  })
+  test("P2WPKH change address generation from zpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.MAIN.ZPUB,
+        accountNumber: 0,
+        change: 1,
+        keyIndex: 0,
+        purpose: Purpose.P2WPKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe(KEY.MAIN.CHANGE.BECH32)
+  })
 })
 
 describe("addressFromExtPubKey(TESTNET)", () => {
@@ -160,6 +268,36 @@ describe("addressFromExtPubKey(TESTNET)", () => {
       }).address
     ).toBe(KEY.TEST.LEGACY)
   })
+  test("P2PKH change address generation from tpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.TEST.TPUB,
+        change: 1,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.CHANGE.LEGACY)
+  })
+  test("P2PKH change address generation from upub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.TEST.UPUB,
+        change: 1,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.CHANGE.LEGACY)
+  })
+  test("P2PKH change address generation from vpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.TEST.VPUB,
+        change: 1,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.CHANGE.LEGACY)
+  })
 
   // BIP 49
   test("P2SH address generation from tpub", () => {
@@ -189,6 +327,36 @@ describe("addressFromExtPubKey(TESTNET)", () => {
       }).address
     ).toBe(KEY.TEST.SEGWIT)
   })
+  test("P2SH change address generation from tpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.TEST.TPUB,
+        change: 1,
+        purpose: Purpose.P2SH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.CHANGE.SEGWIT)
+  })
+  test("P2SH change address generation from upub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.TEST.UPUB,
+        change: 1,
+        purpose: Purpose.P2SH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.CHANGE.SEGWIT)
+  })
+  test("P2SH change address generation from vpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.TEST.VPUB,
+        change: 1,
+        purpose: Purpose.P2SH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.CHANGE.SEGWIT)
+  })
 
   // BIP 84
   test("P2WPKH address generation from tpub", () => {
@@ -217,6 +385,36 @@ describe("addressFromExtPubKey(TESTNET)", () => {
         network: NETWORKS.TESTNET,
       }).address
     ).toBe(KEY.TEST.BECH32)
+  })
+  test("P2WPKH change address generation from tpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.TEST.TPUB,
+        change: 1,
+        purpose: Purpose.P2WPKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.CHANGE.BECH32)
+  })
+  test("P2WPKH change address generation from upub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.TEST.UPUB,
+        change: 1,
+        purpose: Purpose.P2WPKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.CHANGE.BECH32)
+  })
+  test("P2WPKH change address generation from vpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.TEST.VPUB,
+        change: 1,
+        purpose: Purpose.P2WPKH,
+        network: NETWORKS.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.CHANGE.BECH32)
   })
 })
 
