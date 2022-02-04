@@ -25,6 +25,21 @@ const KEY = {
   },
 }
 
+const KEYACCOUNTS = {
+  ACCOUNT0: {
+    XPUB:
+      "xpub6BuRKK8Jzs2H5Qrcrg4ftXmEuRPJKNvfPDzpf9YDcCBD4BvfKWjiX8gkBFf72XuEvi2qocaTNbWzhNuu91r18d6qsLLDNo1gB5QLUhX5VbE",
+    LEGACY: "16XPy74U1AqK6FGrDgLjYagYqJtumu38nE",
+    LEGACYCHANGE: "1Q5PwfngdT54zQFCRyg5SnBYrytfmE3uEY",
+  },
+  ACCOUNT1: {
+    XPUB:
+      "xpub6BuRKK8Jzs2H7Dk2oZyadKmUcDzaZypY6LN85t2QhHax4KH8CmSS8SrYjRZ2GxXiiB1Qn8H1XcUN36kMC19uusUumxY9w1gqZzzvh93jUok",
+    LEGACY: "18Ukqb2mrSWqQrmc8cSg8XT4g98LTmnWhY",
+    LEGACYCHANGE: "16oLVwpZSqADhj54pm5s35Ttz5HokeDuj2",
+  },
+}
+
 const KEYS = {
   MAIN: {
     XPUB: [
@@ -86,4 +101,4 @@ const SAMOURAI = {
   ],
 }
 
-export { KEY, KEYS, WASABI, SAMOURAI }
+export { KEY, KEYACCOUNTS, KEYS, WASABI, SAMOURAI }

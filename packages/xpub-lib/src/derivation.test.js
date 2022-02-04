@@ -1,5 +1,5 @@
 import { NETWORKS } from "unchained-bitcoin"
-import { KEY, KEYS, WASABI, SAMOURAI } from "../test/fixtures"
+import { KEY, KEYACCOUNTS, KEYS, WASABI, SAMOURAI } from "../test/fixtures"
 import { Purpose } from "./purpose"
 import { addressFromExtPubKey, addressesFromExtPubKey } from "./derivation"
 
@@ -58,6 +58,39 @@ describe("addressFromExtPubKey(MAINNET)", () => {
         network: NETWORKS.MAINNET,
       }).address
     ).toBe(KEY.MAIN.LEGACY)
+  })
+  test("P2PKH account 0 address generation from xpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEYACCOUNTS.ACCOUNT0.XPUB,
+        accountNumber: 0,
+        keyIndex: 0,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe(KEYACCOUNTS.ACCOUNT0.LEGACY)
+  })
+  test("P2PKH account 1 address generation not change", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEYACCOUNTS.ACCOUNT0.XPUB,
+        accountNumber: 1,
+        keyIndex: 0,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).not.toBe(KEYACCOUNTS.ACCOUNT0.LEGACYCHANGE)
+  })
+  test("P2PKH account 1 address generation from xpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEYACCOUNTS.ACCOUNT1.XPUB,
+        accountNumber: 1,
+        keyIndex: 0,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.MAINNET,
+      }).address
+    ).toBe(KEYACCOUNTS.ACCOUNT1.LEGACY)
   })
 
   // BIP 49
