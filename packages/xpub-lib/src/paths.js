@@ -11,9 +11,9 @@ import { AccountTypeName } from "./purpose"
 import { SEPARATOR, APOSTROPHE, COIN_PREFIX } from "./constants"
 
 /**
- * Construct a partial key derivation path from a given `accountNumber` and `keyIndex`.
+ * Construct a partial key derivation path from a given `change` and `keyIndex`.
  *
- * @param  {number} [change=0] - the unhardened account number
+ * @param  {number} [change=0] - the unhardened chain index
  * @param  {number} [keyIndex=0] - the unhardened key index
  *
  * @returns {string} a partial derivation path
