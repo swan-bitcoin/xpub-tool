@@ -4,6 +4,7 @@ import {
   isValidExtPubKey,
   isValidAddress,
   isValidIndex,
+  isValidChainIndex,
   isValidPathSegment,
 } from "./validation"
 
@@ -29,6 +30,31 @@ describe("isValidIndex", () => {
 
     expect(isValidIndex(-1)).toBeFalsy()
     expect(isValidIndex(2147483648)).toBeFalsy()
+  })
+})
+
+describe("isValidChainIndex", () => {
+  test("valid chain indices", () => {
+    expect(isValidChainIndex("0")).toBeTruthy()
+    expect(isValidChainIndex("1")).toBeTruthy()
+
+    expect(isValidChainIndex(0)).toBeTruthy()
+    expect(isValidChainIndex(1)).toBeTruthy()
+  })
+  test("invalid chain indices", () => {
+    expect(isValidChainIndex("21")).toBeFalsy()
+    expect(isValidChainIndex("1337")).toBeFalsy()
+    expect(isValidChainIndex("2147483647")).toBeFalsy()
+    expect(isValidChainIndex("-1")).toBeFalsy()
+    expect(isValidChainIndex("2147483648")).toBeFalsy()
+    expect(isValidChainIndex("a")).toBeFalsy()
+    expect(isValidChainIndex("/")).toBeFalsy()
+
+    expect(isValidChainIndex(21)).toBeFalsy()
+    expect(isValidChainIndex(1337)).toBeFalsy()
+    expect(isValidChainIndex(2147483647)).toBeFalsy()
+    expect(isValidChainIndex(-1)).toBeFalsy()
+    expect(isValidChainIndex(2147483648)).toBeFalsy()
   })
 })
 

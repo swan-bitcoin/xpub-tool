@@ -6,7 +6,7 @@
 
 import { NETWORKS } from "unchained-bitcoin"
 import { harden } from "./utils"
-import { isValidIndex } from "./validation"
+import { isValidIndex, isValidChainIndex } from "./validation"
 import { AccountTypeName } from "./purpose"
 import { SEPARATOR, APOSTROPHE, COIN_PREFIX } from "./constants"
 
@@ -19,7 +19,7 @@ import { SEPARATOR, APOSTROPHE, COIN_PREFIX } from "./constants"
  * @returns {string} a partial derivation path
  */
 function partialKeyDerivationPath({ change = 0, keyIndex = 0 }) {
-  if (isValidIndex(change) && isValidIndex(keyIndex)) {
+  if (isValidChainIndex(change) && isValidIndex(keyIndex)) {
     return [change, keyIndex].join(SEPARATOR)
   }
   return undefined

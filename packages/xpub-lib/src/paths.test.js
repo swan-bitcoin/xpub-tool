@@ -145,21 +145,26 @@ describe("partialKeyDerivationPath", () => {
     ).toBeTruthy()
     expect(
       partialKeyDerivationPath({
-        change: 21,
-      })
-    ).toBeTruthy()
-    expect(
-      partialKeyDerivationPath({
-        change: 1337,
-      })
-    ).toBeTruthy()
-    expect(
-      partialKeyDerivationPath({
-        change: 2147483647,
+        change: 1,
       })
     ).toBeTruthy()
   })
   test("invalid change index", () => {
+    expect(
+      partialKeyDerivationPath({
+        change: 21,
+      })
+    ).toBeFalsy()
+    expect(
+      partialKeyDerivationPath({
+        change: 1337,
+      })
+    ).toBeFalsy()
+    expect(
+      partialKeyDerivationPath({
+        change: 2147483647,
+      })
+    ).toBeFalsy()
     expect(
       partialKeyDerivationPath({
         change: -1,
