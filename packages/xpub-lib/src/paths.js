@@ -51,14 +51,13 @@ function accountDerivationPath({
 }
 
 /**
- * Construct a full derivation path as defined by BIP44 given `purpose`,
- * `accountNumber`, and `keyIndex`.
+ * Construct a full derivation path as defined by BIP44 given an xpub, `purpose`,
+ * `change`, and `keyIndex`.
  *
  * @param  {string} convertedExtPubKey - a BIP44 extended public key
  * @param  {string} [coinPrefix=COIN_PREFIX] - the coin prefix, defaulting to "m" for bitcoin
  * @param  {module:purpose~Purpose} purpose - derivation purpose
  * @param  {NETWORK} [network=NETWORKS.TESTNET] - target network (TESTNET or MAINNET)
- * @param  {number} accountNumber - the account number, starting with 0
  * @param  {number} [change=0] - change (0 = external chain, 1 = internal chain / change)
  * @param {number} keyIndex - the key index, i.e. the number of the key that
  * should be derived from the extended public key

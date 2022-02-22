@@ -10,7 +10,7 @@ describe("addressFromExtPubKey() with invalid xpubs", () => {
   })
   test("address generation with invalid parameters fails", () => {
     expect(
-      addressFromExtPubKey({ extPubKey: KEY.TEST.TPUB, accountNumber: -1 })
+      addressFromExtPubKey({ extPubKey: KEY.TEST.TPUB, keyIndex: -1 })
     ).toBeFalsy()
     expect(
       addressFromExtPubKey({
@@ -30,7 +30,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.XPUB,
-        accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2PKH,
         network: NETWORKS.MAINNET,
@@ -41,7 +40,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.YPUB,
-        accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2PKH,
         network: NETWORKS.MAINNET,
@@ -52,7 +50,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.ZPUB,
-        accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2PKH,
         network: NETWORKS.MAINNET,
@@ -63,7 +60,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.XPUB,
-        accountNumber: 0,
         change: 1,
         keyIndex: 0,
         purpose: Purpose.P2PKH,
@@ -75,7 +71,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.YPUB,
-        accountNumber: 0,
         change: 1,
         keyIndex: 0,
         purpose: Purpose.P2PKH,
@@ -87,7 +82,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.ZPUB,
-        accountNumber: 0,
         change: 1,
         keyIndex: 0,
         purpose: Purpose.P2PKH,
@@ -101,7 +95,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.XPUB,
-        accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2SH,
         network: NETWORKS.MAINNET,
@@ -112,7 +105,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.YPUB,
-        accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2SH,
         network: NETWORKS.MAINNET,
@@ -123,7 +115,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.ZPUB,
-        accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2SH,
         network: NETWORKS.MAINNET,
@@ -134,7 +125,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.XPUB,
-        accountNumber: 0,
         change: 1,
         keyIndex: 0,
         purpose: Purpose.P2SH,
@@ -146,7 +136,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.YPUB,
-        accountNumber: 0,
         change: 1,
         keyIndex: 0,
         purpose: Purpose.P2SH,
@@ -158,7 +147,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.ZPUB,
-        accountNumber: 0,
         change: 1,
         keyIndex: 0,
         purpose: Purpose.P2SH,
@@ -172,7 +160,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.XPUB,
-        accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2WPKH,
         network: NETWORKS.MAINNET,
@@ -183,7 +170,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.YPUB,
-        accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2WPKH,
         network: NETWORKS.MAINNET,
@@ -194,7 +180,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.ZPUB,
-        accountNumber: 0,
         keyIndex: 0,
         purpose: Purpose.P2WPKH,
         network: NETWORKS.MAINNET,
@@ -205,7 +190,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.XPUB,
-        accountNumber: 0,
         change: 1,
         keyIndex: 0,
         purpose: Purpose.P2WPKH,
@@ -217,7 +201,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.YPUB,
-        accountNumber: 0,
         change: 1,
         keyIndex: 0,
         purpose: Purpose.P2WPKH,
@@ -229,7 +212,6 @@ describe("addressFromExtPubKey(MAINNET)", () => {
     expect(
       addressFromExtPubKey({
         extPubKey: KEY.MAIN.ZPUB,
-        accountNumber: 0,
         change: 1,
         keyIndex: 0,
         purpose: Purpose.P2WPKH,

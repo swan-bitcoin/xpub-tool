@@ -102,7 +102,6 @@ describe("fullDerivationPath", () => {
       fullDerivationPath({
         convertedExtPubKey: KEY.TEST.TPUB,
         purpose: Purpose.P2PKH,
-        accountNumber: 0,
         keyIndex: 0,
       })
     ).toBe("m/44'/1'/0'/0/0")
@@ -110,7 +109,6 @@ describe("fullDerivationPath", () => {
       fullDerivationPath({
         convertedExtPubKey: ACCOUNT21.TEST.TPUB,
         purpose: Purpose.P2PKH,
-        accountNumber: 21,
         keyIndex: 1337,
       })
     ).toBe("m/44'/1'/21'/0/1337")
@@ -118,7 +116,6 @@ describe("fullDerivationPath", () => {
       fullDerivationPath({
         convertedExtPubKey: KEY.TEST.TPUB,
         purpose: Purpose.P2PKH,
-        accountNumber: 0,
         change: 1,
         keyIndex: 0,
       })
@@ -130,7 +127,6 @@ describe("fullDerivationPath", () => {
         convertedExtPubKey: KEY.MAIN.XPUB,
         purpose: Purpose.P2PKH,
         network: NETWORKS.MAINNET,
-        accountNumber: 0,
         keyIndex: 0,
       })
     ).toBe("m/44'/0'/0'/0/0")
@@ -139,7 +135,6 @@ describe("fullDerivationPath", () => {
         convertedExtPubKey: ACCOUNT21.MAIN.XPUB,
         purpose: Purpose.P2PKH,
         network: NETWORKS.MAINNET,
-        accountNumber: 21,
         keyIndex: 1337,
       })
     ).toBe("m/44'/0'/21'/0/1337")
@@ -148,7 +143,6 @@ describe("fullDerivationPath", () => {
         convertedExtPubKey: KEY.MAIN.XPUB,
         purpose: Purpose.P2PKH,
         network: NETWORKS.MAINNET,
-        accountNumber: 0,
         change: 1,
         keyIndex: 0,
       })
