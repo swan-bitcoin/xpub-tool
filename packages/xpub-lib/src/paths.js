@@ -9,6 +9,7 @@ import { harden } from "./utils"
 import { isValidIndex, isValidChainIndex } from "./validation"
 import { AccountTypeName } from "./purpose"
 import { SEPARATOR, APOSTROPHE, COIN_PREFIX } from "./constants"
+import { getAccountFromExtPubKey } from "./metadata"
 
 /**
  * Construct a partial key derivation path from a given `change` and `keyIndex`.
@@ -53,6 +54,7 @@ function accountDerivationPath({
  * Construct a full derivation path as defined by BIP44 given `purpose`,
  * `accountNumber`, and `keyIndex`.
  *
+ * @param  {string} convertedExtPubKey - a BIP44 extended public key
  * @param  {string} [coinPrefix=COIN_PREFIX] - the coin prefix, defaulting to "m" for bitcoin
  * @param  {module:purpose~Purpose} purpose - derivation purpose
  * @param  {NETWORK} [network=NETWORKS.TESTNET] - target network (TESTNET or MAINNET)
@@ -64,15 +66,20 @@ function accountDerivationPath({
  * @returns  {string} the full derivation path, e.g. "m/44'/0'/3'/0/1"
  */
 function fullDerivationPath({
+  convertedExtPubKey,
   coinPrefix = COIN_PREFIX,
   purpose,
   network = NETWORKS.TESTNET,
-  accountNumber,
   change = 0,
   keyIndex,
 }) {
   return [
-    accountDerivationPath({ purpose, accountNumber, network, coinPrefix }),
+    accountDerivationPath({
+      purpose,
+      accountNumber: getAccountFromExtPubKey(convertedExtPubKey),
+      network,
+      coinPrefix,
+    }),
     change,
     keyIndex,
   ].join(SEPARATOR)

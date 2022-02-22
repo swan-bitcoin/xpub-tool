@@ -35,6 +35,17 @@ const KEY = {
   },
 }
 
+const ACCOUNT21 = {
+  MAIN: {
+    XPUB:
+      "xpub6CiTznFtgYouh6RvuJY66FtUxFeqqxGoTz9y1x7d56kMSSH1NAxtCpJtVYqxoe7ADm5fYAjyxedVc3CNZS9F5rXMVXiYDYTYXWFu3aHuHYP",
+  },
+  TEST: {
+    TPUB:
+      "tpubDDmMSyuXefoaNf46Lo2jKhRnsfEZFwQTvNeiGjv2z4g2egg5y7xGofZqMy2p6LcqS3eXYDkuEGf2MaQUGMLVXeDtVP7djqiyAMpXXzBaaEx",
+  },
+}
+
 const KEYS = {
   MAIN: {
     XPUB: [
@@ -96,4 +107,4 @@ const SAMOURAI = {
   ],
 }
 
-export { KEY, KEYS, WASABI, SAMOURAI }
+export { KEY, ACCOUNT21, KEYS, WASABI, SAMOURAI }

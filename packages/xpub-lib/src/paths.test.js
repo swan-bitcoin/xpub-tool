@@ -5,6 +5,7 @@ import {
   partialKeyDerivationPath,
   humanReadableDerivationPath,
 } from "./paths"
+import { KEY, ACCOUNT21 } from "../test/fixtures"
 import { Purpose } from "./purpose"
 
 describe("humanReadableDerivationPath", () => {
@@ -99,6 +100,7 @@ describe("fullDerivationPath", () => {
   test("full testnet derivation paths", () => {
     expect(
       fullDerivationPath({
+        convertedExtPubKey: KEY.TEST.TPUB,
         purpose: Purpose.P2PKH,
         accountNumber: 0,
         keyIndex: 0,
@@ -106,6 +108,7 @@ describe("fullDerivationPath", () => {
     ).toBe("m/44'/1'/0'/0/0")
     expect(
       fullDerivationPath({
+        convertedExtPubKey: ACCOUNT21.TEST.TPUB,
         purpose: Purpose.P2PKH,
         accountNumber: 21,
         keyIndex: 1337,
@@ -113,12 +116,43 @@ describe("fullDerivationPath", () => {
     ).toBe("m/44'/1'/21'/0/1337")
     expect(
       fullDerivationPath({
+        convertedExtPubKey: KEY.TEST.TPUB,
         purpose: Purpose.P2PKH,
         accountNumber: 0,
         change: 1,
         keyIndex: 0,
       })
     ).toBe("m/44'/1'/0'/1/0")
+  })
+  test("full mainnet derivation paths", () => {
+    expect(
+      fullDerivationPath({
+        convertedExtPubKey: KEY.MAIN.XPUB,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.MAINNET,
+        accountNumber: 0,
+        keyIndex: 0,
+      })
+    ).toBe("m/44'/0'/0'/0/0")
+    expect(
+      fullDerivationPath({
+        convertedExtPubKey: ACCOUNT21.MAIN.XPUB,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.MAINNET,
+        accountNumber: 21,
+        keyIndex: 1337,
+      })
+    ).toBe("m/44'/0'/21'/0/1337")
+    expect(
+      fullDerivationPath({
+        convertedExtPubKey: KEY.MAIN.XPUB,
+        purpose: Purpose.P2PKH,
+        network: NETWORKS.MAINNET,
+        accountNumber: 0,
+        change: 1,
+        keyIndex: 0,
+      })
+    ).toBe("m/44'/0'/0'/1/0")
   })
 })
 

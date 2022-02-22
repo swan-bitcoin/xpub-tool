@@ -97,14 +97,14 @@ function addressFromExtPubKey({
     return undefined
   }
   const partialPath = partialKeyDerivationPath({ change, keyIndex })
+  const convertedExtPubKey = convertToXPUB(extPubKey, network)
   const fullPath = fullDerivationPath({
+    convertedExtPubKey,
     purpose,
-    accountNumber,
     change,
     keyIndex,
     network,
   })
-  const convertedExtPubKey = convertToXPUB(extPubKey, network)
   const childPubKey = deriveChildPublicKey(
     convertedExtPubKey,
     partialPath,
