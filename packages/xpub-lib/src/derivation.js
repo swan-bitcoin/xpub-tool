@@ -7,7 +7,12 @@
 import * as bitcoin from "bitcoinjs-lib"
 import { deriveChildPublicKey, networkData, NETWORKS } from "unchained-bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
-import { isValidExtPubKey, isValidIndex, isValidPurpose } from "./validation"
+import {
+  isValidExtPubKey,
+  isValidIndex,
+  isValidPurpose,
+  isValidChainIndex,
+} from "./validation"
 import { convertToXPUB } from "./conversion"
 import { Purpose } from "./purpose"
 
@@ -87,6 +92,7 @@ function addressFromExtPubKey({
   network = DEFAULT_NETWORK,
 }) {
   if (
+    !isValidChainIndex(change) ||
     !isValidIndex(keyIndex) ||
     !isValidPurpose(purpose) ||
     !isValidExtPubKey(extPubKey, network)
