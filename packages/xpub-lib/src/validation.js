@@ -98,6 +98,22 @@ function isValidIndex(index) {
 }
 
 /**
+ * Returns true if the given chain index is valid, false otherwise.
+ *
+ * @param  {number} index - the chain (internal / external) index to check
+ *
+ * @returns {boolean}
+ */
+function isValidChainIndex(index) {
+  const indexString = String(index)
+  const validChains = ["0", "1"]
+  if (validChains.indexOf(indexString) === -1) {
+    return false
+  }
+  return true
+}
+
+/**
  * Returns true if the path segment is hardened, false otherwise.
  *
  * @param  {string} segment - the path segment to check
@@ -139,5 +155,6 @@ export {
   isValidAddress,
   isValidPurpose,
   isValidIndex,
+  isValidChainIndex,
   isValidPathSegment,
 }

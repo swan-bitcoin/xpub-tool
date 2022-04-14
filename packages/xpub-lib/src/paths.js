@@ -6,21 +6,22 @@
 
 import { NETWORKS } from "unchained-bitcoin"
 import { harden } from "./utils"
-import { isValidIndex } from "./validation"
+import { isValidIndex, isValidChainIndex } from "./validation"
 import { AccountTypeName } from "./purpose"
 import { SEPARATOR, APOSTROPHE, COIN_PREFIX } from "./constants"
+import { getAccountFromExtPubKey } from "./metadata"
 
 /**
- * Construct a partial key derivation path from a given `accountNumber` and `keyIndex`.
+ * Construct a partial key derivation path from a given `change` and `keyIndex`.
  *
- * @param  {number} [accountNumber=0] - the unhardened account number
+ * @param  {number} [change=0] - the unhardened chain index
  * @param  {number} [keyIndex=0] - the unhardened key index
  *
  * @returns {string} a partial derivation path
  */
-function partialKeyDerivationPath({ accountNumber = 0, keyIndex = 0 }) {
-  if (isValidIndex(accountNumber) && isValidIndex(keyIndex)) {
-    return [accountNumber, keyIndex].join(SEPARATOR)
+function partialKeyDerivationPath({ change = 0, keyIndex = 0 }) {
+  if (isValidChainIndex(change) && isValidIndex(keyIndex)) {
+    return [change, keyIndex].join(SEPARATOR)
   }
   return undefined
 }
@@ -50,13 +51,13 @@ function accountDerivationPath({
 }
 
 /**
- * Construct a full derivation path as defined by BIP44 given `purpose`,
- * `accountNumber`, and `keyIndex`.
+ * Construct a full derivation path as defined by BIP44 given an xpub, `purpose`,
+ * `change`, and `keyIndex`.
  *
+ * @param  {string} convertedExtPubKey - a BIP44 extended public key
  * @param  {string} [coinPrefix=COIN_PREFIX] - the coin prefix, defaulting to "m" for bitcoin
  * @param  {module:purpose~Purpose} purpose - derivation purpose
  * @param  {NETWORK} [network=NETWORKS.TESTNET] - target network (TESTNET or MAINNET)
- * @param  {number} accountNumber - the account number, starting with 0
  * @param  {number} [change=0] - change (0 = external chain, 1 = internal chain / change)
  * @param {number} keyIndex - the key index, i.e. the number of the key that
  * should be derived from the extended public key
@@ -64,15 +65,20 @@ function accountDerivationPath({
  * @returns  {string} the full derivation path, e.g. "m/44'/0'/3'/0/1"
  */
 function fullDerivationPath({
+  convertedExtPubKey,
   coinPrefix = COIN_PREFIX,
   purpose,
   network = NETWORKS.TESTNET,
-  accountNumber,
   change = 0,
   keyIndex,
 }) {
   return [
-    accountDerivationPath({ purpose, accountNumber, network, coinPrefix }),
+    accountDerivationPath({
+      purpose,
+      accountNumber: getAccountFromExtPubKey(convertedExtPubKey),
+      network,
+      coinPrefix,
+    }),
     change,
     keyIndex,
   ].join(SEPARATOR)

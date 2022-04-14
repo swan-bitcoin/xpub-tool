@@ -1,9 +1,10 @@
 import { NETWORKS } from "unchained-bitcoin"
-import { KEY } from "../test/fixtures"
+import { KEY, ACCOUNT21 } from "../test/fixtures"
 import {
   getPurposeFromExtPubKey,
   getNetworkFromExtPubKey,
   getExtPubKeyMetadata,
+  getAccountFromExtPubKey,
 } from "./metadata"
 
 describe("getNetworkFromExtPubKey", () => {
@@ -75,5 +76,16 @@ describe("getExtPubKeyMetadata", () => {
       type: "84",
       version: "04b24746",
     })
+  })
+})
+
+describe("getAccountFromExtPubKey", () => {
+  test("Main xpub/tpub should be at index 0", () => {
+    expect(getAccountFromExtPubKey(KEY.MAIN.XPUB)).toBe(0)
+    expect(getAccountFromExtPubKey(KEY.TEST.TPUB)).toBe(0)
+  })
+  test("Account 21 xpub/tpub should be at index 21", () => {
+    expect(getAccountFromExtPubKey(ACCOUNT21.MAIN.XPUB)).toBe(21)
+    expect(getAccountFromExtPubKey(ACCOUNT21.TEST.TPUB)).toBe(21)
   })
 })

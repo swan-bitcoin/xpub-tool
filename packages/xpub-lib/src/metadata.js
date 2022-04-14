@@ -97,8 +97,24 @@ function getExtPubKeyMetadata(extPubKey) {
   }
 }
 
+/**
+ * Retrieves the (account) index from a given extended public key.
+ *
+ * @param  {string} extPubKey - an extended public key
+ *
+ * @returns {Account} the associated account index
+ */
+function getAccountFromExtPubKey(extPubKey) {
+  const rawAccountNumber = getExtPubKeyMetadata(extPubKey).index
+  if (rawAccountNumber > 2147483647) {
+    return rawAccountNumber - 2147483648
+  }
+  return rawAccountNumber
+}
+
 export {
   getPurposeFromExtPubKey,
   getExtPubKeyMetadata,
   getNetworkFromExtPubKey,
+  getAccountFromExtPubKey,
 }
