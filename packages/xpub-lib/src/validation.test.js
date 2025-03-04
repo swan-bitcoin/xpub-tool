@@ -211,6 +211,16 @@ describe("isValidAddress", () => {
         Network.MAINNET
       )
     ).toBeFalsy()
+    expect(
+      isValidAddress(KEY.MAIN.TAPROOT.concat("abcd"), Network.MAINNET)
+    ).toBeFalsy()
+    expect(
+      isValidAddress(
+        KEY.MAIN.TAPROOT.substring(0, KEY.TEST.TAPROOT.length - 1),
+        Network.MAINNET
+      )
+    ).toBeFalsy()
+    expect(isValidAddress(KEY.TEST.TAPROOT, Network.MAINNET)).toBeFalsy()
   })
   test("invalid addresses on TESTNET", () => {
     expect(isValidAddress("", Network.TESTNET)).toBeFalsy()
@@ -231,5 +241,15 @@ describe("isValidAddress", () => {
         Network.TESTNET
       )
     ).toBeFalsy()
+    expect(
+      isValidAddress(KEY.TEST.TAPROOT.concat("abcd"), Network.TESTNET)
+    ).toBeFalsy()
+    expect(
+      isValidAddress(
+        KEY.TEST.TAPROOT.substring(0, KEY.TEST.TAPROOT.length - 1),
+        Network.TESTNET
+      )
+    ).toBeFalsy()
+    expect(isValidAddress(KEY.MAIN.TAPROOT, Network.TESTNET)).toBeFalsy()
   })
 })
