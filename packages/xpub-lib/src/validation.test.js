@@ -173,7 +173,7 @@ describe("isValidAddress", () => {
   test("valid bech32 v0 (P2WPKH) address on testnet", () => {
     expect(isValidAddress(KEY.TEST.BECH32, Network.TESTNET)).toBeTruthy()
   })
-  test("valid bech32 v1 (P2TR) address on mainnet", () => {
+  test("valid bech32 v1 (P2TR) address on testnet", () => {
     expect(isValidAddress(KEY.TEST.TAPROOT, Network.TESTNET)).toBeTruthy()
   })
 
