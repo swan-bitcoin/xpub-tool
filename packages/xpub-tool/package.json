@@ -25,6 +25,7 @@
     "p2pkh",
     "p2sh",
     "p2wpkh",
+    "p2tr",
     "bech32",
     "hardware",
     "wallets"

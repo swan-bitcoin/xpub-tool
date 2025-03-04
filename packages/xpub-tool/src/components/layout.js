@@ -52,8 +52,8 @@ const Layout = ({ children, pageInfo }) => (
                     bitcoinjs-lib
                   </a>
                   ,{` `}
-                  <a href="https://github.com/unchained-capital/unchained-bitcoin/">
-                    unchained-bitcoin
+                  <a href="https://github.com/caravan-bitcoin/caravan">
+                    caravan
                   </a>
                   , and <a href="https://www.gatsbyjs.org">Gatsby</a>
                   <br />© {new Date().getFullYear()}{" "}

@@ -3,7 +3,7 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 A small JavaScript library that derives bitcoin addresses from extended public keys. Built upon
-[unchained-bitcoin](https://github.com/unchained-capital/unchained-bitcoin)
+[caravan](https://github.com/caravan-bitcoin/caravan)
 and [bitcoinjs-lib](https://github.com/bitcoinjs/bitcoinjs-lib).
 
 The library supports derivation from `xpub`s, `zpub`s, and `ypub`s, as well as

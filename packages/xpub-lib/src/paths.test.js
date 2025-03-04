@@ -1,4 +1,4 @@
-import { NETWORKS } from "unchained-bitcoin"
+import { Network } from "@caravan/bitcoin"
 import {
   accountDerivationPath,
   fullDerivationPath,
@@ -69,28 +69,28 @@ describe("accountDerivationPath", () => {
       accountDerivationPath({
         purpose: Purpose.P2PKH,
         accountNumber: 0,
-        network: NETWORKS.MAINNET,
+        network: Network.MAINNET,
       })
     ).toBe("m/44'/0'/0'")
     expect(
       accountDerivationPath({
         purpose: Purpose.P2SH,
         accountNumber: 0,
-        network: NETWORKS.MAINNET,
+        network: Network.MAINNET,
       })
     ).toBe("m/49'/0'/0'")
     expect(
       accountDerivationPath({
         purpose: Purpose.P2WPKH,
         accountNumber: 0,
-        network: NETWORKS.MAINNET,
+        network: Network.MAINNET,
       })
     ).toBe("m/84'/0'/0'")
     expect(
       accountDerivationPath({
         purpose: Purpose.P2WPKH,
         accountNumber: 21,
-        network: NETWORKS.MAINNET,
+        network: Network.MAINNET,
       })
     ).toBe("m/84'/0'/21'")
   })
@@ -126,7 +126,7 @@ describe("fullDerivationPath", () => {
       fullDerivationPath({
         convertedExtPubKey: KEY.MAIN.XPUB,
         purpose: Purpose.P2PKH,
-        network: NETWORKS.MAINNET,
+        network: Network.MAINNET,
         keyIndex: 0,
       })
     ).toBe("m/44'/0'/0'/0/0")
@@ -134,7 +134,7 @@ describe("fullDerivationPath", () => {
       fullDerivationPath({
         convertedExtPubKey: ACCOUNT21.MAIN.XPUB,
         purpose: Purpose.P2PKH,
-        network: NETWORKS.MAINNET,
+        network: Network.MAINNET,
         keyIndex: 1337,
       })
     ).toBe("m/44'/0'/21'/0/1337")
@@ -142,7 +142,7 @@ describe("fullDerivationPath", () => {
       fullDerivationPath({
         convertedExtPubKey: KEY.MAIN.XPUB,
         purpose: Purpose.P2PKH,
-        network: NETWORKS.MAINNET,
+        network: Network.MAINNET,
         change: 1,
         keyIndex: 0,
       })

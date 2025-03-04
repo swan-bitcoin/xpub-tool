@@ -5,7 +5,7 @@
  */
 
 import * as bitcoin from "bitcoinjs-lib"
-import { deriveChildPublicKey, networkData, NETWORKS } from "unchained-bitcoin"
+import { deriveChildPublicKey, networkData, Network } from "@caravan/bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
 import {
   isValidExtPubKey,
@@ -21,9 +21,9 @@ import { Purpose } from "./purpose"
  *
  * @constant
  * @type {string}
- * @default NETWORKS.TESTNET
+ * @default Network.TESTNET
  * */
-const DEFAULT_NETWORK = NETWORKS.TESTNET
+const DEFAULT_NETWORK = Network.TESTNET
 /**
  * Default purpose to use for address derivation.
  *

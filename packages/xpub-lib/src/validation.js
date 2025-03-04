@@ -9,7 +9,7 @@ import {
   validateExtendedPublicKey,
   validateAddress,
   validateBIP32Index,
-} from "unchained-bitcoin"
+} from "@caravan/bitcoin"
 import { getNetworkFromExtPubKey } from "./metadata"
 import { convertToXPUB } from "./conversion"
 import { Purpose } from "./purpose"

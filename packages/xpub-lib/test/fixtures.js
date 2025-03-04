@@ -11,6 +11,7 @@ const KEY = {
     LEGACY: "1AdTLNfqiQtQ7yRNoZDEFTE9kSri2jrRVD",
     SEGWIT: "3JDVonJcuQ7yQQQJh1tFLV74uRZUP6LgvF",
     BECH32: "bc1qdx0pd4h65d7mekkhk7n6jwzfwgqath7s0e368g",
+    TAPROOT: "bc1pp7w6kxnj7lzgm29pmuhezwl0vjdlcrthqukll5gn9xuqfq5n673smy4m63",
     CHANGE: {
       LEGACY: "13AGMJSeF7HXzyKWtingr4ZSz14REnuRXh",
       SEGWIT: "3EdfREdHwcZ6AFmaL6mDkmvLw2qfb31ori",
@@ -27,6 +28,7 @@ const KEY = {
     LEGACY: "mq9QdRkpXSKeu5tzX8Bc5NSUcSTQxzpa8G",
     SEGWIT: "2N9mhsXEeWrdKcC2rN9W7xS6L7mme9kJrVe",
     BECH32: "tb1qdx0pd4h65d7mekkhk7n6jwzfwgqath7s9l2fum",
+    TAPROOT: "tb1pp7w6kxnj7lzgm29pmuhezwl0vjdlcrthqukll5gn9xuqfq5n673svvr5q7",
     CHANGE: {
       LEGACY: "mhgDeMXd48inn5o8cHm4fymmqzf88LnBbC",
       SEGWIT: "2N6BsUyZKZ54SN3Q81EP6Niuc9P3qPjbT9n",

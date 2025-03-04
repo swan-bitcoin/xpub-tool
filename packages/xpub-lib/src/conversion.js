@@ -4,7 +4,7 @@
  * @module conversion
  */
 
-import { NETWORKS, convertExtendedPublicKey } from "unchained-bitcoin"
+import { Network, convertExtendedPublicKey } from "@caravan/bitcoin"
 import { TYPE } from "./types"
 
 /**
@@ -19,7 +19,7 @@ import { TYPE } from "./types"
  * with the failed key and error message
  */
 function convertToXPUB(extPubKey, network) {
-  const targetPrefix = network === NETWORKS.MAINNET ? TYPE.XPUB : TYPE.TPUB
+  const targetPrefix = network === Network.MAINNET ? TYPE.XPUB : TYPE.TPUB
   return convertExtendedPublicKey(extPubKey, targetPrefix)
 }
 
