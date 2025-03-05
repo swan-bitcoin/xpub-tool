@@ -1,5 +1,5 @@
 // Same extended public key, different formats. Both testnet and mainnet.
-// Includes first valid address (legacy, segwit, bech32)
+// Includes first valid address (legacy, segwit, bech32, taproot)
 const KEY = {
   MAIN: {
     XPUB:

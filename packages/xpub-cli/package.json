@@ -26,6 +26,7 @@
     "type": "git",
     "url": "git+https://github.com/swan-bitcoin/xpub-tool.git"
   },
+  "type": "module",
   "homepage": "https://github.com/swan-bitcoin/xpub-tool",
   "bugs": {
     "url": "https://github.com/swan-bitcoin/xpub-tool/issues"
@@ -53,7 +54,7 @@
     "test": "echo \"Warning: no test specified\""
   },
   "dependencies": {
-    "@swan-bitcoin/xpub-lib": "^0.1.4",
+    "@swan-bitcoin/xpub-lib": "^0.2.0",
     "commander": "^6.1.0"
   },
   "devDependencies": {

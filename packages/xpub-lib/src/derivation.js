@@ -41,7 +41,7 @@ bitcoin.initEccLib(ecc);
  * Derive a single address from a public key.
  *
  * @param {module:purpose~Purpose} purpose - the purpose dictates the derived
- * address type (P2PKH = 1address, P2SH = 3address, P2WPKH = bc1address, P2TR = bc1paddress)
+ * address type (P2PKH = 1address, P2SH = 3address, P2WPKH = bc1qaddress, P2TR = bc1paddress)
  * @param  {Buffer} pubkey - the Buffer representation public key to derive from
  * @param  {NETWORK} network - the network to use (MAINNET or TESTNET)
  *
