@@ -75,6 +75,7 @@ function isValidPurpose(purpose) {
     case Purpose.P2PKH:
     case Purpose.P2SH:
     case Purpose.P2WPKH:
+    case Purpose.P2TR:
       return true
     default:
       return false
@@ -143,6 +144,7 @@ function isValidPathSegment(segment) {
     case Purpose.P2PKH:
     case Purpose.P2SH:
     case Purpose.P2WPKH:
+    case Purpose.P2TR:
       return true
     default:
       return isValidIndex(unhardened)

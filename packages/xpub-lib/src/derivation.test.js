@@ -219,6 +219,26 @@ describe("addressFromExtPubKey(MAINNET)", () => {
       }).address
     ).toBe(KEY.MAIN.CHANGE.BECH32)
   })
+  // BIP 86
+  test("P2TR address generation from xpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.MAIN.XPUB,
+        purpose: Purpose.P2TR,
+        network: Network.MAINNET,
+      }).address
+    ).toBe(KEY.MAIN.TAPROOT)
+  })
+  test("P2TR change address generation from xpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.MAIN.XPUB,
+        change: 1,
+        purpose: Purpose.P2TR,
+        network: Network.MAINNET,
+      }).address
+    ).toBe(KEY.MAIN.CHANGE.TAPROOT)
+  })
 })
 
 describe("addressFromExtPubKey(TESTNET)", () => {
@@ -398,6 +418,28 @@ describe("addressFromExtPubKey(TESTNET)", () => {
       }).address
     ).toBe(KEY.TEST.CHANGE.BECH32)
   })
+
+  // BIP 86
+  test("P2TR address generation from tpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.TEST.TPUB,
+        purpose: Purpose.P2TR,
+        network: Network.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.TAPROOT)
+  })
+  test("P2TR change address generation from tpub", () => {
+    expect(
+      addressFromExtPubKey({
+        extPubKey: KEY.TEST.TPUB,
+        change: 1,
+        purpose: Purpose.P2TR,
+        network: Network.TESTNET,
+      }).address
+    ).toBe(KEY.TEST.CHANGE.TAPROOT)
+  })
+  
 })
 
 describe("addressFromExtPubKey", () => {

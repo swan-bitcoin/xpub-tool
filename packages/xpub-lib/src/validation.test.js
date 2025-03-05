@@ -67,6 +67,7 @@ describe("isValidPathSegment", () => {
     expect(isValidPathSegment("44'")).toBeTruthy()
     expect(isValidPathSegment("49'")).toBeTruthy()
     expect(isValidPathSegment("84'")).toBeTruthy()
+    expect(isValidPathSegment("86'")).toBeTruthy()
 
     // not hardened
     expect(isValidPathSegment("m")).toBeTruthy()
@@ -75,6 +76,7 @@ describe("isValidPathSegment", () => {
     expect(isValidPathSegment("44")).toBeTruthy()
     expect(isValidPathSegment("49")).toBeTruthy()
     expect(isValidPathSegment("84")).toBeTruthy()
+    expect(isValidPathSegment("86")).toBeTruthy()
   })
 })
 
