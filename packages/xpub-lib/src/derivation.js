@@ -73,6 +73,7 @@ function deriveAddress({ purpose, pubkey, network }) {
       return bc1qAddress
     }
     case Purpose.P2TR: {
+      // Context: https://bitcoinops.org/en/topics/x-only-public-keys/
       const xOnlyPubkey = toXOnly(pubkey)
       const { address: bc1pAddress } = bitcoin.payments.p2tr({
         internalPubkey:  xOnlyPubkey,

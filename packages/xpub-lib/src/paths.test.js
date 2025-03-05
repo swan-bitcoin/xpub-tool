@@ -61,6 +61,9 @@ describe("accountDerivationPath", () => {
       accountDerivationPath({ purpose: Purpose.P2WPKH, accountNumber: 0 })
     ).toBe("m/84'/1'/0'")
     expect(
+      accountDerivationPath({ purpose: Purpose.P2TR, accountNumber: 0 })
+    ).toBe("m/86'/1'/0'")
+    expect(
       accountDerivationPath({ purpose: Purpose.P2PKH, accountNumber: 1337 })
     ).toBe("m/44'/1'/1337'")
   })
@@ -86,6 +89,13 @@ describe("accountDerivationPath", () => {
         network: Network.MAINNET,
       })
     ).toBe("m/84'/0'/0'")
+    expect(
+      accountDerivationPath({
+        purpose: Purpose.P2TR,
+        accountNumber: 0,
+        network: Network.MAINNET,
+      })
+    ).toBe("m/86'/0'/0'")
     expect(
       accountDerivationPath({
         purpose: Purpose.P2WPKH,
