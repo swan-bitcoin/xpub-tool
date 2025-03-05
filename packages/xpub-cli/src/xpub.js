@@ -1,18 +1,14 @@
 #!/usr/bin/env node
 
-import {
+const {
   Network,
   isValidAddress,
   isValidExtPubKey,
   addressFromExtPubKey,
   addressesFromExtPubKey,
   Purpose,
-} from "@swan-bitcoin/xpub-lib"
-
-import { readFileSync } from 'fs';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const { version } = JSON.parse(readFileSync(new URL('../package.json', import.meta.url)));
+} = require("@swan-bitcoin/xpub-lib")
+const { version } = require("../package.json")
 
 function parsePurpose(purpose) {
   switch (purpose.toLowerCase()) {
