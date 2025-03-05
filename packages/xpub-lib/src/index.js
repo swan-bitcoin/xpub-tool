@@ -1,4 +1,4 @@
-export { NETWORKS, networkLabel } from "unchained-bitcoin"
+export { Network, networkLabel } from "@caravan/bitcoin"
 
 export * from "./conversion"
 export * from "./derivation"

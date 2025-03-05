@@ -53,7 +53,7 @@
     "test": "echo \"Warning: no test specified\""
   },
   "dependencies": {
-    "@swan-bitcoin/xpub-lib": "^0.1.4",
+    "@swan-bitcoin/xpub-lib": "^0.2.0",
     "commander": "^6.1.0"
   },
   "devDependencies": {
