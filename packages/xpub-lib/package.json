@@ -43,6 +43,7 @@
     "compile:watch": "babel --watch -d lib/ src/",
     "pretest": "yarn run compile",
     "prepublish": "yarn run compile",
+    "release": "auto shipit",
     "test": "jest lib",
     "test:watch": "jest --watch src",
     "build:docs": "jsdoc *",
@@ -55,9 +56,18 @@
     "@babel/core": "^7.11.6",
     "@babel/plugin-transform-modules-commonjs": "^7.10.4",
     "@babel/preset-env": "^7.11.5",
+    "auto": "^11.3.0",
     "babel-jest": "^26.3.0",
     "jest": "^26.4.2",
     "livereload": "^0.9.1",
     "nodemon": "^2.0.4"
+  },
+  "auto": {
+    "plugins": [
+      "npm",
+      "all-contributors",
+      "conventional-commits",
+      "first-time-contributor"
+    ]
   }
 }

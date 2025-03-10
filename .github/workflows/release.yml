@@ -1,0 +1,64 @@
+name: Release
+
+on: [push]
+
+jobs:
+  test:
+    name: ⚡️ Vitest
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: 📦 Install dependencies
+        run: yarn install --frozen-lockfile
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: ⚡️ Run vitest
+        run: yarn workspaces run test
+
+  release:
+    name: 📤 Release
+    runs-on: ubuntu-latest
+    needs: [test]
+    permissions:
+      packages: write
+      contents: write
+      pull-requests: write
+      issues: write
+    if:
+      "!contains(github.event.head_commit.message, 'ci skip') &&
+      !contains(github.event.head_commit.message, 'skip ci')"
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@swan-bitcoin'
+        env:
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📦 Install dependencies
+        run: yarn install --frozen-lockfile
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📤 Release the kraken!
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROTECTED_BRANCH_REVIEWER_TOKEN:
+            ${{ secrets.PROTECTED_BRANCH_REVIEWER_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          yarn workspaces run compile
+          yarn workspaces run release
