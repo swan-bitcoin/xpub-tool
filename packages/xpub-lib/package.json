@@ -61,13 +61,5 @@
     "jest": "^26.4.2",
     "livereload": "^0.9.1",
     "nodemon": "^2.0.4"
-  },
-  "auto": {
-    "plugins": [
-      "npm",
-      "all-contributors",
-      "conventional-commits",
-      "first-time-contributor"
-    ]
   }
 }

@@ -1,0 +1,12 @@
+{
+  "author": {
+    "name": "swan-app-bot",
+    "email": "github.swan-app-bot@swanbitcoin.com"
+  },
+  "plugins": [
+    "npm",
+    "all-contributors",
+    "conventional-commits",
+    "first-time-contributor"
+  ]
+}
