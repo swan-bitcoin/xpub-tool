@@ -1,5 +1,5 @@
 // Same extended public key, different formats. Both testnet and mainnet.
-// Includes first valid address (legacy, segwit, bech32)
+// Includes first valid address (legacy, segwit, bech32, taproot)
 const KEY = {
   MAIN: {
     XPUB:
@@ -11,10 +11,12 @@ const KEY = {
     LEGACY: "1AdTLNfqiQtQ7yRNoZDEFTE9kSri2jrRVD",
     SEGWIT: "3JDVonJcuQ7yQQQJh1tFLV74uRZUP6LgvF",
     BECH32: "bc1qdx0pd4h65d7mekkhk7n6jwzfwgqath7s0e368g",
+    TAPROOT: "bc1ptpvckxtuurh4t26yls5s6t5j9hyy2fh945zfpad44ngxdxqm0s2qhk3ljc",
     CHANGE: {
       LEGACY: "13AGMJSeF7HXzyKWtingr4ZSz14REnuRXh",
       SEGWIT: "3EdfREdHwcZ6AFmaL6mDkmvLw2qfb31ori",
       BECH32: "bc1qz7cv7zmexlsn0k6ny6sc0m9v8zwcrnlv5ndyqr",
+      TAPROOT: "bc1pej4d3srkrhwm4k0n5twxf3lvmk3c4ff728n6kt5dcqy8tvtk6axsv4780t",
     },
   },
   TEST: {
@@ -27,10 +29,12 @@ const KEY = {
     LEGACY: "mq9QdRkpXSKeu5tzX8Bc5NSUcSTQxzpa8G",
     SEGWIT: "2N9mhsXEeWrdKcC2rN9W7xS6L7mme9kJrVe",
     BECH32: "tb1qdx0pd4h65d7mekkhk7n6jwzfwgqath7s9l2fum",
+    TAPROOT: "tb1ptpvckxtuurh4t26yls5s6t5j9hyy2fh945zfpad44ngxdxqm0s2qq78sgh",
     CHANGE: {
       LEGACY: "mhgDeMXd48inn5o8cHm4fymmqzf88LnBbC",
       SEGWIT: "2N6BsUyZKZ54SN3Q81EP6Niuc9P3qPjbT9n",
       BECH32: "tb1qz7cv7zmexlsn0k6ny6sc0m9v8zwcrnlv74khms",
+      TAPROOT: "tb1pej4d3srkrhwm4k0n5twxf3lvmk3c4ff728n6kt5dcqy8tvtk6axsmagg4y",
     },
   },
 }

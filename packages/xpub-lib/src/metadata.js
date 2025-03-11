@@ -4,7 +4,7 @@
  * @module metadata
  */
 
-import { NETWORKS, ExtendedPublicKey } from "unchained-bitcoin"
+import { Network, ExtendedPublicKey } from "@caravan/bitcoin"
 import { Purpose } from "./purpose"
 import { TYPE } from "./types"
 
@@ -15,7 +15,7 @@ import { TYPE } from "./types"
  *
  * @param  {string} extPubKey - an extended public key
  *
- * @returns {NETWORK} the associated network. See unchained-bitcoin/networks
+ * @returns {NETWORK} the associated network.
  */
 function getNetworkFromExtPubKey(extPubKey) {
   const prefix = extPubKey.slice(0, 4)
@@ -23,11 +23,11 @@ function getNetworkFromExtPubKey(extPubKey) {
     case TYPE.XPUB:
     case TYPE.YPUB:
     case TYPE.ZPUB:
-      return NETWORKS.MAINNET
+      return Network.MAINNET
     case TYPE.TPUB:
     case TYPE.UPUB:
     case TYPE.VPUB:
-      return NETWORKS.TESTNET
+      return Network.TESTNET
     default:
       return undefined
   }

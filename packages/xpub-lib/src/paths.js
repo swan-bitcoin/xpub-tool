@@ -4,7 +4,7 @@
  * @module paths
  */
 
-import { NETWORKS } from "unchained-bitcoin"
+import { Network } from "@caravan/bitcoin"
 import { harden } from "./utils"
 import { isValidIndex, isValidChainIndex } from "./validation"
 import { AccountTypeName } from "./purpose"
@@ -31,7 +31,7 @@ function partialKeyDerivationPath({ change = 0, keyIndex = 0 }) {
  *
  * @param  {string} [coinPrefix=COIN_PREFIX] - the coin prefix, defaulting to "m" for bitcoin
  * @param  {module:purpose~Purpose} purpose - the derivation purpose
- * @param  {NETWORK} [network=NETWORKS.TESTNET] - the target network (TESTNET or MAINNET)
+ * @param  {NETWORK} [network=Network.TESTNET] - the target network (TESTNET or MAINNET)
  * @param  {number} accountNumber - the account number, starting with 0
  *
  * @returns {string} the account derivation path, e.g. "m/44'/0'/3'"
@@ -39,13 +39,13 @@ function partialKeyDerivationPath({ change = 0, keyIndex = 0 }) {
 function accountDerivationPath({
   coinPrefix = COIN_PREFIX,
   purpose,
-  network = NETWORKS.TESTNET,
+  network = Network.TESTNET,
   accountNumber,
 }) {
   return [
     coinPrefix,
     harden(purpose),
-    harden(network === NETWORKS.MAINNET ? 0 : 1),
+    harden(network === Network.MAINNET ? 0 : 1),
     harden(accountNumber),
   ].join(SEPARATOR)
 }
@@ -57,7 +57,7 @@ function accountDerivationPath({
  * @param  {string} convertedExtPubKey - a BIP44 extended public key
  * @param  {string} [coinPrefix=COIN_PREFIX] - the coin prefix, defaulting to "m" for bitcoin
  * @param  {module:purpose~Purpose} purpose - derivation purpose
- * @param  {NETWORK} [network=NETWORKS.TESTNET] - target network (TESTNET or MAINNET)
+ * @param  {NETWORK} [network=Network.TESTNET] - target network (TESTNET or MAINNET)
  * @param  {number} [change=0] - change (0 = external chain, 1 = internal chain / change)
  * @param {number} keyIndex - the key index, i.e. the number of the key that
  * should be derived from the extended public key
@@ -68,7 +68,7 @@ function fullDerivationPath({
   convertedExtPubKey,
   coinPrefix = COIN_PREFIX,
   purpose,
-  network = NETWORKS.TESTNET,
+  network = Network.TESTNET,
   change = 0,
   keyIndex,
 }) {

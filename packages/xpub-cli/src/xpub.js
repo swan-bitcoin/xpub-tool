@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 
-import {
-  NETWORKS,
+const {
+  Network,
   isValidAddress,
   isValidExtPubKey,
   addressFromExtPubKey,
   addressesFromExtPubKey,
   Purpose,
-} from "@swan-bitcoin/xpub-lib"
-
-import { version } from "../package.json"
+} = require("@swan-bitcoin/xpub-lib")
+const { version } = require("../package.json")
 
 function parsePurpose(purpose) {
   switch (purpose.toLowerCase()) {
@@ -21,6 +20,9 @@ function parsePurpose(purpose) {
     }
     case "p2wpkh": {
       return Purpose.P2WPKH
+    }
+    case "p2tr": {
+      return Purpose.P2TR
     }
     default: {
       return undefined
@@ -45,7 +47,7 @@ program
   .description("derive address(es) from an extended public key")
   .option(
     "-p, --purpose <purpose>",
-    "derivation purpose which dictates the address type ['p2pkh', 'p2sh', 'p2wpkh']",
+    "derivation purpose which dictates the address type ['p2pkh', 'p2sh', 'p2wpkh', 'p2tr']",
     "p2wpkh"
   ) // use `choices` once this feature is released: https://github.com/tj/commander.js/issues/518
   .option(
@@ -54,8 +56,8 @@ program
     1
   )
   .option(
-    "-c, --accountNumber <accountNumber>",
-    "the account number as defined in BIP 44",
+    "-c, --change <change>",
+    "the change index to use (0 = external aka receive, 1 = internal aka change / other)",
     0
   )
   .option(
@@ -70,7 +72,7 @@ program
       cmdObj.help()
     }
 
-    const network = cmdObj.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
+    const network = cmdObj.testnet ? Network.TESTNET : Network.MAINNET
     if (!isValidExtPubKey(extPubKey, network)) {
       console.error(`error: invalid extended public key '${extPubKey}'`)
       process.exitCode = 1
@@ -80,8 +82,8 @@ program
     const purpose = cmdObj.purpose
       ? parsePurpose(cmdObj.purpose)
       : Purpose.P2WPKH // default to P2WPKH
-    const keyIndex = cmdObj.keyIndex ? cmdObj.keyIndex : 0 // default to P2WPKH
-    const accountNumber = cmdObj.accountNumber ? cmdObj.accountNumber : 0 // default to P2WPKH
+    const change = cmdObj.change ? cmdObj.change : 0 // default to external chain
+    const keyIndex = cmdObj.keyIndex ? cmdObj.keyIndex : 0 // default to first index
 
     if (cmdObj.addressCount > 1) {
       // Multiple addresses
@@ -89,7 +91,7 @@ program
       const addresses = addressesFromExtPubKey({
         extPubKey,
         addressCount,
-        accountNumber,
+        change,
         purpose,
         network,
       })
@@ -100,7 +102,7 @@ program
       // Single address
       const address = addressFromExtPubKey({
         extPubKey,
-        accountNumber,
+        change,
         keyIndex,
         purpose,
         network,
@@ -123,7 +125,7 @@ program
       cmdObj.help()
     }
 
-    const network = cmdObj.testnet ? NETWORKS.TESTNET : NETWORKS.MAINNET
+    const network = cmdObj.testnet ? Network.TESTNET : Network.MAINNET
     let isValid = false
     let type = ""
     if (cmdObj.checkAddress) {

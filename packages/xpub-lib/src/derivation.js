@@ -5,7 +5,9 @@
  */
 
 import * as bitcoin from "bitcoinjs-lib"
-import { deriveChildPublicKey, networkData, NETWORKS } from "unchained-bitcoin"
+import * as ecc from 'tiny-secp256k1';
+import { toXOnly } from 'bitcoinjs-lib/src/psbt/bip371';
+import { deriveChildPublicKey, networkData, Network } from "@caravan/bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
 import {
   isValidExtPubKey,
@@ -21,9 +23,9 @@ import { Purpose } from "./purpose"
  *
  * @constant
  * @type {string}
- * @default NETWORKS.TESTNET
+ * @default Network.TESTNET
  * */
-const DEFAULT_NETWORK = NETWORKS.TESTNET
+const DEFAULT_NETWORK = Network.TESTNET
 /**
  * Default purpose to use for address derivation.
  *
@@ -33,12 +35,14 @@ const DEFAULT_NETWORK = NETWORKS.TESTNET
  * */
 const DEFAULT_PURPOSE = Purpose.P2WPKH
 
+bitcoin.initEccLib(ecc);
+
 /**
  * Derive a single address from a public key.
  *
  * @param {module:purpose~Purpose} purpose - the purpose dictates the derived
- * address type (P2PKH = 1address, P2SH = 3address, P2WPKH = bc1address)
- * @param  {object} pubkey - the ECPair.publicKey public key to derive from
+ * address type (P2PKH = 1address, P2SH = 3address, P2WPKH = bc1qaddress, P2TR = bc1paddress)
+ * @param  {Buffer} pubkey - the Buffer representation public key to derive from
  * @param  {NETWORK} network - the network to use (MAINNET or TESTNET)
  *
  * @returns {object|undefined} derived address
@@ -62,11 +66,20 @@ function deriveAddress({ purpose, pubkey, network }) {
       return threeAddress
     }
     case Purpose.P2WPKH: {
-      const { address: bc1Address } = bitcoin.payments.p2wpkh({
+      const { address: bc1qAddress } = bitcoin.payments.p2wpkh({
         pubkey,
         network: networkData(network),
       })
-      return bc1Address
+      return bc1qAddress
+    }
+    case Purpose.P2TR: {
+      // Context: https://bitcoinops.org/en/topics/x-only-public-keys/
+      const xOnlyPubkey = toXOnly(pubkey)
+      const { address: bc1pAddress } = bitcoin.payments.p2tr({
+        internalPubkey:  xOnlyPubkey,
+        network: networkData(network),
+      })
+      return bc1pAddress
     }
     default:
       return undefined
@@ -113,8 +126,8 @@ function addressFromExtPubKey({
     partialPath,
     network
   )
-  const keyPair = bitcoin.ECPair.fromPublicKey(Buffer.from(childPubKey, "hex"))
-  const pubkey = keyPair.publicKey
+  const pubkey = Buffer.from(childPubKey, "hex")
+
   return {
     path: fullPath,
     address: deriveAddress({ purpose, pubkey, network }),
