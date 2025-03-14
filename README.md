@@ -17,4 +17,13 @@ For more details refer to the individual packages:
 
 For a detailed explanation on derivation paths refer to [learn me a bitcoin](https://learnmeabitcoin.com/technical/derivation-paths).
 
+## Publishing
+
+The `xpub-lib` and `xpub-cli` can be published to GitHub Packages by:
+1. Incrementing the version field within the package.json file within each package you want to publish.
+2. Creating a new tag with SemVer sytax (i.e. v0.0.1). Needs to match `v*`.
+3. Creating a new GitHub release using this tag. This will start the publish workflow.
+
+The workflow will need to be approved by another user with write access before its executed. If published successfully, the packages will be published [here](https://github.com/orgs/swan-bitcoin/packages).
+
 ## License: [MIT](./LICENSE.md)
