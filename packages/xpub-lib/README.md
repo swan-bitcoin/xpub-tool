@@ -1,33 +1,30 @@
 # Swan's Address Derivation Library
 
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+A small JavaScript library that derives bitcoin addresses from extended public keys. Built upon [caravan](https://github.com/caravan-bitcoin/caravan) and [bitcoinjs-lib](https://github.com/bitcoinjs/bitcoinjs-lib).
 
-A small JavaScript library that derives bitcoin addresses from extended public keys. Built upon
-[caravan](https://github.com/caravan-bitcoin/caravan)
-and [bitcoinjs-lib](https://github.com/bitcoinjs/bitcoinjs-lib).
+The library supports derivation from `xpub`s, `zpub`s, and `ypub`s, as well as legacy, SegWit, native SegWit (bech32) and Taproot (P2TR) address formats. Both Bitcoin mainnet and testnet are supported. If no network is specified the library defaults to testnet.
 
-The library supports derivation from `xpub`s, `zpub`s, and `ypub`s, as well as
-legacy, SegWit, and native SegWit (bech32) address formats. Both Bitcoin
-mainnet and testnet are supported. If no network is specified the library
-defaults to testnet.
-
-| BIP | Extended Public Key | Address Type | Address Format | Address Name           |
+| BIP | Derivation Path     | Address Type | Address Format | Address Name           |
 | --- | ------------------- | ------------ | -------------- | ---------------------- |
-| 44  | `xpub...`           | P2PKH        | `1...`         | Legacy                 |
-| 49  | `ypub...`           | P2WPKH-P2SH  | `3...`         | SegWit                 |
-| 84  | `zpub...`           | P2WPKH       | `bc1...`       | Bech32 (Native SegWit) |
+| 44  | `m/44'/0'/0'`       | P2PKH        | `1...`         | Legacy                 |
+| 49  | `m/49'/0'/0'`       | P2WPKH-P2SH  | `3...`         | SegWit (Nested SegWit) |
+| 84  | `m/84'/0'/0'`       | P2WPKH       | `bc1q...`      | Bech32 (Native SegWit) |
+| 86  | `m/86'/0'/0'`       | P2TR         | `bc1p...`      | Taproot                |
 
-Note that the different extended public key formats are interchangeable and
+Note that the different extended public key formats (i.e. xpub, ypub, zpub) are interchangeable and
 not bound to address formats. Every address type can be generated from every
-extended public key. The use of [output descriptors](https://bitcoin.stackexchange.com/questions/89261/why-does-importmulti-not-support-zpub-and-ypub/89281#89281)
-should make this less confusing in the future.
+extended public key.
 
 The testnet equivalents are extended public keys starting with `tpub`, `upub`, and `vpub`.
 
 ## Example Usage
 
-Use `addressFromExtPubKey` to derive single addresses. The following example
-derives the first address of the first account from an `xpub` on mainnet.
+```
+yarn add @swan-bitcoin/xpub-lib
+```
+
+Use `addressFromExtPubKey` to derive a single addresses. The following example
+derives the first address of the first account from an `xpub` on mainnet. If no purpose is given, it will default to P2WPKH (Native SegWit).
 
 ```
 const key = "xpub6EuV33a2DXxAhoJTRTnr8qnysu81AA4YHpLY6o8NiGkEJ8KADJ35T64eJsStWsmRf1xXkEANVjXFXnaUKbRtFwuSPCLfDdZwYNZToh4LBCd"
@@ -68,8 +65,7 @@ addressesFromExtPubKey({
 // ]
 ```
 
-Address derivation will default to bech32 (native SegWit) unless a different
-`purpose` is specified. For example: to derive wrapped SegWit addresses
+To derive wrapped SegWit addresses
 (starting with `3...`) specify the appropriate purpose with `purpose: Purpose.P2SH`.
 
 For more examples refer to the tests of this library.
@@ -80,7 +76,8 @@ For more examples refer to the tests of this library.
 - [BIP 44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) - Multi-Account Hierarchy for Deterministic Wallets
 - [BIP 49](https://github.com/bitcoin/bips/blob/master/bip-0049.mediawiki) - Derivation scheme for P2WPKH-nested-in-P2SH based accounts
 - [BIP 84](https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki) - Derivation scheme for P2WPKH based accounts
+- [BIP 86](https://github.com/bitcoin/bips/blob/master/bip-0086.mediawiki) - Key Derivation for Single Key P2TR Outputs
 
-Samourai Wallet wrote a short summary on the differences between [BIP 44, BIP 49, BIP 84](https://support.samourai.io/article/65-bip-44-bip-49-and-bip84) and [XPUB's, YPUB's, ZPUB's](https://support.samourai.io/article/49-xpub-s-ypub-s-zpub-s). For a detailed explanation on derivation paths refer to [learn me a bitcoin](https://learnmeabitcoin.com/technical/derivation-paths).
+For a detailed explanation on derivation paths refer to [learn me a bitcoin](https://learnmeabitcoin.com/technical/derivation-paths).
 
 ## License: [MIT](./LICENSE.md)

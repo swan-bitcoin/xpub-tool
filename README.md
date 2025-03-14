@@ -1,10 +1,6 @@
 # Swan's Address Derivation Tool
 
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
-A small JavaScript library and accompanying tool that derives bitcoin addresses from extended public keys. Built upon
-[caravan](https://github.com/caravan-bitcoin/caravan)
-and [bitcoinjs-lib](https://github.com/bitcoinjs/bitcoinjs-lib).
+A small JavaScript library and accompanying cli tool that derives bitcoin addresses from extended public keys. Built upon [caravan](https://github.com/caravan-bitcoin/caravan) and [bitcoinjs-lib](https://github.com/bitcoinjs/bitcoinjs-lib).
 
 For more details refer to the individual packages:
 
@@ -19,6 +15,15 @@ For more details refer to the individual packages:
 - [BIP 84](https://github.com/bitcoin/bips/blob/master/bip-0084.mediawiki) - Derivation scheme for P2WPKH based accounts
 - [BIP 86](https://github.com/bitcoin/bips/blob/master/bip-0086.mediawiki) - Key Derivation for Single Key P2TR Outputs
 
-Samourai Wallet wrote a short summary on the differences between [BIP 44, BIP 49, BIP 84](https://samourai.kayako.com/article/65-bip-44-bip-49-and-bip84) and [XPUB's, YPUB's, ZPUB's](https://samourai.kayako.com/article/49-xpub-s-ypub-s-zpub-s). For a detailed explanation on derivation paths refer to [learn me a bitcoin](https://learnmeabitcoin.com/technical/derivation-paths).
+For a detailed explanation on derivation paths refer to [learn me a bitcoin](https://learnmeabitcoin.com/technical/derivation-paths).
+
+## Publishing
+
+The `xpub-lib` and `xpub-cli` can be published to GitHub Packages by:
+1. Incrementing the version field within the package.json file within each package you want to publish.
+2. Creating a new tag with SemVer sytax (i.e. v0.0.1). Needs to match `v*`.
+3. Creating a new GitHub release using this tag. This will start the publish workflow.
+
+The workflow will need to be approved by another user with write access before its executed. If published successfully, the packages will be published [here](https://github.com/orgs/swan-bitcoin/packages).
 
 ## License: [MIT](./LICENSE.md)
