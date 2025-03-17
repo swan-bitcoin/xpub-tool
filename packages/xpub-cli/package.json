@@ -1,6 +1,6 @@
 {
   "name": "@swan-bitcoin/xpub-cli",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Command-line wrapper around @swan-bitcoin/xpub-lib",
   "keywords": [
     "bitcoin",
