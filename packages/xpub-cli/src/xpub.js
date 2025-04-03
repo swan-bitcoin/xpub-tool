@@ -2,12 +2,14 @@
 
 const {
   Network,
+  initEccLib,
   isValidAddress,
   isValidExtPubKey,
   addressFromExtPubKey,
   addressesFromExtPubKey,
   Purpose,
 } = require("@swan-bitcoin/xpub-lib")
+const ecc = require('tiny-secp256k1')
 const { version } = require("../package.json")
 
 function parsePurpose(purpose) {
@@ -71,6 +73,8 @@ program
     if (!extPubKey) {
       cmdObj.help()
     }
+
+    initEccLib(ecc)
 
     const network = cmdObj.testnet ? Network.TESTNET : Network.MAINNET
     if (!isValidExtPubKey(extPubKey, network)) {

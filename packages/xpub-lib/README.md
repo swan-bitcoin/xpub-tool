@@ -37,6 +37,22 @@ addressFromExtPubKey({ extPubKey: key, network: "mainnet" })
 // }
 ```
 
+For taproot addresses, you must first initialize an instance of an ECC library implementing the secp256k1 elliptic curve interface, such as [tiny-secp256k1](https://www.npmjs.com/package/tiny-secp256k1).
+
+```
+const ecc = require('tiny-secp256k1')
+initEccLib(ecc)
+
+const key = "xpub6EuV33a2DXxAhoJTRTnr8qnysu81AA4YHpLY6o8NiGkEJ8KADJ35T64eJsStWsmRf1xXkEANVjXFXnaUKbRtFwuSPCLfDdZwYNZToh4LBCd"
+
+addressFromExtPubKey({ extPubKey: key, network: "mainnet", purpose: Purpose.P2TR })
+
+// {
+//     path: "m/86'/0'/0'/0/0",
+//     address: 'bc1ptpvckxtuurh4t26yls5s6t5j9hyy2fh945zfpad44ngxdxqm0s2qhk3ljc'
+// }
+```
+
 Use `addressesFromExtPubKey` to derive multiple addresses. The following
 example derives the first three addresses of the first account from a `vpub`
 extended public key on testnet.
@@ -68,7 +84,7 @@ addressesFromExtPubKey({
 To derive wrapped SegWit addresses
 (starting with `3...`) specify the appropriate purpose with `purpose: Purpose.P2SH`.
 
-For more examples refer to the tests of this library.
+For more examples refer to the tests of this library or the implementation of the CLI tool.
 
 ## Relevant BIPs and Educational Resources
 

@@ -1,6 +1,6 @@
 {
   "name": "@swan-bitcoin/xpub-lib",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A JavaScript library for bitcoin address derivation from extended public keys, built upon bitcoinjs-lib and Unchained's bitcoin utilities. Supports P2PKH, P2SH, and P2WPKH (bech32) addresses as defined in BIP44, BIP49, and BIP84.",
   "author": "Pablof7z <pablo@swan.com>",
   "license": "MIT",
@@ -34,8 +34,7 @@
   ],
   "dependencies": {
     "@caravan/bitcoin": "^0.3.1",
-    "bitcoinjs-lib": "^6.1.7",
-    "tiny-secp256k1": "^2.2.3"
+    "bitcoinjs-lib": "^6.1.7"
   },
   "scripts": {
     "babel-version": "babel --version",
@@ -58,6 +57,7 @@
     "babel-jest": "^26.3.0",
     "jest": "^26.4.2",
     "livereload": "^0.9.1",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "tiny-secp256k1": "^2.2.3"
   }
 }

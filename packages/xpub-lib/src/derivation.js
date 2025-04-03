@@ -5,7 +5,6 @@
  */
 
 import * as bitcoin from "bitcoinjs-lib"
-import * as ecc from 'tiny-secp256k1';
 import { toXOnly } from 'bitcoinjs-lib/src/psbt/bip371';
 import { deriveChildPublicKey, networkData, Network } from "@caravan/bitcoin"
 import { fullDerivationPath, partialKeyDerivationPath } from "./paths"
@@ -35,7 +34,20 @@ const DEFAULT_NETWORK = Network.TESTNET
  * */
 const DEFAULT_PURPOSE = Purpose.P2WPKH
 
-bitcoin.initEccLib(ecc);
+/**
+ * The secp256k1 interface to use for Taproot address derivation.
+ */
+let eccInstance = null;
+
+/**
+ * Initialize the ECC library for Taproot address derivation.
+ *
+ * @param {object} eccLib - The secp256k1 interface to use.
+ */
+function initEccLib(eccLib) {
+  eccInstance = eccLib;
+  bitcoin.initEccLib(eccInstance);
+}
 
 /**
  * Derive a single address from a public key.
@@ -73,7 +85,9 @@ function deriveAddress({ purpose, pubkey, network }) {
       return bc1qAddress
     }
     case Purpose.P2TR: {
-      // Context: https://bitcoinops.org/en/topics/x-only-public-keys/
+      if (!eccInstance) {
+        throw new Error("An instance of an ECC library implementing the secp256k1 curve must be initialized to generate taproot addresses. You must first call initEccLib().");
+      }
       const xOnlyPubkey = toXOnly(pubkey)
       const { address: bc1pAddress } = bitcoin.payments.p2tr({
         internalPubkey:  xOnlyPubkey,
@@ -176,4 +190,4 @@ function addressesFromExtPubKey({
   return addresses
 }
 
-export { addressFromExtPubKey, addressesFromExtPubKey }
+export { addressFromExtPubKey, addressesFromExtPubKey, initEccLib }
