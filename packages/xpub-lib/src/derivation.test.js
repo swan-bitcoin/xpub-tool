@@ -1,7 +1,12 @@
 import { Network } from "@caravan/bitcoin"
 import { KEY, KEYS, WASABI, SAMOURAI } from "../test/fixtures"
 import { Purpose } from "./purpose"
-import { addressFromExtPubKey, addressesFromExtPubKey } from "./derivation"
+import { addressFromExtPubKey, addressesFromExtPubKey, initEccLib } from "./derivation"
+import * as ecc from "tiny-secp256k1"
+
+beforeAll(() => {
+  initEccLib(ecc)
+})
 
 describe("addressFromExtPubKey() with invalid xpubs", () => {
   test("address generation from invalid xpub fails", () => {
