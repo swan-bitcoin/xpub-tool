@@ -6,6 +6,8 @@ jobs:
   build:
     name: Build & Test
     runs-on: ubuntu-latest
+    env:
+      SWAN_PACKAGE_REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - name: Enable Corepack

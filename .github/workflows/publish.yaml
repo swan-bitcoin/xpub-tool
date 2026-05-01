@@ -9,6 +9,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    env:
+      SWAN_PACKAGE_REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - name: Enable Corepack
