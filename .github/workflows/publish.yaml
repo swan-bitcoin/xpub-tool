@@ -16,7 +16,18 @@ jobs:
           node-version-file: '.nvmrc'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@swan-bitcoin'
+      - name: Egress lock
+        if: vars.EGRESS_LOCK_ENABLED == 'true'
+        uses: swan-bitcoin/actions/swan/egress-lock@master
+        with:
+          report-only: ${{ vars.EGRESS_LOCK_REPORT_ONLY }}
       - run: yarn install --frozen-lockfile
+      - name: Egress unlock
+        if: always() && vars.EGRESS_LOCK_ENABLED == 'true'
+        uses: swan-bitcoin/actions/swan/egress-unlock@master
+      - name: Egress report
+        if: always() && vars.EGRESS_LOCK_ENABLED == 'true'
+        uses: swan-bitcoin/actions/swan/egress-report@master
       - run: yarn workspaces run compile
       # publish xpub-lib
       - run: yarn publish packages/xpub-lib --access public
