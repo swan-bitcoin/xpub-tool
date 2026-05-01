@@ -1,4 +1,4 @@
-name: Publish Package to Github Packages 
+name: Publish Package to Github Packages
 on:
   release:
     types: [published]
@@ -11,18 +11,20 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
+      - name: Enable Corepack
+        run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@swan-bitcoin'
-      - run: yarn install --frozen-lockfile
-      - run: yarn workspaces run compile
+      - run: yarn install --immutable
+      - run: yarn workspaces foreach -A run compile
       # publish xpub-lib
-      - run: yarn publish packages/xpub-lib --access public
+      - run: yarn workspace @swan-bitcoin/xpub-lib npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          YARN_NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # publish xpub-cli
-      - run: yarn publish packages/xpub-cli --access public
+      - run: yarn workspace @swan-bitcoin/xpub-cli npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          YARN_NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
