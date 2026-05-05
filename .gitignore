@@ -74,3 +74,12 @@ packages/xpub-cli/lib
 
 # jsdoc output
 out
+
+# Yarn 4 (Berry) — Corepack-managed; we don't commit the release/cache
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*

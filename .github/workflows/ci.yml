@@ -6,17 +6,21 @@ jobs:
   build:
     name: Build & Test
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Node 
+      - name: Enable Corepack
+        run: corepack enable
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@swan-bitcoin'
-      - name: Install dependencies 
-        run: yarn install --frozen-lockfile
+      - name: Install dependencies
+        run: yarn install --immutable
       - name: Build
-        run: yarn workspaces run compile
-      - name: Run tests 
-        run: yarn workspaces run test
+        run: yarn workspaces foreach -A run compile
+      - name: Run tests
+        run: yarn workspaces foreach -A run test
