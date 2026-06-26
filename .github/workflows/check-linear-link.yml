@@ -1,0 +1,35 @@
+name: Linear
+
+# Public repo: the private swan-bitcoin/actions mirror can't be resolved at
+# workflow-prep time, so the Linear check runs from a local copy of the swan action
+# vendored at .github/actions/check-linear-link (its only external action,
+# actions/github-script, is SHA-pinned there). External actions are SHA-pinned.
+
+on:
+  pull_request:
+    branches: [ "master" ]
+    types: [opened, synchronize, reopened, edited]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  pull-requests: read
+  contents: read
+
+jobs:
+  # Job name must be `check-linear-link` — the `require-linear-status-check` ruleset
+  # requires that exact status-check context on `master`.
+  check-linear-link:
+    runs-on: ubuntu-latest
+    # Skip on draft, revert branches (for rollback speed), or dependabot PRs (no Linear ticket required)
+    if: |
+      github.event.pull_request.draft == false &&
+      !startsWith(github.head_ref, 'revert-') &&
+      github.event.pull_request.user.login != 'dependabot[bot]'
+    steps:
+      - name: Checkout (for the local action)
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - name: Check Linear Link
+        uses: ./.github/actions/check-linear-link

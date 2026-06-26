@@ -1,0 +1,93 @@
+# Local copy of swan-bitcoin/actions/swan/check-linear-link.
+#
+# This is a PUBLIC repo, so it cannot resolve the private swan-bitcoin/actions
+# mirror at workflow-prep time (no token before the first authenticated checkout;
+# a PAT for an explicit mirror checkout does not propagate to transitive action
+# resolution — see PSEC-4907). Vendoring the composite locally avoids the mirror
+# entirely. The only external action it calls (actions/github-script) is pinned to
+# a full commit SHA. Keep in sync with the upstream swan action.
+name: 'Check Linear Ticket Link'
+description: 'Checks if PR description contains a valid Linear ticket URL'
+author: 'Swan Bitcoin'
+branding:
+  icon: 'check-circle'
+  color: 'green'
+
+inputs:
+  skip-prefixes:
+    description: 'Comma-separated list of PR title prefixes to skip (conventional commit types). Set to empty string to disable.'
+    required: false
+    default: 'build:,chore:,ci:,docs:,perf:,refactor:,style:,test:'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Check for Linear ticket link
+      uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
+      with:
+        script: |
+          // Only run validation in pull_request context
+          if (!context.payload.pull_request) {
+            console.log('✅ Not a pull_request context, skipping Linear check');
+            return;
+          }
+
+          const prNumber = context.payload.pull_request.number;
+
+          // Fetch current PR state from API to get latest title/body
+          // (event payload may be stale if workflow is manually re-run)
+          const { data: pr } = await github.rest.pulls.get({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: prNumber,
+          });
+
+          const prTitle = pr.title || '';
+          const prBody = pr.body || '';
+          const skipPrefixes = '${{ inputs.skip-prefixes }}'.split(',').map(p => p.trim()).filter(Boolean);
+
+          // Check if PR title starts with a skip prefix (conventional commits)
+          // Supports optional scope: "type:" or "type(scope):"
+          // See: https://www.conventionalcommits.org/en/v1.0.0/
+          for (const prefix of skipPrefixes) {
+            // Extract the type (everything before the colon)
+            const type = prefix.replace(/:$/, '');
+            // Match "type:" or "type(scope):" at the start
+            const pattern = new RegExp(`^${type}(\\([^)]+\\))?:`);
+            if (pattern.test(prTitle)) {
+              const match = prTitle.match(pattern)[0];
+              console.log(`✅ Skipping Linear check: PR title starts with "${match}"`);
+              return;
+            }
+          }
+
+          const linearPattern = /https:\/\/linear\.app\/[^\/]+\/issue\/[A-Z]+-\d+/g;
+
+          // Check for Linear bot comment
+          const comments = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: prNumber,
+          });
+
+          const linearBotComment = comments.data.find(comment =>
+            comment.user.login === 'linear[bot]' || comment.user.login === 'linear-code[bot]'
+          );
+
+          if (linearBotComment) {
+            const matches = linearBotComment.body.match(linearPattern);
+            if (matches && matches.length > 0) {
+              console.log(`✅ Found Linear ticket URL(s) in Linear bot comment: ${matches.join(', ')}`);
+              return;
+            }
+          }
+
+          // Fallback: Check PR body for Linear ticket link
+          const prBodyMatches = prBody.match(linearPattern);
+
+          if (prBodyMatches && prBodyMatches.length > 0) {
+            console.log(`✅ Found Linear ticket URL(s) in PR description: ${prBodyMatches.join(', ')}`);
+            return;
+          }
+
+          core.setFailed('No Linear ticket link found in Linear bot comment or PR description. Please link this PR to a Linear ticket.');
