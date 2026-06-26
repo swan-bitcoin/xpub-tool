@@ -1,10 +1,5 @@
 name: Linear
 
-# Public repo: the private swan-bitcoin/actions mirror can't be resolved at
-# workflow-prep time, so the Linear check runs from a local copy of the swan action
-# vendored at .github/actions/check-linear-link (its only external action,
-# actions/github-script, is SHA-pinned there). External actions are SHA-pinned.
-
 on:
   pull_request:
     branches: [ "master" ]

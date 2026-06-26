@@ -1,11 +1,3 @@
-# Local copy of swan-bitcoin/actions/swan/check-linear-link.
-#
-# This is a PUBLIC repo, so it cannot resolve the private swan-bitcoin/actions
-# mirror at workflow-prep time (no token before the first authenticated checkout;
-# a PAT for an explicit mirror checkout does not propagate to transitive action
-# resolution — see PSEC-4907). Vendoring the composite locally avoids the mirror
-# entirely. The only external action it calls (actions/github-script) is pinned to
-# a full commit SHA. Keep in sync with the upstream swan action.
 name: 'Check Linear Ticket Link'
 description: 'Checks if PR description contains a valid Linear ticket URL'
 author: 'Swan Bitcoin'
