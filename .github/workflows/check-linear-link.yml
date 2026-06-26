@@ -14,8 +14,6 @@ permissions:
   contents: read
 
 jobs:
-  # Job name must be `check-linear-link` — the `require-linear-status-check` ruleset
-  # requires that exact status-check context on `master`.
   check-linear-link:
     runs-on: ubuntu-latest
     # Skip on draft, revert branches (for rollback speed), or dependabot PRs (no Linear ticket required)
