@@ -1,0 +1,89 @@
+# Supply Chain Allowlist
+#
+# Vendored actions cannot be modified (would fail verify-action), so known
+# supply chain risks in third-party actions are allowlisted here with metadata.
+#
+# Format:
+#   - file: "path/to/file"
+#     pattern: "matched text"
+#     reason: "why this is acceptable"
+#     date: "YYYY-MM-DD"
+#
+# `pattern` is matched as a substring against the actual offending line.
+# Keep it as specific as possible (e.g. include the package names installed
+# by an apt-get line) so the entry doesn't silently cover unrelated future
+# installs added in the same file.
+
+# anthropics/claude-code-action uses bun install --production with bun.lock
+# present, but without --frozen-lockfile. Cannot modify vendored action.
+- file: "anthropics/claude-code-action/base-action/action.yml"
+  pattern: "bun install"
+  reason: "Vendored action; has bun.lock but no --frozen-lockfile. Cannot modify without failing verify-action."
+  date: "2026-04-07"
+
+- file: "anthropics/claude-code-action/action.yml"
+  pattern: "bun install"
+  reason: "Vendored action; has bun.lock but no --frozen-lockfile. Cannot modify without failing verify-action."
+  date: "2026-04-07"
+
+# github/codeql-action ships dev scripts (pr-checks/sync.sh, scripts/check-node-modules.sh)
+# that contain npm install and npx calls. These are not runtime action code — they are
+# development tooling that ships with the vendored action and cannot be modified.
+# TODO(TIS-988): Remove these entries — stripping scripts/ and pr-checks/ dirs from
+# vendored actions will eliminate these files entirely.
+- file: "github/codeql-action/pr-checks/sync.sh"
+  pattern: "npm install"
+  reason: "Vendored dev script, not executed at runtime. Cannot modify without failing verify-action."
+  date: "2026-04-07"
+
+# TODO(TIS-988): Remove — file will be stripped from vendored action.
+- file: "github/codeql-action/pr-checks/sync.sh"
+  pattern: "npx"
+  reason: "Vendored dev script, not executed at runtime. Cannot modify without failing verify-action."
+  date: "2026-04-07"
+
+# TODO(TIS-988): Remove — file will be stripped from vendored action.
+- file: "github/codeql-action/scripts/check-node-modules.sh"
+  pattern: "npm install"
+  reason: "Vendored dev script, not executed at runtime. Cannot modify without failing verify-action."
+  date: "2026-04-07"
+
+# anthropics/claude-code-action installs bubblewrap+socat for subprocess
+# isolation, but only when `allowed_non_write_users` is set. No consumer in
+# this repo passes that input, so the apt-get step is gated off and never
+# runs. Step also carries `continue-on-error: true` upstream. If a future
+# consumer enables `allowed_non_write_users`, revisit this entry.
+- file: "anthropics/claude-code-action/action.yml"
+  pattern: "apt-get install -y --no-install-recommends bubblewrap socat"
+  reason: "Gated on allowed_non_write_users input; no consumer in this repo sets it, so the step never executes. Vendored action cannot be modified. Pattern is line-specific so any other apt-get install added upstream still trips the lint."
+  date: "2026-06-03"
+
+# swan/claude-code-security-review installs system packages (gh, jq) via apt-get.
+# These come from Ubuntu's package repos which are distribution-pinned.
+- file: "swan/claude-code-security-review/action.yml"
+  pattern: "apt-get install"
+  reason: "System packages (gh, jq) from Ubuntu repos; distribution-pinned and required for CI."
+  date: "2026-04-07"
+
+# swan/egress-lock installs tinyproxy via apt-get for network egress filtering.
+# System package from Ubuntu repos, distribution-pinned.
+- file: "swan/egress-lock/action.yml"
+  pattern: "apt-get install"
+  reason: "System package (tinyproxy) from Ubuntu repos; distribution-pinned, required for egress filtering."
+  date: "2026-04-09"
+
+# swan/cambium-ci-review installs Ruby via apt-get for the Cambium DSL compiler
+# (pipeline sub-gens are compiled on demand via ruby compile.rb). System package
+# from Ubuntu repos, distribution-pinned.
+- file: "swan/cambium-ci-review/action.yml"
+  pattern: "apt-get install"
+  reason: "System package (ruby) from Ubuntu repos; distribution-pinned, required for Cambium DSL compiler."
+  date: "2026-05-22"
+
+# swan/cambium-ci-review installs Node dependencies from package-lock.json at
+# runtime. The lockfile is committed and --ignore-scripts prevents post-install
+# code execution.
+- file: "swan/cambium-ci-review/action.yml"
+  pattern: "npm ci"
+  reason: "Strict lockfile install from committed package-lock.json with --ignore-scripts; required for Cambium pipeline runner."
+  date: "2026-05-22"

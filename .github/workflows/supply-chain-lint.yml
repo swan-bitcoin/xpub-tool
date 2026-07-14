@@ -1,0 +1,38 @@
+name: Supply chain lint
+
+# Scans GitHub Actions (`action.yml`/`action.yaml` and sibling `.sh` scripts)
+# for runtime supply-chain risks: `npm install` without `npm ci`, `curl | bash`,
+# unpinned `@latest`, `--no-lockfile`, etc. The scanner skips `.github/` by
+# design, so the vendored actions under `.github/actions/` are not scanned
+# today — the gate acts as a tripwire for any vendored action added outside
+# `.github/` later.
+#
+# xpub-tool is a public repo, so it must not reference (or have access to) the
+# private swan-bitcoin/actions repo. Like `check-linear-link`, the action is
+# vendored into `.github/actions/supply-chain-lint` — a verbatim copy of
+# swan/supply-chain-lint from swan-bitcoin/actions@63912e4cae62a3786793d1fd5d903e8a480685d5.
+# It is a self-contained bash composite with no transitive `uses:`, so the copy
+# has no external references to pin. Re-sync it from the actions repo when the
+# upstream action changes.
+#
+# Source: https://github.com/swan-bitcoin/actions/blob/master/swan/supply-chain-lint/README.md
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  supply-chain-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: supply chain lint
+        uses: ./.github/actions/supply-chain-lint
