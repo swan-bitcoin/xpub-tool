@@ -1,0 +1,43 @@
+name: Supply chain lint
+
+# Scans GitHub Actions (`action.yml`/`action.yaml` and sibling `.sh` scripts)
+# for runtime supply-chain risks: `npm install` without `npm ci`, `curl | bash`,
+# unpinned `@latest`, `--no-lockfile`, etc. The scanner skips `.github/` by
+# design, so the vendored `check-linear-link` action is not scanned today — the
+# gate acts as a tripwire for any vendored action added outside `.github/` later.
+#
+# xpub-tool is a public repo, so it cannot resolve the private
+# swan-bitcoin/actions mirror at workflow-prep time. Instead (same pattern as
+# swan-vault-recovery-assistant) it checks the mirror out explicitly with a PAT
+# and runs the lint as a local action — supply-chain-lint is a self-contained
+# composite (bash only, no transitive `uses:`), so this works.
+#
+# Source: https://github.com/swan-bitcoin/actions/blob/master/swan/supply-chain-lint/README.md
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  supply-chain-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: checkout private actions
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          repository: swan-bitcoin/actions
+          ref: master
+          token: ${{ secrets.GH_PAT_ACTIONS_ACCESS }}
+          path: .github/private-actions
+
+      - name: supply chain lint
+        uses: ./.github/private-actions/swan/supply-chain-lint
