@@ -1,0 +1,32 @@
+name: "Supply Chain Lint"
+description: "Scans vendored actions for runtime supply chain risks (runtime installs, unpinned versions, disabled lockfiles)"
+author: "Swan Bitcoin"
+branding:
+  icon: "shield"
+  color: "orange"
+
+inputs:
+  allowlist-path:
+    description: "Path to a repo-specific allowlist file (relative to repository root). Entries are merged with the built-in allowlist."
+    required: false
+    default: ""
+
+outputs:
+  violations_found:
+    description: "Whether any supply chain violations were found"
+    value: ${{ steps.lint.outputs.violations_found }}
+  violation_count:
+    description: "Number of violations found"
+    value: ${{ steps.lint.outputs.violation_count }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run supply chain lint
+      id: lint
+      shell: bash
+      run: bash ${{ github.action_path }}/supply-chain-lint.sh
+      env:
+        SCAN_ROOT: ${{ github.workspace }}
+        BUILTIN_ALLOWLIST_PATH: ${{ github.action_path }}/supply-chain-allowlist.yml
+        REPO_ALLOWLIST_PATH: ${{ inputs.allowlist-path && format('{0}/{1}', github.workspace, inputs.allowlist-path) || '' }}
