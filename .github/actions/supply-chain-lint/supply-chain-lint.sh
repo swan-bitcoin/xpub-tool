@@ -9,8 +9,9 @@
 # Non-allowlisted violations cause exit 1.
 #
 # Environment variables (set by composite action, optional for direct use):
-#   SCAN_ROOT      — directory to scan (defaults to parent of script dir)
-#   ALLOWLIST_PATH — path to allowlist YAML (defaults to $SCRIPT_DIR/supply-chain-allowlist.yml)
+#   SCAN_ROOT          — directory to scan (defaults to parent of script dir)
+#   ALLOWLIST_PATH     — path to allowlist YAML (defaults to $SCRIPT_DIR/supply-chain-allowlist.yml)
+#   SCAN_LOCAL_ACTIONS — scan the repo's own .github/actions/ (default: true; "false" to skip)
 
 set -eo pipefail
 
@@ -155,6 +156,22 @@ find . -name ".git" -prune -o \( -name "action.yml" -o -name "action.yaml" \) -p
     [[ -z "$f" ]] && continue
     find "$(dirname "$f")" -maxdepth 3 -name "*.sh" 2>/dev/null
   done | (grep -vE "/(${SKIP_DIRS})/" || true) | sed 's|^\./||' | self_exclude_filter | sort -u >> "$FILES_TO_SCAN"
+
+# SKIP_DIRS above also excludes the repo's own composite actions under
+# .github/actions/; add them back unless SCAN_LOCAL_ACTIONS=false. Test
+# dirs nested inside them stay excluded.
+if [[ "${SCAN_LOCAL_ACTIONS:-true}" != "false" && -d ".github/actions" ]]; then
+  LOCAL_SKIP_DIRS="\.git|__tests__|__test__|/tests/|/test/"
+
+  find ./.github/actions -name ".git" -prune -o \( -name "action.yml" -o -name "action.yaml" \) -print 2>/dev/null | \
+    (grep -vE "/(${LOCAL_SKIP_DIRS})/" || true) | sed 's|^\./||' | self_exclude_filter | sort >> "$FILES_TO_SCAN"
+
+  find ./.github/actions -name ".git" -prune -o \( -name "action.yml" -o -name "action.yaml" \) -print 2>/dev/null | \
+    (grep -vE "/(${LOCAL_SKIP_DIRS})/" || true) | while IFS= read -r f; do
+      [[ -z "$f" ]] && continue
+      find "$(dirname "$f")" -maxdepth 3 -name "*.sh" 2>/dev/null
+    done | (grep -vE "/(${LOCAL_SKIP_DIRS})/" || true) | sed 's|^\./||' | self_exclude_filter | sort -u >> "$FILES_TO_SCAN"
+fi
 
 FILE_COUNT=$(wc -l < "$FILES_TO_SCAN" | tr -d ' ')
 info "Scanning ${FILE_COUNT} files..."
