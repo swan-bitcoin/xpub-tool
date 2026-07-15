@@ -10,6 +10,10 @@ inputs:
     description: "Path to a repo-specific allowlist file (relative to repository root). Entries are merged with the built-in allowlist."
     required: false
     default: ""
+  scan-local-actions:
+    description: "Scan composite actions under the repository's own .github/actions/ directory. Set to \"false\" to skip them."
+    required: false
+    default: "true"
 
 outputs:
   violations_found:
@@ -30,3 +34,4 @@ runs:
         SCAN_ROOT: ${{ github.workspace }}
         BUILTIN_ALLOWLIST_PATH: ${{ github.action_path }}/supply-chain-allowlist.yml
         REPO_ALLOWLIST_PATH: ${{ inputs.allowlist-path && format('{0}/{1}', github.workspace, inputs.allowlist-path) || '' }}
+        SCAN_LOCAL_ACTIONS: ${{ inputs.scan-local-actions }}
