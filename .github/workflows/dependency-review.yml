@@ -95,4 +95,4 @@ jobs:
         if: steps.should_run.outputs.run == 'true'
         uses: swan-bitcoin/actions/swan/analyze-dependencies@master
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY_SECURITY }}
