@@ -96,3 +96,4 @@ jobs:
         uses: swan-bitcoin/actions/swan/analyze-dependencies@master
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY_SECURITY }}
+          datadog_api_key: ${{ secrets.DATADOG_API_KEY }}
