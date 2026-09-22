@@ -1,0 +1,41 @@
+name: "CodeQL Advanced"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+    - cron: '37 9 * * 6'
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: javascript-typescript
+            build-mode: none
+    steps:
+      - name: Checkout repository
+        uses: swan-bitcoin/actions/actions/checkout@master
+
+      - name: Initialize CodeQL
+        uses: swan-bitcoin/actions/github/codeql-action/init@master
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+          queries: security-extended
+
+      - name: Perform CodeQL Analysis
+        uses: swan-bitcoin/actions/github/codeql-action/analyze@master
+        with:
+          category: "/language:${{ matrix.language }}"
